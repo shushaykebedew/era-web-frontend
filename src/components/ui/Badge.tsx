@@ -1,7 +1,7 @@
 import { cn } from "@/lib/cn";
 
 const VARIANT_STYLES = {
-  nominee: "bg-primary text-primary-foreground",
+  nominee: "bg-[#EBC166] text-[#402D00]",
   "past-winner": "bg-muted text-foreground-muted",
   shortlisted: "border border-primary text-primary",
 } as const;
@@ -12,13 +12,17 @@ type BadgeProps = {
   className?: string;
 };
 
-export function Badge({ children, variant = "nominee", className }: BadgeProps) {
+export function Badge({
+  children,
+  variant = "nominee",
+  className,
+}: BadgeProps) {
   return (
     <span
       className={cn(
-        "inline-block px-3 py-1 text-[11px] font-semibold uppercase tracking-wider",
+        "inline-block px-3 py-1 text-[10px] leading-[15px] tracking-0 uppercase",
         VARIANT_STYLES[variant],
-        className
+        className,
       )}
     >
       {children}

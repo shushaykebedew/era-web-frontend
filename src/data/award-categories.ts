@@ -16,6 +16,7 @@ export const awardCategories: AwardCategory[] = [
       "Honoring innovative multi-family residential developments that harmonize density with livability.",
     icon: "compass",
     nomineeCount: 12,
+    coverImage: "/imgs/categories/award-category-1.png",
   },
   {
     slug: "modern-workspace-pinnacle",
@@ -26,6 +27,7 @@ export const awardCategories: AwardCategory[] = [
       "Recognizing office towers and corporate hubs that foster productivity through architectural excellence.",
     icon: "building",
     nomineeCount: 9,
+    coverImage: "/imgs/categories/award-category-2.png",
   },
   {
     slug: "eco-innovator-gold",
@@ -36,6 +38,7 @@ export const awardCategories: AwardCategory[] = [
       "Awarded to structures demonstrating radical commitment to carbon neutrality and local materials.",
     icon: "leaf",
     nomineeCount: 8,
+    coverImage: "/imgs/categories/award-category-3.png",
   },
   {
     slug: "heritage-vanguard",
@@ -46,6 +49,7 @@ export const awardCategories: AwardCategory[] = [
       "Celebrating projects that integrate Ethiopian cultural motifs into modern structural designs.",
     icon: "landmark",
     nomineeCount: 7,
+    coverImage: "/imgs/categories/award-category-4.png",
   },
   {
     slug: "bespoke-living-award",

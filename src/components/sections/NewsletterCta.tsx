@@ -13,10 +13,14 @@ export function NewsletterCta({
   return (
     <section className="bg-background py-24">
       <Container size="narrow" className="text-center">
-        <h2 className="font-display text-3xl font-bold sm:text-4xl">{title}</h2>
-        <p className="mx-auto mt-4 max-w-md text-sm text-foreground-muted">{description}</p>
+        <h2 className="font-display font-semibold text-[48px] leading-14">
+          {title}
+        </h2>
+        <p className="mx-auto mt-4 max-w-[630px] text-base leading-6 text-[#D1C5B2]">
+          {description}
+        </p>
 
-        <form className="mx-auto mt-8 flex max-w-md flex-col gap-3 sm:flex-row">
+        <form className="mx-auto mt-8 flex max-w-[632px] flex-col gap-4 sm:flex-row">
           <label htmlFor="newsletter-email" className="sr-only">
             Email Address
           </label>
@@ -25,9 +29,12 @@ export function NewsletterCta({
             type="email"
             required
             placeholder="Email Address"
-            className="w-full border border-border-strong bg-background-elevated px-4 py-3.5 text-sm text-foreground placeholder:text-muted-foreground focus:border-primary focus:outline-none"
+            className="w-full border border-[#EBC16666] font-inter bg-[#1F1B15] px-4 h-[50px] text-base text-foreground placeholder:text-[#D1C5B280] focus:border-primary focus:outline-none"
           />
-          <Button type="submit" className="shrink-0">
+          <Button
+            type="submit"
+            className="shrink-0 cursor-pointer bg-[#EBC166] font-inter text-[#402D00] font-bold text-[12px] leading-4 tracking-[1.2px]"
+          >
             Request Invite
           </Button>
         </form>

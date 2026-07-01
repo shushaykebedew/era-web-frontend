@@ -31,6 +31,7 @@ export const nominees: Nominee[] = [
       },
     ],
     votes: 2412,
+    coverImage: "/imgs/nominees/nominee-1.png",
   },
   {
     slug: "the-obsidian-tower",
@@ -43,6 +44,7 @@ export const nominees: Nominee[] = [
     description:
       "A monolithic exploration of volcanic rock and light, nestled in the outskirts of the capital.",
     votes: 1894,
+    coverImage: "/imgs/nominees/nominee-2.png",
   },
   {
     slug: "verdant-heights",
@@ -55,6 +57,7 @@ export const nominees: Nominee[] = [
     description:
       "Blending vernacular timber craftsmanship with contemporary cantilevered steel structures.",
     votes: 1320,
+    coverImage: "/imgs/nominees/nominee-3.png",
   },
   {
     slug: "eco-spine-plaza",
