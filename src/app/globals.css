@@ -1,0 +1,85 @@
+@import "tailwindcss";
+
+/*
+ * Design tokens
+ * -----------------------------------------------------------------------
+ * Single source of truth for the visual theme. Update the values here to
+ * re-theme the entire product. Components should always consume the
+ * semantic Tailwind utilities (bg-primary, text-foreground, etc.) that are
+ * generated from these tokens below, rather than raw color values.
+ */
+:root {
+  /* Base surfaces */
+  --background: #15110c; /* primary app background (near-black warm) */
+  --background-elevated: #1c1712; /* cards, raised panels */
+  --background-muted: #100d09; /* footer / recessed sections */
+  --foreground: #f5f1e8; /* primary text on dark surfaces */
+  --foreground-muted: #b8b0a2; /* secondary text */
+
+  /* Brand */
+  --primary: #c9a24b; /* gold — primary actions, links, accents */
+  --primary-foreground: #15110c;
+  --secondary: #8a6d3b; /* deeper bronze, secondary emphasis */
+  --secondary-foreground: #f5f1e8;
+  --accent: #c9a25f; /* highlight accent, close to primary */
+  --accent-foreground: #15110c;
+
+  /* UI */
+  --border: #3a322620;
+  --border-strong: #d4af6a4d;
+  --ring: #d4af6a;
+  --muted: #2a241c;
+  --muted-foreground: #998f7e;
+  --success: #6b9a6b;
+  --danger: #c0594f;
+
+  --font-display-family:
+    var(--font-playfair), Georgia, "Times New Roman", serif;
+  --font-sans-family:
+    var(--font-inter), system-ui, -apple-system, "Segoe UI", sans-serif;
+
+  --radius: 0.25rem;
+}
+
+@theme inline {
+  --color-background: var(--background);
+  --color-background-elevated: var(--background-elevated);
+  --color-background-muted: var(--background-muted);
+  --color-foreground: var(--foreground);
+  --color-foreground-muted: var(--foreground-muted);
+
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-secondary: var(--secondary);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+
+  --color-border: var(--border);
+  --color-border-strong: var(--border-strong);
+  --color-ring: var(--ring);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-success: var(--success);
+  --color-danger: var(--danger);
+
+  --font-display: var(--font-playfair), Georgia, "Times New Roman", serif;
+  --font-sans: var(--font-inter), system-ui, -apple-system, "Segoe UI", sans-serif;
+
+  --radius-DEFAULT: var(--radius);
+}
+
+body {
+  background: var(--background);
+  color: var(--foreground);
+  font-family: var(--font-sans-family);
+}
+
+.text-balance {
+  text-wrap: balance;
+}
+
+::selection {
+  background: var(--primary);
+  color: var(--primary-foreground);
+}
