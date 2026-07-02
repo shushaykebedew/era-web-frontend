@@ -11,7 +11,7 @@ export function NewsletterCta({
   description = "Subscribe to receive exclusive invitations to the awards ceremony and early access to ticket sales.",
 }: NewsletterCtaProps) {
   return (
-    <section className="bg-background py-24">
+    <section className="bg-[#0c0c0e] py-24">
       <Container size="narrow" className="text-center">
         <h2 className="font-display font-semibold text-[48px] leading-14">
           {title}

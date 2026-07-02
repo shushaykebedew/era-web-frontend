@@ -1,0 +1,152 @@
+"use client";
+
+import { useState } from "react";
+import Link from "next/link";
+import { Container } from "@/components/ui/Container";
+import { NomineeCard } from "@/components/sections/NomineeCard";
+import { nominees } from "@/data/nominees";
+import { cn } from "@/lib/cn";
+
+const FILTERS = ["All Projects", "Urban Estates", "Villa Retreats"] as const;
+type Filter = (typeof FILTERS)[number];
+
+const SORTS = ["Alphabetical", "Most Votes"] as const;
+type Sort = (typeof SORTS)[number];
+
+const PAGE_SIZE = 6;
+
+// ── NomineesSection ───────────────────────────────────────────────────────────
+// Combines the page hero, filter bar, card grid, and pagination into one
+// cohesive section component for the nominees list page.
+export function NomineesSection() {
+  const [filter, setFilter] = useState<Filter>("All Projects");
+  const [sort, setSort] = useState<Sort>("Alphabetical");
+  const [page, setPage] = useState(1);
+
+  const filtered = nominees.filter((n) => {
+    if (filter === "Urban Estates") return n.categorySlug === "urban-sanctuary";
+    if (filter === "Villa Retreats")
+      return n.categorySlug === "bespoke-living-award";
+    return true;
+  });
+
+  const sorted = [...filtered].sort((a, b) => {
+    if (sort === "Most Votes") return (b.votes ?? 0) - (a.votes ?? 0);
+    return a.name.localeCompare(b.name);
+  });
+
+  const visible = sorted.slice(0, page * PAGE_SIZE);
+  const hasMore = visible.length < sorted.length;
+
+  return (
+    <>
+      {/* ── Hero ── */}
+      <section className="bg-background pt-40 pb-10">
+        <Container size="wide">
+          <Link
+            href="/awards"
+            className="mb-8 inline-flex items-center gap-2 text-base font-inter font-semibold uppercase tracking-[1.6px] leading-4 text-[#D1C5B2] hover:text-primary transition-colors"
+          >
+            ← Back to Categories
+          </Link>
+          <div className="max-w-xl">
+            <p className="mb-3 flex items-center gap-2 text-[11px] font-inter font-semibold uppercase tracking-[2px] text-primary">
+              <span className="h-4 w-0.5 bg-primary" aria-hidden />
+              Excellence in Architecture
+            </p>
+            <h1 className="font-display text-[64px] font-bold leading-[1.1] tracking-tight">
+              Residential
+              <br />
+              <span className="italic text-primary">Excellence Nominees</span>
+            </h1>
+            <p className="mt-5 max-w-sm text-sm leading-7 text-foreground-muted">
+              Celebrating homes that redefine modern living in Ethiopia. This
+              category honors projects that balance environmental context,
+              structural innovation, and cultural legacy.
+            </p>
+          </div>
+        </Container>
+      </section>
+
+      {/* ── Filter bar ── */}
+      <section className="bg-background py-6 border-b border-border-strong">
+        <Container size="wide">
+          <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
+            <div className="flex items-center gap-6">
+              {FILTERS.map((f) => (
+                <button
+                  key={f}
+                  onClick={() => {
+                    setFilter(f);
+                    setPage(1);
+                  }}
+                  className={cn(
+                    "text-base font-inter uppercase tracking-[1.6px] leading-4 pb-2 cursor-pointer transition-colors",
+                    f === filter
+                      ? "text-[#EAE1D7] border-b-2 border-[#EBC166]"
+                      : "text-[#D1C5B2] hover:text-foreground",
+                  )}
+                >
+                  {f}
+                  {f === "All Projects" && (
+                    <span className="ml-1.5 text-[10px]">
+                      {nominees.length}
+                    </span>
+                  )}
+                </button>
+              ))}
+            </div>
+            <div className="flex items-center gap-2">
+              <span className="text-[12px] font-inter uppercase tracking-[1.6px] leading-4 text-[#9A8F7E]">
+                Sort By:
+              </span>
+              <select
+                value={sort}
+                onChange={(e) => setSort(e.target.value as Sort)}
+                className="appearance-none bg-transparent pr-5 text-base font-inter uppercase tracking-[1.2px] text-[#EBC166] outline-none cursor-pointer"
+              >
+                {SORTS.map((s) => (
+                  <option
+                    key={s}
+                    value={s}
+                    className="bg-background text-foreground normal-case"
+                  >
+                    {s}
+                  </option>
+                ))}
+              </select>
+            </div>
+          </div>
+        </Container>
+      </section>
+
+      {/* ── Grid ── */}
+      <section className="bg-background py-16">
+        <Container size="wide">
+          <div className="grid grid-cols-1 gap-x-6 gap-y-14 sm:grid-cols-2 lg:grid-cols-3">
+            {visible.map((nominee) => (
+              <NomineeCard
+                key={nominee.slug}
+                nominee={nominee}
+                variant="grid"
+              />
+            ))}
+          </div>
+          <div className="mt-16 flex flex-col items-center gap-6">
+            <p className="text-base leading-6 font-inter uppercase tracking-[1.6px] text-[#D1C5B2]">
+              Showing {visible.length} of {sorted.length} Excellence Nominees
+            </p>
+            {hasMore && (
+              <button
+                onClick={() => setPage((p) => p + 1)}
+                className="border border-[#4E4637] px-10 h-[58px] text-base cursor-pointer font-inter uppercase tracking-[1.5px] text-[#EAE1D7] hover:border-primary hover:text-primary transition-colors"
+              >
+                Discover More
+              </button>
+            )}
+          </div>
+        </Container>
+      </section>
+    </>
+  );
+}

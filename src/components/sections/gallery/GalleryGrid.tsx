@@ -3,40 +3,11 @@
 import { useState } from "react";
 import { Container } from "@/components/ui/Container";
 import { cn } from "@/lib/cn";
+import { EDITIONS, FILTERS } from "@/types/gallery";
+import type { Edition, GalleryFilter, GalleryPhoto } from "@/types/gallery";
+import { galleryPhotos } from "@/data/gallery";
 
-// ── Types ────────────────────────────────────────────────────────────────────
-export const EDITIONS = [2024, 2023, 2022] as const;
-export type Edition = (typeof EDITIONS)[number];
-
-export const FILTERS = ["All Moments", "Winners", "Ceremony", "Networking"] as const;
-export type GalleryFilter = (typeof FILTERS)[number];
-
-export type GalleryPhoto = {
-  id: number;
-  src: string;
-  alt: string;
-  edition: Edition;
-  tag: Exclude<GalleryFilter, "All Moments">;
-  /** tall = taller aspect ratio in the masonry grid */
-  tall?: boolean;
-};
-
-// ── Static photo data ────────────────────────────────────────────────────────
-const photos: GalleryPhoto[] = [
-  { id: 1, src: "/imgs/categories/award-category-1.png", alt: "Stage lights at the 2024 gala ceremony",    edition: 2024, tag: "Ceremony",    tall: true  },
-  { id: 2, src: "/imgs/nominees/nominee-2.png",           alt: "Guests networking at the 2024 awards",      edition: 2024, tag: "Networking"              },
-  { id: 3, src: "/imgs/nominees/nominee-3.png",           alt: "Winner holding the ERA trophy",             edition: 2024, tag: "Winners",    tall: true  },
-  { id: 4, src: "/imgs/categories/award-category-2.png", alt: "Award venue exterior at night",             edition: 2024, tag: "Ceremony"                },
-  { id: 5, src: "/imgs/nominees/nominee-1.png",           alt: "ERA trophy on display",                     edition: 2024, tag: "Winners",    tall: true  },
-  { id: 6, src: "/imgs/categories/award-category-3.png", alt: "Gala dinner table setting",                 edition: 2024, tag: "Ceremony"                },
-  { id: 7, src: "/imgs/categories/award-category-4.png", alt: "2023 ceremony stage",                       edition: 2023, tag: "Ceremony",   tall: true  },
-  { id: 8, src: "/imgs/nominees/nominee-1.png",           alt: "2023 winner announcement",                  edition: 2023, tag: "Winners"                 },
-  { id: 9, src: "/imgs/nominees/nominee-2.png",           alt: "2023 networking evening",                   edition: 2023, tag: "Networking", tall: true  },
-  { id: 10, src: "/imgs/categories/award-category-1.png", alt: "2022 inaugural ceremony",                  edition: 2022, tag: "Ceremony",   tall: true  },
-  { id: 11, src: "/imgs/nominees/nominee-3.png",           alt: "2022 award winners",                       edition: 2022, tag: "Winners"                 },
-];
-
-// ── Sub-components ───────────────────────────────────────────────────────────
+// ── EditionSwitcher ───────────────────────────────────────────────────────────
 function EditionSwitcher({
   active,
   onChange,
@@ -46,7 +17,7 @@ function EditionSwitcher({
 }) {
   return (
     <div>
-      <p className="mb-3 text-[10px] font-inter font-semibold uppercase tracking-[2px] text-foreground-muted">
+      <p className="mb-3 text-[12px] font-inter font-semibold uppercase tracking-[1.2px] leading-4 text-[#EBC166]">
         Select Edition
       </p>
       <div className="flex items-baseline gap-5">
@@ -55,10 +26,10 @@ function EditionSwitcher({
             key={yr}
             onClick={() => onChange(yr)}
             className={cn(
-              "font-display font-bold transition-colors",
+              "font-display font-semibold transition-colors text-[32px] leading-10 cursor-pointer",
               yr === active
-                ? "text-[32px] text-foreground"
-                : "text-[22px] text-foreground-muted hover:text-foreground",
+                ? "text-[#EBC166] border-b border-[#EBC166]"
+                : "text-[#D1C5B266] hover:text-foreground-muted",
             )}
           >
             {yr}
@@ -69,6 +40,7 @@ function EditionSwitcher({
   );
 }
 
+// ── FilterPills ───────────────────────────────────────────────────────────────
 function FilterPills({
   active,
   onChange,
@@ -77,16 +49,16 @@ function FilterPills({
   onChange: (f: GalleryFilter) => void;
 }) {
   return (
-    <div className="flex flex-wrap gap-2">
+    <div className="flex flex-wrap gap-4">
       {FILTERS.map((f) => (
         <button
           key={f}
           onClick={() => onChange(f)}
           className={cn(
-            "rounded-sm border px-4 py-1.5 text-[11px] font-inter font-semibold uppercase tracking-[1px] transition-colors",
+            "rounded-[1px] border px-4 py-2 cursor-pointer text-[12px] font-inter font-semibold tracking-[1.2px] leading-4 transition-colors",
             f === active
-              ? "border-primary bg-transparent text-primary"
-              : "border-border-strong bg-transparent text-foreground-muted hover:border-primary hover:text-primary",
+              ? "border-[#EBC166] text-[#EBC166]"
+              : "border-[#EBC16633] text-[#D1C5B2] bg-transparent hover:border-primary hover:text-primary",
           )}
         >
           {f}
@@ -96,13 +68,12 @@ function FilterPills({
   );
 }
 
+// ── PhotoCard ─────────────────────────────────────────────────────────────────
 function PhotoCard({ photo }: { photo: GalleryPhoto }) {
   return (
     <div
-      className={cn(
-        "mb-3 overflow-hidden break-inside-avoid",
-        photo.tall ? "aspect-[3/4]" : "aspect-[4/3]",
-      )}
+      className="w-full overflow-hidden"
+      style={{ height: `${photo.height}px` }}
     >
       <img
         src={photo.src}
@@ -113,13 +84,45 @@ function PhotoCard({ photo }: { photo: GalleryPhoto }) {
   );
 }
 
-// ── Main export ──────────────────────────────────────────────────────────────
+// ── PhotoGrid ─────────────────────────────────────────────────────────────────
+
+function PhotoGrid({ photos }: { photos: GalleryPhoto[] }) {
+  if (photos.length === 0) {
+    return (
+      <p className="py-20 text-center text-foreground-muted">
+        No photos for this selection yet.
+      </p>
+    );
+  }
+
+  // Split into 3 columns in sequential pairs: [0,1] / [2,3] / [4,5]
+  const cols: GalleryPhoto[][] = [
+    photos.slice(0, 2),
+    photos.slice(2, 4),
+    photos.slice(4, 6),
+  ];
+
+  return (
+    <div className="flex gap-3">
+      {cols.map((col, colIdx) => (
+        <div key={colIdx} className="flex flex-1 flex-col gap-3">
+          {col.map((photo) => (
+            <PhotoCard key={photo.id} photo={photo} />
+          ))}
+        </div>
+      ))}
+    </div>
+  );
+}
+
+// ── GalleryGrid (main export) ─────────────────────────────────────────────────
 export function GalleryGrid() {
   const [edition, setEdition] = useState<Edition>(2024);
   const [filter, setFilter] = useState<GalleryFilter>("All Moments");
 
-  const visible = photos.filter(
-    (p) => p.edition === edition && (filter === "All Moments" || p.tag === filter),
+  const visible = galleryPhotos.filter(
+    (p) =>
+      p.edition === edition && (filter === "All Moments" || p.tag === filter),
   );
 
   return (
@@ -134,20 +137,10 @@ export function GalleryGrid() {
         </Container>
       </section>
 
-      {/* Masonry grid */}
-      <section className="bg-background py-10">
+      {/* Photo grid */}
+      <section className="bg-background pt-12 pb-25">
         <Container size="wide">
-          {visible.length === 0 ? (
-            <p className="py-20 text-center text-foreground-muted">
-              No photos for this selection yet.
-            </p>
-          ) : (
-            <div className="columns-1 gap-3 sm:columns-2 lg:columns-3">
-              {visible.map((photo) => (
-                <PhotoCard key={photo.id} photo={photo} />
-              ))}
-            </div>
-          )}
+          <PhotoGrid photos={visible} />
         </Container>
       </section>
     </>

@@ -20,7 +20,7 @@ export function AwardCategoriesSection({
     const [card1, card2, card3, card4] = items;
 
     return (
-      <section className="bg-background py-24">
+      <section className="bg-[#0c0c0e] py-24">
         <Container size="wide">
           <div className="flex flex-col items-start justify-between gap-6 sm:flex-row sm:items-end">
             <SectionHeading

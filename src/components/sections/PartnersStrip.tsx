@@ -3,12 +3,12 @@ import { Container } from "@/components/ui/Container";
 
 export function PartnersStrip({ partners }: { partners: Partner[] }) {
   return (
-    <section className="bg-background-muted py-16">
+    <section className="bg-[#16130D] py-16">
       <Container>
         <p className="mb-10 text-center text-xs font-semibold uppercase tracking-[0.3em] text-foreground-muted">
           Distinguished Partners
         </p>
-        <div className="flex flex-wrap items-center justify-center gap-x-14 gap-y-12 lg:px-30">
+        <div className="flex bg-[#141311] flex-wrap items-center justify-center gap-x-14 gap-y-12 lg:px-30">
           {partners.map((partner) => (
             <span
               key={partner.name}

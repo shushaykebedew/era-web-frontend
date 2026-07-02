@@ -39,7 +39,7 @@ function PartnerCard({
   return (
     <div className="group relative overflow-hidden h-[244px] w-[286px] bg-[#16130D] border border-[#4E4637]">
       {/* White overlay merged on top of the base fill */}
-      <div className="pointer-events-none absolute inset-0 bg-white/10 mix-blend-overlay" />
+      {/* <div className="pointer-events-none absolute inset-0 bg-white/10 mix-blend-overlay" /> */}
 
       <div className="relative flex h-full w-full flex-col items-center justify-center gap-6">
         <img src={image} alt={name} />

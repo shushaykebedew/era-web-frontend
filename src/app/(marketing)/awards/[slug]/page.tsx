@@ -14,7 +14,9 @@ export function generateStaticParams() {
   return awardCategories.map((category) => ({ slug: category.slug }));
 }
 
-export async function generateMetadata({ params }: AwardPageProps): Promise<Metadata> {
+export async function generateMetadata({
+  params,
+}: AwardPageProps): Promise<Metadata> {
   const { slug } = await params;
   const category = getCategoryBySlug(slug);
   return { title: category ? `${category.name} Nominees` : "Award Category" };
@@ -40,7 +42,9 @@ export default async function AwardCategoryPage({ params }: AwardPageProps) {
 
         <div className="mt-8 max-w-2xl border-l-2 border-primary pl-6">
           <Eyebrow className="mb-3">Excellence in Architecture</Eyebrow>
-          <h1 className="font-display text-4xl font-bold sm:text-5xl">{category.group}</h1>
+          <h1 className="font-display text-4xl font-bold sm:text-5xl">
+            {category.group}
+          </h1>
           <p className="font-display text-3xl italic text-primary sm:text-4xl">
             {category.name}
           </p>

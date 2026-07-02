@@ -5,7 +5,7 @@ import { NomineeCard } from "./NomineeCard";
 
 export function FeaturedNominees({ nominees }: { nominees: Nominee[] }) {
   return (
-    <section className="bg-background-muted py-24">
+    <section className="bg-[#1F1B15] py-24">
       <Container>
         <SectionHeading
           title="Featured Nominees"
@@ -14,7 +14,11 @@ export function FeaturedNominees({ nominees }: { nominees: Nominee[] }) {
 
         <div className="mt-12 grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
           {nominees.map((nominee) => (
-            <NomineeCard key={nominee.slug} nominee={nominee} variant="featured" />
+            <NomineeCard
+              key={nominee.slug}
+              nominee={nominee}
+              variant="featured"
+            />
           ))}
         </div>
       </Container>

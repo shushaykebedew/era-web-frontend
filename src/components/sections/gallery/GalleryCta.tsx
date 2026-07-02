@@ -4,12 +4,12 @@ import { Button } from "@/components/ui/Button";
 
 export function GalleryCta() {
   return (
-    <section className="border-t border-border-strong bg-background py-24 text-center">
+    <section className="border-t border-[#EBC16633] bg-[#16130d] py-24 text-center mx-12">
       <Container size="narrow">
-        <h2 className="font-display text-4xl font-bold sm:text-5xl">
+        <h2 className="font-display text-[48px] leading-14 font-semibold">
           Be Part of the Excellence
         </h2>
-        <p className="mx-auto mt-5 max-w-sm text-base leading-7 text-foreground-muted">
+        <p className="mx-auto mt-5 max-w-[554px] text-[18px] leading-7 text-[#D1C5B2] font-inter">
           Join the most influential gathering of real estate and architectural
           minds in East Africa.
         </p>
@@ -19,13 +19,13 @@ export function GalleryCta() {
             href="/nominees"
             variant="outline"
             size="sm"
-            className="text-[11px] tracking-[1px]"
+            className="normal-case text-[12px] tracking-[1.2px] leading-4 border-[#EBC166] h-12.5 px-8 font-inter  font-semibold"
           >
             Nominate for 2025
           </Button>
           <Link
             href="mailto:hello@example.com"
-            className="text-[11px] font-inter font-semibold uppercase tracking-[1px] text-foreground-muted underline-offset-4 hover:text-primary hover:underline"
+            className="normal-case text-[12px] tracking-[1.2px] flex items-center  h-12.5 px-8 font-inter font-semibold  text-[#EBC166] underline underline-offset-2 hover:text-primary"
           >
             Contact the Secretariat
           </Link>

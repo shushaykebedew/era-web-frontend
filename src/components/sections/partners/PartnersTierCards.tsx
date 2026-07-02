@@ -58,7 +58,7 @@ export function PartnersTierCards({ onSelectTier }: PartnersTierCardsProps) {
                 "relative flex h-[512px] flex-col border p-8 transition-all duration-300",
                 tier.featured
                   ? "border-[#EBC166] bg-[#16130D] sm:-translate-y-6 z-10 shadow-2xl shadow-black/40"
-                  : "border-border-strong bg-[#16130D]",
+                  : "border-border-strong bg-[#110E08]",
               )}
             >
               {/* Premier Partner badge */}

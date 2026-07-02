@@ -47,7 +47,7 @@ export function CategoryCard({
   return (
     <Link
       href={href}
-      className="group flex flex-col min-h-100 justify-between bg-[#16161A] p-8 transition-colors duration-300 hover:bg-muted"
+      className="group flex flex-col min-h-100 justify-between bg-[#16161A] hover:bg-[#252529] p-8 border border-[#252529] transition-colors duration-300"
     >
       <div>
         <CategoryIcon icon={category.icon} className="h-8 w-8 text-primary" />

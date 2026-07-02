@@ -31,7 +31,12 @@ export const nominees: Nominee[] = [
       },
     ],
     votes: 2412,
-    coverImage: "/imgs/nominees/nominee-1.png",
+    coverImage: "/imgs/nominees/nominee-4.png",
+    gallery: [
+      "/imgs/nominees/nominee-1.png",
+      "/imgs/nominees/nominee-2.png",
+      "/imgs/nominees/nominee-3.png",
+    ],
   },
   {
     slug: "the-obsidian-tower",
@@ -44,7 +49,7 @@ export const nominees: Nominee[] = [
     description:
       "A monolithic exploration of volcanic rock and light, nestled in the outskirts of the capital.",
     votes: 1894,
-    coverImage: "/imgs/nominees/nominee-2.png",
+    coverImage: "/imgs/nominees/nominee-5.png",
   },
   {
     slug: "verdant-heights",
@@ -53,11 +58,12 @@ export const nominees: Nominee[] = [
     location: "Old Airport",
     categorySlug: "urban-sanctuary",
     status: "nominee",
-    excerpt: "Blending vernacular timber craftsmanship with contemporary cantilevered steel.",
+    excerpt:
+      "Blending vernacular timber craftsmanship with contemporary cantilevered steel.",
     description:
       "Blending vernacular timber craftsmanship with contemporary cantilevered steel structures.",
     votes: 1320,
-    coverImage: "/imgs/nominees/nominee-3.png",
+    coverImage: "/imgs/nominees/nominee-2.png",
   },
   {
     slug: "eco-spine-plaza",
@@ -67,8 +73,10 @@ export const nominees: Nominee[] = [
     categorySlug: "eco-innovator-gold",
     status: "nominee",
     excerpt: "A vertical garden complex redefining sustainable urban density.",
-    description: "A vertical garden complex redefining sustainable urban density.",
+    description:
+      "A vertical garden complex redefining sustainable urban density.",
     votes: 3105,
+    coverImage: "/imgs/nominees/nominee-3.png",
   },
   {
     slug: "zema-architecture-studio",
@@ -81,6 +89,7 @@ export const nominees: Nominee[] = [
       "A monolithic exploration of volcanic rock and light, nestled in the outskirts of the capital.",
     description:
       "A monolithic exploration of volcanic rock and light, nestled in the outskirts of the capital.",
+    coverImage: "/imgs/nominees/nominee-6.png",
   },
   {
     slug: "yohannes-and-partners",
@@ -93,6 +102,7 @@ export const nominees: Nominee[] = [
       "Blending vernacular timber craftsmanship with contemporary cantilevered steel structures.",
     description:
       "Blending vernacular timber craftsmanship with contemporary cantilevered steel structures.",
+    coverImage: "/imgs/nominees/nominee-7.png",
   },
   {
     slug: "abyssinia-design-hub",
@@ -101,9 +111,50 @@ export const nominees: Nominee[] = [
     location: "Addis Ababa",
     categorySlug: "bespoke-living-award",
     status: "past-winner",
-    excerpt: "An adaptive reuse project transforming a warehouse into an urban residential masterpiece.",
+    excerpt:
+      "An adaptive reuse project transforming a warehouse into an urban residential masterpiece.",
     description:
       "An adaptive reuse project transforming a warehouse into an urban residential masterpiece.",
+    coverImage: "/imgs/nominees/nominee-4.png",
+  },
+  {
+    slug: "elevate-architects",
+    name: "Elevate Architects",
+    firm: "Sky Garden Complex",
+    location: "Bole, Addis Ababa",
+    categorySlug: "urban-sanctuary",
+    status: "nominee",
+    excerpt:
+      "Vertical foresting meets luxury living in this eco-conscious high-density residential development.",
+    description:
+      "Vertical foresting meets luxury living in this eco-conscious high-density residential development.",
+    coverImage: "/imgs/nominees/nominee-5.png",
+  },
+  {
+    slug: "brook-tekle-architect",
+    name: "Brook Tekle Architect",
+    firm: "Rising Star — B.S.K.T.",
+    location: "Addis Ababa",
+    categorySlug: "next-horizon-studio",
+    status: "nominee",
+    excerpt:
+      "Nominated for 'Emerging Talent', Brook's work focuses on sustainable social housing solutions.",
+    description:
+      "Nominated for 'Emerging Talent', Brook's work focuses on sustainable social housing solutions.",
+    coverImage: "/imgs/nominees/nominee-6.png",
+  },
+  {
+    slug: "selam-interior-design",
+    name: "Selam Interior Design",
+    firm: "The Heritage Manor",
+    location: "Addis Ababa",
+    categorySlug: "bespoke-living-award",
+    status: "nominee",
+    excerpt:
+      "A masterclass in interior architectural detailing, reviving historic aesthetics for modern living.",
+    description:
+      "A masterclass in interior architectural detailing, reviving historic aesthetics for modern living.",
+    coverImage: "/imgs/nominees/nominee-9.png",
   },
 ];
 
