@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { Menu, X } from "lucide-react";
@@ -13,8 +13,24 @@ export function Header() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const pathname = usePathname();
 
+  // Close on Escape key
+  useEffect(() => {
+    if (!isMenuOpen) return;
+    function handleKey(e: KeyboardEvent) {
+      if (e.key === "Escape") setIsMenuOpen(false);
+    }
+    document.addEventListener("keydown", handleKey);
+    return () => document.removeEventListener("keydown", handleKey);
+  }, [isMenuOpen]);
+
+  // Prevent background scroll and hide from screen readers when menu is open
+  useEffect(() => {
+    document.body.style.overflow = isMenuOpen ? "hidden" : "";
+    return () => { document.body.style.overflow = ""; };
+  }, [isMenuOpen]);
+
   return (
-    <header className="relative z-50 w-full backdrop-blur-md bg-[#16130DCC] border-b border-[#EBC1664D] h-20">
+    <header className="relative z-50 w-full backdrop-blur-md bg-background/80 border-b border-primary/30 h-20">
       <Container
         as="div"
         size="wide"
@@ -96,8 +112,11 @@ function MobileMenu({
 }) {
   return (
     <div
+      role="dialog"
+      aria-modal="true"
+      aria-label="Navigation menu"
       className={cn(
-        "fixed inset-0 z-50 flex flex-col bg-[#16130DCC] transition-opacity duration-300 lg:hidden",
+        "fixed inset-0 z-50 flex flex-col bg-background/80 backdrop-blur-md transition-opacity duration-300 lg:hidden",
         isOpen
           ? "pointer-events-auto opacity-100"
           : "pointer-events-none opacity-0",

@@ -1,17 +1,17 @@
-import type { Nominee } from "@/types";
-import type { AwardCategory } from "@/types";
+import type { Nominee, AwardCategory } from "@/types";
 import { Button } from "@/components/ui/Button";
 import { CheckCircle } from "lucide-react";
 
 type NomineeSidebarProps = {
   nominee: Nominee;
   category?: AwardCategory;
+  activeTab?: string;
 };
 
-export function NomineeSidebar({ nominee, category }: NomineeSidebarProps) {
+export function NomineeSidebar({ nominee, category, activeTab = "detail" }: NomineeSidebarProps) {
   const eyebrow = category?.tagline
-    ? `Best ${category.tagline} Project`
-    : "Best Residential Project";
+    ? activeTab === "detail" ? `Best ${category.tagline} Design` : `Best ${category.tagline}`
+    : activeTab === "detail" ? "Best Residential Design" : "Best Residential";
 
   return (
     <aside className="flex flex-col gap-6 py-10 lg:py-16 lg:pr-10">
@@ -23,15 +23,26 @@ export function NomineeSidebar({ nominee, category }: NomineeSidebarProps) {
 
       {/* Name */}
       <div>
-        <h1 className="font-display text-[40px] font-bold leading-[1.1] text-primary">
+        <h1 className="font-display text-[48px] font-bold leading-[1.1] text-primary">
           {nominee.name}
         </h1>
-        <p className="mt-2 text-[13px] font-inter text-foreground-muted">
-          by {nominee.firm}
-        </p>
+        {activeTab === "detail" ? (
+          <p className="mt-4 font-display text-[24px] text-foreground">
+            {nominee.firm}
+          </p>
+        ) : (
+          <p className="mt-2 text-[12px] font-inter uppercase tracking-[1.5px] text-foreground">
+            {nominee.firm}
+          </p>
+        )}
+        
         {nominee.location && (
-          <p className="mt-1 flex items-center gap-1.5 text-[11px] font-inter text-foreground-muted">
-            <span>📍</span>
+          <p className={
+            activeTab === "detail"
+              ? "mt-2 text-[10px] font-inter uppercase tracking-[1.5px] text-foreground-muted"
+              : "mt-1 flex items-center gap-1.5 text-[11px] font-inter text-foreground-muted"
+          }>
+            {activeTab !== "detail" && <span>📍</span>}
             {nominee.location}
           </p>
         )}
@@ -42,10 +53,30 @@ export function NomineeSidebar({ nominee, category }: NomineeSidebarProps) {
         {nominee.description}
       </p>
 
-      {/* Gallery exploration label */}
-      {nominee.gallery && nominee.gallery.length > 0 && (
-        <div>
-          <p className="mb-3 text-[10px] font-inter font-semibold uppercase tracking-[2px] text-foreground-muted">
+      {/* Scale & Completion (Detail Tab) */}
+      {activeTab === "detail" && (nominee.scaleSqm || nominee.completionDate) && (
+        <div className="flex gap-12 mt-4 border-t border-border-strong pt-6">
+          {nominee.scaleSqm && (
+            <div>
+              <p className="text-[9px] font-inter font-semibold uppercase tracking-[2px] text-foreground-muted">Scale</p>
+              <p className="mt-1 font-inter text-[13px] font-semibold text-foreground">{nominee.scaleSqm.toLocaleString()} SQM</p>
+            </div>
+          )}
+          {nominee.completionDate && (
+            <div>
+              <p className="text-[9px] font-inter font-semibold uppercase tracking-[2px] text-foreground-muted">Completion</p>
+              <p className="mt-1 font-inter text-[13px] font-semibold text-foreground">
+                {new Date(nominee.completionDate).toLocaleDateString('en-US', { month: 'long', year: 'numeric' })}
+              </p>
+            </div>
+          )}
+        </div>
+      )}
+
+      {/* Gallery exploration label (Gallery Tab) */}
+      {activeTab === "gallery" && nominee.gallery && nominee.gallery.length > 0 && (
+        <div className="mt-4">
+          <p className="mb-3 text-[10px] font-inter font-semibold uppercase tracking-[2px] text-primary">
             Gallery Exploration
           </p>
           <ul className="flex flex-col gap-2">
@@ -60,14 +91,20 @@ export function NomineeSidebar({ nominee, category }: NomineeSidebarProps) {
       )}
 
       {/* Vote CTA */}
-      <div className="mt-2 flex flex-col gap-2">
-        <Button size="sm" variant="primary" className="text-[10px] tracking-[1.5px] w-full">
+      <div className="mt-4 flex flex-col gap-2">
+        <Button size="lg" variant="primary" className="text-[11px] uppercase tracking-[2px] font-semibold w-full bg-primary text-background hover:bg-primary/90">
           Vote For This Project
         </Button>
-        {nominee.votes && (
-          <p className="text-[11px] font-inter text-center text-foreground-muted">
-            {nominee.votes.toLocaleString()} votes
+        {activeTab === "detail" ? (
+          <p className="text-[10px] font-inter text-foreground-muted">
+            voting closes in 14 days
           </p>
+        ) : (
+          nominee.votes && (
+            <p className="text-[11px] font-inter text-center text-foreground-muted">
+              {nominee.votes.toLocaleString()} votes
+            </p>
+          )
         )}
       </div>
     </aside>

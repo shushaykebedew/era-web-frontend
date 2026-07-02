@@ -16,7 +16,7 @@ export function DetailTab({ nominee }: { nominee: Nominee }) {
   return (
     <div className="flex flex-col gap-16 py-10 lg:py-16">
       {/* Cover image + dot indicators */}
-      <div className="relative overflow-hidden bg-background-elevated" style={{ height: 480 }}>
+      <div className="relative overflow-hidden bg-background-elevated h-[480px] lg:h-[720px]">
         {nominee.coverImage ? (
           <img src={nominee.coverImage} alt={nominee.name} className="h-full w-full object-cover object-top" />
         ) : (
@@ -31,7 +31,7 @@ export function DetailTab({ nominee }: { nominee: Nominee }) {
 
       {/* Achievements + Quote */}
       {(nominee.achievements?.length || nominee.quote) && (
-        <div className="grid grid-cols-1 gap-12 lg:grid-cols-2">
+        <div className="grid grid-cols-1 gap-12 lg:grid-cols-[1fr_2fr]">
           {nominee.achievements && nominee.achievements.length > 0 && (
             <div>
               <p className="mb-6 text-[10px] font-inter font-semibold uppercase tracking-[2px] text-foreground-muted">
@@ -77,28 +77,25 @@ export function DetailTab({ nominee }: { nominee: Nominee }) {
 
       {/* Gallery strip */}
       {nominee.gallery && nominee.gallery.length > 0 && (
-        <div>
-          <div className="flex gap-3" style={{ height: 280 }}>
-            {nominee.gallery.map((src, i) => (
-              <div key={i} className="relative flex-1 overflow-hidden">
-                <img src={src} alt={`${nominee.name} — view ${i + 1}`} className="h-full w-full object-cover" />
-                {i === 0 && (
-                  <div className="absolute bottom-3 left-3 flex gap-3">
-                    {["Addis", "Ethiopia", "Finalist"].map((label) => (
-                      <span key={label} className="text-[9px] font-inter font-semibold uppercase tracking-[2px] text-foreground/60">
-                        {label}
-                      </span>
-                    ))}
-                  </div>
-                )}
-              </div>
-            ))}
+        <div className="grid grid-cols-4 gap-3 h-[400px]">
+          {/* Left large image (spans 2 cols, full height) */}
+          <div className="relative col-span-2 row-span-2 overflow-hidden bg-background-elevated">
+            <img src={nominee.gallery[0] || nominee.coverImage} className="h-full w-full object-cover" alt="" />
+            <div className="absolute bottom-6 left-0 right-0 text-center">
+              <p className="font-display text-[20px] font-semibold text-foreground">Ethiopia Basrie</p>
+              <p className="text-[10px] font-inter uppercase tracking-[1.5px] text-foreground-muted mt-1">Zema Architecture Studio</p>
+            </div>
           </div>
-          <div className="mt-6 text-center">
-            <p className="font-display text-[32px] font-bold text-foreground">{nominee.name}</p>
-            <p className="mt-1 text-[11px] font-inter font-semibold uppercase tracking-[2px] text-foreground-muted">
-              Ethiopian architect
-            </p>
+          {/* Middle column (stacked 2 images) */}
+          <div className="relative col-span-1 row-span-1 overflow-hidden bg-background-elevated">
+            <img src={nominee.gallery[1] || nominee.coverImage} className="h-full w-full object-cover" alt="" />
+          </div>
+          <div className="relative col-span-1 row-span-1 overflow-hidden bg-background-elevated col-start-3 row-start-2">
+            <img src={nominee.gallery[2] || nominee.coverImage} className="h-full w-full object-cover" alt="" />
+          </div>
+          {/* Right vertical image (spans 1 col, full height) */}
+          <div className="relative col-span-1 row-span-2 overflow-hidden bg-background-elevated col-start-4 row-start-1">
+            <img src={nominee.gallery[0] || nominee.coverImage} className="h-full w-full object-cover" alt="" />
           </div>
         </div>
       )}

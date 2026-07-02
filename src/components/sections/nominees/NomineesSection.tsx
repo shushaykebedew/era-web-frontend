@@ -1,23 +1,21 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import Link from "next/link";
 import { Container } from "@/components/ui/Container";
 import { NomineeCard } from "@/components/sections/NomineeCard";
 import { nominees } from "@/data/nominees";
 import { cn } from "@/lib/cn";
+import { SortSelect, type Sort } from "@/components/ui/SortSelect";
 
 const FILTERS = ["All Projects", "Urban Estates", "Villa Retreats"] as const;
 type Filter = (typeof FILTERS)[number];
-
-const SORTS = ["Alphabetical", "Most Votes"] as const;
-type Sort = (typeof SORTS)[number];
 
 const PAGE_SIZE = 6;
 
 // ── NomineesSection ───────────────────────────────────────────────────────────
 // Combines the page hero, filter bar, card grid, and pagination into one
-// cohesive section component for the nominees list page.
+
 export function NomineesSection() {
   const [filter, setFilter] = useState<Filter>("All Projects");
   const [sort, setSort] = useState<Sort>("Alphabetical");
@@ -45,7 +43,7 @@ export function NomineesSection() {
         <Container size="wide">
           <Link
             href="/awards"
-            className="mb-8 inline-flex items-center gap-2 text-base font-inter font-semibold uppercase tracking-[1.6px] leading-4 text-[#D1C5B2] hover:text-primary transition-colors"
+            className="mb-8 inline-flex items-center gap-2 text-base font-inter font-semibold uppercase tracking-[1.6px] leading-4 text-foreground-muted hover:text-primary transition-colors"
           >
             ← Back to Categories
           </Link>
@@ -72,7 +70,7 @@ export function NomineesSection() {
       <section className="bg-background py-6 border-b border-border-strong">
         <Container size="wide">
           <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
-            <div className="flex items-center gap-6">
+            <div className="flex items-center gap-8">
               {FILTERS.map((f) => (
                 <button
                   key={f}
@@ -83,8 +81,8 @@ export function NomineesSection() {
                   className={cn(
                     "text-base font-inter uppercase tracking-[1.6px] leading-4 pb-2 cursor-pointer transition-colors",
                     f === filter
-                      ? "text-[#EAE1D7] border-b-2 border-[#EBC166]"
-                      : "text-[#D1C5B2] hover:text-foreground",
+                      ? "text-foreground border-b-2 border-primary"
+                      : "text-foreground-muted hover:text-foreground",
                   )}
                 >
                   {f}
@@ -96,26 +94,7 @@ export function NomineesSection() {
                 </button>
               ))}
             </div>
-            <div className="flex items-center gap-2">
-              <span className="text-[12px] font-inter uppercase tracking-[1.6px] leading-4 text-[#9A8F7E]">
-                Sort By:
-              </span>
-              <select
-                value={sort}
-                onChange={(e) => setSort(e.target.value as Sort)}
-                className="appearance-none bg-transparent pr-5 text-base font-inter uppercase tracking-[1.2px] text-[#EBC166] outline-none cursor-pointer"
-              >
-                {SORTS.map((s) => (
-                  <option
-                    key={s}
-                    value={s}
-                    className="bg-background text-foreground normal-case"
-                  >
-                    {s}
-                  </option>
-                ))}
-              </select>
-            </div>
+            <SortSelect value={sort} onChange={setSort} />
           </div>
         </Container>
       </section>
@@ -133,13 +112,13 @@ export function NomineesSection() {
             ))}
           </div>
           <div className="mt-16 flex flex-col items-center gap-6">
-            <p className="text-base leading-6 font-inter uppercase tracking-[1.6px] text-[#D1C5B2]">
+            <p className="text-base leading-6 font-inter uppercase tracking-[1.6px] text-foreground-muted">
               Showing {visible.length} of {sorted.length} Excellence Nominees
             </p>
             {hasMore && (
               <button
                 onClick={() => setPage((p) => p + 1)}
-                className="border border-[#4E4637] px-10 h-[58px] text-base cursor-pointer font-inter uppercase tracking-[1.5px] text-[#EAE1D7] hover:border-primary hover:text-primary transition-colors"
+                className="border border-border-strong px-10 h-[58px] text-base cursor-pointer font-inter uppercase tracking-[1.5px] text-foreground hover:border-primary hover:text-primary transition-colors"
               >
                 Discover More
               </button>

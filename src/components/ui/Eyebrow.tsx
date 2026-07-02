@@ -11,7 +11,7 @@ export function Eyebrow({ children, className, align = "left" }: EyebrowProps) {
   return (
     <p
       className={cn(
-        "flex items-center gap-3 text-[12px] font-inter font-semibold uppercase tracking-[3.6px] leading-4 text-[#EBC166]",
+        "flex items-center gap-3 text-[12px] font-inter font-semibold uppercase tracking-[3.6px] leading-4 text-primary",
         align === "center" && "justify-center",
         className,
       )}

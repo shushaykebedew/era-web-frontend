@@ -41,7 +41,7 @@ export function Countdown({
               <div className="font-display text-[72px] leading-20 tracking-[-1.44px] font-bold text-primary sm:text-5xl">
                 {pad2(countdown[key])}
               </div>
-              <div className="mt-2 text-[12px] font-semibold font-inter uppercase leading-4 tracking-[1.2px] text-[#D1C5B2]">
+              <div className="mt-2 text-[12px] font-semibold font-inter uppercase leading-4 tracking-[1.2px] text-foreground-muted">
                 {label}
               </div>
             </div>

@@ -28,7 +28,7 @@ export function Hero({
       >
         <Eyebrow
           align="center"
-          className="mb-6 font-inter font-semibold text-[12px] border border-[#EBC16666] py-1 px-4"
+          className="mb-6 font-inter font-semibold text-[12px] border border-primary/40 py-1 px-4"
         >
           {eyebrow}
         </Eyebrow>
@@ -65,7 +65,7 @@ export function Hero({
 
       <div className="absolute inset-x-0 bottom-8 z-10 flex items-end justify-center sm:bottom-12 opacity-50">
         <div className="flex max-h-20 flex-col items-center justify-between">
-          <p className="uppercase text-[10px] font-inter text-[#EAE1D7] leading-[15px] tracking-[1px]">
+          <p className="uppercase text-[10px] font-inter text-foreground leading-[15px] tracking-[1px]">
             Discover
           </p>
           <img src="/imgs/Vertical Divider.png" alt="" className="w-0.5 h-12" />

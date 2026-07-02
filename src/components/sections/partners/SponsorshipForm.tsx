@@ -4,7 +4,9 @@ import { useState } from "react";
 import { Container } from "@/components/ui/Container";
 import { Button } from "@/components/ui/Button";
 import { TIERS, type TierId } from "./PartnersTierCards";
+// import { TierSelect } from "./TierSelect";
 import { cn } from "@/lib/cn";
+import { TierSelect } from "./TierSelect";
 
 type SponsorshipFormProps = {
   /** Pre-select a tier when the user clicks a tier card CTA */
@@ -94,36 +96,7 @@ export function SponsorshipForm({ selectedTier = "" }: SponsorshipFormProps) {
             {/* Row 2 — Tier select */}
             <div className="flex flex-col gap-2">
               <FieldLabel htmlFor="tier">Interest Level</FieldLabel>
-              <div className="relative">
-                <select
-                  id="tier"
-                  name="tier"
-                  required
-                  value={tier}
-                  onChange={(e) => setTier(e.target.value as TierId)}
-                  className={cn("w-full appearance-none pr-10", fieldBase)}
-                >
-                  <option
-                    value=""
-                    disabled
-                    className="bg-background text-[#EAE1D7]"
-                  >
-                    Select Preferred Tier
-                  </option>
-                  {TIERS.map((t) => (
-                    <option key={t.id} value={t.id} className="bg-background">
-                      {t.label}
-                    </option>
-                  ))}
-                </select>
-
-                <img
-                  src="/icons/dropdown-arrow.svg"
-                  alt=""
-                  aria-hidden="true"
-                  className="pointer-events-none absolute right-0 top-1/2 -translate-y-1/2"
-                />
-              </div>
+              <TierSelect value={tier} onChange={setTier} required />
             </div>
 
             {/* Row 3 — Strategic vision */}

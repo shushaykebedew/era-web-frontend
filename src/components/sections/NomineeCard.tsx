@@ -1,4 +1,5 @@
 import Link from "next/link";
+import Image from "next/image";
 import type { Nominee } from "@/types";
 import { Badge } from "@/components/ui/Badge";
 import { Button } from "@/components/ui/Button";
@@ -8,8 +9,6 @@ type NomineeCardProps = {
   variant?: "featured" | "grid";
 };
 
-const IMAGE_STYLE = { width: 384, height: 480 } as const;
-const BORDER_STYLE = { border: "1px solid #4E4637" } as const;
 const OVERLAY_GRADIENT =
   "linear-gradient(0deg, #16130D 0%, rgba(22, 19, 13, 0) 50%, rgba(22, 19, 13, 0) 100%)";
 
@@ -32,10 +31,11 @@ export function NomineeCard({ nominee, variant = "grid" }: NomineeCardProps) {
             <Badge variant={badgeVariant}>{badgeLabel}</Badge>
           </div>
           {nominee.coverImage ? (
-            <img
+          <Image
               src={nominee.coverImage}
               alt={nominee.name}
-              className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-105"
+              fill
+              className="object-cover transition-transform duration-500 group-hover:scale-105"
             />
           ) : (
             <div className="h-full w-full bg-gradient-to-br from-muted to-background-muted" />
@@ -47,9 +47,9 @@ export function NomineeCard({ nominee, variant = "grid" }: NomineeCardProps) {
               {nominee.name}
             </Link>
           </h3>
-          <p className="text-base leading-6 text-[#D1C5B2]">{nominee.firm}</p>
+          <p className="text-base leading-6 text-foreground-muted">{nominee.firm}</p>
           <div className="mt-5 flex items-center justify-between">
-            <span className="text-[12px] font-semibold uppercase tracking-[1.2px] leading-4 text-[#EBC166]">
+            <span className="text-[12px] font-semibold uppercase tracking-[1.2px] leading-4 text-primary">
               {nominee.votes?.toLocaleString()} Votes
             </span>
             <Button
@@ -57,7 +57,7 @@ export function NomineeCard({ nominee, variant = "grid" }: NomineeCardProps) {
               href={href}
               size="sm"
               variant="outline"
-              className="text-[10px] leading-[15px] tracking-[1px] text-[#EAE1D7] font-normal border border-[#EBC16633]"
+              className="text-[10px] leading-[15px] tracking-[1px] text-foreground font-normal border border-primary/20"
             >
               Vote
             </Button>
@@ -72,18 +72,18 @@ export function NomineeCard({ nominee, variant = "grid" }: NomineeCardProps) {
     <article className="group flex flex-col">
       <Link
         href={href}
-        className="relative block overflow-hidden bg-muted"
-        style={{ ...IMAGE_STYLE, ...BORDER_STYLE }}
+        className="relative block overflow-hidden bg-muted border border-border-strong"
+        style={{ width: 384, height: 480 }}
       >
         <div className="absolute left-4 top-4 z-10">
           <Badge variant={badgeVariant}>{badgeLabel}</Badge>
         </div>
         {nominee.coverImage ? (
-          <img
+          <Image
             src={nominee.coverImage}
             alt={nominee.name}
-            className="h-full w-full object-cover grayscale transition-transform duration-500 group-hover:scale-105"
-            // style={{ opacity: 0.6 }}
+            fill
+            className="object-cover grayscale transition-transform duration-500 group-hover:scale-105"
           />
         ) : (
           <div className="h-full w-full bg-gradient-to-br from-muted to-background-muted" />
@@ -97,18 +97,19 @@ export function NomineeCard({ nominee, variant = "grid" }: NomineeCardProps) {
 
       {/* Text */}
       <div className="flex flex-1 flex-col pt-4">
-        <p className="text-base font-inter  uppercase leading-4  text-[#EBC166] border-l-2 border-primary pl-2">
+        <p className="flex items-center gap-2 text-[10px] font-inter uppercase tracking-[1.5px] text-primary">
+          <span className="h-4 w-0.5 bg-primary shrink-0" aria-hidden />
           {nominee.firm}
         </p>
-        <h3 className="mt-2 font-display text-[32px] leading-10 font-semibold text-[#EAE1D7]">
+        <h3 className="mt-2 font-display text-[32px] leading-[1.2] font-semibold text-foreground">
           {nominee.name}
         </h3>
-        <p className="mt-2 text-base leading-6 text-[#D1C5B2] font-inter">
+        <p className="mt-2 text-base leading-6 text-foreground-muted font-inter">
           {nominee.excerpt}
         </p>
         <Link
           href={href}
-          className="mt-4 inline-flex items-center gap-1 text-base font-inter leading-6  uppercase tracking-[1.6px] text-[#EBC166] hover:text-primary transition-colors"
+          className="mt-4 inline-flex items-center gap-1 text-base font-inter leading-6 uppercase tracking-[1.6px] text-primary hover:text-primary/80 transition-colors"
         >
           View Profile{" "}
           <img src="/icons/forward-arrow.svg" alt="" className="h-2.5 w-2.5" />

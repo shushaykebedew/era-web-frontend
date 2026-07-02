@@ -1,7 +1,7 @@
 import { cn } from "@/lib/cn";
 
 const VARIANT_STYLES = {
-  nominee: "bg-[#EBC166] text-[#402D00]",
+  nominee: "bg-primary text-primary-foreground",
   "past-winner": "bg-muted text-foreground-muted",
   shortlisted: "border border-primary text-primary",
 } as const;

@@ -1,11 +1,13 @@
 "use client";
 
 import { useState } from "react";
+import Image from "next/image";
 import { Container } from "@/components/ui/Container";
 import { cn } from "@/lib/cn";
 import { EDITIONS, FILTERS } from "@/types/gallery";
 import type { Edition, GalleryFilter, GalleryPhoto } from "@/types/gallery";
 import { galleryPhotos } from "@/data/gallery";
+
 
 // ── EditionSwitcher ───────────────────────────────────────────────────────────
 function EditionSwitcher({
@@ -17,7 +19,7 @@ function EditionSwitcher({
 }) {
   return (
     <div>
-      <p className="mb-3 text-[12px] font-inter font-semibold uppercase tracking-[1.2px] leading-4 text-[#EBC166]">
+      <p className="mb-3 text-[12px] font-inter font-semibold uppercase tracking-[1.2px] leading-4 text-primary">
         Select Edition
       </p>
       <div className="flex items-baseline gap-5">
@@ -28,8 +30,8 @@ function EditionSwitcher({
             className={cn(
               "font-display font-semibold transition-colors text-[32px] leading-10 cursor-pointer",
               yr === active
-                ? "text-[#EBC166] border-b border-[#EBC166]"
-                : "text-[#D1C5B266] hover:text-foreground-muted",
+                ? "text-primary border-b border-primary"
+                : "text-foreground-muted/40 hover:text-foreground-muted",
             )}
           >
             {yr}
@@ -57,8 +59,8 @@ function FilterPills({
           className={cn(
             "rounded-[1px] border px-4 py-2 cursor-pointer text-[12px] font-inter font-semibold tracking-[1.2px] leading-4 transition-colors",
             f === active
-              ? "border-[#EBC166] text-[#EBC166]"
-              : "border-[#EBC16633] text-[#D1C5B2] bg-transparent hover:border-primary hover:text-primary",
+              ? "border-primary text-primary"
+              : "border-primary/20 text-foreground-muted bg-transparent hover:border-primary hover:text-primary",
           )}
         >
           {f}
@@ -68,17 +70,17 @@ function FilterPills({
   );
 }
 
-// ── PhotoCard ─────────────────────────────────────────────────────────────────
 function PhotoCard({ photo }: { photo: GalleryPhoto }) {
   return (
     <div
-      className="w-full overflow-hidden"
+      className="relative w-full overflow-hidden"
       style={{ height: `${photo.height}px` }}
     >
-      <img
+      <Image
         src={photo.src}
         alt={photo.alt}
-        className="h-full w-full object-cover grayscale transition-all duration-500 hover:grayscale-0"
+        fill
+        className="object-cover grayscale transition-all duration-500 hover:grayscale-0"
       />
     </div>
   );

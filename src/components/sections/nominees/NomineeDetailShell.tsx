@@ -2,13 +2,14 @@
 
 import { useState } from "react";
 import Link from "next/link";
-import type { Nominee } from "@/types";
-import type { AwardCategory } from "@/types";
+import type { Nominee, AwardCategory } from "@/types";
 import { Button } from "@/components/ui/Button";
 import { siteConfig } from "@/config/site";
 import { cn } from "@/lib/cn";
 import { NomineeSidebar } from "./NomineeSidebar";
-import { DetailTab, AwardsTab, GalleryTab } from "./NomineeDetailContent";
+import { DetailTab } from "./tabs/DetailTab";
+import { AwardsTab } from "./tabs/AwardsTab";
+import { GalleryTab } from "./tabs/GalleryTab";
 
 type Tab = "detail" | "awards" | "gallery";
 
@@ -79,7 +80,7 @@ export function NomineeDetailShell({
         <div className="mx-auto grid w-full max-w-[1920px] grid-cols-1 gap-0 px-6 lg:grid-cols-[320px_1fr] lg:gap-10 lg:px-10">
           {/* Sidebar — sticky on desktop */}
           <div className="lg:sticky lg:top-14 lg:h-[calc(100vh-3.5rem)] lg:overflow-y-auto">
-            <NomineeSidebar nominee={nominee} category={category} />
+            <NomineeSidebar nominee={nominee} category={category} activeTab={activeTab} />
           </div>
 
           {/* Tab content */}
