@@ -1,4 +1,8 @@
-import { type ComponentPropsWithoutRef, type ElementType, type ReactNode } from "react";
+import {
+  type ComponentPropsWithoutRef,
+  type ElementType,
+  type ReactNode,
+} from "react";
 import { cn } from "@/lib/cn";
 
 const VARIANT_STYLES = {
@@ -46,10 +50,10 @@ export function Button<T extends ElementType = "button">({
   return (
     <Component
       className={cn(
-        "inline-flex items-center justify-center gap-2 font-sans font-semibold uppercase tracking-widest transition-colors duration-200",
+        "inline-flex items-center justify-center gap-2 cursor-pointer font-sans font-semibold uppercase tracking-widest transition-colors duration-200",
         VARIANT_STYLES[variant],
         SIZE_STYLES[size],
-        className
+        className,
       )}
       {...props}
     >

@@ -1,5 +1,4 @@
 import Link from "next/link";
-import { ArrowRight } from "lucide-react";
 import type { AwardCategory } from "@/types";
 import { CategoryIcon } from "@/components/ui/CategoryIcon";
 
@@ -21,7 +20,11 @@ export function CategoryCard({
         className="group relative flex min-h-[260px] flex-col justify-end overflow-hidden bg-muted p-8 transition-transform duration-300 hover:-translate-y-1"
         style={
           category.coverImage
-            ? { backgroundImage: `url(${category.coverImage})`, backgroundSize: "cover", backgroundPosition: "center" }
+            ? {
+                backgroundImage: `url(${category.coverImage})`,
+                backgroundSize: "cover",
+                backgroundPosition: "center",
+              }
             : undefined
         }
       >
@@ -44,24 +47,27 @@ export function CategoryCard({
   return (
     <Link
       href={href}
-      className="group flex flex-col justify-between bg-background-elevated p-8 transition-colors duration-300 hover:bg-muted"
+      className="group flex flex-col min-h-100 justify-between bg-[#16161A] p-8 transition-colors duration-300 hover:bg-muted"
     >
       <div>
         <CategoryIcon icon={category.icon} className="h-8 w-8 text-primary" />
-        <p className="mb-2 text-[12px] font-semibold uppercase tracking-[1.2px] leading-4 text-[#EBC166]">
+        <p className="mt-12 font-inter  mb-2 text-[12px] font-semibold uppercase tracking-[1.2px] leading-4 text-[#EBC166]">
           {category.tagline}
         </p>
-        <h3 className="mt-2 font-display text-2xl font-bold leading-tight">
+        <h3 className="mt-2 font-display text-[32px] font-bold leading-10 text-[#EAE1D7]">
           {category.name}
         </h3>
-        <p className="mt-3 text-sm leading-relaxed text-foreground-muted">
+        <p className="mt-3 text-base font-inter leading-6 text-[#D1C5B2]">
           {category.description}
         </p>
       </div>
 
-      <span className="mt-8 inline-flex items-center gap-2 text-xs font-semibold uppercase tracking-wider text-primary">
+      <span className="mt-8 inline-flex items-center gap-2 text-[12px] font-inter font-semibold tracking-[1.2px] text-[#EBC166]">
         View Nominees
-        <ArrowRight className="h-3.5 w-3.5 transition-transform duration-200 group-hover:translate-x-1" />
+        <img
+          src="/icons/forward-arrow.svg"
+          className="h-2.5 w-2.5 transition-transform duration-200 group-hover:translate-x-1"
+        />
       </span>
     </Link>
   );

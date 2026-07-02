@@ -33,7 +33,7 @@ export function Hero({
           {eyebrow}
         </Eyebrow>
 
-        <h1 className="font-display text-[72px] max-w-[806px] font-bold tracking-[1.2px] leading-20 w-full">
+        <h1 className="font-display text-[72px] max-w-[806px] font-bold tracking-[-1.44px] leading-20">
           Celebrating Excellence in
           <span className="text-primary italic">Ethiopian</span> Real Estate
         </h1>

@@ -68,23 +68,16 @@ export function AwardCategoriesSection({
     );
   }
 
-  // Full variant — simple uniform grid
+  // Full variant — 3-column icon card grid matching the categories page design
   return (
     <section className="bg-background py-24">
       <Container>
-        <div className="flex flex-col items-start justify-between gap-6 sm:flex-row sm:items-end">
-          <SectionHeading
-            eyebrow="Excellence in Architecture"
-            title="Award Categories"
-            description="Celebrating the visionaries who redefine Ethiopia's skyline through innovation, sustainability, and cultural preservation."
-          />
-        </div>
-        <div className="mt-12 grid grid-cols-1 gap-3 sm:grid-cols-2">
+        <div className="mt-12 grid grid-cols-1 gap-8 sm:grid-cols-2 lg:grid-cols-3">
           {items.map((category) => (
             <CategoryCard
               key={category.slug}
               category={category}
-              variant="feature"
+              variant="compact"
             />
           ))}
         </div>

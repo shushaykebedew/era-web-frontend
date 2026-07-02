@@ -1,29 +1,40 @@
 import type { Metadata } from "next";
 import { Container } from "@/components/ui/Container";
+import { PartnersPageClient } from "@/components/sections/partners/PartnersPageClient";
 import { Eyebrow } from "@/components/ui/Eyebrow";
 
 export const metadata: Metadata = {
   title: "Partners",
-  description: "Meet the organizations supporting Ethiopia&apos;s architectural excellence.",
+  description:
+    "Partner with Ethiopia's Architectural Legacy. Explore sponsorship tiers and confirmed partners.",
 };
 
-/**
- * Placeholder page — content/design for this section is still being
- * finalized. Structure follows the same hero pattern as other pages so it
- * can be filled in without restructuring later.
- */
-export default function Page() {
+export default function PartnersPage() {
   return (
-    <section className="flex min-h-[70vh] flex-col items-center justify-center bg-background pt-32 text-center">
-      <Container size="narrow">
-        <Eyebrow align="center" className="mb-6">
-          Excellence in Architecture
-        </Eyebrow>
-        <h1 className="font-display text-5xl font-bold sm:text-6xl">Partners</h1>
-        <p className="mx-auto mt-6 max-w-xl text-base text-foreground-muted">
-          Meet the organizations supporting Ethiopia&apos;s architectural excellence.
-        </p>
-      </Container>
-    </section>
+    <>
+      {/* ── Hero ── */}
+      <section className="bg-background pb-16 pt-40 text-center">
+        <Container size="narrow">
+          <div className="mb-6 flex items-center justify-center gap-3">
+            <span className="h-px w-8 bg-primary" aria-hidden />
+            <Eyebrow align="center" className="">
+              Excellence in Architecture
+            </Eyebrow>
+            <span className="h-px w-8 bg-primary" aria-hidden />
+          </div>
+          <h1 className="font-display text-[72px] font-bold leading-20 tracking-[-1.44px] text-[#EAE1D7] max-w-[728px]">
+            Partner with Ethiopia&apos;s Architectural Legacy
+          </h1>
+          <p className="mx-auto mt-6 mb-20 max-w-[620px] text-[18px] leading-7.5 text-[#D1C5B2] font-inter">
+            The Ethiopia Real Estate Awards represent the pinnacle of industry
+            achievement. Align your brand with the visionaries shaping the
+            skyline of tomorrow.
+          </p>
+        </Container>
+      </section>
+
+      {/* ── Interactive sections (client) ── */}
+      <PartnersPageClient />
+    </>
   );
 }

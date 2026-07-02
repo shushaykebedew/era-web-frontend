@@ -11,7 +11,7 @@ export type AwardCategory = {
   group: "Residential" | "Commercial" | "Sustainability" | "Culture" | "Interior" | "Emerging";
   tagline: string;
   description: string;
-  icon: "compass" | "building" | "leaf" | "landmark" | "interior" | "spark";
+  icon: "cat-icon-1" | "cat-icon-2" | "cat-icon-3" | "cat-icon-4" | "cat-icon-5";
   nomineeCount: number;
   coverImage?: string;
 };

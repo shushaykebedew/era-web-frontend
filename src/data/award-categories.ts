@@ -14,7 +14,7 @@ export const awardCategories: AwardCategory[] = [
     tagline: "Residential",
     description:
       "Honoring innovative multi-family residential developments that harmonize density with livability.",
-    icon: "compass",
+    icon: "cat-icon-1",
     nomineeCount: 12,
     coverImage: "/imgs/categories/award-category-1.png",
   },
@@ -25,7 +25,7 @@ export const awardCategories: AwardCategory[] = [
     tagline: "Commercial",
     description:
       "Recognizing office towers and corporate hubs that foster productivity through architectural excellence.",
-    icon: "building",
+    icon: "cat-icon-2",
     nomineeCount: 9,
     coverImage: "/imgs/categories/award-category-2.png",
   },
@@ -36,7 +36,7 @@ export const awardCategories: AwardCategory[] = [
     tagline: "Sustainability",
     description:
       "Awarded to structures demonstrating radical commitment to carbon neutrality and local materials.",
-    icon: "leaf",
+    icon: "cat-icon-3",
     nomineeCount: 8,
     coverImage: "/imgs/categories/award-category-3.png",
   },
@@ -47,7 +47,7 @@ export const awardCategories: AwardCategory[] = [
     tagline: "Culture",
     description:
       "Celebrating projects that integrate Ethiopian cultural motifs into modern structural designs.",
-    icon: "landmark",
+    icon: "cat-icon-4",
     nomineeCount: 7,
     coverImage: "/imgs/categories/award-category-4.png",
   },
@@ -58,7 +58,7 @@ export const awardCategories: AwardCategory[] = [
     tagline: "Interior",
     description:
       "For interior spaces that redefine luxury through tactile materials and light manipulation.",
-    icon: "interior",
+    icon: "cat-icon-5",
     nomineeCount: 10,
   },
   {
@@ -68,7 +68,7 @@ export const awardCategories: AwardCategory[] = [
     tagline: "Emerging",
     description:
       "Spotlighting young architectural firms showing exceptional promise in Ethiopia's growing market.",
-    icon: "spark",
+    icon: "cat-icon-1",
     nomineeCount: 6,
   },
 ];

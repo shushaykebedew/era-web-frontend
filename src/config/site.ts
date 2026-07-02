@@ -23,6 +23,7 @@ export const siteConfig = {
   },
   nav: [
     { label: "The Awards", href: "/about" },
+    { label: "Categories", href: "/awards" },
     { label: "Nominees", href: "/nominees" },
     { label: "Gallery", href: "/gallery" },
     { label: "Archives", href: "/archives" },
