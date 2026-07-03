@@ -44,7 +44,7 @@ export function NomineeSidebar({
 
       {/* Name */}
       <div>
-        <h1 className="font-display text-[48px] font-semibold leading-15 text-[#F4EFE3]">
+        <h1 className="font-display text-[32px] sm:text-[40px] lg:text-[48px] font-semibold leading-tight lg:leading-15 text-[#F4EFE3]">
           {nominee.name}
         </h1>
 
@@ -67,7 +67,7 @@ export function NomineeSidebar({
 
       {/* Scale & Completion (Detail Tab) */}
       {activeTab === "detail" && (
-        <div className="flex gap-40 mt-4 border-t border-border-strong pt-6">
+        <div className="flex gap-8 sm:gap-16 md:gap-24 lg:gap-40 mt-4 border-t border-border-strong pt-6">
           <div>
             <p className="text-[10px] font-inter uppercase tracking-[1px] leading-[15px] text-[#EBC166]">
               Scale

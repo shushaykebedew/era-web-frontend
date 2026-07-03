@@ -22,8 +22,8 @@ export const siteConfig = {
     href: "/nominees",
   },
   nav: [
-    { label: "The Awards", href: "/about" },
-    { label: "Categories", href: "/awards" },
+    { label: "Awards", href: "/awards" },
+    { label: "Categories", href: "/categories" },
     { label: "Nominees", href: "/nominees" },
     { label: "Gallery", href: "/gallery" },
     { label: "Partners", href: "/partners" },

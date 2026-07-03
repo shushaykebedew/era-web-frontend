@@ -105,7 +105,7 @@ function PhotoGrid({ photos }: { photos: GalleryPhoto[] }) {
   ];
 
   return (
-    <div className="flex gap-3">
+    <div className="flex flex-col lg:flex-row gap-3">
       {cols.map((col, colIdx) => (
         <div key={colIdx} className="flex flex-1 flex-col gap-3">
           {col.map((photo) => (

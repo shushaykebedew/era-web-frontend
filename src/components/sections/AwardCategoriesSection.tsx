@@ -28,7 +28,7 @@ export function AwardCategoriesSection({
               description="The benchmark of excellence. Explore the categories spanning residential, commercial, and urban design."
             />
             <Link
-              href="/awards"
+              href="/categories"
               className="flex gap-1 items-center text-[12px] font-inter font-semibold uppercase tracking-[1.2px] text-[#EBC166] leading-4 hover:opacity-80 shrink-0"
             >
               View All Categories
@@ -45,20 +45,20 @@ export function AwardCategoriesSection({
               Row 2 — card 3 (390fr) | card 4 (802fr)  */}
           <div className="mt-12 flex flex-col gap-3">
             {/* Row 1 */}
-            <div className="flex gap-3">
-              <div style={{ flex: "802 802 0%" }}>
+            <div className="flex flex-col md:flex-row gap-3">
+              <div className="w-full md:w-auto md:flex-[802_802_0%]">
                 <CategoryCard category={card1} variant="feature" />
               </div>
-              <div style={{ flex: "390 390 0%" }}>
+              <div className="w-full md:w-auto md:flex-[390_390_0%]">
                 <CategoryCard category={card2} variant="feature" />
               </div>
             </div>
             {/* Row 2 — swapped proportions */}
-            <div className="flex gap-3">
-              <div style={{ flex: "390 390 0%" }}>
+            <div className="flex flex-col md:flex-row gap-3">
+              <div className="w-full md:w-auto md:flex-[390_390_0%]">
                 <CategoryCard category={card3} variant="feature" />
               </div>
-              <div style={{ flex: "802 802 0%" }}>
+              <div className="w-full md:w-auto md:flex-[802_802_0%]">
                 <CategoryCard category={card4} variant="feature" />
               </div>
             </div>

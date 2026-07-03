@@ -12,10 +12,10 @@ export function GalleryHero() {
           </Eyebrow>
           <span className="h-px w-8 bg-primary" aria-hidden />
         </div>
-        <h1 className="font-display text-[72px] font-bold leading-20 tracking-[-1.44px] text-foreground max-w-[728px]">
+        <h1 className="font-display text-[40px] sm:text-[56px] lg:text-[72px] font-bold leading-tight lg:leading-20 tracking-tight lg:tracking-[-1.44px] text-foreground max-w-[728px]">
           The Gallery
         </h1>
-        <p className="mx-auto mt-6 mb-20 max-w-[620px] text-[18px] leading-7.5 text-foreground-muted font-inter">
+        <p className="mx-auto mt-6 mb-10 sm:mb-16 lg:mb-20 max-w-[620px] text-[18px] leading-7.5 text-foreground-muted font-inter">
           A curated narrative of architectural excellence and cinematic moments
           from the 2024 Ethiopian Real Estate Awards.
         </p>

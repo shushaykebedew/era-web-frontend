@@ -4,9 +4,9 @@ import { Button } from "@/components/ui/Button";
 
 export function GalleryCta() {
   return (
-    <section className="border-t border-primary/20 bg-background-muted py-24 text-center mx-12">
+    <section className="border-t border-primary/20 bg-background-muted py-24 text-center">
       <Container size="narrow">
-        <h2 className="font-display text-[48px] leading-14 font-semibold">
+        <h2 className="font-display text-[28px] sm:text-[36px] lg:text-[48px] leading-tight lg:leading-14 font-semibold">
           Be Part of the Excellence
         </h2>
         <p className="mx-auto mt-5 max-w-[554px] text-[18px] leading-7 text-foreground-muted font-inter">

@@ -28,7 +28,7 @@ export function Hero({
           {eyebrow}
         </Eyebrow>
 
-        <h1 className="font-display text-[48px] xl:text-[72px] max-w-[806px] font-bold tracking-[-1.44px] leading-12 lg:leading-20">
+        <h1 className="font-display text-[36px] sm:text-[48px] lg:text-[60px] xl:text-[72px] max-w-[806px] font-bold tracking-[-1.44px] leading-tight lg:leading-20">
           Celebrating Excellence in
           <span className="text-primary italic">Ethiopian</span> Real Estate
         </h1>
@@ -42,7 +42,7 @@ export function Hero({
             as={Link}
             href={siteConfig.voteCta.href}
             size="lg"
-            className="w-[156px] h-12 font-bold text-[12px]"
+            className="w-full sm:w-auto sm:min-w-[156px] h-12 font-bold text-[12px]"
           >
             {siteConfig.voteCta.label}
           </Button>
@@ -51,7 +51,7 @@ export function Hero({
             href="/nominees"
             variant="outline"
             size="lg"
-            className="w-[223px] h-[50px] text-[12px] font-semibold"
+            className="w-full sm:w-auto sm:min-w-[200px] h-[50px] text-[12px] font-semibold"
           >
             Explore Nominees
           </Button>

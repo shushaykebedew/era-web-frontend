@@ -24,8 +24,7 @@ export function NomineeCard({ nominee, variant = "grid" }: NomineeCardProps) {
       <article className="group flex flex-col bg-background-elevated">
         <Link
           href={href}
-          className="relative block overflow-hidden bg-muted"
-          style={{ width: 384, height: 480 }}
+          className="relative block overflow-hidden bg-muted w-full aspect-[4/5]"
         >
           <div className="absolute left-4 top-4 z-10">
             <Badge variant={badgeVariant}>{badgeLabel}</Badge>
@@ -72,8 +71,7 @@ export function NomineeCard({ nominee, variant = "grid" }: NomineeCardProps) {
     <article className="group flex flex-col">
       <Link
         href={href}
-        className="relative block overflow-hidden bg-muted border border-border-strong"
-        style={{ width: 384, height: 480 }}
+        className="relative block overflow-hidden bg-muted border border-border-strong w-full aspect-[4/5]"
       >
         <div className="absolute left-4 top-4 z-10">
           <Badge variant={badgeVariant}>{badgeLabel}</Badge>

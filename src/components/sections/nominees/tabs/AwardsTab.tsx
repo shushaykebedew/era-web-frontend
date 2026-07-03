@@ -50,7 +50,7 @@ export function AwardsTab({ nominee }: { nominee: Nominee }) {
         <span className="absolute right-4 bottom-4 h-6 w-6 border-r border-b border-[#EBC16666]" />
         <div className="flex flex-col items-center gap-3 text-center">
           <img src="/icons/award-finalist.svg" alt="" />
-          <p className="font-display text-[48px] leading-14 tracking-[-2.4px] uppercase font-semibold text-[#EBC166]">
+          <p className="font-display text-[32px] sm:text-[48px] leading-tight lg:leading-14 tracking-tight lg:tracking-[-2.4px] uppercase font-semibold text-[#EBC166]">
             Finalist 2024
           </p>
           <p className="text-[12px] font-inter font-semibold uppercase tracking-[1.2px] text-[#F4EFE3] text-base">
@@ -140,43 +140,41 @@ export function AwardsTab({ nominee }: { nominee: Nominee }) {
 
       {/* Stats */}
       {(nominee.scaleSqm || nominee.completionDate) && (
-        <div className="grid grid-cols-2 gap-6 border-t border-border-strong pt-8 sm:grid-cols-4">
+        <div className="grid grid-cols-2 gap-6 border-y border-[#EBC16633] py-10 sm:grid-cols-4">
           {nominee.scaleSqm && (
             <div>
-              <p className="text-[10px] font-inter font-semibold uppercase tracking-[1.5px] text-foreground-muted">
+              <p className="text-[12px] font-inter font-semibold uppercase tracking-[-0.6px] text-[#F4EFE3] leading-4">
                 Total Scale
               </p>
-              <p className="mt-1.5 font-display text-[22px] font-bold text-foreground">
+              <p className="mt-1.5 font-display text-[28px] text-[#EBC166] leading-10">
                 {nominee.scaleSqm.toLocaleString()}
-                <span className="ml-1 text-[13px] font-normal text-foreground-muted">
-                  m²
-                </span>
+                <span className="ml-1 text-[12px] leading-4">m²</span>
               </p>
             </div>
           )}
           {nominee.completionDate && (
             <div>
-              <p className="text-[10px] font-inter font-semibold uppercase tracking-[1.5px] text-foreground-muted">
+              <p className="text-[12px] font-inter font-semibold uppercase tracking-[-0.6px] text-[#F4EFE3] leading-4">
                 Completion
               </p>
-              <p className="mt-1.5 font-display text-[22px] font-bold text-foreground">
+              <p className="mt-1.5 font-display text-[28px] text-[#EBC166] leading-10">
                 {new Date(nominee.completionDate).getFullYear()}
               </p>
             </div>
           )}
           <div>
-            <p className="text-[10px] font-inter font-semibold uppercase tracking-[1.5px] text-foreground-muted">
+            <p className="text-[12px] font-inter font-semibold uppercase tracking-[-0.6px] text-[#F4EFE3] leading-4">
               LEED Status
             </p>
-            <p className="mt-1.5 font-display text-[22px] font-bold text-primary">
+            <p className="mt-1.5 font-display text-[28px] text-[#EBC166] leading-10">
               Platinum
             </p>
           </div>
           <div>
-            <p className="text-[10px] font-inter font-semibold uppercase tracking-[1.5px] text-foreground-muted">
+            <p className="text-[12px] font-inter font-semibold uppercase tracking-[-0.6px] text-[#F4EFE3] leading-4">
               Urban Impact
             </p>
-            <p className="mt-1.5 font-display text-[22px] font-bold text-foreground">
+            <p className="mt-1.5 font-display text-[28px] text-[#EBC166] leading-10">
               High
             </p>
           </div>
@@ -185,9 +183,12 @@ export function AwardsTab({ nominee }: { nominee: Nominee }) {
 
       {/* Bottom image strip */}
       {nominee.gallery && nominee.gallery.length >= 2 && (
-        <div className="flex gap-3" style={{ height: 200 }}>
+        <div className="flex gap-2 sm:gap-4 h-[120px] sm:h-[200px]">
           {nominee.gallery.slice(0, 2).map((src, i) => (
-            <div key={i} className="relative flex-1 overflow-hidden">
+            <div
+              key={i}
+              className="relative flex-1 overflow-hidden border border-[#EBC1661A]"
+            >
               <img
                 src={src}
                 alt={`${nominee.name} image ${i + 1}`}

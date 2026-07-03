@@ -13,7 +13,7 @@ export function NewsletterCta({
   return (
     <section className="bg-[#0c0c0e] py-24">
       <Container size="narrow" className="text-center">
-        <h2 className="font-display font-semibold text-[48px] leading-14">
+        <h2 className="font-display font-semibold text-[32px] sm:text-[40px] lg:text-[48px] leading-tight lg:leading-14">
           {title}
         </h2>
         <p className="mx-auto mt-4 max-w-[630px] text-base leading-6 text-[#D1C5B2]">

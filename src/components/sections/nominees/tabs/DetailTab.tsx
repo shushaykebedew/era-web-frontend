@@ -45,7 +45,7 @@ export function DetailTab({ nominee }: { nominee: Nominee }) {
         {/* Right — Quote + two-col body */}
         <div className="flex flex-col gap-6">
           {nominee.quote && (
-            <blockquote className="font-display text-[48px] italic leading-12 text-[#EAE1D7E5] tracking-[-1.2px]">
+            <blockquote className="font-display text-[28px] sm:text-[36px] lg:text-[48px] italic leading-tight lg:leading-12 text-[#EAE1D7E5] tracking-tight lg:tracking-[-1.2px]">
               &ldquo;{nominee.quote}&rdquo;
             </blockquote>
           )}
@@ -69,7 +69,7 @@ export function DetailTab({ nominee }: { nominee: Nominee }) {
 
       {/* ── Gallery strip ── */}
       {nominee.gallery && nominee.gallery.length > 0 && (
-        <div className="flex gap-3" style={{ height: 360 }}>
+        <div className="flex gap-1.5 sm:gap-3 h-[160px] sm:h-[280px] lg:h-[360px]">
           {nominee.gallery.map((src, i) => (
             <div key={i} className="relative flex-1 overflow-hidden">
               <img

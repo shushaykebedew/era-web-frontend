@@ -50,12 +50,12 @@ export function PartnersTierCards({ onSelectTier }: PartnersTierCardsProps) {
   return (
     <section className="bg-background pt-12 pb-20">
       <Container>
-        <div className="grid grid-cols-1 gap-6 sm:grid-cols-3 sm:items-start">
+        <div className="grid grid-cols-1 gap-20 lg:gap-6 lg:grid-cols-3 sm:items-start">
           {TIERS.map((tier, index) => (
             <div
               key={tier.id}
               className={cn(
-                "relative flex h-[512px] flex-col border p-8 transition-all duration-300",
+                "relative flex h-auto min-h-[400px] w-full max-w-[392px] mx-auto lg:mx-0 lg:h-[512px] flex-col border p-6 sm:p-8 transition-all duration-300",
                 tier.featured
                   ? "border-[#EBC166] bg-[#16130D] sm:-translate-y-6 z-10 shadow-2xl shadow-black/40"
                   : "border-border-strong bg-[#110E08]",

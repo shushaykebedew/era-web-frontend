@@ -51,7 +51,7 @@ export function NomineeDetailShell({
               key={tab.id}
               onClick={() => setActiveTab(tab.id)}
               className={cn(
-                "pb-0.5 transition-colors uppercase font-semibold text-[12px] leading-4 tracking-[1.8px] cursor-pointer",
+                "pb-1 transition-colors uppercase font-semibold text-[12px] leading-4 tracking-[1.8px] cursor-pointer",
                 activeTab === tab.id
                   ? "border-b border-[#EBC166] text-[#EBC166]"
                   : "text-[#EAE1D799] hover:text-[#EBC166]",
@@ -65,7 +65,7 @@ export function NomineeDetailShell({
         <Button
           size="sm"
           variant="outline"
-          className="h-[34px] border-[#EBC1664D] text-[#EBC166] font-semibold text-[12px] leading-4 tracking-[1.8px]"
+          className="hidden sm:inline-flex h-[34px] border-[#EBC1664D] text-[#EBC166] font-semibold text-[12px] leading-4 tracking-[1.8px]"
           onClick={() => setActiveTab("detail")}
         >
           Vote For This Project
@@ -137,7 +137,7 @@ export function NomineeDetailShell({
           {/* Cast Your Vote */}
           <section className="border-t border-border-strong py-24 text-center">
             <div className="mx-auto max-w-[576px] px-6">
-              <h2 className="font-display text-[72px] leading-[72px] text-[#EAE1D7]">
+              <h2 className="font-display text-[40px] sm:text-[56px] lg:text-[72px] leading-tight lg:leading-[72px] text-[#EAE1D7]">
                 Cast Your Vote
               </h2>
               <p className="mx-auto mt-5 text-base leading-6 text-[#D1C5B2CC] font-inter">

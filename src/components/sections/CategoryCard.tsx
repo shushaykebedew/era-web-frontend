@@ -11,20 +11,20 @@ export function CategoryCard({
   category,
   variant = "compact",
 }: CategoryCardProps) {
-  const href = `/awards/${category.slug}`;
+  const href = `/categories/${category.slug}`;
 
   if (variant === "feature") {
     return (
       <Link
         href={href}
-        className="group relative flex min-h-[260px] flex-col justify-end overflow-hidden bg-muted p-8 transition-transform duration-300 hover:-translate-y-1"
+        className="group relative flex min-h-[260px] sm:min-h-[300px] flex-col justify-end overflow-hidden bg-muted p-8 transition-transform duration-300 hover:-translate-y-1"
         style={
           category.coverImage
             ? {
-                backgroundImage: `url(${category.coverImage})`,
-                backgroundSize: "cover",
-                backgroundPosition: "center",
-              }
+              backgroundImage: `url(${category.coverImage})`,
+              backgroundSize: "cover",
+              backgroundPosition: "center",
+            }
             : undefined
         }
       >
@@ -47,7 +47,7 @@ export function CategoryCard({
   return (
     <Link
       href={href}
-      className="group flex flex-col min-h-100 justify-between bg-[#16161A] hover:bg-[#252529] p-8 border border-[#252529] transition-colors duration-300"
+      className="group flex flex-col min-h-[280px] lg:min-h-[400px] justify-between bg-[#16161A] hover:bg-[#252529] p-8 border border-[#252529] transition-colors duration-300"
     >
       <div>
         <CategoryIcon

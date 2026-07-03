@@ -50,7 +50,7 @@ export function NomineesSection() {
             <span className="h-px w-8 bg-primary" aria-hidden />
           </div>
 
-          <h1 className="font-display text-[72px] font-bold leading-[72px] tracking-[-1.44px] text-[#EAE1D7] max-w-[728px]">
+          <h1 className="font-display text-[40px] sm:text-[56px] lg:text-[72px] font-bold leading-tight lg:leading-[72px] tracking-tight lg:tracking-[-1.44px] text-[#EAE1D7] max-w-[728px]">
             Residential
             <br />
             <span className="italic text-[#EBC166]">Excellence Nominees</span>
@@ -67,7 +67,7 @@ export function NomineesSection() {
       <section className="bg-background py-6 border-b border-border-strong">
         <Container size="wide">
           <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
-            <div className="flex items-center gap-8">
+            <div className="flex flex-wrap items-center gap-4 sm:gap-8">
               {FILTERS.map((f) => (
                 <button
                   key={f}

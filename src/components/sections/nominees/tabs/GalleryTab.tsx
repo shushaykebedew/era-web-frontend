@@ -14,18 +14,17 @@ const IMAGE_LABELS = [
 function GalleryImg({
   src,
   label,
-  height,
+  heightClass,
   className = "",
 }: {
   src: string;
   label: string;
-  height: number;
+  heightClass?: string;
   className?: string;
 }) {
   return (
     <div
-      className={cn("relative overflow-hidden", className)}
-      style={{ height }}
+      className={cn("relative overflow-hidden w-full", heightClass, className)}
     >
       <img src={src} alt={label} className="h-full w-full object-cover" />
       <div className="absolute bottom-3 left-3 bg-[#16130D66] border border-[#EBC16633] py-1 px-2">
@@ -59,21 +58,21 @@ export function GalleryTab({
       <GalleryImg
         src={images[0].src}
         label={images[0].label}
-        height={360}
+        heightClass="aspect-video sm:h-[360px]"
         className="w-full"
       />
 
-      <div className="flex gap-3">
+      <div className="flex flex-col sm:flex-row gap-3">
         <GalleryImg
           src={images[1].src}
           label={images[1].label}
-          height={240}
+          heightClass="aspect-video sm:h-[240px]"
           className="flex-1"
         />
         <GalleryImg
           src={images[2].src}
           label={images[2].label}
-          height={240}
+          heightClass="aspect-video sm:h-[240px]"
           className="flex-1"
         />
       </div>
@@ -81,21 +80,20 @@ export function GalleryTab({
       <GalleryImg
         src={images[3].src}
         label={images[3].label}
-        height={300}
+        heightClass="aspect-video sm:h-[300px]"
         className="w-full"
       />
 
-      <div className="flex gap-3">
+      <div className="flex flex-col sm:flex-row gap-3">
         <GalleryImg
           src={images[4].src}
           label={images[4].label}
-          height={240}
+          heightClass="aspect-video sm:h-[240px]"
           className="flex-1"
         />
         {/* Blueprint / technical drawing card */}
         <div
-          className="relative flex-1 overflow-hidden bg-background-elevated border border-border-strong"
-          style={{ height: 240 }}
+          className="relative flex-1 overflow-hidden bg-background-elevated border border-border-strong aspect-video sm:h-[240px]"
         >
           <img
             src={images[5].src}
