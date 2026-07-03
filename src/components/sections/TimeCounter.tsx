@@ -6,6 +6,9 @@ function TimeCounter() {
   return (
     <div className="relative z-10 h-[266px] border-y border-[#EBC1661A] bg-[#110E08] flex items-center">
       <Container className="text-center">
+        <h3 className="mb-8 font-inter font-semibold text-[12px] xl:text-base leading-4 tracking-[1.2px] uppercase mx-auto text-[#EBC166]">
+          GALA CEREMONY BEGINS IN
+        </h3>
         <Countdown targetDate={siteConfig.ceremonyDate} />
       </Container>
     </div>

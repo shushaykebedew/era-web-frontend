@@ -16,7 +16,6 @@ export function Eyebrow({ children, className, align = "left" }: EyebrowProps) {
         className,
       )}
     >
-      {/* <span className="h-px w-6 bg-primary" aria-hidden /> */}
       {children}
     </p>
   );

@@ -50,8 +50,8 @@ export function SponsorshipForm({ selectedTier = "" }: SponsorshipFormProps) {
       className="bg-[#110E08] border border-[#EBC16633] my-20 max-w-[896px] mx-auto py-24"
     >
       <Container size="narrow">
-        <div className="text-center">
-          <h2 className="font-display text-[48px] font-semibold leading-14">
+        <div className="text-left xl:text-center">
+          <h2 className="font-display text-[32px] xl:text-[48px] font-semibold leading-10 xl:leading-14">
             Request Sponsorship Package
           </h2>
           <p className="mx-auto mt-4 max-w-[484px] text-base leading-6 text-[#D1C5B2] font-inter">

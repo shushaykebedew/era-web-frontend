@@ -26,7 +26,6 @@ export const siteConfig = {
     { label: "Categories", href: "/awards" },
     { label: "Nominees", href: "/nominees" },
     { label: "Gallery", href: "/gallery" },
-    { label: "Archives", href: "/archives" },
     { label: "Partners", href: "/partners" },
   ] satisfies NavLink[],
   footerLinks: [

@@ -82,7 +82,7 @@ export function ConfirmedPartners() {
           </p>
         </div>
 
-        <div className="grid grid-cols-2 gap-8 sm:grid-cols-4">
+        <div className="grid grid-cols-1 gap-8 justify-items-center sm:grid-cols-4 sm:justify-items-stretch">
           {confirmedPartners.map((partner) => (
             <PartnerCard key={partner.name} {...partner} />
           ))}

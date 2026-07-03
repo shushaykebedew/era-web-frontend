@@ -98,7 +98,7 @@ export function PartnersTierCards({ onSelectTier }: PartnersTierCardsProps) {
                     ) : (
                       <img
                         src="/icons/check-mark.svg"
-                        className="mt-0.5 h-3.5 w-3.5 shrink-0 text-primary"
+                        className="mt-0.5 h-3.5 w-3.5 shrink-0 text-[#EBC166]"
                       />
                     )}
 

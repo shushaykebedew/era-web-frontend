@@ -36,14 +36,14 @@ export function Footer() {
             <Link
               key={link.href}
               href={link.href}
-              className="text-[12px] text-[#D1C5B2] font-semibold leading-4 tracking-[1.2px] font-inter transition-colors hover:text-primary"
+              className="text-[9px] xl:text-[12px] text-[#D1C5B2] font-semibold leading-4 tracking-[1.2px] font-inter transition-colors hover:text-primary"
             >
               {link.label}
             </Link>
           ))}
         </nav>
 
-        <p className="mt-6 max-w-md text-base  text-[#D1C5B2] font-inter leading-6">
+        <p className="mt-6 max-w-md text-[11px] xl:text-base  text-[#D1C5B2] font-inter leading-6">
           &copy; {year} {siteConfig.fullName}. {siteConfig.tagline}.
         </p>
 

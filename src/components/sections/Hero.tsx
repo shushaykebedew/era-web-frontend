@@ -28,16 +28,16 @@ export function Hero({
           {eyebrow}
         </Eyebrow>
 
-        <h1 className="font-display text-[72px] max-w-[806px] font-bold tracking-[-1.44px] leading-20">
+        <h1 className="font-display text-[48px] xl:text-[72px] max-w-[806px] font-bold tracking-[-1.44px] leading-12 lg:leading-20">
           Celebrating Excellence in
           <span className="text-primary italic">Ethiopian</span> Real Estate
         </h1>
 
-        <p className="font-inter mt-6 max-w-[658px] text-[18px] text-foreground-muted">
+        <p className="font-inter mt-6 max-w-[658px] text-base xl:text-[18px] leading-6 text-foreground-muted">
           {description}
         </p>
 
-        <div className="my-10 flex flex-col gap-4 sm:flex-row">
+        <div className="my-10 flex flex-col items-center gap-4 sm:flex-row">
           <Button
             as={Link}
             href={siteConfig.voteCta.href}

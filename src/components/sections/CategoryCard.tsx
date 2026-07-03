@@ -50,7 +50,10 @@ export function CategoryCard({
       className="group flex flex-col min-h-100 justify-between bg-[#16161A] hover:bg-[#252529] p-8 border border-[#252529] transition-colors duration-300"
     >
       <div>
-        <CategoryIcon icon={category.icon} className="h-8 w-8 text-primary" />
+        <CategoryIcon
+          icon={category.icon}
+          className="h-6 w-6 xl:h-8 xl:w-8 text-primary"
+        />
         <p className="mt-12 font-inter  mb-2 text-[12px] font-semibold uppercase tracking-[1.2px] leading-4 text-[#EBC166]">
           {category.tagline}
         </p>

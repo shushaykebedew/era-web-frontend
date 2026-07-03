@@ -19,7 +19,7 @@ export function GalleryCta() {
             href="/nominees"
             variant="outline"
             size="sm"
-            className="normal-case text-[12px] tracking-[1.2px] leading-4 border-primary h-12.5 px-8 font-inter  font-semibold"
+            className="normal-case text-[12px] tracking-[1.2px] leading-4 border-primary h-12.5 px-8 font-inter  font-semibold w-full xl:w-fit"
           >
             Nominate for 2025
           </Button>

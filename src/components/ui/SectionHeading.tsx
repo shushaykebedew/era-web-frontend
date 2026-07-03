@@ -30,7 +30,7 @@ export function SectionHeading({
           {eyebrow}
         </Eyebrow>
       )}
-      <h2 className="font-display text-4xl font-semibold leading-[56px] tracking-0 sm:text-[48px] text-foreground">
+      <h2 className="font-display font-bold leading-12 xl:leading-[56px] tracking-0 text-[48px] text-foreground">
         {title}
       </h2>
       {description && (
