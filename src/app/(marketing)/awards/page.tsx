@@ -12,10 +12,9 @@ export default function HomePage() {
   return (
     <>
       <div
-        className="relative -mt-20 flex flex-col bg-cover bg-center bg-no-repeat"
+        className="relative -mt-20 flex flex-col bg-cover bg-center bg-no-repeat min-h-[600px] lg:h-[900px]"
         style={{
           backgroundImage: "url(/imgs/hero-image.png)",
-          height: "900px",
         }}
       >
         {/* Spacer that offsets the negative margin so hero content sits below the header */}

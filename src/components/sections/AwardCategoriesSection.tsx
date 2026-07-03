@@ -45,20 +45,20 @@ export function AwardCategoriesSection({
               Row 2 — card 3 (390fr) | card 4 (802fr)  */}
           <div className="mt-12 flex flex-col gap-3">
             {/* Row 1 */}
-            <div className="flex flex-col md:flex-row gap-3">
-              <div className="w-full md:w-auto md:flex-[802_802_0%]">
+            <div className="flex flex-col sm:flex-row gap-3">
+              <div className="w-full sm:w-auto sm:flex-[802_802_0%]">
                 <CategoryCard category={card1} variant="feature" />
               </div>
-              <div className="w-full md:w-auto md:flex-[390_390_0%]">
+              <div className="w-full sm:w-auto sm:flex-[390_390_0%]">
                 <CategoryCard category={card2} variant="feature" />
               </div>
             </div>
             {/* Row 2 — swapped proportions */}
-            <div className="flex flex-col md:flex-row gap-3">
-              <div className="w-full md:w-auto md:flex-[390_390_0%]">
+            <div className="flex flex-col sm:flex-row gap-3">
+              <div className="w-full sm:w-auto sm:flex-[390_390_0%]">
                 <CategoryCard category={card3} variant="feature" />
               </div>
-              <div className="w-full md:w-auto md:flex-[802_802_0%]">
+              <div className="w-full sm:w-auto sm:flex-[802_802_0%]">
                 <CategoryCard category={card4} variant="feature" />
               </div>
             </div>

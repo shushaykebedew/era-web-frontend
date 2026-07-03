@@ -74,7 +74,7 @@ function PhotoCard({ photo }: { photo: GalleryPhoto }) {
   return (
     <div
       className="relative w-full overflow-hidden"
-      style={{ height: `${photo.height}px` }}
+      style={{ height: `clamp(120px, ${photo.height / 10}vw, ${photo.height}px)` }}
     >
       <Image
         src={photo.src}

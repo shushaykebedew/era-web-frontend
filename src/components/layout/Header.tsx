@@ -38,7 +38,7 @@ export function Header() {
   return (
     <>
       <header
-        className="relative w-full backdrop-blur-md bg-background/80 border-b border-primary/30 h-20"
+        className="relative w-full backdrop-blur-md bg-background/80 border-b border-primary/30 h-16 lg:h-20"
         style={{ zIndex: 40 }}
       >
         <Container
@@ -49,13 +49,13 @@ export function Header() {
           {/* Logo */}
           <Link
             href="/"
-            className="font-display text-[32px] xl:text-[48px] font-bold tracking-[-2.4] leading-[18px] xl:leading-[52px] text-[#EBC166]"
+            className="font-display text-2xl lg:text-[32px] xl:text-[48px] font-bold tracking-[-2.4] leading-[18px] xl:leading-[52px] text-[#EBC166]"
           >
             {siteConfig.name}
           </Link>
 
           {/* Desktop nav */}
-          <nav className="hidden items-center gap-10 lg:flex">
+          <nav className="hidden items-center gap-4 lg:gap-6 xl:gap-10 lg:flex">
             {siteConfig.nav.map((link) => {
               const isActive =
                 link.href === "/"

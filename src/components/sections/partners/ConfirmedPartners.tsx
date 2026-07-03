@@ -37,7 +37,7 @@ function PartnerCard({
   image: string;
 }) {
   return (
-    <div className="group relative overflow-hidden h-[244px] w-[286px] bg-[#16130D] border border-[#4E4637]">
+    <div className="group relative overflow-hidden w-full aspect-[286/244] max-w-[286px] mx-auto sm:max-w-none bg-[#16130D] border border-[#4E4637]">
       {/* White overlay merged on top of the base fill */}
       {/* <div className="pointer-events-none absolute inset-0 bg-white/10 mix-blend-overlay" /> */}
 
@@ -69,7 +69,7 @@ export function ConfirmedPartners() {
       <Container>
         <div className="mb-10 flex flex-col justify-between gap-4 sm:flex-row sm:items-end">
           <div className="flex flex-col gap-2">
-            <h1 className="text-[42px] font-display font-semibold leading-14 text-[#EAE1D7]">
+            <h1 className="text-[28px] sm:text-[36px] lg:text-[42px] font-display font-semibold leading-tight lg:leading-14 text-[#EAE1D7]">
               Confirmed Partners
             </h1>
             <p className="text-[18px] leading-7 text-[#D1C5B2] max-w-[512px] font-inter">

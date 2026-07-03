@@ -17,7 +17,7 @@ export function CategoryCard({
     return (
       <Link
         href={href}
-        className="group relative flex min-h-[260px] sm:min-h-[300px] flex-col justify-end overflow-hidden bg-muted p-8 transition-transform duration-300 hover:-translate-y-1"
+        className="group relative flex min-h-[200px] sm:min-h-[260px] flex-col justify-end overflow-hidden bg-muted p-8 transition-transform duration-300 hover:-translate-y-1"
         style={
           category.coverImage
             ? {

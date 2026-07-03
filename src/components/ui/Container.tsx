@@ -1,10 +1,18 @@
 import { type ReactNode } from "react";
 import { cn } from "@/lib/cn";
 
+/**
+ * Size scale:
+ *  narrow  — page-hero text blocks, CTAs, forms (centered copy)
+ *  default — standard content sections
+ *  wide    — full-bleed grids, galleries, category cards
+ *
+ * All three grow at 2xl so content doesn't look isolated on 1920px+.
+ */
 const SIZE_STYLES = {
-  default: "max-w-7xl",
-  narrow: "max-w-4xl",
-  wide: "max-w-[1920px]",
+  narrow:  "max-w-4xl 2xl:max-w-6xl",
+  default: "max-w-7xl 2xl:max-w-screen-xl",
+  wide:    "max-w-screen-xl 2xl:max-w-screen-2xl",
 } as const;
 
 type ContainerProps = {
@@ -14,7 +22,6 @@ type ContainerProps = {
   as?: "div" | "section" | "article";
 };
 
-/** Centralized horizontal padding/max-width so layout stays consistent. */
 export function Container({
   children,
   className,
@@ -24,7 +31,7 @@ export function Container({
   return (
     <Tag
       className={cn(
-        "mx-auto w-full px-6 sm:px-8 lg:px-12",
+        "mx-auto w-full px-4 sm:px-6 lg:px-10 xl:px-12 2xl:px-16",
         SIZE_STYLES[size],
         className,
       )}

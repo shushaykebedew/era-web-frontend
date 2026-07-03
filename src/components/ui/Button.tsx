@@ -9,7 +9,7 @@ const VARIANT_STYLES = {
   primary:
     "bg-primary text-primary-foreground hover:bg-accent border border-primary",
   outline:
-    "bg-transparent text-foreground border border-border-strong hover:bg-primary hover:text-primary-foreground hover:border-primary",
+    "bg-transparent text-foreground border border-border-strong  hover:border-primary",
   ghost: "bg-transparent text-foreground-muted hover:text-primary",
 } as const;
 
