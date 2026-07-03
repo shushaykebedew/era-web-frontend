@@ -26,7 +26,9 @@ export function Header() {
   // Prevent background scroll and hide from screen readers when menu is open
   useEffect(() => {
     document.body.style.overflow = isMenuOpen ? "hidden" : "";
-    return () => { document.body.style.overflow = ""; };
+    return () => {
+      document.body.style.overflow = "";
+    };
   }, [isMenuOpen]);
 
   return (
@@ -38,7 +40,7 @@ export function Header() {
       >
         <Link
           href="/"
-          className="font-display text-[48px] font-bold tracking-[-2.4] leading-[52px] text-primary"
+          className="font-display text-[32px] xl:text-[48px] font-bold tracking-[-2.4] leading-[18px] xl:leading-[52px] text-[#EBC166]"
         >
           {siteConfig.name}
         </Link>
@@ -88,7 +90,7 @@ export function Header() {
           onClick={() => setIsMenuOpen((open) => !open)}
           className="text-foreground lg:hidden"
         >
-          <Menu className="h-7 w-7" strokeWidth={1.5} />
+          <img src="/icons/menu.svg" alt="" />
         </button>
       </Container>
 
@@ -129,7 +131,7 @@ function MobileMenu({
           onClick={onClose}
           className="text-foreground"
         >
-          <X className="h-7 w-7" strokeWidth={1.5} />
+          <img src="/icons/x-icon.svg" alt="" />
         </button>
       </Container>
 

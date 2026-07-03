@@ -1,3 +1,5 @@
+import type { AwardCategory } from "@/types";
+
 export function CategoryIcon({
   icon,
   className,

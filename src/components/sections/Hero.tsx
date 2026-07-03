@@ -17,11 +17,6 @@ export function Hero({
 }: HeroProps) {
   return (
     <section className="relative flex flex-1 flex-col justify-center overflow-hidden">
-      {/* <div
-        className="absolute inset-0 bg-gradient-to-b from-background/40 via-background/70 to-background"
-        aria-hidden
-      /> */}
-
       <Container
         size="wide"
         className="relative z-10 flex flex-col items-center text-center"

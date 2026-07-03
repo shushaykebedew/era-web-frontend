@@ -35,28 +35,26 @@ export function NomineeDetailShell({
   ];
 
   return (
-    <>
+    <div className="bg-background min-h-screen">
       {/* ── Fixed sub-nav ── */}
-      <nav className="fixed inset-x-0 top-0 z-50 flex h-14 items-center justify-between border-b border-border-strong bg-background/90 backdrop-blur-md px-6 lg:px-10">
-        {/* Logo */}
+      <nav className="fixed inset-x-0 top-0 z-50 flex h-20 items-center justify-between border-b border-[#EBC16633] bg-[#16130DCC] backdrop-blur-[10px] px-6 lg:px-10">
         <Link
           href="/"
-          className="font-display text-2xl font-bold tracking-tight text-primary"
+          className="font-display text-[32px] font-bold tracking-[1.6px] text-[#EBC166] leading-10"
         >
           {siteConfig.name}
         </Link>
 
-        {/* Tab switcher */}
-        <div className="flex items-center gap-6 text-[11px] font-inter font-semibold uppercase tracking-[1.5px]">
+        <div className="flex items-center gap-6">
           {tabs.map((tab) => (
             <button
               key={tab.id}
               onClick={() => setActiveTab(tab.id)}
               className={cn(
-                "pb-0.5 transition-colors",
+                "pb-0.5 transition-colors uppercase font-semibold text-[12px] leading-4 tracking-[1.8px] cursor-pointer",
                 activeTab === tab.id
-                  ? "border-b border-foreground text-foreground"
-                  : "text-foreground-muted hover:text-foreground",
+                  ? "border-b border-[#EBC166] text-[#EBC166]"
+                  : "text-[#EAE1D799] hover:text-[#EBC166]",
               )}
             >
               {tab.label}
@@ -64,57 +62,99 @@ export function NomineeDetailShell({
           ))}
         </div>
 
-        {/* Vote CTA */}
         <Button
           size="sm"
           variant="outline"
-          className="text-[10px] tracking-[1.5px]"
+          className="h-[34px] border-[#EBC1664D] text-[#EBC166] font-semibold text-[12px] leading-4 tracking-[1.8px]"
           onClick={() => setActiveTab("detail")}
         >
           Vote For This Project
         </Button>
       </nav>
 
-      {/* ── Main layout: sidebar + tab content ── */}
-      <div className="pt-14 bg-background min-h-screen">
-        <div className="mx-auto grid w-full max-w-[1920px] grid-cols-1 gap-0 px-6 lg:grid-cols-[320px_1fr] lg:gap-10 lg:px-10">
-          {/* Sidebar — sticky on desktop */}
-          <div className="lg:sticky lg:top-14 lg:h-[calc(100vh-3.5rem)] lg:overflow-y-auto">
-            <NomineeSidebar nominee={nominee} category={category} activeTab={activeTab} />
-          </div>
+      {/* ── Hero row: sidebar + cover image side by side ── */}
+      <div className="pt-20 px-6 lg:px-10">
+        <div className="grid grid-cols-1 lg:grid-cols-[448px_1fr] lg:gap-10">
+          {/* Sidebar */}
+          <NomineeSidebar
+            nominee={nominee}
+            category={category}
+            activeTab={activeTab}
+          />
 
-          {/* Tab content */}
-          <div className="min-w-0">
-            {activeTab === "detail" && <DetailTab nominee={nominee} />}
+          {/* Right — cover image (detail) or tab content top (awards/gallery) */}
+          <div className="min-w-0 py-10 lg:py-16">
+            {activeTab === "detail" && (
+              <div
+                className="relative overflow-hidden bg-background-elevated w-full max-w-[688px] max-h-[860px]"
+                style={{ height: "min(860px, 75vh)" }}
+              >
+                {nominee.coverImage ? (
+                  <img
+                    src={nominee.coverImage}
+                    alt={nominee.name}
+                    className="h-full w-full object-cover object-top"
+                  />
+                ) : (
+                  <div className="h-full w-full bg-background-elevated" />
+                )}
+                {/* Dot indicators */}
+                <div className="absolute bottom-5 left-1/2 -translate-x-1/2 flex gap-2">
+                  {[0, 1, 2].map((i) => (
+                    <span
+                      key={i}
+                      className={cn(
+                        "block h-1.5 rounded-full",
+                        i === 0
+                          ? "w-6 bg-primary"
+                          : "w-1.5 bg-foreground-muted/40",
+                      )}
+                    />
+                  ))}
+                </div>
+              </div>
+            )}
+
             {activeTab === "awards" && <AwardsTab nominee={nominee} />}
             {activeTab === "gallery" && (
-              <GalleryTab nominee={nominee} prevSlug={prevSlug} nextSlug={nextSlug} />
+              <GalleryTab
+                nominee={nominee}
+                prevSlug={prevSlug}
+                nextSlug={nextSlug}
+              />
             )}
           </div>
         </div>
       </div>
 
-      {/* ── Cast Your Vote — only on detail tab ── */}
+      {/* ── Below-fold: detail tab content — full width, normal page flow ── */}
       {activeTab === "detail" && (
-        <section className="bg-background border-t border-border-strong py-24 text-center">
-          <div className="mx-auto max-w-lg px-6">
-            <h2 className="font-display text-5xl font-bold leading-tight">
-              Cast Your Vote
-            </h2>
-            <p className="mx-auto mt-5 max-w-sm text-sm leading-7 text-foreground-muted">
-              Your voice defines the standard of excellence for the next generation of
-              Ethiopian architecture.
-            </p>
-            <Button
-              size="lg"
-              variant="primary"
-              className="mt-10 text-[11px] tracking-[1.5px] px-16"
-            >
-              Vote Now
-            </Button>
+        <>
+          <div className="px-6 lg:px-10">
+            <DetailTab nominee={nominee} />
           </div>
-        </section>
+
+          {/* Cast Your Vote */}
+          <section className="border-t border-border-strong py-24 text-center">
+            <div className="mx-auto max-w-[576px] px-6">
+              <h2 className="font-display text-[72px] leading-[72px] text-[#EAE1D7]">
+                Cast Your Vote
+              </h2>
+              <p className="mx-auto mt-5 text-base leading-6 text-[#D1C5B2CC] font-inter">
+                Your voice defines the standard of excellence for the next
+                generation of Ethiopian architecture.
+              </p>
+              <Button
+                size="lg"
+                variant="primary"
+                className="mt-10 text-base tracking-[6.4px] px-12 leading-6 bg-[#C9A24B]"
+              >
+                Vote Now
+              </Button>
+            </div>
+          </section>
+        </>
       )}
-    </>
+    </div>
   );
 }

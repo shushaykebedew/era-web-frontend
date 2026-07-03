@@ -4,9 +4,21 @@ import { siteConfig } from "@/config/site";
 import { Container } from "@/components/ui/Container";
 
 const SOCIAL_ICONS = [
-  { icon: Globe, href: siteConfig.social.website, label: "Website" },
-  { icon: Share2, href: siteConfig.social.share, label: "Share" },
-  { icon: Mail, href: siteConfig.social.email, label: "Email" },
+  {
+    href: siteConfig.social.website,
+    src: "/icons/globe-footer.svg",
+    label: "Website",
+  },
+  {
+    href: siteConfig.social.share,
+    src: "/icons/share.svg",
+    label: "Share",
+  },
+  {
+    href: siteConfig.social.email,
+    src: "/icons/email.svg",
+    label: "Email",
+  },
 ];
 
 export function Footer() {
@@ -36,14 +48,14 @@ export function Footer() {
         </p>
 
         <div className="mt-6 flex items-center gap-5">
-          {SOCIAL_ICONS.map(({ icon: Icon, href, label }) => (
+          {SOCIAL_ICONS.map(({ href, src, label }) => (
             <a
               key={label}
               href={href}
               aria-label={label}
-              className="text-primary h-10 w-10 flex items-center justify-center transition-opacity hover:opacity-70 border border-[#EBC16633]"
+              className="flex h-10 w-10 items-center justify-center border border-[#EBC16633] transition-opacity hover:opacity-70"
             >
-              <Icon className="h-5 w-5" strokeWidth={1.5} />
+              <img src={src} alt="" />
             </a>
           ))}
         </div>

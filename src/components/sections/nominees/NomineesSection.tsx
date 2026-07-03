@@ -7,6 +7,7 @@ import { NomineeCard } from "@/components/sections/NomineeCard";
 import { nominees } from "@/data/nominees";
 import { cn } from "@/lib/cn";
 import { SortSelect, type Sort } from "@/components/ui/SortSelect";
+import { Eyebrow } from "@/components/ui/Eyebrow";
 
 const FILTERS = ["All Projects", "Urban Estates", "Villa Retreats"] as const;
 type Filter = (typeof FILTERS)[number];
@@ -40,29 +41,25 @@ export function NomineesSection() {
     <>
       {/* ── Hero ── */}
       <section className="bg-background pt-40 pb-10">
-        <Container size="wide">
-          <Link
-            href="/awards"
-            className="mb-8 inline-flex items-center gap-2 text-base font-inter font-semibold uppercase tracking-[1.6px] leading-4 text-foreground-muted hover:text-primary transition-colors"
-          >
-            ← Back to Categories
-          </Link>
-          <div className="max-w-xl">
-            <p className="mb-3 flex items-center gap-2 text-[11px] font-inter font-semibold uppercase tracking-[2px] text-primary">
-              <span className="h-4 w-0.5 bg-primary" aria-hidden />
+        <Container size="narrow">
+          <div className="mb-6 flex items-center justify-center gap-3">
+            <span className="h-px w-8 bg-primary" aria-hidden />
+            <Eyebrow align="center" className="">
               Excellence in Architecture
-            </p>
-            <h1 className="font-display text-[64px] font-bold leading-[1.1] tracking-tight">
-              Residential
-              <br />
-              <span className="italic text-primary">Excellence Nominees</span>
-            </h1>
-            <p className="mt-5 max-w-sm text-sm leading-7 text-foreground-muted">
-              Celebrating homes that redefine modern living in Ethiopia. This
-              category honors projects that balance environmental context,
-              structural innovation, and cultural legacy.
-            </p>
+            </Eyebrow>
+            <span className="h-px w-8 bg-primary" aria-hidden />
           </div>
+
+          <h1 className="font-display text-[72px] font-bold leading-[72px] tracking-[-1.44px] text-[#EAE1D7] max-w-[728px]">
+            Residential
+            <br />
+            <span className="italic text-[#EBC166]">Excellence Nominees</span>
+          </h1>
+          <p className="mt-6 mb-20 max-w-[665px] text-[18px] leading-7.5 text-[#D1C5B2] font-inter">
+            Celebrating homes that redefine modern living in Ethiopia. This
+            category honors projects that balance environmental context,
+            structural innovation, and cultural legacy.
+          </p>
         </Container>
       </section>
 

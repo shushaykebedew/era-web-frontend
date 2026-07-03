@@ -1,9 +1,6 @@
-import Image from "next/image";
-import { Trophy, CheckCircle } from "lucide-react";
+import { Award, ShieldCheck, Leaf } from "lucide-react";
 import type { Nominee } from "@/types";
 import { cn } from "@/lib/cn";
-
-// ── Static data (scoped to this module) ─────────────────────────────────────
 
 const NOMINATION_STEPS = [
   {
@@ -16,7 +13,7 @@ const NOMINATION_STEPS = [
   {
     id: "jury",
     label: "Jury Reviewed",
-    date: "May 22, 2024",
+    date: "May 05, 2024",
     body: 'Technical site visit and presentation to the Grand Jury. Commended for thermal efficiency and "cultural resonance."',
     active: false,
   },
@@ -31,68 +28,40 @@ const NOMINATION_STEPS = [
 
 const STANDOUT_FEATURES = [
   {
-    icon: "A",
+    icon: "/icons/tower.svg",
     title: "Structural Integrity",
     body: "Innovative use of cross-laminated timber sourced locally, combined with reinforced concrete for seismic resilience.",
   },
   {
-    icon: "🌿",
+    icon: "/icons/leaf.svg",
     title: "Passive Cooling",
     body: "Harnessing natural airflows and deep shading to eliminate the need for mechanical cooling in Addis Ababa's climate.",
   },
 ];
 
-const STATUS_ROWS = [
-  { label: "Recognition", value: "Finalist 2024", gold: true },
-  { label: "Category", value: "Residential Excellence", gold: false },
-] as const;
-
-// ── AwardsTab ────────────────────────────────────────────────────────────────
-
 export function AwardsTab({ nominee }: { nominee: Nominee }) {
   return (
     <div className="flex flex-col gap-12 py-10 lg:py-16">
       {/* Finalist badge */}
-      <div className="flex items-center justify-center border border-border-strong bg-background-elevated py-12">
+      <div className="relative flex items-center justify-center border border-[#EBC16633] bg-background-elevated py-16">
+        <span className="absolute left-4 top-4 h-6 w-6 border-l border-t border-[#EBC16666]" />
+        <span className="absolute right-4 top-4 h-6 w-6 border-r border-t border-[#EBC16666]" />
+        <span className="absolute left-4 bottom-4 h-6 w-6 border-l border-b border-[#EBC16666]" />
+        <span className="absolute right-4 bottom-4 h-6 w-6 border-r border-b border-[#EBC16666]" />
         <div className="flex flex-col items-center gap-3 text-center">
-          <Trophy className="h-10 w-10 text-primary" strokeWidth={1.5} />
-          <p className="font-display text-[32px] font-bold text-primary">Finalist 2024</p>
-          <p className="text-[11px] font-inter font-semibold uppercase tracking-[2px] text-foreground-muted">
+          <img src="/icons/award-finalist.svg" alt="" />
+          <p className="font-display text-[48px] leading-14 tracking-[-2.4px] uppercase font-semibold text-[#EBC166]">
+            Finalist 2024
+          </p>
+          <p className="text-[12px] font-inter font-semibold uppercase tracking-[1.2px] text-[#F4EFE3] text-base">
             Ethiopia Real Estate Awards
-          </p>
-        </div>
-      </div>
-
-      {/* Status row */}
-      <div className="grid grid-cols-3 gap-4 border border-border-strong bg-background-elevated p-6">
-        {STATUS_ROWS.map(({ label, value, gold }) => (
-          <div key={label}>
-            <p className="text-[10px] font-inter font-semibold uppercase tracking-[1.5px] text-foreground-muted">
-              {label}
-            </p>
-            <p
-              className={cn(
-                "mt-1.5 text-[13px] font-semibold",
-                gold ? "text-primary" : "text-foreground",
-              )}
-            >
-              {value}
-            </p>
-          </div>
-        ))}
-        <div>
-          <p className="text-[10px] font-inter font-semibold uppercase tracking-[1.5px] text-foreground-muted">
-            Jury Status
-          </p>
-          <p className="mt-1.5 flex items-center gap-1.5 text-[13px] font-semibold text-foreground">
-            <CheckCircle className="h-3.5 w-3.5 text-primary" /> Verified
           </p>
         </div>
       </div>
 
       {/* Nomination Journey */}
       <div>
-        <h2 className="mb-8 font-display text-[28px] font-bold text-foreground">
+        <h2 className="mb-8 font-display text-[32px] font-semibold text-[#F4EFE3] leading-10 border-b border-[#EBC16633] pb-3">
           Nomination Journey
         </h2>
         <div className="relative flex flex-col border-l border-border-strong pl-6">
@@ -100,29 +69,43 @@ export function AwardsTab({ nominee }: { nominee: Nominee }) {
             <div key={step.id} className="relative pb-8 last:pb-0">
               <span
                 className={cn(
-                  "absolute -left-[25px] flex h-4 w-4 items-center justify-center rounded-full border-2",
+                  "absolute -left-6 top-1 flex h-4 w-4 items-center justify-center rounded-full",
                   step.active
-                    ? "border-primary bg-primary"
-                    : "border-foreground-muted bg-background",
+                    ? "border-2 border-primary bg-background"
+                    : "bg-transparent",
                 )}
-              />
+              >
+                <span
+                  className={cn(
+                    "rounded-full bg-primary",
+                    step.active ? "h-1.5 w-1.5" : "h-2.5 w-2.5",
+                  )}
+                />
+              </span>
               <p
                 className={cn(
-                  "text-[15px] font-display font-semibold",
-                  step.active ? "text-primary" : "text-foreground",
+                  "font-display leading-7.5",
+                  step.active
+                    ? "text-[#EBC166] text-[24px] font-semibold"
+                    : "text-[#F4EFE3] text-[20px] ",
                 )}
               >
                 {step.label}
               </p>
-              <p className="mt-0.5 text-[10px] font-inter text-foreground-muted">
+              <p
+                className={cn(
+                  "mt-0.5 text-[12px] font-inter font-semibold  leading-4 tracking-[1.2px]",
+                  step.active ? "text-[#EBC166CC] uppercase" : "text-[#D1C5B2]",
+                )}
+              >
                 {step.date}
               </p>
               <p
                 className={cn(
-                  "mt-2 text-[13px] leading-6",
+                  "mt-2 text-base font-inter",
                   step.active
-                    ? "font-semibold text-foreground"
-                    : "text-foreground-muted",
+                    ? "font-semibold text-[#F4EFE3] leading-6"
+                    : "text-[#D1C5B2] leading-4 ",
                 )}
               >
                 {step.body}
@@ -133,21 +116,21 @@ export function AwardsTab({ nominee }: { nominee: Nominee }) {
       </div>
 
       {/* Why It Stands Out */}
-      <div>
-        <h2 className="mb-6 font-display text-[28px] font-bold text-foreground">
+      <div className="mt-5">
+        <h2 className="mb-6 font-display font-semibold text-[#F4EFE3] text-[32px] leading-10">
           Why It Stands Out
         </h2>
-        <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
+        <div className="grid grid-cols-1 gap-8 sm:grid-cols-2">
           {STANDOUT_FEATURES.map((f) => (
             <div
               key={f.title}
-              className="border border-border-strong bg-background-elevated p-6"
+              className="border border-[#EBC1661A] bg-[#110E08] p-6"
             >
-              <span className="text-xl">{f.icon}</span>
-              <p className="mt-3 font-display text-[18px] font-semibold text-foreground">
+              <img src={f.icon} alt="" />
+              <p className="mt-3 font-display text-[20px] font-semibold text-[#F4EFE3] leading-7.5">
                 {f.title}
               </p>
-              <p className="mt-2 text-[12px] leading-6 text-foreground-muted">
+              <p className="mt-2 text-base leading-6 text-[#D1C5B2] font-inter ">
                 {f.body}
               </p>
             </div>
@@ -205,11 +188,10 @@ export function AwardsTab({ nominee }: { nominee: Nominee }) {
         <div className="flex gap-3" style={{ height: 200 }}>
           {nominee.gallery.slice(0, 2).map((src, i) => (
             <div key={i} className="relative flex-1 overflow-hidden">
-              <Image
+              <img
                 src={src}
                 alt={`${nominee.name} image ${i + 1}`}
-                fill
-                className="object-cover grayscale"
+                className="h-full w-full object-cover grayscale"
               />
             </div>
           ))}
