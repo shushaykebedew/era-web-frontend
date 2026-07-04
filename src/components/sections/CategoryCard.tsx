@@ -21,22 +21,22 @@ export function CategoryCard({
         style={
           category.coverImage
             ? {
-              backgroundImage: `url(${category.coverImage})`,
-              backgroundSize: "cover",
-              backgroundPosition: "center",
-            }
+                backgroundImage: `url(${category.coverImage})`,
+                backgroundSize: "cover",
+                backgroundPosition: "center",
+              }
             : undefined
         }
       >
         <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/30 to-transparent" />
         <div className="relative z-10">
-          <p className="mb-2 text-[12px] font-inter font-semibold uppercase tracking-[1.2px] leading-4 text-[#EBC166]">
+          <p className="mb-2 text-[12px] font-inter font-semibold uppercase tracking-[1.2px] leading-4 text-primary">
             {category.tagline}
           </p>
-          <h3 className="font-display text-[32px] text-[#EAE1D7] font-semibold leading-10 tracking-0">
+          <h3 className="font-display text-[32px] text-foreground font-semibold leading-10 tracking-0">
             {category.name}
           </h3>
-          <span className="mt-4 inline-flex items-center gap-2 text-[10px] uppercase tracking-[1px] text-[#EAE1D7B2] leading-[15px]">
+          <span className="mt-4 inline-flex items-center gap-2 text-[10px] uppercase tracking-[1px] text-foreground/70 leading-[15px] hover:text-primary">
             See Nominees
           </span>
         </div>
@@ -54,18 +54,18 @@ export function CategoryCard({
           icon={category.icon}
           className="h-6 w-6 xl:h-8 xl:w-8 text-primary"
         />
-        <p className="mt-12 font-inter  mb-2 text-[12px] font-semibold uppercase tracking-[1.2px] leading-4 text-[#EBC166]">
+        <p className="mt-12 font-inter  mb-2 text-[12px] font-semibold uppercase tracking-[1.2px] leading-4 text-primary">
           {category.tagline}
         </p>
-        <h3 className="mt-2 font-display text-[32px] font-bold leading-10 text-[#EAE1D7]">
+        <h3 className="mt-2 font-display text-[32px] font-bold leading-10 text-foreground">
           {category.name}
         </h3>
-        <p className="mt-3 text-base font-inter leading-6 text-[#D1C5B2]">
+        <p className="mt-3 text-base font-inter leading-6 text-foreground-muted">
           {category.description}
         </p>
       </div>
 
-      <span className="mt-8 inline-flex items-center gap-2 text-[12px] font-inter font-semibold tracking-[1.2px] text-[#EBC166]">
+      <span className="mt-8 inline-flex items-center gap-2 text-[12px] font-inter font-semibold tracking-[1.2px] text-primary">
         View Nominees
         <img
           src="/icons/forward-arrow.svg"

@@ -42,20 +42,16 @@ export function NomineesSection() {
       {/* ── Hero ── */}
       <section className="bg-background pt-40 pb-10">
         <Container size="narrow">
-          <div className="mb-6 flex items-center justify-center gap-3">
-            <span className="h-px w-8 bg-primary" aria-hidden />
-            <Eyebrow align="center" className="">
-              Excellence in Architecture
-            </Eyebrow>
-            <span className="h-px w-8 bg-primary" aria-hidden />
-          </div>
+          <Eyebrow align="center" className="">
+            Excellence in Architecture
+          </Eyebrow>
 
-          <h1 className="font-display text-[40px] sm:text-[56px] lg:text-[72px] font-bold leading-tight lg:leading-[72px] tracking-tight lg:tracking-[-1.44px] text-[#EAE1D7] max-w-[728px]">
+          <h1 className="text-center mx-auto font-display text-[40px] sm:text-[56px] lg:text-[72px] font-bold leading-tight lg:leading-[72px] tracking-tight lg:tracking-[-1.44px] text-foreground w-full max-w-full lg:max-w-[728px]">
             Residential
             <br />
-            <span className="italic text-[#EBC166]">Excellence Nominees</span>
+            <span className="italic text-primary">Excellence Nominees</span>
           </h1>
-          <p className="mt-6 mb-20 max-w-[665px] text-[18px] leading-7.5 text-[#D1C5B2] font-inter">
+          <p className="text-center mx-auto mt-6 mb-12 sm:mb-20 w-full max-w-full lg:max-w-[665px] text-base sm:text-[18px] leading-7 text-foreground-muted font-inter">
             Celebrating homes that redefine modern living in Ethiopia. This
             category honors projects that balance environmental context,
             structural innovation, and cultural legacy.
@@ -66,7 +62,7 @@ export function NomineesSection() {
       {/* ── Filter bar ── */}
       <section className="bg-background py-6 border-b border-border-strong">
         <Container size="wide">
-          <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
+          <div className="flex flex-col gap-4 md:flex-row md:items-center md:justify-between">
             <div className="flex flex-wrap items-center gap-4 sm:gap-8">
               {FILTERS.map((f) => (
                 <button
@@ -115,7 +111,7 @@ export function NomineesSection() {
             {hasMore && (
               <button
                 onClick={() => setPage((p) => p + 1)}
-                className="border border-border-strong px-10 h-[58px] text-base cursor-pointer font-inter uppercase tracking-[1.5px] text-foreground hover:border-primary hover:text-primary transition-colors"
+                className="w-full sm:w-auto border border-border-strong px-6 sm:px-10 min-h-[48px] sm:min-h-[58px] py-3 text-sm sm:text-base cursor-pointer font-inter uppercase tracking-[1.5px] text-foreground hover:border-primary hover:text-primary transition-colors"
               >
                 Discover More
               </button>

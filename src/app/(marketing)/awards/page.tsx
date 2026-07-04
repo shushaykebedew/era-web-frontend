@@ -12,7 +12,7 @@ export default function HomePage() {
   return (
     <>
       <div
-        className="relative -mt-20 flex flex-col bg-cover bg-center bg-no-repeat min-h-[600px] lg:h-[900px]"
+        className="relative -mt-20 flex flex-col bg-cover bg-center bg-no-repeat min-h-[480px] sm:min-h-[600px] lg:min-h-[900px] w-full"
         style={{
           backgroundImage: "url(/imgs/hero-image.png)",
         }}

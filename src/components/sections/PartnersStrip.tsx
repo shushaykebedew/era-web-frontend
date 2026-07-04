@@ -4,7 +4,7 @@ import { Container } from "@/components/ui/Container";
 export function PartnersStrip({ partners }: { partners: Partner[] }) {
   return (
     <section className="bg-[#16130D] py-16">
-      <Container>
+      <Container size="wide">
         <p className="mb-10 text-center text-xs font-semibold uppercase tracking-[0.3em] text-foreground-muted">
           Distinguished Partners
         </p>

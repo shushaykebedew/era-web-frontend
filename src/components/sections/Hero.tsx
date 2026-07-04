@@ -3,6 +3,7 @@ import { siteConfig } from "@/config/site";
 import { Container } from "@/components/ui/Container";
 import { Button } from "@/components/ui/Button";
 import { Eyebrow } from "@/components/ui/Eyebrow";
+import { cn } from "@/lib/cn";
 
 type HeroProps = {
   eyebrow?: string;
@@ -21,19 +22,17 @@ export function Hero({
         size="wide"
         className="relative z-10 flex flex-col items-center text-center"
       >
-        <Eyebrow
-          align="center"
-          className="mb-6 font-inter font-semibold text-[12px] border border-primary/40 py-1 px-4"
-        >
+        <p className="mb-6 mt-20 lg:mt-0 font-inter text-primary border border-primary text-[12px] font-inter font-semibold uppercase tracking-[3.6px] leading-4  py-1 px-4">
           {eyebrow}
-        </Eyebrow>
+        </p>
 
-        <h1 className="font-display text-4xl sm:text-5xl md:text-6xl lg:text-[72px] max-w-[806px] font-bold tracking-[-1.44px] leading-tight lg:leading-20">
+        <h1 className="font-display text-4xl sm:text-5xl md:text-6xl lg:text-[72px] w-full max-w-full lg:max-w-[806px] font-bold tracking-[-1.44px] leading-tight lg:leading-20">
           Celebrating Excellence in
-          <span className="text-primary italic">Ethiopian</span> Real Estate
+          <span className="text-primary italic pl-1">Ethiopian</span> Real
+          Estate
         </h1>
 
-        <p className="font-inter mt-6 max-w-[658px] text-base lg:text-[18px] leading-6 text-foreground-muted">
+        <p className="font-inter mt-6 w-full max-w-full md:max-w-[658px] text-sm sm:text-base lg:text-[18px] leading-6 text-foreground-muted">
           {description}
         </p>
 
@@ -51,19 +50,19 @@ export function Hero({
             href="/nominees"
             variant="outline"
             size="lg"
-            className="w-full sm:w-auto sm:min-w-[200px] h-[50px] text-[12px] font-semibold"
+            className="w-full sm:w-auto sm:min-w-[200px] h-12 text-[12px] font-semibold"
           >
             Explore Nominees
           </Button>
         </div>
       </Container>
 
-      <div className="absolute inset-x-0 bottom-8 z-10 flex items-end justify-center sm:bottom-12 opacity-50">
+      <div className="mt-8 mb-5 lg:mb-0 flex justify-center opacity-50 lg:absolute lg:inset-x-0 lg:bottom-8 lg:mt-0 lg:items-end lg:sm:bottom-12">
         <div className="flex max-h-20 flex-col items-center justify-between">
-          <p className="uppercase text-[10px] font-inter text-foreground leading-[15px] tracking-[1px]">
+          <p className="font-inter text-[10px] leading-[15px] tracking-[1px] uppercase text-foreground">
             Discover
           </p>
-          <img src="/imgs/Vertical Divider.png" alt="" className="w-0.5 h-12" />
+          <img src="/imgs/Vertical Divider.png" alt="" className="h-12 w-0.5" />
         </div>
       </div>
     </section>

@@ -43,14 +43,14 @@ export function AwardsTab({ nominee }: { nominee: Nominee }) {
   return (
     <div className="flex flex-col gap-12 py-10 lg:py-16">
       {/* Finalist badge */}
-      <div className="relative flex items-center justify-center border border-[#EBC16633] bg-background-elevated py-16">
-        <span className="absolute left-4 top-4 h-6 w-6 border-l border-t border-[#EBC16666]" />
-        <span className="absolute right-4 top-4 h-6 w-6 border-r border-t border-[#EBC16666]" />
-        <span className="absolute left-4 bottom-4 h-6 w-6 border-l border-b border-[#EBC16666]" />
-        <span className="absolute right-4 bottom-4 h-6 w-6 border-r border-b border-[#EBC16666]" />
+      <div className="relative flex items-center justify-center border border-primary/20 bg-background-elevated py-16">
+        <span className="absolute left-4 top-4 h-6 w-6 border-l border-t border-primary/40" />
+        <span className="absolute right-4 top-4 h-6 w-6 border-r border-t border-primary/40" />
+        <span className="absolute left-4 bottom-4 h-6 w-6 border-l border-b border-primary/40" />
+        <span className="absolute right-4 bottom-4 h-6 w-6 border-r border-b border-primary/40" />
         <div className="flex flex-col items-center gap-3 text-center">
           <img src="/icons/award-finalist.svg" alt="" />
-          <p className="font-display text-[32px] sm:text-[48px] leading-tight lg:leading-14 tracking-tight lg:tracking-[-2.4px] uppercase font-semibold text-[#EBC166]">
+          <p className="font-display text-[32px] sm:text-[48px] leading-tight lg:leading-14 tracking-tight lg:tracking-[-2.4px] uppercase font-semibold text-primary">
             Finalist 2024
           </p>
           <p className="text-[12px] font-inter font-semibold uppercase tracking-[1.2px] text-[#F4EFE3] text-base">
@@ -61,7 +61,7 @@ export function AwardsTab({ nominee }: { nominee: Nominee }) {
 
       {/* Nomination Journey */}
       <div>
-        <h2 className="mb-8 font-display text-[32px] font-semibold text-[#F4EFE3] leading-10 border-b border-[#EBC16633] pb-3">
+        <h2 className="mb-8 font-display text-[32px] font-semibold text-[#F4EFE3] leading-10 border-b border-primary/20 pb-3">
           Nomination Journey
         </h2>
         <div className="relative flex flex-col border-l border-border-strong pl-6">
@@ -140,13 +140,13 @@ export function AwardsTab({ nominee }: { nominee: Nominee }) {
 
       {/* Stats */}
       {(nominee.scaleSqm || nominee.completionDate) && (
-        <div className="grid grid-cols-2 gap-6 border-y border-[#EBC16633] py-10 sm:grid-cols-4">
+        <div className="grid grid-cols-2 gap-6 border-y border-primary/20 py-8 sm:py-10 sm:grid-cols-2 md:grid-cols-4">
           {nominee.scaleSqm && (
             <div>
               <p className="text-[12px] font-inter font-semibold uppercase tracking-[-0.6px] text-[#F4EFE3] leading-4">
                 Total Scale
               </p>
-              <p className="mt-1.5 font-display text-[28px] text-[#EBC166] leading-10">
+              <p className="mt-1.5 font-display text-2xl sm:text-[28px] text-[#EBC166] leading-10">
                 {nominee.scaleSqm.toLocaleString()}
                 <span className="ml-1 text-[12px] leading-4">m²</span>
               </p>
@@ -157,7 +157,7 @@ export function AwardsTab({ nominee }: { nominee: Nominee }) {
               <p className="text-[12px] font-inter font-semibold uppercase tracking-[-0.6px] text-[#F4EFE3] leading-4">
                 Completion
               </p>
-              <p className="mt-1.5 font-display text-[28px] text-[#EBC166] leading-10">
+              <p className="mt-1.5 font-display text-2xl sm:text-[28px] text-[#EBC166] leading-10">
                 {new Date(nominee.completionDate).getFullYear()}
               </p>
             </div>
@@ -180,14 +180,13 @@ export function AwardsTab({ nominee }: { nominee: Nominee }) {
           </div>
         </div>
       )}
-
       {/* Bottom image strip */}
       {nominee.gallery && nominee.gallery.length >= 2 && (
-        <div className="flex gap-2 sm:gap-4 h-[120px] sm:h-[200px]">
+        <div className="flex flex-col sm:flex-row w-full gap-2 sm:gap-4">
           {nominee.gallery.slice(0, 2).map((src, i) => (
             <div
               key={i}
-              className="relative flex-1 overflow-hidden border border-[#EBC1661A]"
+              className="relative h-56 sm:h-auto sm:aspect-[8/5] min-w-0 flex-1 overflow-hidden border border-[#EBC1661A]"
             >
               <img
                 src={src}

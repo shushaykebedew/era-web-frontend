@@ -1,17 +1,21 @@
-/**
- * Domain types shared across the app. Co-locating these keeps `data/*`
- * fixtures, server fetchers, and components in sync as the schema evolves —
- * when the design firms up (e.g. a real CMS/API), only `data/` and these
- * types need to change; components consuming them stay the same.
- */
-
 export type AwardCategory = {
   slug: string;
   name: string;
-  group: "Residential" | "Commercial" | "Sustainability" | "Culture" | "Interior" | "Emerging";
+  group:
+    | "Residential"
+    | "Commercial"
+    | "Sustainability"
+    | "Culture"
+    | "Interior"
+    | "Emerging";
   tagline: string;
   description: string;
-  icon: "cat-icon-1" | "cat-icon-2" | "cat-icon-3" | "cat-icon-4" | "cat-icon-5";
+  icon:
+    | "cat-icon-1"
+    | "cat-icon-2"
+    | "cat-icon-3"
+    | "cat-icon-4"
+    | "cat-icon-5";
   nomineeCount: number;
   coverImage?: string;
 };
@@ -34,18 +38,6 @@ export type Nominee = {
   quote?: string;
   achievements?: { title: string; description: string }[];
   votes?: number;
-};
-
-export type TimelineMilestone = {
-  period: string;
-  title: string;
-  description: string;
-  icon: "draft" | "gavel" | "vote" | "gala" | "trophy";
-};
-
-export type ValuePillar = {
-  title: string;
-  description: string;
 };
 
 export type Partner = {

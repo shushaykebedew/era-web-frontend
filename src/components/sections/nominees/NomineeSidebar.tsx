@@ -35,20 +35,20 @@ export function NomineeSidebar({
       : "Best Residential";
 
   return (
-    <aside className="flex flex-col gap-6 py-10 lg:py-16 lg:pr-10">
+    <aside className="flex flex-col gap-6 py-10 lg:py-16 lg:pr-10 lg:mt-20">
       {/* Eyebrow */}
-      <p className="flex items-center gap-2 text-[12px] font-inter font-semibold uppercase tracking-[3px] text-[#EBC166] leading-4">
+      <p className="flex items-center gap-2 text-[12px] font-inter font-semibold uppercase tracking-[3px] text-primary leading-4">
         <span className="h-4 w-0.5 bg-primary shrink-0" aria-hidden />
         {eyebrow}
       </p>
 
       {/* Name */}
       <div>
-        <h1 className="font-display text-[32px] sm:text-[40px] lg:text-[48px] font-semibold leading-tight lg:leading-15 text-[#F4EFE3]">
+        <h1 className="font-display text-[32px] sm:text-[40px] lg:text-[48px] font-semibold leading-tight lg:leading-15 text-foreground">
           {nominee.name}
         </h1>
 
-        <p className="mt-2 text-[12px] font-inter uppercase tracking-[1.5px] text-foreground">
+        <p className="mt-2 text-[12px] font-inter uppercase tracking-[1.5px] text-[#D1C5B2]">
           {nominee.firm}
         </p>
 
@@ -61,27 +61,27 @@ export function NomineeSidebar({
       </div>
 
       {/* Description */}
-      <p className="text-base leading-7 text-[#D1C5B2E5] font-inter">
+      <p className="text-base leading-7 text-foreground-muted font-inter">
         {nominee.description}
       </p>
 
       {/* Scale & Completion (Detail Tab) */}
       {activeTab === "detail" && (
-        <div className="flex gap-8 sm:gap-16 md:gap-24 lg:gap-40 mt-4 border-t border-border-strong pt-6">
+        <div className="flex flex-wrap gap-6 sm:gap-12 md:gap-16 lg:gap-16 xl:gap-24 2xl:gap-40 mt-4 border-t border-border-strong pt-6">
           <div>
-            <p className="text-[10px] font-inter uppercase tracking-[1px] leading-[15px] text-[#EBC166]">
+            <p className="text-[10px] font-inter uppercase tracking-[1px] leading-[15px] text-primary">
               Scale
             </p>
-            <p className="mt-1 font-inter text-base leading-6 text-[#EAE1D7]">
+            <p className="mt-1 font-inter text-base leading-6 text-foreground">
               4,500 SQM
             </p>
           </div>
 
           <div>
-            <p className="text-[10px] font-inter uppercase tracking-[1px] leading-[15px] text-[#EBC166]">
+            <p className="text-[10px] font-inter uppercase tracking-[1px] leading-[15px] text-primary">
               Completion
             </p>
-            <p className="mt-1 font-inter text-base leading-6 text-[#EAE1D7]">
+            <p className="mt-1 font-inter text-base leading-6 text-foreground">
               March, 2024
             </p>
           </div>
@@ -91,7 +91,7 @@ export function NomineeSidebar({
       {/* Gallery exploration label (Gallery Tab) */}
       {activeTab === "gallery" && (
         <div className="mt-4">
-          <p className="mb-3 text-[12px] font-inter font-semibold uppercase tracking-[1.2px] text-[#EBC166] leading-4">
+          <p className="mb-3 text-[12px] font-inter font-semibold uppercase tracking-[1.2px] text-primary leading-4">
             Gallery Exploration
           </p>
           <ul className="flex flex-col gap-2">
@@ -103,9 +103,9 @@ export function NomineeSidebar({
             ].map((item) => (
               <li
                 key={item}
-                className="flex items-center gap-2 text-[12px] text-[#D1C5B299] font-semibold leading-4 tracking-[1.2px]"
+                className="flex items-center gap-2 text-[12px] text-foreground-muted font-semibold leading-4 tracking-[1.2px]"
               >
-                <span className="h-2 w-2 rounded-full bg-[#EBC166] shrink-0" />
+                <span className="h-2 w-2 rounded-full bg-primary shrink-0" />
                 {item}
               </li>
             ))}
@@ -137,9 +137,7 @@ export function NomineeSidebar({
                 <p
                   className={cn(
                     "font-inter text-[12px] font-semibold leading-4 tracking-[1.2px]",
-                    row.variant === "gold"
-                      ? "text-[#EBC166]"
-                      : "text-[#F4EFE3]",
+                    row.variant === "gold" ? "text-primary" : "text-[#F4EFE3]",
                   )}
                 >
                   {row.value}
@@ -160,8 +158,8 @@ export function NomineeSidebar({
           Vote For This Project
         </Button>
         {activeTab === "detail" && (
-          <p className="text-[10px] font-inter leading-[15px] text-[#D1C5B299]">
-            voting closes in 14 days
+          <p className="text-[10px] font-inter leading-[15px] text-foreground-muted">
+            Voting closes in 14 days
           </p>
         )}
       </div>

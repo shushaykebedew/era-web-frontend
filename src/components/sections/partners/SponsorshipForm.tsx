@@ -51,10 +51,10 @@ export function SponsorshipForm({ selectedTier = "" }: SponsorshipFormProps) {
     >
       <Container size="narrow">
         <div className="text-left xl:text-center">
-          <h2 className="font-display text-[28px] sm:text-[32px] xl:text-[48px] font-semibold leading-tight xl:leading-14">
+          <h2 className="font-display text-[28px] sm:text-[32px] text-foreground xl:text-[48px] font-semibold leading-tight xl:leading-14">
             Request Sponsorship Package
           </h2>
-          <p className="mx-auto mt-4 max-w-[484px] text-base leading-6 text-[#D1C5B2] font-inter">
+          <p className="mx-auto mt-4 max-w-[484px] text-base leading-6 text-foreground-muted font-inter">
             Complete the form below to receive our detailed partnership brochure
             and schedule a private consultation with our directors.
           </p>
@@ -115,7 +115,7 @@ export function SponsorshipForm({ selectedTier = "" }: SponsorshipFormProps) {
                 type="submit"
                 variant="primary"
                 size="sm"
-                className="px-12 tracking-[3.6px] leading-4 bg-[#EBC166] h-12 font-bold font-inter text-[12px]"
+                className="px-12 tracking-[3.6px] leading-4 bg-primary h-12 font-bold font-inter text-[12px]"
               >
                 Send Request
               </Button>

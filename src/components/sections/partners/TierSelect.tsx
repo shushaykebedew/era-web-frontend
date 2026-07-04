@@ -143,7 +143,7 @@ export function TierSelect({
                 }}
                 className={cn(
                   "flex cursor-pointer items-center justify-between px-4 py-3 text-sm uppercase tracking-[0.5px] font-inter transition-colors",
-                  isActive ? "bg-[#EBC166]/10 text-primary" : "text-[#D1C5B2]",
+                  isActive ? "bg-primary/10 text-primary" : "text-[#D1C5B2]",
                   isSelected && "text-primary",
                 )}
               >

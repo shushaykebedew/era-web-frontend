@@ -1,23 +1,15 @@
 @import "tailwindcss";
 
-/*
- * Design tokens
- * -----------------------------------------------------------------------
- * Single source of truth for the visual theme. Update the values here to
- * re-theme the entire product. Components should always consume the
- * semantic Tailwind utilities (bg-primary, text-foreground, etc.) that are
- * generated from these tokens below, rather than raw color values.
- */
 :root {
   /* Base surfaces */
   --background: #15110c; /* primary app background (near-black warm) */
   --background-elevated: #1c1712; /* cards, raised panels */
   --background-muted: #100d09; /* footer / recessed sections */
-  --foreground: #f5f1e8; /* primary text on dark surfaces */
-  --foreground-muted: #b8b0a2; /* secondary text */
+  --foreground: #eae1d7; /* primary text on dark surfaces */
+  --foreground-muted: #d1c5b2; /* secondary text */
 
   /* Brand */
-  --primary: #c9a24b; /* gold — primary actions, links, accents */
+  --primary: #ebc166; /* gold — primary actions, links, accents */
   --primary-foreground: #15110c;
   --secondary: #8a6d3b; /* deeper bronze, secondary emphasis */
   --secondary-foreground: #f5f1e8;
@@ -64,13 +56,15 @@
   --color-danger: var(--danger);
 
   --font-display: var(--font-playfair), Georgia, "Times New Roman", serif;
-  --font-sans: var(--font-inter), system-ui, -apple-system, "Segoe UI", sans-serif;
+  --font-sans:
+    var(--font-inter), system-ui, -apple-system, "Segoe UI", sans-serif;
 
   --radius-DEFAULT: var(--radius);
 }
 
 html {
   overflow-x: hidden;
+  max-width: 100%;
 }
 
 body {
@@ -78,6 +72,8 @@ body {
   color: var(--foreground);
   font-family: var(--font-sans-family);
   overflow-x: hidden;
+  max-width: 100%;
+  min-width: 320px;
 }
 
 .text-balance {

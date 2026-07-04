@@ -16,7 +16,7 @@ export function NewsletterCta({
         <h2 className="font-display font-semibold text-[32px] sm:text-[40px] lg:text-[48px] leading-tight lg:leading-14">
           {title}
         </h2>
-        <p className="mx-auto mt-4 max-w-[630px] text-base leading-6 text-[#D1C5B2]">
+        <p className="mx-auto mt-4 max-w-[630px] text-base leading-6 text-foreground-muted">
           {description}
         </p>
 
@@ -29,11 +29,11 @@ export function NewsletterCta({
             type="email"
             required
             placeholder="Email Address"
-            className="w-full border border-[#EBC16666] font-inter bg-[#1F1B15] px-4 h-[50px] text-base text-foreground placeholder:text-[#D1C5B280] focus:border-primary focus:outline-none"
+            className="w-full border border-primary/40 font-inter bg-[#1F1B15] px-4 h-[50px] text-base text-foreground placeholder:text-[#D1C5B280] focus:border-primary focus:outline-none"
           />
           <Button
             type="submit"
-            className="shrink-0 cursor-pointer bg-[#EBC166] font-inter text-[#402D00] font-bold text-[12px] leading-4 tracking-[1.2px]"
+            className="shrink-0 cursor-pointer bg-primary font-inter text-[#402D00] font-bold text-[12px] leading-4 tracking-[1.2px]"
           >
             Request Invite
           </Button>

@@ -44,12 +44,12 @@ export function Header() {
         <Container
           as="div"
           size="wide"
-          className="flex items-center justify-between h-full"
+          className="flex min-w-0 items-center justify-between h-full gap-3"
         >
           {/* Logo */}
           <Link
             href="/"
-            className="font-display text-2xl lg:text-[32px] xl:text-[48px] font-bold tracking-[-2.4] leading-[18px] xl:leading-[52px] text-[#EBC166]"
+            className="shrink-0 font-display text-xl sm:text-2xl lg:text-[32px] xl:text-[48px] font-bold tracking-[-2.4] leading-tight xl:leading-[52px] text-[#C9A24B]"
           >
             {siteConfig.name}
           </Link>
@@ -87,7 +87,7 @@ export function Header() {
               href={siteConfig.voteCta.href}
               size="sm"
               variant="outline"
-              className="text-primary text-base w-[165px]"
+              className="text-primary text-base w-auto min-w-0 px-4 xl:px-6 xl:min-w-[165px]"
             >
               {siteConfig.voteCta.label}
             </Button>
@@ -120,7 +120,7 @@ export function Header() {
         style={{ backgroundColor: "#16130D", zIndex: 9999 }}
       >
         {/* Close button */}
-        <div className="flex justify-end px-6 py-6">
+        <div className="flex justify-end px-4 py-6 sm:px-6">
           <button
             type="button"
             aria-label="Close menu"
@@ -147,7 +147,7 @@ export function Header() {
                 aria-current={isActive ? "page" : undefined}
                 className={cn(
                   "font-display text-[32px] font-semibold transition-colors hover:text-primary",
-                  isActive ? "text-[#EBC166]" : "text-[#EAE1D7CC]",
+                  isActive ? "text-primary" : "text-[#EAE1D7CC]",
                 )}
               >
                 {link.label}

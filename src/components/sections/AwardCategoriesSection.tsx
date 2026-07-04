@@ -29,7 +29,7 @@ export function AwardCategoriesSection({
             />
             <Link
               href="/categories"
-              className="flex gap-1 items-center text-[12px] font-inter font-semibold uppercase tracking-[1.2px] text-[#EBC166] leading-4 hover:opacity-80 shrink-0"
+              className="flex gap-1 items-center text-[12px] font-inter font-semibold uppercase tracking-[1.2px] text-primary leading-4 hover:opacity-80 shrink-0"
             >
               View All Categories
               <img

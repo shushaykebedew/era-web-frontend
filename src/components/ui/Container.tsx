@@ -10,9 +10,9 @@ import { cn } from "@/lib/cn";
  * All three grow at 2xl so content doesn't look isolated on 1920px+.
  */
 const SIZE_STYLES = {
-  narrow:  "max-w-4xl 2xl:max-w-6xl",
+  narrow: "max-w-4xl 2xl:max-w-6xl",
   default: "max-w-7xl 2xl:max-w-screen-xl",
-  wide:    "max-w-screen-xl 2xl:max-w-screen-2xl",
+  wide: "max-w-screen-xl 2xl:max-w-screen-2xl",
 } as const;
 
 type ContainerProps = {
@@ -31,7 +31,7 @@ export function Container({
   return (
     <Tag
       className={cn(
-        "mx-auto w-full px-4 sm:px-6 lg:px-10 xl:px-12 2xl:px-16",
+        "mx-auto w-full min-w-0 px-4 sm:px-6 md:px-8 lg:px-10 xl:px-12 2xl:px-16",
         SIZE_STYLES[size],
         className,
       )}

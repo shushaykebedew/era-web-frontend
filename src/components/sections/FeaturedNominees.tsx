@@ -6,7 +6,7 @@ import { NomineeCard } from "./NomineeCard";
 export function FeaturedNominees({ nominees }: { nominees: Nominee[] }) {
   return (
     <section className="bg-[#1F1B15] py-24">
-      <Container>
+      <Container size="wide">
         <SectionHeading
           title="Featured Nominees"
           description="The projects currently leading the polls across all major categories."

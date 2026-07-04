@@ -35,26 +35,26 @@ export function NomineeDetailShell({
   ];
 
   return (
-    <div className="bg-background min-h-screen">
+    <div className="bg-background min-h-screen w-full overflow-x-hidden">
       {/* ── Fixed sub-nav ── */}
-      <nav className="fixed inset-x-0 top-0 z-50 flex h-20 items-center justify-between border-b border-[#EBC16633] bg-[#16130DCC] backdrop-blur-[10px] px-6 lg:px-10">
+      <nav className="fixed inset-x-0 top-0 z-50 flex h-16 sm:h-20 min-w-0 items-center justify-between gap-2 border-b border-primary/20 bg-[#16130DCC] backdrop-blur-[10px] px-4 sm:px-6 lg:px-10">
         <Link
           href="/"
-          className="font-display text-[32px] font-bold tracking-[1.6px] text-[#EBC166] leading-10"
+          className="shrink-0 font-display text-xl sm:text-2xl lg:text-[32px] font-bold tracking-[1.6px] text-primary leading-tight lg:leading-10"
         >
           {siteConfig.name}
         </Link>
 
-        <div className="flex items-center gap-6">
+        <div className="flex min-w-0 flex-1 items-center justify-center gap-3 overflow-x-auto sm:gap-6 px-1 sm:px-2 [-ms-overflow-style:none] [scrollbar-width:none] [&::-webkit-scrollbar]:hidden">
           {tabs.map((tab) => (
             <button
               key={tab.id}
               onClick={() => setActiveTab(tab.id)}
               className={cn(
-                "pb-1 transition-colors uppercase font-semibold text-[12px] leading-4 tracking-[1.8px] cursor-pointer",
+                "shrink-0 pb-1 transition-colors uppercase font-semibold text-[10px] sm:text-[12px] leading-4 tracking-[1.8px] cursor-pointer whitespace-nowrap",
                 activeTab === tab.id
-                  ? "border-b border-[#EBC166] text-[#EBC166]"
-                  : "text-[#EAE1D799] hover:text-[#EBC166]",
+                  ? "border-b border-primary text-primary"
+                  : "text-[#EAE1D799] hover:text-primary",
               )}
             >
               {tab.label}
@@ -65,7 +65,7 @@ export function NomineeDetailShell({
         <Button
           size="sm"
           variant="outline"
-          className="hidden sm:inline-flex h-[34px] border-[#EBC1664D] text-[#EBC166] font-semibold text-[12px] leading-4 tracking-[1.8px]"
+          className="hidden sm:inline-flex shrink-0 h-8 sm:h-[34px] border-[#EBC1664D] text-primary font-semibold text-[10px] sm:text-[12px] leading-4 tracking-[1.8px] whitespace-nowrap"
           onClick={() => setActiveTab("detail")}
         >
           Vote For This Project
@@ -73,8 +73,8 @@ export function NomineeDetailShell({
       </nav>
 
       {/* ── Hero row: sidebar + cover image side by side ── */}
-      <div className="pt-20 px-6 lg:px-10">
-        <div className="grid grid-cols-1 lg:grid-cols-[448px_1fr] lg:gap-10">
+      <div className="pt-16 sm:pt-20 px-4 sm:px-6 lg:px-10">
+        <div className="grid grid-cols-1 lg:grid-cols-[478fr_688fr] gap-6 lg:gap-10 ">
           {/* Sidebar */}
           <NomineeSidebar
             nominee={nominee}
@@ -85,10 +85,7 @@ export function NomineeDetailShell({
           {/* Right — cover image (detail) or tab content top (awards/gallery) */}
           <div className="min-w-0 py-10 lg:py-16">
             {activeTab === "detail" && (
-              <div
-                className="relative overflow-hidden bg-background-elevated w-full max-w-[688px] max-h-[860px]"
-                style={{ height: "min(860px, 75vh)" }}
-              >
+              <div className="relative w-full max-w-full lg:max-w-[688px] overflow-hidden bg-background-elevated aspect-[4/5] sm:aspect-[3/4] lg:aspect-auto lg:max-h-[860px] lg:h-[min(860px,75vh)]">
                 {nominee.coverImage ? (
                   <img
                     src={nominee.coverImage}
@@ -130,17 +127,17 @@ export function NomineeDetailShell({
       {/* ── Below-fold: detail tab content — full width, normal page flow ── */}
       {activeTab === "detail" && (
         <>
-          <div className="px-6 lg:px-10">
+          <div className="px-4 sm:px-6 lg:px-10">
             <DetailTab nominee={nominee} />
           </div>
 
           {/* Cast Your Vote */}
-          <section className="border-t border-border-strong py-24 text-center">
-            <div className="mx-auto max-w-[576px] px-6">
-              <h2 className="font-display text-[40px] sm:text-[56px] lg:text-[72px] leading-tight lg:leading-[72px] text-[#EAE1D7]">
+          <section className="border-t border-border-strong py-16 sm:py-24 text-center">
+            <div className="mx-auto w-full max-w-full sm:max-w-xl lg:max-w-[576px] 2xl:max-w-full px-4 sm:px-6">
+              <h2 className="font-display text-[40px] sm:text-[56px] lg:text-[72px] leading-tight lg:leading-[72px] text-foreground">
                 Cast Your Vote
               </h2>
-              <p className="mx-auto mt-5 text-base leading-6 text-[#D1C5B2CC] font-inter">
+              <p className="mx-auto mt-5 text-base leading-6 text-foreground-muted font-inter">
                 Your voice defines the standard of excellence for the next
                 generation of Ethiopian architecture.
               </p>

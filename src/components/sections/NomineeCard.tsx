@@ -41,7 +41,7 @@ export function NomineeCard({ nominee, variant = "grid" }: NomineeCardProps) {
           )}
         </Link>
         <div className="flex flex-1 flex-col p-6">
-          <h3 className="mt-1 font-display text-[32px] leading-10 font-semibold">
+          <h3 className="mt-1 font-display text-2xl sm:text-3xl lg:text-[32px] leading-tight lg:leading-10 font-semibold">
             <Link href={href} className="hover:text-primary">
               {nominee.name}
             </Link>
@@ -99,7 +99,7 @@ export function NomineeCard({ nominee, variant = "grid" }: NomineeCardProps) {
           <span className="h-4 w-0.5 bg-primary shrink-0" aria-hidden />
           {nominee.firm}
         </p>
-        <h3 className="mt-2 font-display text-[32px] leading-[1.2] font-semibold text-foreground">
+        <h3 className="mt-2 font-display text-2xl sm:text-3xl lg:text-[32px] leading-[1.2] font-semibold text-foreground">
           {nominee.name}
         </h3>
         <p className="mt-2 text-base leading-6 text-foreground-muted font-inter">

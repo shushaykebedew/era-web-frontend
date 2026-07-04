@@ -34,11 +34,14 @@ export function Countdown({
 
   return (
     <div className={className}>
-      <div className="flex justify-center gap-4 sm:gap-6 lg:gap-10 xl:gap-16 px-4">
+      <div className="flex justify-center gap-1.5 sm:gap-4 md:gap-6 lg:gap-10 xl:gap-16 px-2 sm:px-4 flex-wrap">
         {UNITS.map(({ key, label }, index) => (
-          <div key={key} className="flex items-start gap-4 sm:gap-6 lg:gap-10 xl:gap-16">
+          <div
+            key={key}
+            className="flex items-start gap-1.5 sm:gap-4 md:gap-6 lg:gap-10 xl:gap-16"
+          >
             <div className="text-center">
-              <div className="font-display text-[28px] sm:text-[40px] lg:text-[56px] xl:text-[72px] leading-none tracking-tight xl:tracking-[-1.44px] font-bold text-[#EBC166]">
+              <div className="font-display text-2xl sm:text-[40px] lg:text-[56px] xl:text-[72px] leading-none tracking-tight xl:tracking-[-1.44px] font-bold text-primary">
                 {pad2(countdown[key])}
               </div>
               <div className="mt-2 text-[9px] sm:text-[10px] xl:text-[12px] font-inter font-semibold uppercase leading-6 tracking-[1.2px] text-[#D1C5B299]">
@@ -47,7 +50,7 @@ export function Countdown({
             </div>
 
             {index < UNITS.length - 1 && (
-              <div className="font-display text-[28px] sm:text-[40px] lg:text-[56px] xl:text-[72px] leading-none tracking-tight xl:tracking-[-1.44px] font-bold text-[#EBC166]">
+              <div className="font-display text-2xl sm:text-[40px] lg:text-[56px] xl:text-[72px] leading-none tracking-tight xl:tracking-[-1.44px] font-bold text-primary">
                 :
               </div>
             )}

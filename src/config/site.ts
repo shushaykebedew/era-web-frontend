@@ -1,10 +1,3 @@
-/**
- * Central, non-visual site configuration.
- * Keeping this separate from `data/` lets us change brand-level constants
- * (name, nav links, social, ceremony date) from one place without touching
- * component code.
- */
-
 export type NavLink = {
   label: string;
   href: string;

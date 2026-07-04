@@ -8,12 +8,12 @@ const ACHIEVEMENT_ICONS = [
 
 export function DetailTab({ nominee }: { nominee: Nominee }) {
   return (
-    <div className="flex flex-col gap-16 py-16 border-t border-[#EBC1661A]">
+    <div className="flex flex-col gap-16 py-16 border-t border-primary/10">
       {/* ── Achievements + Quote ── */}
-      <div className="grid grid-cols-1 gap-12 lg:grid-cols-[448px_1fr]">
+      <div className="grid grid-cols-1 gap-12 lg:grid-cols-[minmax(280px,448px)_1fr] xl:grid-cols-[478fr_688fr]">
         {/* Left — Key Achievements (always shown) */}
         <div>
-          <p className="mb-6 text-[11px] font-inter leading-4 tracking-[3.3px] uppercase text-[#EBC166]">
+          <p className="mb-6 text-[11px] font-inter leading-4 tracking-[3.3px] uppercase text-primary">
             Key Achievements
           </p>
           {nominee.achievements && nominee.achievements.length > 0 ? (
@@ -69,9 +69,12 @@ export function DetailTab({ nominee }: { nominee: Nominee }) {
 
       {/* ── Gallery strip ── */}
       {nominee.gallery && nominee.gallery.length > 0 && (
-        <div className="flex gap-1.5 sm:gap-3 h-[160px] sm:h-[280px] lg:h-[360px]">
+        <div className="flex flex-col md:flex-row w-full gap-3 md:aspect-[16/5] lg:aspect-[16/4]">
           {nominee.gallery.map((src, i) => (
-            <div key={i} className="relative flex-1 overflow-hidden">
+            <div
+              key={i}
+              className="relative min-w-0 flex-1 overflow-hidden aspect-[16/9] md:aspect-auto"
+            >
               <img
                 src={src}
                 alt={`${nominee.name} — view ${i + 1}`}

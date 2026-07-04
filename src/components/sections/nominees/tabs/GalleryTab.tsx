@@ -28,7 +28,7 @@ function GalleryImg({
     >
       <img src={src} alt={label} className="h-full w-full object-cover" />
       <div className="absolute bottom-3 left-3 bg-[#16130D66] border border-[#EBC16633] py-1 px-2">
-        <p className="text-[12px] font-inter font-semibold uppercase tracking-[1.2px] leading-4 text-[#EBC166]">
+        <p className="text-[12px] font-inter font-semibold uppercase tracking-[1.2px] leading-4 text-primary">
           {label}
         </p>
       </div>
@@ -58,7 +58,7 @@ export function GalleryTab({
       <GalleryImg
         src={images[0].src}
         label={images[0].label}
-        heightClass="aspect-video sm:h-[360px]"
+        heightClass="aspect-video w-full"
         className="w-full"
       />
 
@@ -66,21 +66,21 @@ export function GalleryTab({
         <GalleryImg
           src={images[1].src}
           label={images[1].label}
-          heightClass="aspect-video sm:h-[240px]"
-          className="flex-1"
+          heightClass="aspect-video w-full"
+          className="flex-1 min-w-0"
         />
         <GalleryImg
           src={images[2].src}
           label={images[2].label}
-          heightClass="aspect-video sm:h-[240px]"
-          className="flex-1"
+          heightClass="aspect-video w-full"
+          className="flex-1 min-w-0"
         />
       </div>
 
       <GalleryImg
         src={images[3].src}
         label={images[3].label}
-        heightClass="aspect-video sm:h-[300px]"
+        heightClass="aspect-video w-full"
         className="w-full"
       />
 
@@ -88,20 +88,18 @@ export function GalleryTab({
         <GalleryImg
           src={images[4].src}
           label={images[4].label}
-          heightClass="aspect-video sm:h-[240px]"
-          className="flex-1"
+          heightClass="aspect-video w-full"
+          className="flex-1 min-w-0"
         />
         {/* Blueprint / technical drawing card */}
-        <div
-          className="relative flex-1 overflow-hidden bg-background-elevated border border-border-strong aspect-video sm:h-[240px]"
-        >
+        <div className="relative flex-1 min-w-0 overflow-hidden bg-background-elevated border border-border-strong aspect-video w-full">
           <img
             src={images[5].src}
             alt={images[5].label}
             className="h-full w-full object-cover opacity-40"
           />
           <div className="absolute bottom-3 left-3 bg-[#16130D66] border border-[#EBC16633] py-1 px-2">
-            <p className="text-[12px] font-inter font-semibold uppercase tracking-[1.2px] leading-4 text-[#EBC166]">
+            <p className="text-[12px] font-inter font-semibold uppercase tracking-[1.2px] leading-4 text-primary">
               MASTERPLAN | GEOMETRIC PURITY
             </p>
           </div>

@@ -50,21 +50,21 @@ export function PartnersTierCards({ onSelectTier }: PartnersTierCardsProps) {
   return (
     <section className="bg-background pt-12 pb-20">
       <Container>
-        <div className="grid grid-cols-1 gap-20 lg:gap-6 lg:grid-cols-3 sm:items-start">
+        <div className="grid grid-cols-1 gap-20 md:grid-cols-2 lg:gap-6 xl:grid-cols-3 sm:items-start">
           {TIERS.map((tier, index) => (
             <div
               key={tier.id}
               className={cn(
-                "relative flex h-auto min-h-[400px] w-full max-w-[392px] mx-auto lg:mx-0 lg:h-[512px] flex-col border p-6 sm:p-8 transition-all duration-300",
+                "relative flex h-auto min-h-[400px] w-full max-w-[392px] mx-auto lg:mx-0 h-[512px] flex-col border p-6 sm:p-8 transition-all duration-300",
                 tier.featured
-                  ? "border-[#EBC166] bg-[#16130D] sm:-translate-y-6 z-10 shadow-2xl shadow-black/40"
+                  ? "border-primary xl:-translate-y-6 z-10 shadow-[0px_25px_50px_-12px_#00000040] bg-[linear-gradient(0deg,#16130D,#16130D),radial-gradient(165.23%_125.62%_at_0%_0%,rgba(230,197,106,0.15)_0%,rgba(230,197,106,0)_50%)]"
                   : "border-border-strong bg-[#110E08]",
               )}
             >
               {/* Premier Partner badge */}
               {tier.featured && (
                 <div className="absolute -top-3.5 left-1/2 -translate-x-1/2">
-                  <span className="bg-[#EBC166] px-4 py-2 text-[12px] leading-4 font-inter font-bold uppercase tracking-[2.4px] text-[#16130D]">
+                  <span className="bg-primary px-4 py-2 text-[12px] leading-4 font-inter font-bold uppercase tracking-[2.4px] text-[#16130D] whitespace-nowrap">
                     Premier Partner
                   </span>
                 </div>
@@ -73,7 +73,7 @@ export function PartnersTierCards({ onSelectTier }: PartnersTierCardsProps) {
               <p
                 className={cn(
                   "mb-2 text-[12px] font-inter font-semibold uppercase tracking-[1.2px] leading-4",
-                  tier.featured ? "text-[#EBC166]" : "text-[#9A8F7E] ",
+                  tier.featured ? "text-primary" : "text-[#9A8F7E] ",
                 )}
               >
                 Tier 0{index + 1}
@@ -82,7 +82,7 @@ export function PartnersTierCards({ onSelectTier }: PartnersTierCardsProps) {
               <h2
                 className={cn(
                   "mb-5 font-display text-[32px] font-bold leading-10 ",
-                  tier.featured ? "text-[#EBC166]" : "text-[#EAE1D7]",
+                  tier.featured ? "text-primary" : "text-foreground",
                 )}
               >
                 {tier.label}
@@ -98,7 +98,7 @@ export function PartnersTierCards({ onSelectTier }: PartnersTierCardsProps) {
                     ) : (
                       <img
                         src="/icons/check-mark.svg"
-                        className="mt-0.5 h-3.5 w-3.5 shrink-0 text-[#EBC166]"
+                        className="mt-0.5 h-3.5 w-3.5 shrink-0 text-primary"
                       />
                     )}
 
@@ -106,8 +106,8 @@ export function PartnersTierCards({ onSelectTier }: PartnersTierCardsProps) {
                       className={cn(
                         "text-base font-inter ",
                         tier.featured
-                          ? "text-[#EAE1D7] font-medium leading-5"
-                          : "text-[#D1C5B2] leading-6",
+                          ? "text-foreground font-medium leading-5"
+                          : "text-foreground-muted leading-6",
                       )}
                     >
                       {benefit}

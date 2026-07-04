@@ -8,7 +8,6 @@ import { EDITIONS, FILTERS } from "@/types/gallery";
 import type { Edition, GalleryFilter, GalleryPhoto } from "@/types/gallery";
 import { galleryPhotos } from "@/data/gallery";
 
-
 // ── EditionSwitcher ───────────────────────────────────────────────────────────
 function EditionSwitcher({
   active,
@@ -28,7 +27,7 @@ function EditionSwitcher({
             key={yr}
             onClick={() => onChange(yr)}
             className={cn(
-              "font-display font-semibold transition-colors text-[32px] leading-10 cursor-pointer",
+              "font-display font-semibold transition-colors text-2xl sm:text-3xl lg:text-[32px] leading-tight lg:leading-10 cursor-pointer",
               yr === active
                 ? "text-primary border-b border-primary"
                 : "text-foreground-muted/40 hover:text-foreground-muted",
@@ -73,8 +72,10 @@ function FilterPills({
 function PhotoCard({ photo }: { photo: GalleryPhoto }) {
   return (
     <div
-      className="relative w-full overflow-hidden"
-      style={{ height: `clamp(120px, ${photo.height / 10}vw, ${photo.height}px)` }}
+      className="relative w-full overflow-hidden border border-[#4E4637]"
+      style={{
+        height: `clamp(120px, ${photo.height / 10}vw, ${photo.height}px)`,
+      }}
     >
       <Image
         src={photo.src}
@@ -132,7 +133,7 @@ export function GalleryGrid() {
       {/* Filters row */}
       <section className="bg-background pb-4 pt-8">
         <Container size="wide">
-          <div className="flex flex-col gap-6 sm:flex-row sm:items-center sm:justify-between">
+          <div className="flex flex-col gap-6 md:flex-row md:items-center md:justify-between">
             <EditionSwitcher active={edition} onChange={setEdition} />
             <FilterPills active={filter} onChange={setFilter} />
           </div>
