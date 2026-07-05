@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { NomineesSection } from "@/components/sections/nominees/NomineesSection";
+import { NomineesSection } from "@/features/nominees/NomineesSection";
 
 export const metadata: Metadata = {
   title: "Nominees",

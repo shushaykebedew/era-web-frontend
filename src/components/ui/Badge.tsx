@@ -1,4 +1,4 @@
-import { cn } from "@/lib/cn";
+import { cn } from "@/utils/cn";
 
 const VARIANT_STYLES = {
   nominee: "bg-primary text-primary-foreground",

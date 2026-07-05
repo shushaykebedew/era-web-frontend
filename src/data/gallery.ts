@@ -1,5 +1,8 @@
 import type { GalleryPhoto } from "@/types/gallery";
 
+export const EDITIONS = [2024, 2023, 2022] as const;
+export const FILTERS = ["All Moments", "Winners", "Ceremony", "Networking"] as const;
+
 /**
  * Gallery photo fixtures.
  * Heights per the Figma design spec (all widths are 384 px — handled by the grid).

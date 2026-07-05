@@ -1,11 +1,11 @@
 import type { Nominee } from "@/types";
 import { Container } from "@/components/ui/Container";
 import { SectionHeading } from "@/components/ui/SectionHeading";
-import { NomineeCard } from "./NomineeCard";
+import { NomineeCard } from "@/features/nominees/NomineeCard";
 
 export function FeaturedNominees({ nominees }: { nominees: Nominee[] }) {
   return (
-    <section className="bg-[#1F1B15] py-24">
+    <section className="bg-[#1F1B15] py-16 sm:py-20 lg:py-24">
       <Container size="wide">
         <SectionHeading
           title="Featured Nominees"

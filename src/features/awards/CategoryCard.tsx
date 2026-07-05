@@ -17,7 +17,7 @@ export function CategoryCard({
     return (
       <Link
         href={href}
-        className="group relative flex min-h-[200px] sm:min-h-[260px] flex-col justify-end overflow-hidden bg-muted p-8 transition-transform duration-300 hover:-translate-y-1"
+        className="group relative flex min-h-[200px] sm:min-h-[240px] lg:min-h-[260px] flex-col justify-end overflow-hidden bg-muted p-5 sm:p-6 lg:p-8 transition-transform duration-300 hover:-translate-y-1"
         style={
           category.coverImage
             ? {
@@ -33,7 +33,7 @@ export function CategoryCard({
           <p className="mb-2 text-[12px] font-inter font-semibold uppercase tracking-[1.2px] leading-4 text-primary">
             {category.tagline}
           </p>
-          <h3 className="font-display text-[32px] text-foreground font-semibold leading-10 tracking-0">
+          <h3 className="font-display text-2xl sm:text-[32px] text-foreground font-semibold leading-tight sm:leading-10 tracking-0">
             {category.name}
           </h3>
           <span className="mt-4 inline-flex items-center gap-2 text-[10px] uppercase tracking-[1px] text-foreground/70 leading-[15px] hover:text-primary">
@@ -47,7 +47,7 @@ export function CategoryCard({
   return (
     <Link
       href={href}
-      className="group flex flex-col min-h-[280px] lg:min-h-[400px] justify-between bg-[#16161A] hover:bg-[#252529] p-8 border border-[#252529] transition-colors duration-300"
+      className="group flex flex-col min-h-[280px] lg:min-h-[360px] xl:min-h-[400px] justify-between bg-[#16161A] hover:bg-[#252529] p-5 sm:p-6 lg:p-8 border border-[#252529] transition-colors duration-300"
     >
       <div>
         <CategoryIcon
@@ -57,7 +57,7 @@ export function CategoryCard({
         <p className="mt-12 font-inter  mb-2 text-[12px] font-semibold uppercase tracking-[1.2px] leading-4 text-primary">
           {category.tagline}
         </p>
-        <h3 className="mt-2 font-display text-[32px] font-bold leading-10 text-foreground">
+        <h3 className="mt-2 font-display text-2xl sm:text-[32px] font-bold leading-tight sm:leading-10 text-foreground">
           {category.name}
         </h3>
         <p className="mt-3 text-base font-inter leading-6 text-foreground-muted">

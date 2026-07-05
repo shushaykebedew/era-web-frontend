@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { getCountdown, pad2 } from "@/lib/date";
+import { getCountdown, pad2 } from "@/utils/date";
 
 const UNITS = [
   { key: "days", label: "Days" },

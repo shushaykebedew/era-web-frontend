@@ -8,16 +8,16 @@ const ACHIEVEMENT_ICONS = [
 
 export function DetailTab({ nominee }: { nominee: Nominee }) {
   return (
-    <div className="flex flex-col gap-16 py-16 border-t border-primary/10">
+    <div className="flex min-w-0 flex-col gap-12 sm:gap-16 py-12 sm:py-16 border-t border-primary/10">
       {/* ── Achievements + Quote ── */}
-      <div className="grid grid-cols-1 gap-12 lg:grid-cols-[minmax(280px,448px)_1fr] xl:grid-cols-[478fr_688fr]">
+      <div className="grid grid-cols-1 gap-12 lg:grid-cols-[minmax(0,448px)_minmax(0,1fr)] xl:grid-cols-[minmax(0,478fr)_minmax(0,688fr)]">
         {/* Left — Key Achievements (always shown) */}
         <div>
           <p className="mb-6 text-[11px] font-inter leading-4 tracking-[3.3px] uppercase text-primary">
             Key Achievements
           </p>
           {nominee.achievements && nominee.achievements.length > 0 ? (
-            <ul className="flex flex-col gap-6">
+            <ul className="flex min-w-0 flex-col gap-6">
               {nominee.achievements.map((item, i) => {
                 const icon = ACHIEVEMENT_ICONS[i % ACHIEVEMENT_ICONS.length];
                 return (
@@ -43,7 +43,7 @@ export function DetailTab({ nominee }: { nominee: Nominee }) {
         </div>
 
         {/* Right — Quote + two-col body */}
-        <div className="flex flex-col gap-6">
+        <div className="flex min-w-0 flex-col gap-6">
           {nominee.quote && (
             <blockquote className="font-display text-[28px] sm:text-[36px] lg:text-[48px] italic leading-tight lg:leading-12 text-[#EAE1D7E5] tracking-tight lg:tracking-[-1.2px]">
               &ldquo;{nominee.quote}&rdquo;
@@ -69,11 +69,11 @@ export function DetailTab({ nominee }: { nominee: Nominee }) {
 
       {/* ── Gallery strip ── */}
       {nominee.gallery && nominee.gallery.length > 0 && (
-        <div className="flex flex-col md:flex-row w-full gap-3 md:aspect-[16/5] lg:aspect-[16/4]">
+        <div className="grid w-full grid-cols-1 gap-3 md:grid-cols-3">
           {nominee.gallery.map((src, i) => (
             <div
               key={i}
-              className="relative min-w-0 flex-1 overflow-hidden aspect-[16/9] md:aspect-auto"
+              className="relative min-w-0 overflow-hidden aspect-[16/9] md:aspect-[4/3] lg:aspect-[16/9]"
             >
               <img
                 src={src}
@@ -93,7 +93,7 @@ export function DetailTab({ nominee }: { nominee: Nominee }) {
               )}
               {/* ADDIS / ETHIOPIA / FINALIST on first image */}
               {i === 0 && (
-                <div className="absolute bottom-4 left-3 flex gap-3">
+                <div className="absolute bottom-4 left-3 right-3 flex flex-wrap gap-3">
                   {["Addis", "Ethiopia", "Finalist"].map((label) => (
                     <span
                       key={label}

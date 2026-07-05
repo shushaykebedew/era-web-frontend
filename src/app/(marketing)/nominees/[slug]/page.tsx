@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { nominees, getNomineeBySlug } from "@/data/nominees";
 import { awardCategories } from "@/data/award-categories";
-import { NomineeDetailShell } from "@/components/sections/nominees/NomineeDetailShell";
+import { NomineeDetailShell } from "@/features/nominees/NomineeDetailShell";
 
 type NomineePageProps = { params: Promise<{ slug: string }> };
 

@@ -2,7 +2,7 @@
 
 import { useEffect, useRef, useState } from "react";
 import { TIERS, type TierId } from "./PartnersTierCards";
-import { cn } from "@/lib/cn";
+import { cn } from "@/utils/cn";
 
 type TierSelectProps = {
   value: TierId | "";
@@ -37,7 +37,7 @@ export function TierSelect({
   useEffect(() => {
     if (open) {
       const idx = TIERS.findIndex((t) => t.id === value);
-      setActiveIndex(idx >= 0 ? idx : 0);
+      queueMicrotask(() => setActiveIndex(idx >= 0 ? idx : 0));
     }
   }, [open, value]);
 

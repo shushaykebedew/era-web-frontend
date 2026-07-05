@@ -76,6 +76,17 @@ body {
   min-width: 320px;
 }
 
+* {
+  min-width: 0;
+}
+
+img,
+svg,
+video,
+canvas {
+  max-width: 100%;
+}
+
 .text-balance {
   text-wrap: balance;
 }

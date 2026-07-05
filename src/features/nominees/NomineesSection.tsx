@@ -3,9 +3,9 @@
 import { useEffect, useRef, useState } from "react";
 import Link from "next/link";
 import { Container } from "@/components/ui/Container";
-import { NomineeCard } from "@/components/sections/NomineeCard";
+import { NomineeCard } from "@/features/nominees/NomineeCard";
 import { nominees } from "@/data/nominees";
-import { cn } from "@/lib/cn";
+import { cn } from "@/utils/cn";
 import { SortSelect, type Sort } from "@/components/ui/SortSelect";
 import { Eyebrow } from "@/components/ui/Eyebrow";
 
@@ -40,7 +40,7 @@ export function NomineesSection() {
   return (
     <>
       {/* ── Hero ── */}
-      <section className="bg-background pt-40 pb-10">
+      <section className="bg-background pt-28 text-center pb-10 sm:pt-36 lg:pt-40">
         <Container size="narrow">
           <Eyebrow align="center" className="">
             Excellence in Architecture
@@ -63,7 +63,7 @@ export function NomineesSection() {
       <section className="bg-background py-6 border-b border-border-strong">
         <Container size="wide">
           <div className="flex flex-col gap-4 md:flex-row md:items-center md:justify-between">
-            <div className="flex flex-wrap items-center gap-4 sm:gap-8">
+            <div className="flex min-w-0 flex-wrap items-center gap-4 sm:gap-8">
               {FILTERS.map((f) => (
                 <button
                   key={f}
@@ -72,7 +72,7 @@ export function NomineesSection() {
                     setPage(1);
                   }}
                   className={cn(
-                    "text-base font-inter uppercase tracking-[1.6px] leading-4 pb-2 cursor-pointer transition-colors",
+                    "text-sm sm:text-base font-inter uppercase tracking-[1.2px] sm:tracking-[1.6px] leading-4 pb-2 cursor-pointer transition-colors",
                     f === filter
                       ? "text-foreground border-b-2 border-primary"
                       : "text-foreground-muted hover:text-foreground",
@@ -93,7 +93,7 @@ export function NomineesSection() {
       </section>
 
       {/* ── Grid ── */}
-      <section className="bg-background py-16">
+      <section className="bg-background py-12 sm:py-16">
         <Container size="wide">
           <div className="grid grid-cols-1 gap-x-6 gap-y-14 sm:grid-cols-2 lg:grid-cols-3">
             {visible.map((nominee) => (
@@ -105,7 +105,7 @@ export function NomineesSection() {
             ))}
           </div>
           <div className="mt-16 flex flex-col items-center gap-6">
-            <p className="text-base leading-6 font-inter uppercase tracking-[1.6px] text-foreground-muted">
+            <p className="text-center text-sm sm:text-base leading-6 font-inter uppercase tracking-[1.2px] sm:tracking-[1.6px] text-foreground-muted">
               Showing {visible.length} of {sorted.length} Excellence Nominees
             </p>
             {hasMore && (

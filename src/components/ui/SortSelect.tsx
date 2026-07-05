@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
-import { cn } from "@/lib/cn";
+import { cn } from "@/utils/cn";
 
 export const SORTS = ["Alphabetical", "Most Votes"] as const;
 export type Sort = (typeof SORTS)[number];
@@ -30,7 +30,7 @@ export function SortSelect({
   useEffect(() => {
     if (open) {
       const idx = SORTS.findIndex((s) => s === value);
-      setActiveIndex(idx >= 0 ? idx : 0);
+      queueMicrotask(() => setActiveIndex(idx >= 0 ? idx : 0));
     }
   }, [open, value]);
 
@@ -69,7 +69,7 @@ export function SortSelect({
   }
 
   return (
-    <div ref={rootRef} className="relative flex items-center gap-4">
+    <div ref={rootRef} className="relative flex flex-wrap items-center gap-x-4 gap-y-2">
       <span className="text-[12px] font-inter uppercase tracking-[1.6px] leading-4 text-foreground-muted">
         Sort By:
       </span>
@@ -82,7 +82,7 @@ export function SortSelect({
         aria-controls="sort-listbox"
         onClick={() => setOpen((o) => !o)}
         onKeyDown={handleKeyDown}
-        className="flex items-center gap-1.5 bg-transparent text-base font-inter uppercase tracking-[1.2px] text-primary outline-none cursor-pointer"
+        className="flex items-center gap-1.5 bg-transparent text-sm sm:text-base font-inter uppercase tracking-[1.2px] text-primary outline-none cursor-pointer"
       >
         {value}
         <svg
@@ -110,7 +110,7 @@ export function SortSelect({
           id="sort-listbox"
           role="listbox"
           tabIndex={-1}
-          className="absolute right-0 top-full z-20 mt-2 min-w-[160px] overflow-hidden border border-border-strong bg-background-elevated shadow-[0_12px_32px_rgba(0,0,0,0.5)]"
+          className="absolute left-0 sm:left-auto sm:right-0 top-full z-20 mt-2 min-w-[160px] overflow-hidden border border-border-strong bg-background-elevated shadow-[0_12px_32px_rgba(0,0,0,0.5)]"
         >
           {SORTS.map((s, i) => {
             const isSelected = s === value;

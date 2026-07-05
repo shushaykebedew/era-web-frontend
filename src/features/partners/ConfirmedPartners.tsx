@@ -1,5 +1,5 @@
 import { Container } from "@/components/ui/Container";
-import { cn } from "@/lib/cn";
+import { cn } from "@/utils/cn";
 
 // ── Data ─────────────────────────────────────────────────────────────────────
 const confirmedPartners = [
@@ -64,24 +64,24 @@ function PartnerCard({
 // ── Main export ──────────────────────────────────────────────────────────────
 export function ConfirmedPartners() {
   return (
-    <section className="bg-[#1F1B15] py-24">
+    <section className="bg-[#1F1B15] py-16 sm:py-20 lg:py-24">
       <Container>
         <div className="mb-10 flex flex-col justify-between gap-4 sm:flex-row sm:items-end">
           <div className="flex flex-col gap-2">
             <h1 className="text-[28px] sm:text-[36px] lg:text-[42px] font-display font-semibold leading-tight lg:leading-14 text-foreground">
               Confirmed Partners
             </h1>
-            <p className="text-[18px] leading-7 text-foreground-muted max-w-[512px] font-inter">
-              Industry leaders already committed to celebrating Ethiopia's
+            <p className="text-base sm:text-[18px] leading-7 text-foreground-muted max-w-[512px] font-inter">
+              Industry leaders already committed to celebrating Ethiopia&apos;s
               architectural renaissance.
             </p>
           </div>
-          <p className="shrink-0 text-[12px] font-inter font-semibold uppercase tracking-[2.4px] leading-4 text-primary">
+          <p className="text-[12px] font-inter font-semibold uppercase tracking-[2.4px] leading-4 text-primary sm:shrink-0">
             Excellence Through Collaboration
           </p>
         </div>
 
-        <div className="grid grid-cols-1 gap-4 sm:gap-8 justify-items-center sm:grid-cols-2 xl:grid-cols-4">
+        <div className="grid grid-cols-1 gap-4 sm:gap-8 justify-items-center sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
           {confirmedPartners.map((partner) => (
             <PartnerCard key={partner.name} {...partner} />
           ))}

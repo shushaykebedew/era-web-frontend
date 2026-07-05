@@ -3,10 +3,9 @@
 import { useState } from "react";
 import Image from "next/image";
 import { Container } from "@/components/ui/Container";
-import { cn } from "@/lib/cn";
-import { EDITIONS, FILTERS } from "@/types/gallery";
+import { cn } from "@/utils/cn";
+import { EDITIONS, FILTERS, galleryPhotos } from "@/data/gallery";
 import type { Edition, GalleryFilter, GalleryPhoto } from "@/types/gallery";
-import { galleryPhotos } from "@/data/gallery";
 
 // ── EditionSwitcher ───────────────────────────────────────────────────────────
 function EditionSwitcher({
@@ -21,7 +20,7 @@ function EditionSwitcher({
       <p className="mb-3 text-[12px] font-inter font-semibold uppercase tracking-[1.2px] leading-4 text-primary">
         Select Edition
       </p>
-      <div className="flex items-baseline gap-5">
+      <div className="flex flex-wrap items-baseline gap-4 sm:gap-5">
         {EDITIONS.map((yr) => (
           <button
             key={yr}
@@ -50,7 +49,7 @@ function FilterPills({
   onChange: (f: GalleryFilter) => void;
 }) {
   return (
-    <div className="flex flex-wrap gap-4">
+    <div className="flex flex-wrap gap-3 sm:gap-4">
       {FILTERS.map((f) => (
         <button
           key={f}
@@ -72,9 +71,9 @@ function FilterPills({
 function PhotoCard({ photo }: { photo: GalleryPhoto }) {
   return (
     <div
-      className="relative w-full overflow-hidden border border-[#4E4637]"
+      className="relative w-full min-w-0 overflow-hidden border border-[#4E4637]"
       style={{
-        height: `clamp(120px, ${photo.height / 10}vw, ${photo.height}px)`,
+        height: `clamp(180px, ${photo.height / 10}vw, ${photo.height}px)`,
       }}
     >
       <Image
@@ -106,9 +105,9 @@ function PhotoGrid({ photos }: { photos: GalleryPhoto[] }) {
   ];
 
   return (
-    <div className="flex flex-col lg:flex-row gap-3">
+    <div className="grid grid-cols-1 gap-3 md:grid-cols-2 xl:grid-cols-3">
       {cols.map((col, colIdx) => (
-        <div key={colIdx} className="flex flex-1 flex-col gap-3">
+        <div key={colIdx} className="flex min-w-0 flex-col gap-3">
           {col.map((photo) => (
             <PhotoCard key={photo.id} photo={photo} />
           ))}
@@ -141,7 +140,7 @@ export function GalleryGrid() {
       </section>
 
       {/* Photo grid */}
-      <section className="bg-background pt-12 pb-25">
+      <section className="bg-background pt-10 pb-16 sm:pt-12 sm:pb-20 lg:pb-25">
         <Container size="wide">
           <PhotoGrid photos={visible} />
         </Container>

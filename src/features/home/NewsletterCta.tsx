@@ -11,7 +11,7 @@ export function NewsletterCta({
   description = "Subscribe to receive exclusive invitations to the awards ceremony and early access to ticket sales.",
 }: NewsletterCtaProps) {
   return (
-    <section className="bg-[#0c0c0e] py-24">
+    <section className="bg-[#0c0c0e] py-16 sm:py-20 lg:py-24">
       <Container size="narrow" className="text-center">
         <h2 className="font-display font-semibold text-[32px] sm:text-[40px] lg:text-[48px] leading-tight lg:leading-14">
           {title}
@@ -20,7 +20,7 @@ export function NewsletterCta({
           {description}
         </p>
 
-        <form className="mx-auto mt-8 flex max-w-[632px] flex-col gap-4 sm:flex-row">
+        <form className="mx-auto mt-8 flex w-full max-w-[632px] flex-col gap-4 sm:flex-row">
           <label htmlFor="newsletter-email" className="sr-only">
             Email Address
           </label>

@@ -3,7 +3,7 @@
 import { Check, Star } from "lucide-react";
 import { Container } from "@/components/ui/Container";
 import { Button } from "@/components/ui/Button";
-import { cn } from "@/lib/cn";
+import { cn } from "@/utils/cn";
 
 // ── Data ─────────────────────────────────────────────────────────────────────
 export const TIERS = [
@@ -48,14 +48,14 @@ type PartnersTierCardsProps = {
 
 export function PartnersTierCards({ onSelectTier }: PartnersTierCardsProps) {
   return (
-    <section className="bg-background pt-12 pb-20">
+    <section className="bg-background pt-8 sm:pt-12 pb-16 sm:pb-20">
       <Container>
-        <div className="grid grid-cols-1 gap-20 md:grid-cols-2 lg:gap-6 xl:grid-cols-3 sm:items-start">
+        <div className="grid grid-cols-1 gap-8 sm:gap-12 md:grid-cols-2 lg:gap-6 xl:grid-cols-3 sm:items-start">
           {TIERS.map((tier, index) => (
             <div
               key={tier.id}
               className={cn(
-                "relative flex h-auto min-h-[400px] w-full max-w-[392px] mx-auto lg:mx-0 h-[512px] flex-col border p-6 sm:p-8 transition-all duration-300",
+                "relative flex min-h-[400px] w-full max-w-[392px] mx-auto lg:mx-0 xl:min-h-[512px] flex-col border p-6 sm:p-8 transition-all duration-300",
                 tier.featured
                   ? "border-primary xl:-translate-y-6 z-10 shadow-[0px_25px_50px_-12px_#00000040] bg-[linear-gradient(0deg,#16130D,#16130D),radial-gradient(165.23%_125.62%_at_0%_0%,rgba(230,197,106,0.15)_0%,rgba(230,197,106,0)_50%)]"
                   : "border-border-strong bg-[#110E08]",
@@ -90,7 +90,7 @@ export function PartnersTierCards({ onSelectTier }: PartnersTierCardsProps) {
 
               <p className="h-px w-full bg-[#4E4637] mb-8"></p>
 
-              <ul className="mb-10 flex flex-1 flex-col gap-4 overflow-y-auto">
+              <ul className="mb-10 flex flex-1 flex-col gap-4">
                 {tier.benefits.map((benefit) => (
                   <li key={benefit} className="flex items-start gap-3">
                     {tier.featured ? (

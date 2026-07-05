@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
-import { GalleryHero } from "@/components/sections/gallery/GalleryHero";
-import { GalleryGrid } from "@/components/sections/gallery/GalleryGrid";
-import { GalleryCta } from "@/components/sections/gallery/GalleryCta";
+import { GalleryHero } from "@/features/gallery/GalleryHero";
+import { GalleryGrid } from "@/features/gallery/GalleryGrid";
+import { GalleryCta } from "@/features/gallery/GalleryCta";
 
 export const metadata: Metadata = {
   title: "Gallery",

@@ -1,7 +1,7 @@
 import type { Nominee, AwardCategory } from "@/types";
 import { Button } from "@/components/ui/Button";
 import { BadgeCheck } from "lucide-react";
-import { cn } from "@/lib/cn";
+import { cn } from "@/utils/cn";
 
 type NomineeSidebarProps = {
   nominee: Nominee;
@@ -35,9 +35,9 @@ export function NomineeSidebar({
       : "Best Residential";
 
   return (
-    <aside className="flex flex-col gap-6 py-10 lg:py-16 lg:pr-10 lg:mt-20">
+    <aside className="flex min-w-0 flex-col gap-6 py-8 sm:py-10 lg:py-16 lg:pr-10 lg:mt-20">
       {/* Eyebrow */}
-      <p className="flex items-center gap-2 text-[12px] font-inter font-semibold uppercase tracking-[3px] text-primary leading-4">
+      <p className="flex min-w-0 items-center gap-2 text-[11px] sm:text-[12px] font-inter font-semibold uppercase tracking-[2px] sm:tracking-[3px] text-primary leading-4">
         <span className="h-4 w-0.5 bg-primary shrink-0" aria-hidden />
         {eyebrow}
       </p>
@@ -53,7 +53,7 @@ export function NomineeSidebar({
         </p>
 
         {nominee.location && (
-          <div className="mt-1 flex items-center gap-1.5 text-base font-inter text-[#D1C5B299] leading-6">
+          <div className="mt-1 flex min-w-0 items-center gap-1.5 text-sm sm:text-base font-inter text-[#D1C5B299] leading-6">
             <img src="/icons/location.svg" alt="" />
             {nominee.location}
           </div>
@@ -67,7 +67,7 @@ export function NomineeSidebar({
 
       {/* Scale & Completion (Detail Tab) */}
       {activeTab === "detail" && (
-        <div className="flex flex-wrap gap-6 sm:gap-12 md:gap-16 lg:gap-16 xl:gap-24 2xl:gap-40 mt-4 border-t border-border-strong pt-6">
+        <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 sm:gap-12 lg:gap-16 xl:gap-24 mt-4 border-t border-border-strong pt-6">
           <div>
             <p className="text-[10px] font-inter uppercase tracking-[1px] leading-[15px] text-primary">
               Scale
@@ -120,7 +120,7 @@ export function NomineeSidebar({
             <div
               key={row.label}
               className={cn(
-                "flex items-center justify-between py-4",
+                "flex flex-wrap items-center justify-between gap-3 py-4",
                 i !== STATUS_ROWS.length - 1 && "border-b border-[#EBC1660D]",
               )}
             >
@@ -153,7 +153,7 @@ export function NomineeSidebar({
         <Button
           size="lg"
           variant="primary"
-          className="text-base uppercase tracking-[1.2px] leading-4 font-bold w-full bg-[#C9A24B] text-[#4F3900] hover:bg-primary/90"
+          className="text-sm sm:text-base uppercase tracking-[1.2px] leading-4 font-bold w-full bg-[#C9A24B] text-[#4F3900] hover:bg-primary/90"
         >
           Vote For This Project
         </Button>

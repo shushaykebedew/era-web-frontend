@@ -1,6 +1,6 @@
 import Link from "next/link";
 import type { Nominee } from "@/types";
-import { cn } from "@/lib/cn";
+import { cn } from "@/utils/cn";
 
 const IMAGE_LABELS = [
   "Exterior / Night View",
@@ -24,11 +24,11 @@ function GalleryImg({
 }) {
   return (
     <div
-      className={cn("relative overflow-hidden w-full", heightClass, className)}
+      className={cn("relative min-w-0 overflow-hidden w-full", heightClass, className)}
     >
       <img src={src} alt={label} className="h-full w-full object-cover" />
-      <div className="absolute bottom-3 left-3 bg-[#16130D66] border border-[#EBC16633] py-1 px-2">
-        <p className="text-[12px] font-inter font-semibold uppercase tracking-[1.2px] leading-4 text-primary">
+      <div className="absolute bottom-3 left-3 right-3 w-fit max-w-[calc(100%-1.5rem)] bg-[#16130D66] border border-[#EBC16633] py-1 px-2">
+        <p className="text-[10px] sm:text-[12px] font-inter font-semibold uppercase tracking-[1px] sm:tracking-[1.2px] leading-4 text-primary">
           {label}
         </p>
       </div>
@@ -98,8 +98,8 @@ export function GalleryTab({
             alt={images[5].label}
             className="h-full w-full object-cover opacity-40"
           />
-          <div className="absolute bottom-3 left-3 bg-[#16130D66] border border-[#EBC16633] py-1 px-2">
-            <p className="text-[12px] font-inter font-semibold uppercase tracking-[1.2px] leading-4 text-primary">
+          <div className="absolute bottom-3 left-3 right-3 w-fit max-w-[calc(100%-1.5rem)] bg-[#16130D66] border border-[#EBC16633] py-1 px-2">
+            <p className="text-[10px] sm:text-[12px] font-inter font-semibold uppercase tracking-[1px] sm:tracking-[1.2px] leading-4 text-primary">
               MASTERPLAN | GEOMETRIC PURITY
             </p>
           </div>
@@ -111,7 +111,7 @@ export function GalleryTab({
         <p className="text-[12px] font-inter font-semibold leading-4 uppercase tracking-[1.2px] text-[#D1C5B299]">
           End of Gallery
         </p>
-        <div className="flex items-center gap-6">
+        <div className="flex flex-col items-center gap-4 sm:flex-row sm:gap-6">
           {prevSlug ? (
             <Link
               href={`/nominees/${prevSlug}`}

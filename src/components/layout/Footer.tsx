@@ -1,6 +1,6 @@
 import Link from "next/link";
 import { Globe, Share2, Mail } from "lucide-react";
-import { siteConfig } from "@/config/site";
+import { siteConfig } from "@/data/site";
 import { Container } from "@/components/ui/Container";
 
 const SOCIAL_ICONS = [
@@ -25,7 +25,7 @@ export function Footer() {
   const year = new Date().getFullYear();
 
   return (
-    <footer className="border-t border-[#EBC1664D] bg-[#110E08] py-16">
+    <footer className="border-t border-[#EBC1664D] bg-[#110E08] py-12 sm:py-16">
       <Container className="flex flex-col items-center text-center">
         <div className="font-display text-2xl sm:text-[32px] font-semibold text-primary leading-10 flex items-center gap-2">
           ERA <span className="w-4 h-4 rounded-full bg-primary"></span>
@@ -43,7 +43,7 @@ export function Footer() {
           ))}
         </nav>
 
-        <p className="mt-6 max-w-md text-[11px] xl:text-base  text-[#D1C5B2] font-inter leading-6">
+        <p className="mt-6 max-w-md text-[11px] sm:text-sm xl:text-base text-[#D1C5B2] font-inter leading-6">
           &copy; {year} {siteConfig.fullName}. {siteConfig.tagline}.
         </p>
 

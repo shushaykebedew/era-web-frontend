@@ -3,10 +3,10 @@
 import { useEffect, useState } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { siteConfig } from "@/config/site";
+import { siteConfig } from "@/data/site";
 import { Container } from "@/components/ui/Container";
 import { Button } from "@/components/ui/Button";
-import { cn } from "@/lib/cn";
+import { cn } from "@/utils/cn";
 
 export function Header() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -24,7 +24,7 @@ export function Header() {
 
   // Close menu and restore scroll on route change
   useEffect(() => {
-    setIsMenuOpen(false);
+    queueMicrotask(() => setIsMenuOpen(false));
   }, [pathname]);
 
   // Lock body scroll while menu is open
@@ -49,13 +49,13 @@ export function Header() {
           {/* Logo */}
           <Link
             href="/"
-            className="shrink-0 font-display text-xl sm:text-2xl lg:text-[32px] xl:text-[48px] font-bold tracking-[-2.4] leading-tight xl:leading-[52px] text-[#C9A24B]"
+            className="shrink-0 font-display text-xl sm:text-2xl lg:text-[32px] xl:text-[48px] font-bold tracking-tight leading-tight xl:leading-[52px] text-[#C9A24B]"
           >
             {siteConfig.name}
           </Link>
 
           {/* Desktop nav */}
-          <nav className="hidden items-center gap-4 lg:gap-6 xl:gap-10 lg:flex">
+          <nav className="hidden min-w-0 flex-wrap items-center justify-center gap-4 lg:gap-6 xl:gap-10 lg:flex">
             {siteConfig.nav.map((link) => {
               const isActive =
                 link.href === "/"
@@ -68,7 +68,7 @@ export function Header() {
                   href={link.href}
                   aria-current={isActive ? "page" : undefined}
                   className={cn(
-                    "text-[12px] font-inter font-bold leading-4 py-2 tracking-[1.2px] uppercase transition-colors hover:text-primary",
+                    "whitespace-nowrap text-[12px] font-inter font-bold leading-4 py-2 tracking-[1.2px] uppercase transition-colors hover:text-primary",
                     isActive
                       ? "text-primary border-b-2 border-primary"
                       : "text-foreground-muted",
@@ -99,7 +99,7 @@ export function Header() {
             aria-label="Toggle menu"
             aria-expanded={isMenuOpen}
             onClick={() => setIsMenuOpen((o) => !o)}
-            className="text-foreground lg:hidden"
+            className="flex h-10 w-10 shrink-0 items-center justify-center text-foreground lg:hidden"
           >
             <img src="/icons/menu.svg" alt="" />
           </button>
@@ -132,7 +132,7 @@ export function Header() {
         </div>
 
         {/* Nav links centred vertically */}
-        <nav className="flex flex-1 flex-col items-center gap-6 mt-6">
+        <nav className="flex flex-1 flex-col items-center gap-6 mt-6 overflow-y-auto px-4 pb-8">
           {siteConfig.nav.map((link) => {
             const isActive =
               link.href === "/"
@@ -146,7 +146,7 @@ export function Header() {
                 onClick={() => setIsMenuOpen(false)}
                 aria-current={isActive ? "page" : undefined}
                 className={cn(
-                  "font-display text-[32px] font-semibold transition-colors hover:text-primary",
+                  "text-center font-display text-[28px] sm:text-[32px] font-semibold transition-colors hover:text-primary",
                   isActive ? "text-primary" : "text-[#EAE1D7CC]",
                 )}
               >

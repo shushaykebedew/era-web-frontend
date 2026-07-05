@@ -45,3 +45,15 @@ export type Partner = {
   logo?: string;
   href?: string;
 };
+
+export type TimelineMilestone = {
+  period: string;
+  title: string;
+  description: string;
+  icon: "draft" | "gavel" | "vote" | "gala" | "trophy";
+};
+
+export type ValuePillar = {
+  title: string;
+  description: string;
+};

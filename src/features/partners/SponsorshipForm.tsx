@@ -5,7 +5,7 @@ import { Container } from "@/components/ui/Container";
 import { Button } from "@/components/ui/Button";
 import { TIERS, type TierId } from "./PartnersTierCards";
 // import { TierSelect } from "./TierSelect";
-import { cn } from "@/lib/cn";
+import { cn } from "@/utils/cn";
 import { TierSelect } from "./TierSelect";
 
 type SponsorshipFormProps = {
@@ -47,10 +47,10 @@ export function SponsorshipForm({ selectedTier = "" }: SponsorshipFormProps) {
   return (
     <section
       id="sponsorship-form"
-      className="bg-[#110E08] border border-[#EBC16633] my-10 sm:my-20 max-w-[896px] mx-4 md:mx-auto py-12 sm:py-24"
+      className="bg-[#110E08] border border-[#EBC16633] my-10 sm:my-20 w-[calc(100%-2rem)] max-w-[896px] mx-auto py-12 sm:py-20 lg:py-24"
     >
       <Container size="narrow">
-        <div className="text-left xl:text-center">
+        <div className="text-left sm:text-center">
           <h2 className="font-display text-[28px] sm:text-[32px] text-foreground xl:text-[48px] font-semibold leading-tight xl:leading-14">
             Request Sponsorship Package
           </h2>
@@ -115,7 +115,7 @@ export function SponsorshipForm({ selectedTier = "" }: SponsorshipFormProps) {
                 type="submit"
                 variant="primary"
                 size="sm"
-                className="px-12 tracking-[3.6px] leading-4 bg-primary h-12 font-bold font-inter text-[12px]"
+                className="w-full sm:w-auto px-8 sm:px-12 tracking-[2px] sm:tracking-[3.6px] leading-4 bg-primary h-12 font-bold font-inter text-[12px]"
               >
                 Send Request
               </Button>

@@ -20,7 +20,7 @@ export function AwardCategoriesSection({
     const [card1, card2, card3, card4] = items;
 
     return (
-      <section className="bg-[#0c0c0e] py-24">
+      <section className="bg-[#0c0c0e] py-16 sm:py-20 lg:py-24">
         <Container size="wide">
           <div className="flex flex-col items-start justify-between gap-6 sm:flex-row sm:items-end">
             <SectionHeading
@@ -29,7 +29,7 @@ export function AwardCategoriesSection({
             />
             <Link
               href="/categories"
-              className="flex gap-1 items-center text-[12px] font-inter font-semibold uppercase tracking-[1.2px] text-primary leading-4 hover:opacity-80 shrink-0"
+              className="flex shrink-0 items-center gap-1 text-[12px] font-inter font-semibold uppercase tracking-[1.2px] text-primary leading-4 hover:opacity-80"
             >
               View All Categories
               <img
@@ -45,20 +45,20 @@ export function AwardCategoriesSection({
               Row 2 — card 3 (390fr) | card 4 (802fr)  */}
           <div className="mt-12 flex flex-col gap-3">
             {/* Row 1 */}
-            <div className="flex flex-col sm:flex-row gap-3">
-              <div className="w-full sm:w-auto sm:flex-[802_802_0%]">
+            <div className="flex min-w-0 flex-col gap-3 md:flex-row">
+              <div className="w-full md:w-auto md:flex-[802_802_0%]">
                 <CategoryCard category={card1} variant="feature" />
               </div>
-              <div className="w-full sm:w-auto sm:flex-[390_390_0%]">
+              <div className="w-full md:w-auto md:flex-[390_390_0%]">
                 <CategoryCard category={card2} variant="feature" />
               </div>
             </div>
             {/* Row 2 — swapped proportions */}
-            <div className="flex flex-col sm:flex-row gap-3">
-              <div className="w-full sm:w-auto sm:flex-[390_390_0%]">
+            <div className="flex min-w-0 flex-col gap-3 md:flex-row">
+              <div className="w-full md:w-auto md:flex-[390_390_0%]">
                 <CategoryCard category={card3} variant="feature" />
               </div>
-              <div className="w-full sm:w-auto sm:flex-[802_802_0%]">
+              <div className="w-full md:w-auto md:flex-[802_802_0%]">
                 <CategoryCard category={card4} variant="feature" />
               </div>
             </div>
@@ -70,7 +70,7 @@ export function AwardCategoriesSection({
 
   // Full variant — 3-column icon card grid matching the categories page design
   return (
-    <section className="bg-background py-24">
+    <section className="bg-background py-16 sm:py-20 lg:py-24">
       <Container>
         <div className="mt-12 grid grid-cols-1 gap-8 sm:grid-cols-2 lg:grid-cols-3">
           {items.map((category) => (

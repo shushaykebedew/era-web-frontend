@@ -3,7 +3,7 @@ import {
   type ElementType,
   type ReactNode,
 } from "react";
-import { cn } from "@/lib/cn";
+import { cn } from "@/utils/cn";
 
 const VARIANT_STYLES = {
   primary:
@@ -50,7 +50,7 @@ export function Button<T extends ElementType = "button">({
   return (
     <Component
       className={cn(
-        "inline-flex items-center justify-center gap-2 cursor-pointer font-sans font-semibold uppercase tracking-widest transition-colors duration-200",
+        "inline-flex min-w-0 items-center justify-center gap-2 cursor-pointer text-center font-sans font-semibold uppercase tracking-widest transition-colors duration-200",
         VARIANT_STYLES[variant],
         SIZE_STYLES[size],
         className,

@@ -1,6 +1,6 @@
 import { Award, ShieldCheck, Leaf } from "lucide-react";
 import type { Nominee } from "@/types";
-import { cn } from "@/lib/cn";
+import { cn } from "@/utils/cn";
 
 const NOMINATION_STEPS = [
   {
@@ -41,9 +41,9 @@ const STANDOUT_FEATURES = [
 
 export function AwardsTab({ nominee }: { nominee: Nominee }) {
   return (
-    <div className="flex flex-col gap-12 py-10 lg:py-16">
+    <div className="flex min-w-0 flex-col gap-10 sm:gap-12 py-10 lg:py-16">
       {/* Finalist badge */}
-      <div className="relative flex items-center justify-center border border-primary/20 bg-background-elevated py-16">
+      <div className="relative flex items-center justify-center border border-primary/20 bg-background-elevated px-4 py-12 sm:py-16">
         <span className="absolute left-4 top-4 h-6 w-6 border-l border-t border-primary/40" />
         <span className="absolute right-4 top-4 h-6 w-6 border-r border-t border-primary/40" />
         <span className="absolute left-4 bottom-4 h-6 w-6 border-l border-b border-primary/40" />
@@ -53,7 +53,7 @@ export function AwardsTab({ nominee }: { nominee: Nominee }) {
           <p className="font-display text-[32px] sm:text-[48px] leading-tight lg:leading-14 tracking-tight lg:tracking-[-2.4px] uppercase font-semibold text-primary">
             Finalist 2024
           </p>
-          <p className="text-[12px] font-inter font-semibold uppercase tracking-[1.2px] text-[#F4EFE3] text-base">
+          <p className="text-[12px] font-inter font-semibold uppercase tracking-[1.2px] text-[#F4EFE3]">
             Ethiopia Real Estate Awards
           </p>
         </div>
@@ -140,7 +140,7 @@ export function AwardsTab({ nominee }: { nominee: Nominee }) {
 
       {/* Stats */}
       {(nominee.scaleSqm || nominee.completionDate) && (
-        <div className="grid grid-cols-2 gap-6 border-y border-primary/20 py-8 sm:py-10 sm:grid-cols-2 md:grid-cols-4">
+        <div className="grid grid-cols-2 gap-6 border-y border-primary/20 py-8 sm:grid-cols-2 sm:py-10 md:grid-cols-4">
           {nominee.scaleSqm && (
             <div>
               <p className="text-[12px] font-inter font-semibold uppercase tracking-[-0.6px] text-[#F4EFE3] leading-4">
@@ -166,7 +166,7 @@ export function AwardsTab({ nominee }: { nominee: Nominee }) {
             <p className="text-[12px] font-inter font-semibold uppercase tracking-[-0.6px] text-[#F4EFE3] leading-4">
               LEED Status
             </p>
-            <p className="mt-1.5 font-display text-[28px] text-[#EBC166] leading-10">
+            <p className="mt-1.5 font-display text-2xl sm:text-[28px] text-[#EBC166] leading-10">
               Platinum
             </p>
           </div>
@@ -174,7 +174,7 @@ export function AwardsTab({ nominee }: { nominee: Nominee }) {
             <p className="text-[12px] font-inter font-semibold uppercase tracking-[-0.6px] text-[#F4EFE3] leading-4">
               Urban Impact
             </p>
-            <p className="mt-1.5 font-display text-[28px] text-[#EBC166] leading-10">
+            <p className="mt-1.5 font-display text-2xl sm:text-[28px] text-[#EBC166] leading-10">
               High
             </p>
           </div>
@@ -186,7 +186,7 @@ export function AwardsTab({ nominee }: { nominee: Nominee }) {
           {nominee.gallery.slice(0, 2).map((src, i) => (
             <div
               key={i}
-              className="relative h-56 sm:h-auto sm:aspect-[8/5] min-w-0 flex-1 overflow-hidden border border-[#EBC1661A]"
+              className="relative aspect-[8/5] min-w-0 flex-1 overflow-hidden border border-[#EBC1661A]"
             >
               <img
                 src={src}

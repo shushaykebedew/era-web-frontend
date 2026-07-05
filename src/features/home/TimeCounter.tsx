@@ -1,6 +1,6 @@
-import { Container } from "../ui/Container";
-import { Countdown } from "../ui/Countdown";
-import { siteConfig } from "@/config/site";
+import { Container } from "@/components/ui/Container";
+import { Countdown } from "@/components/ui/Countdown";
+import { siteConfig } from "@/data/site";
 
 function TimeCounter() {
   return (

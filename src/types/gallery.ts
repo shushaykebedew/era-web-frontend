@@ -1,8 +1,6 @@
-export const EDITIONS = [2024, 2023, 2022] as const;
-export type Edition = (typeof EDITIONS)[number];
+export type Edition = 2024 | 2023 | 2022;
 
-export const FILTERS = ["All Moments", "Winners", "Ceremony", "Networking"] as const;
-export type GalleryFilter = (typeof FILTERS)[number];
+export type GalleryFilter = "All Moments" | "Winners" | "Ceremony" | "Networking";
 
 export type GalleryPhoto = {
   id: number;

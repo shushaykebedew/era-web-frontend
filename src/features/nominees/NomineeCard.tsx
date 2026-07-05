@@ -21,7 +21,7 @@ export function NomineeCard({ nominee, variant = "grid" }: NomineeCardProps) {
 
   if (variant === "featured") {
     return (
-      <article className="group flex flex-col bg-background-elevated">
+      <article className="group flex min-w-0 flex-col bg-background-elevated">
         <Link
           href={href}
           className="relative block overflow-hidden bg-muted w-full aspect-[4/5]"
@@ -40,14 +40,14 @@ export function NomineeCard({ nominee, variant = "grid" }: NomineeCardProps) {
             <div className="h-full w-full bg-gradient-to-br from-muted to-background-muted" />
           )}
         </Link>
-        <div className="flex flex-1 flex-col p-6">
+        <div className="flex min-w-0 flex-1 flex-col p-5 sm:p-6">
           <h3 className="mt-1 font-display text-2xl sm:text-3xl lg:text-[32px] leading-tight lg:leading-10 font-semibold">
             <Link href={href} className="hover:text-primary">
               {nominee.name}
             </Link>
           </h3>
           <p className="text-base leading-6 text-foreground-muted">{nominee.firm}</p>
-          <div className="mt-5 flex items-center justify-between">
+          <div className="mt-5 flex flex-wrap items-center justify-between gap-3">
             <span className="text-[12px] font-semibold uppercase tracking-[1.2px] leading-4 text-primary">
               {nominee.votes?.toLocaleString()} Votes
             </span>
@@ -68,7 +68,7 @@ export function NomineeCard({ nominee, variant = "grid" }: NomineeCardProps) {
 
   // "grid" variant
   return (
-    <article className="group flex flex-col">
+    <article className="group flex min-w-0 flex-col">
       <Link
         href={href}
         className="relative block overflow-hidden bg-muted border border-border-strong w-full aspect-[4/5]"
@@ -95,7 +95,7 @@ export function NomineeCard({ nominee, variant = "grid" }: NomineeCardProps) {
 
       {/* Text */}
       <div className="flex flex-1 flex-col pt-4">
-        <p className="flex items-center gap-2 text-[10px] font-inter uppercase tracking-[1.5px] text-primary">
+        <p className="flex min-w-0 items-center gap-2 text-[10px] font-inter uppercase tracking-[1.5px] text-primary">
           <span className="h-4 w-0.5 bg-primary shrink-0" aria-hidden />
           {nominee.firm}
         </p>
