@@ -11,6 +11,9 @@ export function Header() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const pathname = usePathname();
 
+  // Hide the main header on nominee detail pages since they have their own subnav
+  const isNomineeDetail = pathname?.startsWith('/nominees/') && pathname !== '/nominees';
+
   // Close on Escape
   useEffect(() => {
     if (!isMenuOpen) return;
@@ -34,11 +37,14 @@ export function Header() {
     };
   }, [isMenuOpen]);
 
+  if (isNomineeDetail) {
+    return null;
+  }
+
   return (
     <>
       <header
-        className="relative w-full backdrop-blur-md bg-background/80 border-b border-primary/30 h-16 lg:h-20"
-        style={{ zIndex: 40 }}
+        className="fixed top-0 left-0 right-0 z-50 w-full backdrop-blur-md bg-background/80 border-b border-primary/30 h-16 lg:h-20 2xl:h-28"
       >
         <div
           className={cn(
@@ -49,13 +55,17 @@ export function Header() {
           {/* Logo */}
           <Link
             href="/"
-            className="shrink-0 font-display text-xl sm:text-2xl lg:text-[32px] xl:text-[48px] font-bold tracking-tight leading-tight xl:leading-[52px] text-[#C9A24B]"
+            className={cn(
+              "shrink-0 font-display text-xl sm:text-2xl lg:text-[32px] xl:text-[48px]",
+              "2xl:text-[64px] font-bold tracking-tight leading-tight xl:leading-[52px]",
+              "2xl:leading-[72px] text-[#C9A24B]",
+            )}
           >
             {siteConfig.name}
           </Link>
 
           {/* Desktop nav */}
-          <nav className="hidden min-w-0 flex-wrap items-center justify-center gap-4 lg:gap-6 xl:gap-10 lg:flex">
+          <nav className="hidden min-w-0 flex-wrap items-center justify-center gap-4 lg:gap-6 xl:gap-10 2xl:gap-14 lg:flex">
             {siteConfig.nav.map((link) => {
               const isActive =
                 link.href === "/"
@@ -68,7 +78,8 @@ export function Header() {
                   href={link.href}
                   aria-current={isActive ? "page" : undefined}
                   className={cn(
-                    "whitespace-nowrap text-[12px] font-inter font-bold leading-4 py-2 tracking-[1.2px] uppercase transition-colors hover:text-primary",
+                    "whitespace-nowrap text-[12px] 2xl:text-base font-inter font-bold leading-4",
+                    "py-2 tracking-[1.2px] uppercase transition-colors hover:text-primary",
                     isActive
                       ? "text-primary border-b-2 border-primary"
                       : "text-foreground-muted",
@@ -87,7 +98,10 @@ export function Header() {
               href={siteConfig.voteCta.href}
               size="sm"
               variant="outline"
-              className="text-primary text-base w-auto min-w-0 px-4 xl:px-6 xl:min-w-[165px]"
+              className={cn(
+                "text-primary text-base 2xl:text-[20px] px-4 xl:px-6 2xl:px-10",
+                "w-auto min-w-0 xl:min-w-[165px] 2xl:min-w-[240px] 2xl:py-4",
+              )}
             >
               {siteConfig.voteCta.label}
             </Button>
@@ -146,7 +160,8 @@ export function Header() {
                 onClick={() => setIsMenuOpen(false)}
                 aria-current={isActive ? "page" : undefined}
                 className={cn(
-                  "text-center font-display text-[28px] sm:text-[32px] font-semibold transition-colors hover:text-primary",
+                  "text-center font-display text-[28px] sm:text-[32px] 2xl:text-[40px]",
+                  "font-semibold transition-colors hover:text-primary",
                   isActive ? "text-primary" : "text-[#EAE1D7CC]",
                 )}
               >
@@ -159,7 +174,7 @@ export function Header() {
             as={Link}
             href={siteConfig.voteCta.href}
             onClick={() => setIsMenuOpen(false)}
-            className="mt-6"
+            className="mt-6 2xl:mt-10 2xl:text-[20px] 2xl:py-4 2xl:px-10"
           >
             {siteConfig.voteCta.label}
           </Button>

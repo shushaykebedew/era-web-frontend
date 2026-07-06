@@ -3,8 +3,7 @@
 import { useState } from "react";
 import { Container } from "@/components/ui/Container";
 import { Button } from "@/components/ui/Button";
-import { TIERS, type TierId } from "./PartnersTierCards";
-// import { TierSelect } from "./TierSelect";
+import { type TierId } from "./PartnersTierCards";
 import { cn } from "@/utils/cn";
 import { TierSelect } from "./TierSelect";
 
@@ -24,7 +23,10 @@ function FieldLabel({
   return (
     <label
       htmlFor={htmlFor}
-      className="text-[10px] font-inter font-semibold uppercase tracking-[1.5px] text-foreground-muted"
+      className={cn(
+        "text-[10px] 2xl:text-base font-inter font-semibold uppercase",
+        "tracking-[1.5px] 2xl:tracking-[2px] text-foreground-muted",
+      )}
     >
       {children}
     </label>
@@ -32,7 +34,7 @@ function FieldLabel({
 }
 
 const fieldBase =
-  "border-b border-[#4E4637] bg-transparent py-3 text-base text-foreground outline-none placeholder:text-[#9A8F7E] focus:border-primary  placeholder:uppercase";
+  "border-b border-[#4E4637] bg-transparent py-3 2xl:py-5 text-base 2xl:text-[20px] text-foreground outline-none placeholder:text-[#9A8F7E] focus:border-primary placeholder:uppercase";
 
 // ── Main export ──────────────────────────────────────────────────────────────
 export function SponsorshipForm({ selectedTier = "" }: SponsorshipFormProps) {
@@ -47,14 +49,27 @@ export function SponsorshipForm({ selectedTier = "" }: SponsorshipFormProps) {
   return (
     <section
       id="sponsorship-form"
-      className="bg-[#110E08] border border-[#EBC16633] my-10 sm:my-20 w-[calc(100%-2rem)] max-w-[896px] mx-auto py-12 sm:py-20 lg:py-24"
+      className={cn(
+        "bg-[#110E08] border border-[#EBC16633] my-10 sm:my-20 2xl:my-28",
+        "w-[calc(100%-2rem)] max-w-[896px] 2xl:max-w-[1024px] mx-auto py-12 sm:py-20 lg:py-24 2xl:py-32",
+      )}
     >
       <Container size="narrow">
         <div className="text-left sm:text-center">
-          <h2 className="font-display text-[28px] sm:text-[32px] text-foreground xl:text-[48px] font-semibold leading-tight xl:leading-14">
+          <h2
+            className={cn(
+              "font-display text-[28px] sm:text-[32px] text-foreground xl:text-[48px] 2xl:text-[64px]",
+              "font-semibold leading-tight xl:leading-14 2xl:leading-[80px]",
+            )}
+          >
             Request Sponsorship Package
           </h2>
-          <p className="mx-auto mt-4 max-w-[484px] text-base leading-6 text-foreground-muted font-inter">
+          <p
+            className={cn(
+              "mx-auto mt-4 max-w-[484px] 2xl:max-w-[640px] text-base 2xl:text-[24px]",
+              "leading-6 2xl:leading-[36px] text-foreground-muted font-inter",
+            )}
+          >
             Complete the form below to receive our detailed partnership brochure
             and schedule a private consultation with our directors.
           </p>
@@ -115,7 +130,11 @@ export function SponsorshipForm({ selectedTier = "" }: SponsorshipFormProps) {
                 type="submit"
                 variant="primary"
                 size="sm"
-                className="w-full sm:w-auto px-8 sm:px-12 tracking-[2px] sm:tracking-[3.6px] leading-4 bg-primary h-12 font-bold font-inter text-[12px]"
+                className={cn(
+                  "w-full sm:w-auto px-8 sm:px-12 2xl:px-16",
+                  "tracking-[2px] sm:tracking-[3.6px] 2xl:tracking-[4.8px]",
+                  "leading-4 bg-primary h-12 2xl:h-16 font-bold font-inter text-[12px] 2xl:text-[16px]",
+                )}
               >
                 Send Request
               </Button>

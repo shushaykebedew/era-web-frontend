@@ -30,13 +30,20 @@ export function SectionHeading({
           {eyebrow}
         </Eyebrow>
       )}
-      <h2 className="font-display font-bold text-3xl sm:text-4xl lg:text-[48px] leading-tight lg:leading-12 xl:leading-[56px] tracking-0 text-foreground">
+      <h2
+        className={cn(
+          "font-display font-bold text-3xl sm:text-4xl lg:text-[48px] 2xl:text-[64px] leading-tight",
+          "lg:leading-12 xl:leading-14 2xl:leading-20 text-foreground",
+        )}
+      >
         {title}
       </h2>
       {description && (
         <p
           className={cn(
-            "mt-4 w-full max-w-md lg:max-w-[448px] text-sm sm:text-base text-foreground-muted tracking-0 leading-6 font-inter",
+            "mt-4 w-full max-w-md lg:max-w-[448px] 2xl:max-w-[600px] text-sm",
+            "sm:text-base 2xl:text-[20px] text-foreground-muted",
+            "leading-6 2xl:leading-8 font-inter",
             align === "center" && "mx-auto",
           )}
         >

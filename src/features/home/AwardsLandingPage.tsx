@@ -5,6 +5,7 @@ import { PartnersStrip } from "@/features/partners/PartnersStrip";
 import { NewsletterCta } from "@/features/home/NewsletterCta";
 import TimeCounter from "@/features/home/TimeCounter";
 import type { AwardCategory, Nominee, Partner } from "@/types";
+import { cn } from "@/utils/cn";
 
 export function AwardsLandingPage({
   categories,
@@ -18,7 +19,10 @@ export function AwardsLandingPage({
   return (
     <>
       <div
-        className="relative -mt-20 flex w-full min-w-0 flex-col bg-cover bg-center bg-no-repeat min-h-[480px] sm:min-h-[600px] lg:min-h-[720px] xl:min-h-[820px] 2xl:min-h-[900px]"
+        className={cn(
+          "relative -mt-20 flex w-full min-w-0 flex-col bg-cover bg-center bg-no-repeat",
+          "min-h-[480px] sm:min-h-[600px] lg:min-h-[720px] xl:min-h-[820px] 2xl:min-h-[1024px]",
+        )}
         style={{
           backgroundImage: "url(/imgs/hero-image.png)",
         }}

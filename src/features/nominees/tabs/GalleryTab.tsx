@@ -24,11 +24,26 @@ function GalleryImg({
 }) {
   return (
     <div
-      className={cn("relative min-w-0 overflow-hidden w-full", heightClass, className)}
+      className={cn(
+        "relative min-w-0 overflow-hidden w-full",
+        heightClass,
+        className,
+      )}
     >
       <img src={src} alt={label} className="h-full w-full object-cover" />
-      <div className="absolute bottom-3 left-3 right-3 w-fit max-w-[calc(100%-1.5rem)] bg-[#16130D66] border border-[#EBC16633] py-1 px-2">
-        <p className="text-[10px] sm:text-[12px] font-inter font-semibold uppercase tracking-[1px] sm:tracking-[1.2px] leading-4 text-primary">
+      <div
+        className={cn(
+          "absolute bottom-3 left-3 right-3 w-fit max-w-[calc(100%-1.5rem)]",
+          "bg-[#16130D66] border border-[#EBC16633] py-1 px-2",
+        )}
+      >
+        <p
+          className={cn(
+            "text-[10px] sm:text-[12px] 2xl:text-[16px] font-inter font-semibold",
+            "uppercase tracking-[1px] sm:tracking-[1.2px] 2xl:tracking-[1.6px]",
+            "leading-4 2xl:leading-6 text-primary",
+          )}
+        >
           {label}
         </p>
       </div>
@@ -54,7 +69,7 @@ export function GalleryTab({
   }));
 
   return (
-    <div className="flex flex-col gap-3 py-10 lg:py-16">
+    <div className="flex flex-col gap-3 2xl:gap-6 py-10 lg:py-16 2xl:py-24">
       <GalleryImg
         src={images[0].src}
         label={images[0].label}
@@ -92,14 +107,29 @@ export function GalleryTab({
           className="flex-1 min-w-0"
         />
         {/* Blueprint / technical drawing card */}
-        <div className="relative flex-1 min-w-0 overflow-hidden bg-background-elevated border border-border-strong aspect-video w-full">
+        <div
+          className={cn(
+            "relative flex-1 min-w-0 overflow-hidden bg-background-elevated",
+            "border border-border-strong aspect-video w-full",
+          )}
+        >
           <img
             src={images[5].src}
             alt={images[5].label}
             className="h-full w-full object-cover opacity-40"
           />
-          <div className="absolute bottom-3 left-3 right-3 w-fit max-w-[calc(100%-1.5rem)] bg-[#16130D66] border border-[#EBC16633] py-1 px-2">
-            <p className="text-[10px] sm:text-[12px] font-inter font-semibold uppercase tracking-[1px] sm:tracking-[1.2px] leading-4 text-primary">
+          <div
+            className={cn(
+              "absolute bottom-3 left-3 right-3 w-fit max-w-[calc(100%-1.5rem)]",
+              "bg-[#16130D66] border border-[#EBC16633] py-1 px-2",
+            )}
+          >
+            <p
+              className={cn(
+                "text-[10px] sm:text-[12px] 2xl:text-[16px] font-inter font-semibold uppercase",
+                "tracking-[1px] sm:tracking-[1.2px] 2xl:tracking-[1.6px] leading-4 2xl:leading-6 text-primary",
+              )}
+            >
               MASTERPLAN | GEOMETRIC PURITY
             </p>
           </div>
@@ -107,29 +137,45 @@ export function GalleryTab({
       </div>
 
       {/* End of gallery navigation */}
-      <div className="mt-10 flex flex-col items-center gap-4 border-t border-[#EBC1661A] pt-16">
-        <p className="text-[12px] font-inter font-semibold leading-4 uppercase tracking-[1.2px] text-[#D1C5B299]">
+      <div className="mt-10 2xl:mt-16 flex flex-col items-center gap-4 2xl:gap-6 border-t border-[#EBC1661A] pt-16 2xl:pt-24">
+        <p
+          className={cn(
+            "text-[12px] 2xl:text-[16px] font-inter font-semibold leading-4 2xl:leading-6",
+            "uppercase tracking-[1.2px] 2xl:tracking-[1.6px] text-[#D1C5B299]",
+          )}
+        >
           End of Gallery
         </p>
         <div className="flex flex-col items-center gap-4 sm:flex-row sm:gap-6">
           {prevSlug ? (
             <Link
               href={`/nominees/${prevSlug}`}
-              className="flex items-center gap-2 text-[12px] font-inter font-semibold tracking-[1.2px] text-[#EAE1D7] transition-colors hover:text-primary"
+              className={cn(
+                "flex items-center gap-2 2xl:gap-3",
+                "text-[12px] 2xl:text-[16px] font-inter font-semibold",
+                "tracking-[1.2px] 2xl:tracking-[1.6px] text-[#EAE1D7]",
+                "transition-colors hover:text-primary",
+              )}
             >
               <img
                 src="/icons/forward-arrow.svg"
                 alt=""
-                className="h-3 w-3 rotate-180"
+                className="h-3 w-3 2xl:h-4 2xl:w-4 rotate-180"
               />
               Previous Nominee
             </Link>
           ) : (
-            <span className="flex items-center gap-2 text-[12px] font-inter font-semibold tracking-[1.2px] text-[#D1C5B299]">
+            <span
+              className={cn(
+                "flex items-center gap-2 2xl:gap-3",
+                "text-[12px] 2xl:text-[16px] font-inter font-semibold",
+                "tracking-[1.2px] 2xl:tracking-[1.6px] text-[#D1C5B299]",
+              )}
+            >
               <img
                 src="/icons/forward-arrow.svg"
                 alt=""
-                className="h-3 w-3 rotate-180 opacity-40"
+                className="h-3 w-3 2xl:h-4 2xl:w-4 rotate-180 opacity-40"
               />
               Previous Nominee
             </span>
@@ -138,18 +184,32 @@ export function GalleryTab({
           {nextSlug ? (
             <Link
               href={`/nominees/${nextSlug}`}
-              className="flex items-center gap-2 text-[12px] font-inter font-semibold tracking-[1.2px] text-[#EAE1D7] transition-colors hover:text-primary"
+              className={cn(
+                "flex items-center gap-2 2xl:gap-3 text-[12px] 2xl:text-[16px] font-inter",
+                "font-semibold tracking-[1.2px] 2xl:tracking-[1.6px] text-[#EAE1D7]",
+                "transition-colors hover:text-primary",
+              )}
             >
-              Next Nominee
-              <img src="/icons/forward-arrow.svg" alt="" className="h-3 w-3" />
-            </Link>
-          ) : (
-            <span className="flex items-center gap-2 text-[12px] font-inter font-semibold tracking-[1.2px] text-[#D1C5B299]">
               Next Nominee
               <img
                 src="/icons/forward-arrow.svg"
                 alt=""
-                className="h-3 w-3 opacity-40"
+                className="h-3 w-3 2xl:h-4 2xl:w-4"
+              />
+            </Link>
+          ) : (
+            <span
+              className={cn(
+                "flex items-center gap-2 2xl:gap-3",
+                "text-[12px] 2xl:text-[16px] font-inter font-semibold",
+                "tracking-[1.2px] 2xl:tracking-[1.6px] text-[#D1C5B299]",
+              )}
+            >
+              Next Nominee
+              <img
+                src="/icons/forward-arrow.svg"
+                alt=""
+                className="h-3 w-3 2xl:h-4 2xl:w-4 opacity-40"
               />
             </span>
           )}

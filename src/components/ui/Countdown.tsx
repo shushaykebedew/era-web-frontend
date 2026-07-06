@@ -2,6 +2,7 @@
 
 import { useEffect, useState } from "react";
 import { getCountdown, pad2 } from "@/utils/date";
+import { cn } from "@/utils/cn";
 
 const UNITS = [
   { key: "days", label: "Days" },
@@ -10,11 +11,10 @@ const UNITS = [
   { key: "seconds", label: "Secs" },
 ] as const;
 
-/**
- * Live countdown to a target date. Renders a static value on first paint
- * (matching the server) and starts ticking once mounted to avoid
- * hydration mismatches.
- */
+// Static fallback shown on server render AND on the client's first paint,
+// so the two always match. Real value is swapped in after mount.
+const ZERO_COUNTDOWN = { days: 0, hours: 0, minutes: 0, seconds: 0 };
+
 export function Countdown({
   targetDate,
   className,
@@ -22,9 +22,13 @@ export function Countdown({
   targetDate: string;
   className?: string;
 }) {
-  const [countdown, setCountdown] = useState(() => getCountdown(targetDate));
+  const [countdown, setCountdown] = useState(ZERO_COUNTDOWN);
+  const [mounted, setMounted] = useState(false);
 
   useEffect(() => {
+    setMounted(true);
+    setCountdown(getCountdown(targetDate)); // compute real value once mounted
+
     const interval = setInterval(
       () => setCountdown(getCountdown(targetDate)),
       1000,
@@ -34,23 +38,44 @@ export function Countdown({
 
   return (
     <div className={className}>
-      <div className="flex justify-center gap-1.5 sm:gap-4 md:gap-6 lg:gap-10 xl:gap-16 px-2 sm:px-4 flex-wrap">
+      <div
+        className={cn(
+          "flex justify-center gap-1.5 sm:gap-4 md:gap-6 lg:gap-10 xl:gap-16",
+          "2xl:gap-24 px-2 sm:px-4 2xl:px-8 flex-wrap",
+        )}
+      >
         {UNITS.map(({ key, label }, index) => (
           <div
             key={key}
-            className="flex items-start gap-1.5 sm:gap-4 md:gap-6 lg:gap-10 xl:gap-16"
+            className="flex items-start gap-1.5 sm:gap-4 md:gap-6 lg:gap-10 xl:gap-16 2xl:gap-24"
           >
             <div className="text-center">
-              <div className="font-display text-2xl sm:text-[40px] lg:text-[56px] xl:text-[72px] leading-none tracking-tight xl:tracking-[-1.44px] font-bold text-primary">
-                {pad2(countdown[key])}
+              <div
+                className={cn(
+                  "font-display text-2xl sm:text-[40px] lg:text-[56px] xl:text-[72px] 2xl:text-[96px]",
+                  "leading-none tracking-tight xl:tracking-[-1.44px] 2xl:tracking-[-1.92px] font-bold text-primary",
+                )}
+              >
+                {mounted ? pad2(countdown[key]) : "00"}
               </div>
-              <div className="mt-2 text-[9px] sm:text-[10px] xl:text-[12px] font-inter font-semibold uppercase leading-6 tracking-[1.2px] text-[#D1C5B299]">
+              <div
+                className={cn(
+                  "mt-2 text-[9px] sm:text-[10px] xl:text-[12px] 2xl:text-[16px] font-inter",
+                  "font-semibold uppercase leading-6 2xl:leading-8 tracking-[1.2px]",
+                  "2xl:tracking-[1.6px] text-[#D1C5B299]",
+                )}
+              >
                 {label}
               </div>
             </div>
 
             {index < UNITS.length - 1 && (
-              <div className="font-display text-2xl sm:text-[40px] lg:text-[56px] xl:text-[72px] leading-none tracking-tight xl:tracking-[-1.44px] font-bold text-primary">
+              <div
+                className={cn(
+                  "font-display text-2xl sm:text-[40px] lg:text-[56px] xl:text-[72px] 2xl:text-[96px]",
+                  "leading-none tracking-tight xl:tracking-[-1.44px] 2xl:tracking-[-1.92px] font-bold text-primary",
+                )}
+              >
                 :
               </div>
             )}

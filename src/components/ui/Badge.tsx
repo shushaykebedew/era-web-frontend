@@ -20,7 +20,8 @@ export function Badge({
   return (
     <span
       className={cn(
-        "inline-block px-3 py-1 text-[10px] leading-[15px] tracking-0 uppercase",
+        "inline-block px-3 py-1 2xl:px-5 2xl:py-2 text-[10px] 2xl:text-[14px]",
+        "leading-[15px] 2xl:leading-[20px] tracking-0 uppercase",
         VARIANT_STYLES[variant],
         className,
       )}

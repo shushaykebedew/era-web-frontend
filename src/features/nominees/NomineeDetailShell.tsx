@@ -37,21 +37,40 @@ export function NomineeDetailShell({
   return (
     <div className="bg-background min-h-screen w-full overflow-x-hidden">
       {/* ── Fixed sub-nav ── */}
-      <nav className="fixed inset-x-0 top-0 z-50 flex h-16 sm:h-20 min-w-0 items-center justify-between gap-2 border-b border-primary/20 bg-[#16130DCC] backdrop-blur-[10px] px-3 sm:px-6 lg:px-10 2xl:px-16">
+      <nav
+        className={cn(
+          "fixed inset-x-0 top-0 z-50 flex h-16 sm:h-20 2xl:h-28",
+          "min-w-0 items-center justify-between gap-2",
+          "border-b border-primary/20 bg-[#16130DCC] backdrop-blur-[10px]",
+          "px-3 sm:px-6 lg:px-10 2xl:px-16",
+        )}
+      >
         <Link
           href="/"
-          className="shrink-0 font-display text-lg sm:text-2xl lg:text-[32px] font-bold tracking-[1px] sm:tracking-[1.6px] text-primary leading-tight lg:leading-10"
+          className={cn(
+            "shrink-0 font-display text-lg sm:text-2xl lg:text-[32px] 2xl:text-[48px]",
+            "font-bold tracking-[1px] sm:tracking-[1.6px] 2xl:tracking-[2.4px]",
+            "text-primary leading-tight lg:leading-10 2xl:leading-[56px]",
+          )}
         >
           {siteConfig.name}
         </Link>
 
-        <div className="flex min-w-0 flex-1 items-center justify-end sm:justify-center gap-3 overflow-x-auto sm:gap-6 px-1 sm:px-2 [-ms-overflow-style:none] [scrollbar-width:none] [&::-webkit-scrollbar]:hidden">
+        <div
+          className={cn(
+            "flex min-w-0 flex-1 items-center justify-end sm:justify-center",
+            "gap-3 overflow-x-auto sm:gap-6 px-1 sm:px-2",
+            "[-ms-overflow-style:none] [scrollbar-width:none] [&::-webkit-scrollbar]:hidden",
+          )}
+        >
           {tabs.map((tab) => (
             <button
               key={tab.id}
               onClick={() => setActiveTab(tab.id)}
               className={cn(
-                "shrink-0 pb-1 transition-colors uppercase font-semibold text-[10px] sm:text-[12px] leading-4 tracking-[1.8px] cursor-pointer whitespace-nowrap",
+                "shrink-0 pb-1 transition-colors uppercase font-semibold text-[10px]",
+                "sm:text-[12px] 2xl:text-[16px] leading-4 2xl:leading-6 tracking-[1.8px]",
+                "2xl:tracking-[2.4px] cursor-pointer whitespace-nowrap",
                 activeTab === tab.id
                   ? "border-b border-primary text-primary"
                   : "text-[#EAE1D799] hover:text-primary",
@@ -65,7 +84,12 @@ export function NomineeDetailShell({
         <Button
           size="sm"
           variant="outline"
-          className="hidden sm:inline-flex shrink-0 h-8 sm:h-[34px] border-[#EBC1664D] text-primary font-semibold text-[10px] sm:text-[12px] leading-4 tracking-[1.8px] whitespace-nowrap"
+          className={cn(
+            "hidden sm:inline-flex shrink-0 h-8 sm:h-10 2xl:h-12",
+            "border-[#EBC1664D] text-primary font-semibold",
+            "text-[10px] sm:text-[12px] 2xl:text-[16px] leading-4 2xl:leading-6",
+            "tracking-[1.8px] 2xl:tracking-[2.4px] whitespace-nowrap",
+          )}
           onClick={() => setActiveTab("detail")}
         >
           Vote For This Project
@@ -85,7 +109,12 @@ export function NomineeDetailShell({
           {/* Right — cover image (detail) or tab content top (awards/gallery) */}
           <div className="min-w-0 py-10 lg:py-16">
             {activeTab === "detail" && (
-              <div className="relative w-full max-w-full overflow-hidden bg-background-elevated aspect-[4/5] sm:aspect-[3/4] lg:aspect-auto lg:max-h-[860px] lg:h-[min(860px,75vh)]">
+              <div
+                className={cn(
+                  "relative w-full max-w-full overflow-hidden bg-background-elevated aspect-[4/5]",
+                  "sm:aspect-[3/4] lg:aspect-auto lg:max-h-[860px] lg:h-[min(860px,75vh)]",
+                )}
+              >
                 {nominee.coverImage ? (
                   <img
                     src={nominee.coverImage}
@@ -101,10 +130,10 @@ export function NomineeDetailShell({
                     <span
                       key={i}
                       className={cn(
-                        "block h-1.5 rounded-full",
+                        "block h-1.5 2xl:h-2 rounded-full",
                         i === 0
-                          ? "w-6 bg-primary"
-                          : "w-1.5 bg-foreground-muted/40",
+                          ? "w-6 2xl:w-8 bg-primary"
+                          : "w-1.5 2xl:w-2 bg-foreground-muted/40",
                       )}
                     />
                   ))}
@@ -134,17 +163,31 @@ export function NomineeDetailShell({
           {/* Cast Your Vote */}
           <section className="border-t border-border-strong py-16 sm:py-24 text-center">
             <div className="mx-auto w-full max-w-full sm:max-w-xl lg:max-w-[576px] 2xl:max-w-4xl px-4 sm:px-6">
-              <h2 className="font-display text-[40px] sm:text-[56px] lg:text-[72px] leading-tight lg:leading-[72px] text-foreground">
+              <h2
+                className={cn(
+                  "font-display text-[40px] sm:text-[56px] lg:text-[72px] 2xl:text-[96px]",
+                  "leading-tight lg:leading-[72px] 2xl:leading-[112px] text-foreground",
+                )}
+              >
                 Cast Your Vote
               </h2>
-              <p className="mx-auto mt-5 text-base leading-6 text-foreground-muted font-inter">
+              <p
+                className={cn(
+                  "mx-auto mt-5 2xl:mt-8 text-base 2xl:text-[24px] leading-6",
+                  "2xl:leading-9 text-foreground-muted font-inter",
+                )}
+              >
                 Your voice defines the standard of excellence for the next
                 generation of Ethiopian architecture.
               </p>
               <Button
                 size="lg"
                 variant="primary"
-                className="mt-10 w-full sm:w-auto text-sm sm:text-base tracking-[2px] sm:tracking-[6.4px] px-8 sm:px-12 leading-6 bg-[#C9A24B]"
+                className={cn(
+                  "mt-10 w-full sm:w-auto bg-[#C9A24B] px-8 sm:px-12 2xl:px-16",
+                  "text-sm sm:text-base 2xl:text-[24px] leading-6 2xl:leading-9",
+                  "tracking-[2px] sm:tracking-[6.4px] 2xl:tracking-[8px]",
+                )}
               >
                 Vote Now
               </Button>

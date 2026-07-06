@@ -14,9 +14,9 @@ const VARIANT_STYLES = {
 } as const;
 
 const SIZE_STYLES = {
-  sm: "px-4 py-2 text-xs",
-  md: "px-7 py-3.5 text-sm",
-  lg: "px-9 py-4 text-base",
+  sm: "px-4 py-2 text-xs 2xl:px-6 2xl:py-3 2xl:text-base",
+  md: "px-7 py-3.5 text-sm 2xl:px-10 2xl:py-5 2xl:text-lg",
+  lg: "px-9 py-4 text-base 2xl:px-12 2xl:py-6 2xl:text-xl",
 } as const;
 
 export type ButtonVariant = keyof typeof VARIANT_STYLES;
@@ -50,7 +50,8 @@ export function Button<T extends ElementType = "button">({
   return (
     <Component
       className={cn(
-        "inline-flex min-w-0 items-center justify-center gap-2 cursor-pointer text-center font-sans font-semibold uppercase tracking-widest transition-colors duration-200",
+        "inline-flex min-w-0 items-center justify-center gap-2 cursor-pointer text-center",
+        "font-sans font-semibold uppercase tracking-widest transition-colors duration-200",
         VARIANT_STYLES[variant],
         SIZE_STYLES[size],
         className,

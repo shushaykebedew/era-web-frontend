@@ -1,5 +1,6 @@
 import { Container } from "@/components/ui/Container";
 import { Button } from "@/components/ui/Button";
+import { cn } from "@/utils/cn";
 
 type NewsletterCtaProps = {
   title?: string;
@@ -11,16 +12,26 @@ export function NewsletterCta({
   description = "Subscribe to receive exclusive invitations to the awards ceremony and early access to ticket sales.",
 }: NewsletterCtaProps) {
   return (
-    <section className="bg-[#0c0c0e] py-16 sm:py-20 lg:py-24">
+    <section className="bg-[#0c0c0e] py-16 sm:py-20 lg:py-24 2xl:py-32">
       <Container size="narrow" className="text-center">
-        <h2 className="font-display font-semibold text-[32px] sm:text-[40px] lg:text-[48px] leading-tight lg:leading-14">
+        <h2
+          className={cn(
+            "font-display font-semibold text-[32px] sm:text-[40px] lg:text-[48px]",
+            "2xl:text-[64px] leading-tight lg:leading-14 2xl:leading-[80px]",
+          )}
+        >
           {title}
         </h2>
-        <p className="mx-auto mt-4 max-w-[630px] text-base leading-6 text-foreground-muted">
+        <p
+          className={cn(
+            "mx-auto mt-4 max-w-[630px] 2xl:max-w-[800px] text-base 2xl:text-[24px]",
+            "leading-6 2xl:leading-[36px] text-foreground-muted",
+          )}
+        >
           {description}
         </p>
 
-        <form className="mx-auto mt-8 flex w-full max-w-[632px] flex-col gap-4 sm:flex-row">
+        <form className="mx-auto mt-8 2xl:mt-12 flex w-full max-w-[632px] 2xl:max-w-[800px] flex-col gap-4 2xl:gap-6 sm:flex-row">
           <label htmlFor="newsletter-email" className="sr-only">
             Email Address
           </label>
@@ -29,11 +40,19 @@ export function NewsletterCta({
             type="email"
             required
             placeholder="Email Address"
-            className="w-full border border-primary/40 font-inter bg-[#1F1B15] px-4 h-[50px] text-base text-foreground placeholder:text-[#D1C5B280] focus:border-primary focus:outline-none"
+            className={cn(
+              "w-full border border-primary/40 font-inter bg-[#1F1B15] px-4 2xl:px-8 h-[50px]",
+              "2xl:h-[72px] text-base 2xl:text-[24px] text-foreground placeholder:text-[#D1C5B280]",
+              "focus:border-primary focus:outline-none",
+            )}
           />
           <Button
             type="submit"
-            className="shrink-0 cursor-pointer bg-primary font-inter text-[#402D00] font-bold text-[12px] leading-4 tracking-[1.2px]"
+            className={cn(
+              "shrink-0 cursor-pointer bg-primary font-inter text-[#402D00] font-bold",
+              "text-[12px] 2xl:text-[20px] leading-4 2xl:leading-6 tracking-[1.2px]",
+              "2xl:tracking-[2px] 2xl:px-10 h-[50px] 2xl:h-[72px]",
+            )}
           >
             Request Invite
           </Button>

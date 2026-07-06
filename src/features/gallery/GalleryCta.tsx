@@ -1,15 +1,27 @@
 import Link from "next/link";
 import { Container } from "@/components/ui/Container";
 import { Button } from "@/components/ui/Button";
+import { cn } from "@/utils/cn";
 
 export function GalleryCta() {
   return (
-    <section className="border-t border-primary/20 bg-background-muted py-16 sm:py-20 lg:py-24 text-center">
+    <section className="border-t border-primary/20 bg-background-muted py-16 sm:py-20 lg:py-24 2xl:py-32 text-center">
       <Container size="narrow">
-        <h2 className="font-display text-[28px] sm:text-[36px] lg:text-[48px] leading-tight lg:leading-14 font-semibold">
+        <h2
+          className={cn(
+            "font-display text-[28px] sm:text-[36px] lg:text-[48px] 2xl:text-[64px]",
+            "leading-tight lg:leading-14 2xl:leading-[80px] font-semibold",
+          )}
+        >
           Be Part of the Excellence
         </h2>
-        <p className="mx-auto mt-5 w-full max-w-full lg:max-w-[554px] text-base sm:text-[18px] leading-7 text-foreground-muted font-inter">
+        <p
+          className={cn(
+            "mx-auto mt-5 w-full max-w-full lg:max-w-[554px] 2xl:max-w-[720px]",
+            "text-base sm:text-[18px] 2xl:text-[24px]",
+            "leading-7 2xl:leading-[36px] text-foreground-muted font-inter",
+          )}
+        >
           Join the most influential gathering of real estate and architectural
           minds in East Africa.
         </p>
@@ -19,13 +31,24 @@ export function GalleryCta() {
             href="/nominees"
             variant="outline"
             size="sm"
-            className="normal-case text-[12px] w-53 tracking-[1.2px] leading-4 border-primary h-12.5 font-inter font-semibold hover:border-primary/80 hover:text-primary"
+            className={cn(
+              "normal-case text-[12px] 2xl:text-[16px] w-53 2xl:w-64",
+              "tracking-[1.2px] 2xl:tracking-[1.6px] leading-4 2xl:leading-6",
+              "border-primary h-12.5 2xl:h-16 font-inter font-semibold",
+              "hover:border-primary/80 hover:text-primary",
+            )}
           >
             Nominate for 2025
           </Button>
           <Link
             href="mailto:hello@example.com"
-            className="normal-case text-[12px] tracking-[1.2px] flex w-full justify-center sm:w-auto items-center h-12.5 px-4 sm:px-8 font-inter font-semibold text-primary underline underline-offset-2 hover:text-primary/80"
+            className={cn(
+              "normal-case text-[12px] 2xl:text-[16px] tracking-[1.2px] 2xl:tracking-[1.6px]",
+              "flex w-full justify-center sm:w-auto items-center",
+              "h-12.5 2xl:h-16 px-4 sm:px-8 2xl:px-12",
+              "font-inter font-semibold text-primary",
+              "underline underline-offset-2 hover:text-primary/80",
+            )}
           >
             Contact the Secretariat
           </Link>

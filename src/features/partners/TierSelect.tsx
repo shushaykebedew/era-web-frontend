@@ -88,7 +88,8 @@ export function TierSelect({
         onClick={() => setOpen((o) => !o)}
         onKeyDown={handleKeyDown}
         className={cn(
-          "flex w-full items-center justify-between border-b border-[#4E4637] cursor-pointer bg-transparent py-3 text-left text-base outline-none transition-colors",
+          "flex w-full items-center justify-between border-b border-[#4E4637] cursor-pointer",
+          "bg-transparent py-3 text-left text-base 2xl:text-[20px] outline-none transition-colors",
           "focus:border-primary",
           selected ? "text-foreground" : "text-[#9A8F7E]",
         )}
@@ -142,7 +143,8 @@ export function TierSelect({
                   setOpen(false);
                 }}
                 className={cn(
-                  "flex cursor-pointer items-center justify-between px-4 py-3 text-sm uppercase tracking-[0.5px] font-inter transition-colors",
+                  "flex cursor-pointer items-center justify-between px-4 py-3 text-base",
+                  "uppercase tracking-[0.5px] font-inter transition-colors",
                   isActive ? "bg-primary/10 text-primary" : "text-[#D1C5B2]",
                   isSelected && "text-primary",
                 )}

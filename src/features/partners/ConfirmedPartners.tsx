@@ -36,7 +36,13 @@ function PartnerCard({
   image: string;
 }) {
   return (
-    <div className="group relative overflow-hidden md:w-full aspect-[286/244] w-60 max-w-[286px]  mx-auto lg:max-w-none bg-[#16130D] border border-[#4E4637]">
+    <div
+      className={cn(
+        "group relative overflow-hidden md:w-full aspect-[286/244]",
+        "w-60 max-w-[286px] mx-auto lg:max-w-none",
+        "bg-[#16130D] border border-[#4E4637]",
+      )}
+    >
       {/* White overlay merged on top of the base fill */}
       {/* <div className="pointer-events-none absolute inset-0 bg-white/10 mix-blend-overlay" /> */}
 
@@ -45,8 +51,8 @@ function PartnerCard({
 
         <span
           className={cn(
-            "text-[12px] leading-4 px-3 py-1 font-inter font-semibold uppercase",
-            "tracking-[1.2px] border",
+            "text-[12px] 2xl:text-[16px] leading-4 2xl:leading-6 px-3 2xl:px-4 py-1 2xl:py-1.5 font-inter font-semibold uppercase",
+            "tracking-[1.2px] 2xl:tracking-[1.6px] border",
             tier === "Gold"
               ? "text-primary border-[#EBC16633]"
               : tier === "Silver"
@@ -64,24 +70,34 @@ function PartnerCard({
 // ── Main export ──────────────────────────────────────────────────────────────
 export function ConfirmedPartners() {
   return (
-    <section className="bg-[#1F1B15] py-16 sm:py-20 lg:py-24">
-      <Container>
+    <section className="bg-[#1F1B15] py-16 sm:py-20 lg:py-24 2xl:py-32">
+      <Container size="wide">
         <div className="mb-10 flex flex-col justify-between gap-4 sm:flex-row sm:items-end">
           <div className="flex flex-col gap-2">
-            <h1 className="text-[28px] sm:text-[36px] lg:text-[42px] font-display font-semibold leading-tight lg:leading-14 text-foreground">
+            <h1
+              className={cn(
+                "text-[28px] sm:text-[36px] lg:text-[42px] 2xl:text-[56px] font-display",
+                "font-semibold leading-tight lg:leading-14 2xl:leading-18 text-foreground",
+              )}
+            >
               Confirmed Partners
             </h1>
-            <p className="text-base sm:text-[18px] leading-7 text-foreground-muted max-w-[512px] font-inter">
+            <p
+              className={cn(
+                "text-base sm:text-[18px] 2xl:text-[24px] leading-7 2xl:leading-9",
+                "text-foreground-muted max-w-[512px] 2xl:max-w-[720px] font-inter",
+              )}
+            >
               Industry leaders already committed to celebrating Ethiopia&apos;s
               architectural renaissance.
             </p>
           </div>
-          <p className="text-[12px] font-inter font-semibold uppercase tracking-[2.4px] leading-4 text-primary sm:shrink-0">
+          <p className="text-[12px] 2xl:text-base font-inter font-semibold uppercase tracking-[2.4px] leading-4 text-primary sm:shrink-0">
             Excellence Through Collaboration
           </p>
         </div>
 
-        <div className="grid grid-cols-1 gap-4 sm:gap-8 justify-items-center sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
+        <div className="grid grid-cols-1 gap-4 sm:gap-8 2xl:gap-12 justify-items-center sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
           {confirmedPartners.map((partner) => (
             <PartnerCard key={partner.name} {...partner} />
           ))}

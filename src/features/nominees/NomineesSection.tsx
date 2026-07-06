@@ -1,7 +1,6 @@
 "use client";
 
-import { useEffect, useRef, useState } from "react";
-import Link from "next/link";
+import { useState } from "react";
 import { Container } from "@/components/ui/Container";
 import { NomineeCard } from "@/features/nominees/NomineeCard";
 import { nominees } from "@/data/nominees";
@@ -40,18 +39,31 @@ export function NomineesSection() {
   return (
     <>
       {/* ── Hero ── */}
-      <section className="bg-background pt-28 text-center pb-10 sm:pt-36 lg:pt-40">
+      <section className="bg-background pt-28 text-center pb-10 sm:pt-36 lg:pt-40 2xl:pt-48">
         <Container size="narrow">
           <Eyebrow align="center" className="">
             Excellence in Architecture
           </Eyebrow>
 
-          <h1 className="text-center mx-auto font-display text-[40px] sm:text-[56px] lg:text-[72px] font-bold leading-tight lg:leading-[72px] tracking-tight lg:tracking-[-1.44px] text-foreground w-full max-w-full lg:max-w-[728px]">
+          <h1
+            className={cn(
+              "mx-auto w-full max-w-full lg:max-w-[728px] 2xl:max-w-[896px]",
+              "text-center font-display text-[40px] sm:text-[56px] lg:text-[72px] 2xl:text-[96px]",
+              "font-bold leading-tight lg:leading-[72px] 2xl:leading-[112px]",
+              "tracking-tight lg:tracking-[-1.44px] 2xl:tracking-[-1.92px] text-foreground",
+            )}
+          >
             Residential
             <br />
             <span className="italic text-primary">Excellence Nominees</span>
           </h1>
-          <p className="text-center mx-auto mt-6 mb-12 sm:mb-20 w-full max-w-full lg:max-w-[665px] text-base sm:text-[18px] leading-7 text-foreground-muted font-inter">
+          <p
+            className={cn(
+              "mx-auto mt-6 mb-12 sm:mb-20 w-full max-w-full lg:max-w-[665px] 2xl:max-w-[800px]",
+              "text-center text-base sm:text-[18px] 2xl:text-[24px]",
+              "leading-7 2xl:leading-[36px] text-foreground-muted font-inter",
+            )}
+          >
             Celebrating homes that redefine modern living in Ethiopia. This
             category honors projects that balance environmental context,
             structural innovation, and cultural legacy.
@@ -72,7 +84,9 @@ export function NomineesSection() {
                     setPage(1);
                   }}
                   className={cn(
-                    "text-sm sm:text-base font-inter uppercase tracking-[1.2px] sm:tracking-[1.6px] leading-4 pb-2 cursor-pointer transition-colors",
+                    "text-sm sm:text-base 2xl:text-[20px] font-inter uppercase tracking-[1.2px]",
+                    "sm:tracking-[1.6px] 2xl:tracking-[2px] leading-4 2xl:leading-6 pb-2",
+                    "cursor-pointer transition-colors",
                     f === filter
                       ? "text-foreground border-b-2 border-primary"
                       : "text-foreground-muted hover:text-foreground",
@@ -80,7 +94,7 @@ export function NomineesSection() {
                 >
                   {f}
                   {f === "All Projects" && (
-                    <span className="ml-1.5 text-[10px]">
+                    <span className="ml-1.5 2xl:ml-2.5 text-[10px] 2xl:text-[14px]">
                       {nominees.length}
                     </span>
                   )}
@@ -95,7 +109,7 @@ export function NomineesSection() {
       {/* ── Grid ── */}
       <section className="bg-background py-12 sm:py-16">
         <Container size="wide">
-          <div className="grid grid-cols-1 gap-x-6 gap-y-14 sm:grid-cols-2 lg:grid-cols-3">
+          <div className="grid grid-cols-1 gap-x-6 2xl:gap-x-12 gap-y-14 2xl:gap-y-20 sm:grid-cols-2 lg:grid-cols-3">
             {visible.map((nominee) => (
               <NomineeCard
                 key={nominee.slug}
@@ -105,13 +119,23 @@ export function NomineesSection() {
             ))}
           </div>
           <div className="mt-16 flex flex-col items-center gap-6">
-            <p className="text-center text-sm sm:text-base leading-6 font-inter uppercase tracking-[1.2px] sm:tracking-[1.6px] text-foreground-muted">
+            <p
+              className={cn(
+                "text-center text-sm sm:text-base 2xl:text-[20px] leading-6 2xl:leading-8 font-inter",
+                "uppercase tracking-[1.2px] sm:tracking-[1.6px] 2xl:tracking-[2px] text-foreground-muted",
+              )}
+            >
               Showing {visible.length} of {sorted.length} Excellence Nominees
             </p>
             {hasMore && (
               <button
                 onClick={() => setPage((p) => p + 1)}
-                className="w-full sm:w-auto border border-border-strong px-6 sm:px-10 min-h-[48px] sm:min-h-[58px] py-3 text-sm sm:text-base cursor-pointer font-inter uppercase tracking-[1.5px] text-foreground hover:border-primary hover:text-primary transition-colors"
+                className={cn(
+                  "w-full sm:w-auto border border-border-strong px-6 sm:px-10 2xl:px-14",
+                  "min-h-12 2xl:min-h-14.5 py-3 2xl:py-5 text-sm sm:text-base 2xl:text-[20px]",
+                  "cursor-pointer font-inter uppercase tracking-[1.5px] 2xl:tracking-[2px]",
+                  "text-foreground hover:border-primary hover:text-primary transition-colors",
+                )}
               >
                 Discover More
               </button>
