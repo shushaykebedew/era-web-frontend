@@ -19,13 +19,13 @@ export function GalleryCta() {
             href="/nominees"
             variant="outline"
             size="sm"
-            className="normal-case text-[12px] w-full sm:w-auto sm:flex-1 tracking-[1.2px] leading-4 border-primary h-12.5 px-8 font-inter font-semibold"
+            className="normal-case text-[12px] w-53 tracking-[1.2px] leading-4 border-primary h-12.5 font-inter font-semibold hover:border-primary/80 hover:text-primary"
           >
             Nominate for 2025
           </Button>
           <Link
             href="mailto:hello@example.com"
-            className="normal-case text-[12px] tracking-[1.2px] flex w-full justify-center sm:w-auto sm:flex-1 items-center h-12.5 px-4 sm:px-8 font-inter font-semibold text-primary underline underline-offset-2 hover:text-primary/80"
+            className="normal-case text-[12px] tracking-[1.2px] flex w-full justify-center sm:w-auto items-center h-12.5 px-4 sm:px-8 font-inter font-semibold text-primary underline underline-offset-2 hover:text-primary/80"
           >
             Contact the Secretariat
           </Link>

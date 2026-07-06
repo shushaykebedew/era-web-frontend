@@ -4,7 +4,6 @@ import { useEffect, useState } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { siteConfig } from "@/data/site";
-import { Container } from "@/components/ui/Container";
 import { Button } from "@/components/ui/Button";
 import { cn } from "@/utils/cn";
 
@@ -41,10 +40,11 @@ export function Header() {
         className="relative w-full backdrop-blur-md bg-background/80 border-b border-primary/30 h-16 lg:h-20"
         style={{ zIndex: 40 }}
       >
-        <Container
-          as="div"
-          size="wide"
-          className="flex min-w-0 items-center justify-between h-full gap-3"
+        <div
+          className={cn(
+            "flex min-w-0 items-center justify-between h-full gap-3 w-full",
+            "mx-auto w-full px-4 sm:px-6 md:px-8 lg:px-10 xl:px-12 2xl:px-16",
+          )}
         >
           {/* Logo */}
           <Link
@@ -103,7 +103,7 @@ export function Header() {
           >
             <img src="/icons/menu.svg" alt="" />
           </button>
-        </Container>
+        </div>
       </header>
 
       {/* Mobile menu — sibling of header, outside its stacking context */}

@@ -36,7 +36,7 @@ function PartnerCard({
   image: string;
 }) {
   return (
-    <div className="group relative overflow-hidden w-full aspect-[286/244] max-w-[286px] mx-auto lg:max-w-none bg-[#16130D] border border-[#4E4637]">
+    <div className="group relative overflow-hidden md:w-full aspect-[286/244] w-60 max-w-[286px]  mx-auto lg:max-w-none bg-[#16130D] border border-[#4E4637]">
       {/* White overlay merged on top of the base fill */}
       {/* <div className="pointer-events-none absolute inset-0 bg-white/10 mix-blend-overlay" /> */}
 

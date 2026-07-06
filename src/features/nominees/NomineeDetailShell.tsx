@@ -37,7 +37,7 @@ export function NomineeDetailShell({
   return (
     <div className="bg-background min-h-screen w-full overflow-x-hidden">
       {/* ── Fixed sub-nav ── */}
-      <nav className="fixed inset-x-0 top-0 z-50 flex h-16 sm:h-20 min-w-0 items-center justify-between gap-2 border-b border-primary/20 bg-[#16130DCC] backdrop-blur-[10px] px-3 sm:px-6 lg:px-10">
+      <nav className="fixed inset-x-0 top-0 z-50 flex h-16 sm:h-20 min-w-0 items-center justify-between gap-2 border-b border-primary/20 bg-[#16130DCC] backdrop-blur-[10px] px-3 sm:px-6 lg:px-10 2xl:px-16">
         <Link
           href="/"
           className="shrink-0 font-display text-lg sm:text-2xl lg:text-[32px] font-bold tracking-[1px] sm:tracking-[1.6px] text-primary leading-tight lg:leading-10"

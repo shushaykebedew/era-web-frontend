@@ -69,7 +69,10 @@ export function SortSelect({
   }
 
   return (
-    <div ref={rootRef} className="relative flex flex-wrap items-center gap-x-4 gap-y-2">
+    <div
+      ref={rootRef}
+      className="relative flex flex-wrap items-center gap-x-4 gap-y-2"
+    >
       <span className="text-[12px] font-inter uppercase tracking-[1.6px] leading-4 text-foreground-muted">
         Sort By:
       </span>
@@ -126,8 +129,10 @@ export function SortSelect({
                   setOpen(false);
                 }}
                 className={cn(
-                  "flex cursor-pointer items-center justify-between px-4 py-3 text-sm uppercase tracking-[0.5px] font-inter transition-colors",
-                  isActive ? "bg-primary/10 text-primary" : "text-foreground-muted",
+                  "flex cursor-pointer items-center gap-1 justify-between px-4 py-3 text-sm uppercase tracking-[0.5px] font-inter transition-colors",
+                  isActive
+                    ? "bg-primary/10 text-primary"
+                    : "text-foreground-muted",
                   isSelected && "text-primary",
                 )}
               >

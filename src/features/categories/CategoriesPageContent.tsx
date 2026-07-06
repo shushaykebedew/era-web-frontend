@@ -54,7 +54,7 @@ export function CategoriesPageContent() {
                   href="/gallery"
                   variant="outline"
                   size="sm"
-                  className="text-[12px] font-semibold tracking-[1.2px] font-inter leading-4 text-[#EBC166] border-[#EBC166] h-10 sm:h-[42px] px-4 sm:px-6 w-full sm:w-auto"
+                  className="text-[12px] font-semibold tracking-[1.2px] font-inter leading-4 text-[#EBC166] border-[#EBC166] h-10 sm:h-[42px] px-4 sm:px-6 w-full sm:w-auto hover:border-primary/80 hover:text-primary/95"
                 >
                   Explore the Gallery
                 </Button>
