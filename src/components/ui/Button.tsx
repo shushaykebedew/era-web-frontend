@@ -33,10 +33,6 @@ type ButtonOwnProps<T extends ElementType> = {
 type ButtonProps<T extends ElementType> = ButtonOwnProps<T> &
   Omit<ComponentPropsWithoutRef<T>, keyof ButtonOwnProps<T>>;
 
-/**
- * Polymorphic button: renders as <button> by default, or any element/Link
- * via the `as` prop (e.g. `<Button as={Link} href="/nominees">`).
- */
 export function Button<T extends ElementType = "button">({
   as,
   variant = "primary",

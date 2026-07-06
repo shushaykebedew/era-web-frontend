@@ -38,8 +38,8 @@ function PartnerCard({
   return (
     <div
       className={cn(
-        "group relative overflow-hidden md:w-full aspect-[286/244]",
-        "w-60 max-w-[286px] mx-auto lg:max-w-none",
+        "group relative overflow-hidden md:w-full aspect-286/244",
+        "w-60 max-w-71.5 mx-auto lg:max-w-none",
         "bg-[#16130D] border border-[#4E4637]",
       )}
     >
@@ -85,7 +85,7 @@ export function ConfirmedPartners() {
             <p
               className={cn(
                 "text-base sm:text-[18px] 2xl:text-[24px] leading-7 2xl:leading-9",
-                "text-foreground-muted max-w-[512px] 2xl:max-w-[720px] font-inter",
+                "text-foreground-muted max-w-lg 2xl:max-w-180 font-inter",
               )}
             >
               Industry leaders already committed to celebrating Ethiopia&apos;s

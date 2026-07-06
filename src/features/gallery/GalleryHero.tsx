@@ -13,9 +13,9 @@ export function GalleryHero() {
         <h1
           className={cn(
             "mx-auto font-display text-[40px] sm:text-[56px] lg:text-[72px] 2xl:text-[96px]",
-            "font-bold leading-tight lg:leading-20 2xl:leading-[112px]",
+            "font-bold leading-tight lg:leading-20 2xl:leading-28",
             "tracking-tight lg:tracking-[-1.44px] text-foreground",
-            "w-full max-w-full lg:max-w-[728px] 2xl:max-w-[896px]",
+            "w-full max-w-full lg:max-w-182 2xl:max-w-4xl",
           )}
         >
           The Gallery
@@ -23,9 +23,9 @@ export function GalleryHero() {
         <p
           className={cn(
             "mx-auto mt-6 mb-10 sm:mb-16 lg:mb-20",
-            "max-w-[620px] 2xl:max-w-[800px]",
+            "max-w-155 2xl:max-w-200",
             "text-base sm:text-[18px] 2xl:text-[24px]",
-            "leading-7 2xl:leading-[36px] text-foreground-muted font-inter",
+            "leading-7 2xl:leading-9 text-foreground-muted font-inter",
           )}
         >
           A curated narrative of architectural excellence and cinematic moments

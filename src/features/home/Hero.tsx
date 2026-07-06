@@ -2,7 +2,6 @@ import Link from "next/link";
 import { siteConfig } from "@/data/site";
 import { Container } from "@/components/ui/Container";
 import { Button } from "@/components/ui/Button";
-import { Eyebrow } from "@/components/ui/Eyebrow";
 import { cn } from "@/utils/cn";
 
 type HeroProps = {
@@ -37,9 +36,9 @@ export function Hero({
         <h1
           className={cn(
             "font-display text-4xl sm:text-5xl md:text-6xl lg:text-[72px] 2xl:text-[96px]",
-            "w-full max-w-full lg:max-w-[806px] 2xl:max-w-[1024px]",
+            "w-full max-w-full lg:max-w-201.5 2xl:max-w-5xl",
             "font-bold tracking-tight lg:tracking-[-1.44px]",
-            "leading-tight lg:leading-20 2xl:leading-[112px]",
+            "leading-tight lg:leading-20 2xl:leading-28",
           )}
         >
           Celebrating Excellence in
@@ -49,9 +48,9 @@ export function Hero({
 
         <p
           className={cn(
-            "font-inter mt-6 w-full max-w-full md:max-w-[658px] 2xl:max-w-[800px]",
+            "font-inter mt-6 w-full max-w-full md:max-w-164.5 2xl:max-w-200",
             "text-sm sm:text-base lg:text-[18px] 2xl:text-[24px]",
-            "leading-6 2xl:leading-[36px] text-foreground-muted",
+            "leading-6 2xl:leading-9 text-foreground-muted",
           )}
         >
           {description}
@@ -67,7 +66,7 @@ export function Hero({
             as={Link}
             href={siteConfig.voteCta.href}
             size="lg"
-            className="w-full sm:w-auto sm:min-w-[156px] 2xl:min-w-[240px] h-12 2xl:h-[72px] font-bold text-[12px] 2xl:text-[20px]"
+            className="w-full sm:w-auto sm:min-w-39 2xl:min-w-60 h-12 2xl:h-18 font-bold text-[12px] 2xl:text-[20px]"
           >
             {siteConfig.voteCta.label}
           </Button>
@@ -76,7 +75,7 @@ export function Hero({
             href="/nominees"
             variant="outline"
             size="lg"
-            className="w-full sm:w-auto sm:min-w-[200px] 2xl:min-w-[320px] h-12 2xl:h-[72px] text-[12px] 2xl:text-[20px] font-semibold"
+            className="w-full sm:w-auto sm:min-w-50 2xl:min-w-[320px] h-12 2xl:h-18 text-[12px] 2xl:text-[20px] font-semibold"
           >
             Explore Nominees
           </Button>
@@ -93,7 +92,7 @@ export function Hero({
         <div className="flex max-h-20 flex-col items-center justify-between">
           <p
             className={cn(
-              "font-inter text-[10px] 2xl:text-[14px] leading-[15px] 2xl:leading-[20px]",
+              "font-inter text-[10px] 2xl:text-[14px] leading-3.75 2xl:leading-5",
               "tracking-[1px] 2xl:tracking-[1.5px] uppercase text-foreground",
             )}
           >

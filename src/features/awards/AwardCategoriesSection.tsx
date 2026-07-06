@@ -40,7 +40,7 @@ export function AwardCategoriesSection({
               <img
                 src="/icons/forward-arrow.svg"
                 alt="arrow"
-                className="w-[15px] h-[15px] 2xl:w-[20px] 2xl:h-[20px]"
+                className="w-3.75 h-3.75 2xl:w-5 2xl:h-5"
               />
             </Link>
           </div>

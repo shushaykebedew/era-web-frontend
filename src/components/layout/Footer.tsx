@@ -1,5 +1,4 @@
 import Link from "next/link";
-import { Globe, Share2, Mail } from "lucide-react";
 import { siteConfig } from "@/data/site";
 import { Container } from "@/components/ui/Container";
 import { cn } from "@/utils/cn";
@@ -31,7 +30,7 @@ export function Footer() {
         <div
           className={cn(
             "font-display text-2xl sm:text-[32px] 2xl:text-[40px] font-semibold",
-            "text-primary leading-10 2xl:leading-[48px] flex items-center gap-2 2xl:gap-3",
+            "text-primary leading-10 2xl:leading-12 flex items-center gap-2 2xl:gap-3",
           )}
         >
           ERA{" "}

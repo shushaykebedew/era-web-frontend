@@ -41,7 +41,7 @@ export function SectionHeading({
       {description && (
         <p
           className={cn(
-            "mt-4 w-full max-w-md lg:max-w-[448px] 2xl:max-w-[600px] text-sm",
+            "mt-4 w-full max-w-md lg:max-w-md 2xl:max-w-150 text-sm",
             "sm:text-base 2xl:text-[20px] text-foreground-muted",
             "leading-6 2xl:leading-8 font-inter",
             align === "center" && "mx-auto",

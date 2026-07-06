@@ -1,4 +1,3 @@
-import { Award, ShieldCheck, Leaf } from "lucide-react";
 import type { Nominee } from "@/types";
 import { cn } from "@/utils/cn";
 
@@ -53,7 +52,7 @@ export function AwardsTab({ nominee }: { nominee: Nominee }) {
           <p
             className={cn(
               "font-display text-[32px] sm:text-[48px] 2xl:text-[64px]",
-              "leading-tight lg:leading-14 2xl:leading-[80px]",
+              "leading-tight lg:leading-14 2xl:leading-20",
               "tracking-tight lg:tracking-[-2.4px] uppercase font-semibold text-primary",
             )}
           >
@@ -75,7 +74,7 @@ export function AwardsTab({ nominee }: { nominee: Nominee }) {
         <h2
           className={cn(
             "mb-8 2xl:mb-12 font-display text-[32px] 2xl:text-[40px] font-semibold",
-            "text-[#F4EFE3] leading-10 2xl:leading-[56px]",
+            "text-[#F4EFE3] leading-10 2xl:leading-14",
             "border-b border-primary/20 pb-3 2xl:pb-5",
           )}
         >
@@ -101,7 +100,7 @@ export function AwardsTab({ nominee }: { nominee: Nominee }) {
               </span>
               <p
                 className={cn(
-                  "font-display leading-7.5 2xl:leading-[40px]",
+                  "font-display leading-7.5 2xl:leading-10",
                   step.active
                     ? "text-[#EBC166] text-[24px] 2xl:text-[32px] font-semibold"
                     : "text-[#F4EFE3] text-[20px] 2xl:text-[28px]",
@@ -135,7 +134,7 @@ export function AwardsTab({ nominee }: { nominee: Nominee }) {
 
       {/* Why It Stands Out */}
       <div className="mt-5">
-        <h2 className="mb-6 font-display font-semibold text-[#F4EFE3] text-[32px] 2xl:text-[40px] leading-10 2xl:leading-[56px]">
+        <h2 className="mb-6 font-display font-semibold text-[#F4EFE3] text-[32px] 2xl:text-[40px] leading-10 2xl:leading-14">
           Why It Stands Out
         </h2>
         <div className="grid grid-cols-1 gap-8 2xl:gap-12 sm:grid-cols-2">
@@ -145,10 +144,10 @@ export function AwardsTab({ nominee }: { nominee: Nominee }) {
               className="border border-[#EBC1661A] bg-[#110E08] p-6 2xl:p-10"
             >
               <img src={f.icon} alt="" />
-              <p className="mt-3 font-display text-[20px] 2xl:text-[28px] font-semibold text-[#F4EFE3] leading-7.5 2xl:leading-[40px]">
+              <p className="mt-3 font-display text-[20px] 2xl:text-[28px] font-semibold text-[#F4EFE3] leading-7.5 2xl:leading-10">
                 {f.title}
               </p>
-              <p className="mt-2 text-base 2xl:text-[20px] leading-6 2xl:leading-[32px] text-[#D1C5B2] font-inter ">
+              <p className="mt-2 text-base 2xl:text-[20px] leading-6 2xl:leading-8 text-[#D1C5B2] font-inter ">
                 {f.body}
               </p>
             </div>
@@ -177,7 +176,7 @@ export function AwardsTab({ nominee }: { nominee: Nominee }) {
               <p
                 className={cn(
                   "mt-1.5 2xl:mt-2.5 font-display text-2xl sm:text-[28px] 2xl:text-[40px]",
-                  "text-[#EBC166] leading-10 2xl:leading-[48px]",
+                  "text-[#EBC166] leading-10 2xl:leading-12",
                 )}
               >
                 {nominee.scaleSqm.toLocaleString()}
@@ -200,7 +199,7 @@ export function AwardsTab({ nominee }: { nominee: Nominee }) {
               <p
                 className={cn(
                   "mt-1.5 2xl:mt-2.5 font-display text-2xl sm:text-[28px] 2xl:text-[40px]",
-                  "text-[#EBC166] leading-10 2xl:leading-[48px]",
+                  "text-[#EBC166] leading-10 2xl:leading-12",
                 )}
               >
                 {new Date(nominee.completionDate).getFullYear()}
@@ -219,7 +218,7 @@ export function AwardsTab({ nominee }: { nominee: Nominee }) {
             <p
               className={cn(
                 "mt-1.5 2xl:mt-2.5 font-display text-2xl sm:text-[28px] 2xl:text-[40px]",
-                "text-[#EBC166] leading-10 2xl:leading-[48px]",
+                "text-[#EBC166] leading-10 2xl:leading-12",
               )}
             >
               Platinum
@@ -237,7 +236,7 @@ export function AwardsTab({ nominee }: { nominee: Nominee }) {
             <p
               className={cn(
                 "mt-1.5 2xl:mt-2.5 font-display text-2xl sm:text-[28px] 2xl:text-[40px]",
-                "text-[#EBC166] leading-10 2xl:leading-[48px]",
+                "text-[#EBC166] leading-10 2xl:leading-12",
               )}
             >
               High
@@ -251,7 +250,7 @@ export function AwardsTab({ nominee }: { nominee: Nominee }) {
           {nominee.gallery.slice(0, 2).map((src, i) => (
             <div
               key={i}
-              className="relative aspect-[8/5] min-w-0 flex-1 overflow-hidden border border-[#EBC1661A]"
+              className="relative aspect-8/5 min-w-0 flex-1 overflow-hidden border border-[#EBC1661A]"
             >
               <img
                 src={src}

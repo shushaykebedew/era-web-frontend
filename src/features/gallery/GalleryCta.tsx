@@ -10,16 +10,16 @@ export function GalleryCta() {
         <h2
           className={cn(
             "font-display text-[28px] sm:text-[36px] lg:text-[48px] 2xl:text-[64px]",
-            "leading-tight lg:leading-14 2xl:leading-[80px] font-semibold",
+            "leading-tight lg:leading-14 2xl:leading-20 font-semibold",
           )}
         >
           Be Part of the Excellence
         </h2>
         <p
           className={cn(
-            "mx-auto mt-5 w-full max-w-full lg:max-w-[554px] 2xl:max-w-[720px]",
+            "mx-auto mt-5 w-full max-w-full lg:max-w-138.5 2xl:max-w-180",
             "text-base sm:text-[18px] 2xl:text-[24px]",
-            "leading-7 2xl:leading-[36px] text-foreground-muted font-inter",
+            "leading-7 2xl:leading-9 text-foreground-muted font-inter",
           )}
         >
           Join the most influential gathering of real estate and architectural

@@ -51,7 +51,7 @@ export function SponsorshipForm({ selectedTier = "" }: SponsorshipFormProps) {
       id="sponsorship-form"
       className={cn(
         "bg-[#110E08] border border-[#EBC16633] my-10 sm:my-20 2xl:my-28",
-        "w-[calc(100%-2rem)] max-w-[896px] 2xl:max-w-[1024px] mx-auto py-12 sm:py-20 lg:py-24 2xl:py-32",
+        "w-[calc(100%-2rem)] max-w-4xl 2xl:max-w-5xl mx-auto py-12 sm:py-20 lg:py-24 2xl:py-32",
       )}
     >
       <Container size="narrow">
@@ -59,15 +59,15 @@ export function SponsorshipForm({ selectedTier = "" }: SponsorshipFormProps) {
           <h2
             className={cn(
               "font-display text-[28px] sm:text-[32px] text-foreground xl:text-[48px] 2xl:text-[64px]",
-              "font-semibold leading-tight xl:leading-14 2xl:leading-[80px]",
+              "font-semibold leading-tight xl:leading-14 2xl:leading-20",
             )}
           >
             Request Sponsorship Package
           </h2>
           <p
             className={cn(
-              "mx-auto mt-4 max-w-[484px] 2xl:max-w-[640px] text-base 2xl:text-[24px]",
-              "leading-6 2xl:leading-[36px] text-foreground-muted font-inter",
+              "mx-auto mt-4 max-w-121 2xl:max-w-160 text-base 2xl:text-[24px]",
+              "leading-6 2xl:leading-9 text-foreground-muted font-inter",
             )}
           >
             Complete the form below to receive our detailed partnership brochure

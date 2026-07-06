@@ -93,7 +93,7 @@ export function DetailTab({ nominee }: { nominee: Nominee }) {
           {nominee.gallery.map((src, i) => (
             <div
               key={i}
-              className="relative min-w-0 overflow-hidden aspect-[16/9] md:aspect-[4/3] lg:aspect-[16/9]"
+              className="relative min-w-0 overflow-hidden aspect-video md:aspect-4/3 lg:aspect-video"
             >
               <img
                 src={src}

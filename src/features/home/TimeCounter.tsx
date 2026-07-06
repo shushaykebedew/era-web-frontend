@@ -7,7 +7,7 @@ function TimeCounter() {
   return (
     <div
       className={cn(
-        "relative z-10 min-h-[180px] sm:min-h-[220px] xl:min-h-[266px] 2xl:min-h-[340px]",
+        "relative z-10 min-h-45 sm:min-h-55 xl:min-h-66.5 2xl:min-h-85",
         "border-y border-[#EBC1661A] bg-[#110E08] flex items-center py-10 sm:py-12 xl:py-0",
       )}
     >

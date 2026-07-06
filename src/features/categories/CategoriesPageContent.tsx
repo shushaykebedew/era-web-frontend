@@ -20,7 +20,7 @@ export function CategoriesPageContent() {
             <h1
               className={cn(
                 "font-display text-[40px] sm:text-[56px] lg:text-[72px] 2xl:text-[96px]",
-                "leading-tight lg:leading-20 2xl:leading-[112px]",
+                "leading-tight lg:leading-20 2xl:leading-28",
                 "font-bold tracking-tight lg:tracking-[-1.44px]",
               )}
             >
@@ -30,9 +30,9 @@ export function CategoriesPageContent() {
           </div>
           <p
             className={cn(
-              "mx-auto mt-5 w-full max-w-full lg:max-w-[665px] 2xl:max-w-[800px]",
+              "mx-auto mt-5 w-full max-w-full lg:max-w-166.25 2xl:max-w-200",
               "text-base sm:text-[18px] 2xl:text-[24px] text-[#D1C5B2]",
-              "leading-7 2xl:leading-[36px] font-inter",
+              "leading-7 2xl:leading-9 font-inter",
             )}
           >
             Celebrating the visionaries who redefine Ethiopia&apos;s skyline
@@ -49,14 +49,14 @@ export function CategoriesPageContent() {
         <div className="mx-auto w-full max-w-screen-2xl px-4 sm:px-6 md:px-8 lg:px-10 xl:px-12 2xl:px-16">
           <div className="flex min-w-0 flex-col gap-12 overflow-hidden lg:flex-row lg:justify-between lg:gap-8">
             {/* Left — text */}
-            <div className="flex min-w-0 flex-col justify-center w-full lg:w-1/2 max-w-full lg:max-w-md 2xl:max-w-[700px]">
+            <div className="flex min-w-0 flex-col justify-center w-full lg:w-1/2 max-w-full lg:max-w-md 2xl:max-w-175">
               <p className="mb-4 2xl:mb-6 text-[12px] 2xl:text-[16px] font-inter font-semibold uppercase leading-4 2xl:leading-6 tracking-[1.2px] 2xl:tracking-[1.6px] text-[#EBC166]">
                 Visual Excellence
               </p>
-              <h2 className="font-display text-[36px] sm:text-[48px] 2xl:text-[64px] font-semibold leading-tight lg:leading-14 2xl:leading-[80px] text-[#EAE1D7]">
+              <h2 className="font-display text-[36px] sm:text-[48px] 2xl:text-[64px] font-semibold leading-tight lg:leading-14 2xl:leading-20 text-[#EAE1D7]">
                 A Legacy of Form and Function
               </h2>
-              <p className="mt-6 text-base sm:text-[18px] 2xl:text-[24px] leading-7 2xl:leading-[36px] text-[#D1C5B2] font-inter">
+              <p className="mt-6 text-base sm:text-[18px] 2xl:text-[24px] leading-7 2xl:leading-9 text-[#D1C5B2] font-inter">
                 The ERA awards recognize more than just buildings; we honor the
                 dialogue between a structure and its environment. Our categories
                 reflect the diverse needs of a rapidly urbanizing nation.
@@ -68,7 +68,7 @@ export function CategoriesPageContent() {
                   variant="outline"
                   size="sm"
                   className={cn(
-                    "w-full sm:w-auto h-10 sm:h-[42px] 2xl:h-[60px] px-4 sm:px-6 2xl:px-10",
+                    "w-full sm:w-auto h-10 sm:h-10.5 2xl:h-15 px-4 sm:px-6 2xl:px-10",
                     "text-[12px] 2xl:text-[20px] font-semibold tracking-[1.2px] 2xl:tracking-[2px]",
                     "font-inter leading-4 2xl:leading-6 text-[#EBC166] border-[#EBC166]",
                     "hover:border-primary/80 hover:text-primary/95",
@@ -80,7 +80,7 @@ export function CategoriesPageContent() {
             </div>
 
             {/* Right — featured image */}
-            <div className="relative w-full min-h-[240px] sm:min-h-[360px] aspect-[4/3] lg:aspect-auto lg:min-h-[360px] 2xl:min-h-[480px] lg:w-1/2 overflow-hidden">
+            <div className="relative w-full min-h-60 sm:min-h-90 aspect-4/3 lg:aspect-auto lg:min-h-90 2xl:min-h-120 lg:w-1/2 overflow-hidden">
               <img
                 src="/imgs/image-1.png"
                 alt="Featured Winner 2023: Unity Sky Tower"
@@ -92,14 +92,14 @@ export function CategoriesPageContent() {
                   "absolute bottom-4 left-4 max-w-[calc(100%-32px)] sm:max-w-none",
                   "sm:bottom-5 sm:left-12 2xl:bottom-8 2xl:left-16",
                   "bg-[#16130D99] px-3 py-1.5 sm:py-0 sm:h-8 2xl:h-12 2xl:px-5",
-                  "border-l-2 2xl:border-l-4 border-[#EBC166] backdrop-blur-[12px] flex items-center",
+                  "border-l-2 2xl:border-l-4 border-[#EBC166] backdrop-blur-md flex items-center",
                 )}
               >
                 <span
                   className={cn(
                     "text-[10px] sm:text-[12px] 2xl:text-[16px] font-inter font-semibold",
                     "tracking-[1.2px] 2xl:tracking-[1.6px] text-[#EAE1D7]",
-                    "leading-[16px] sm:leading-4 2xl:leading-6 whitespace-normal sm:whitespace-nowrap",
+                    "leading-4 sm:leading-4 2xl:leading-6 whitespace-normal sm:whitespace-nowrap",
                   )}
                 >
                   Featured Winner 2023: Unity Sky Tower

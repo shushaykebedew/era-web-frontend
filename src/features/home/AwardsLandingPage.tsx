@@ -21,7 +21,7 @@ export function AwardsLandingPage({
       <div
         className={cn(
           "relative -mt-20 flex w-full min-w-0 flex-col bg-cover bg-center bg-no-repeat",
-          "min-h-[480px] sm:min-h-[600px] lg:min-h-[720px] xl:min-h-[820px] 2xl:min-h-[1024px]",
+          "min-h-120 sm:min-h-150 lg:min-h-180 xl:min-h-205 2xl:min-h-256",
         )}
         style={{
           backgroundImage: "url(/imgs/hero-image.png)",

@@ -25,7 +25,7 @@ export function NomineeCard({ nominee, variant = "grid" }: NomineeCardProps) {
       <article className="group flex min-w-0 flex-col bg-background-elevated border border-primary/10">
         <Link
           href={href}
-          className="relative block overflow-hidden bg-muted w-full aspect-[4/5]"
+          className="relative block overflow-hidden bg-muted w-full aspect-4/5"
         >
           <div className="absolute left-4 top-4 2xl:left-6 2xl:top-6 z-10">
             <Badge variant={badgeVariant}>{badgeLabel}</Badge>
@@ -38,14 +38,14 @@ export function NomineeCard({ nominee, variant = "grid" }: NomineeCardProps) {
               className="object-cover transition-transform duration-500 group-hover:scale-105"
             />
           ) : (
-            <div className="h-full w-full bg-gradient-to-br from-muted to-background-muted" />
+            <div className="h-full w-full bg-linear-to-br from-muted to-background-muted" />
           )}
         </Link>
         <div className="flex min-w-0 flex-1 flex-col p-5 sm:p-6 2xl:p-8">
           <h3
             className={cn(
               "mt-1 font-display text-2xl sm:text-3xl lg:text-[32px] 2xl:text-[40px]",
-              "leading-tight lg:leading-10 2xl:leading-[48px] font-semibold",
+              "leading-tight lg:leading-10 2xl:leading-12 font-semibold",
             )}
           >
             <Link href={href} className="hover:text-primary">
@@ -70,7 +70,7 @@ export function NomineeCard({ nominee, variant = "grid" }: NomineeCardProps) {
               size="sm"
               variant="outline"
               className={cn(
-                "text-[10px] 2xl:text-[14px] leading-[15px] 2xl:leading-[20px]",
+                "text-[10px] 2xl:text-[14px] leading-3.75 2xl:leading-5",
                 "tracking-[1px] 2xl:tracking-[1.5px] text-foreground",
                 "font-normal border border-primary/20",
               )}
@@ -90,7 +90,7 @@ export function NomineeCard({ nominee, variant = "grid" }: NomineeCardProps) {
         href={href}
         className={cn(
           "group relative block overflow-hidden bg-muted border border-primary/40",
-          "w-full aspect-[4/5]",
+          "w-full aspect-4/5",
         )}
       >
         <div className="absolute left-4 top-4 2xl:left-6 2xl:top-6 z-10">
@@ -104,7 +104,7 @@ export function NomineeCard({ nominee, variant = "grid" }: NomineeCardProps) {
             className="object-cover grayscale transition-transform duration-500 group-hover:scale-105"
           />
         ) : (
-          <div className="h-full w-full bg-gradient-to-br from-muted to-background-muted" />
+          <div className="h-full w-full bg-linear-to-br from-muted to-background-muted" />
         )}
         <div
           className="absolute inset-0 pointer-events-none"

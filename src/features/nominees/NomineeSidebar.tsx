@@ -55,7 +55,7 @@ export function NomineeSidebar({
         <h1
           className={cn(
             "font-display text-[32px] sm:text-[40px] lg:text-[48px] 2xl:text-[64px] font-semibold",
-            "leading-tight lg:leading-15 2xl:leading-[80px] text-foreground",
+            "leading-tight lg:leading-15 2xl:leading-20 text-foreground",
           )}
         >
           {nominee.name}
@@ -85,12 +85,12 @@ export function NomineeSidebar({
 
       {/* Scale & Completion (Detail Tab) */}
       {activeTab === "detail" && (
-        <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 sm:gap-12 lg:gap-16 xl:gap-24 2xl:gap-32 mt-4 border-t border-border-strong pt-6">
+        <div className="grid gap-6 grid-cols-2 sm:gap-12 lg:gap-16 xl:gap-24 2xl:gap-32 mt-4 border-t border-border-strong pt-6">
           <div>
             <p
               className={cn(
                 "text-[10px] 2xl:text-[14px] font-inter uppercase  text-primary",
-                "tracking-[1px] 2xl:tracking-[1.5px] leading-[15px] 2xl:leading-[20px]",
+                "tracking-[1px] 2xl:tracking-[1.5px] leading-3.75 2xl:leading-5",
               )}
             >
               Scale
@@ -101,7 +101,7 @@ export function NomineeSidebar({
           </div>
 
           <div>
-            <p className="text-[10px] 2xl:text-[14px] font-inter uppercase tracking-[1px] 2xl:tracking-[1.5px] leading-[15px] 2xl:leading-[20px] text-primary">
+            <p className="text-[10px] 2xl:text-[14px] font-inter uppercase tracking-[1px] 2xl:tracking-[1.5px] leading-3.75 2xl:leading-5 text-primary">
               Completion
             </p>
             <p className="mt-1 2xl:mt-2 font-inter text-base 2xl:text-[20px] leading-6 2xl:leading-8 text-foreground">

@@ -12,7 +12,8 @@ export function Header() {
   const pathname = usePathname();
 
   // Hide the main header on nominee detail pages since they have their own subnav
-  const isNomineeDetail = pathname?.startsWith('/nominees/') && pathname !== '/nominees';
+  const isNomineeDetail =
+    pathname?.startsWith("/nominees/") && pathname !== "/nominees";
 
   // Close on Escape
   useEffect(() => {
@@ -43,9 +44,7 @@ export function Header() {
 
   return (
     <>
-      <header
-        className="fixed top-0 left-0 right-0 z-50 w-full backdrop-blur-md bg-background/80 border-b border-primary/30 h-16 lg:h-20 2xl:h-28"
-      >
+      <header className="fixed top-0 left-0 right-0 z-50 w-full backdrop-blur-md bg-background/80 border-b border-primary/30 h-16 lg:h-20 2xl:h-28">
         <div
           className={cn(
             "flex min-w-0 items-center justify-between h-full gap-3 w-full",
@@ -57,8 +56,8 @@ export function Header() {
             href="/"
             className={cn(
               "shrink-0 font-display text-xl sm:text-2xl lg:text-[32px] xl:text-[48px]",
-              "2xl:text-[64px] font-bold tracking-tight leading-tight xl:leading-[52px]",
-              "2xl:leading-[72px] text-[#C9A24B]",
+              "2xl:text-[64px] font-bold tracking-tight leading-tight xl:leading-13",
+              "2xl:leading-18 text-[#C9A24B]",
             )}
           >
             {siteConfig.name}
@@ -100,7 +99,7 @@ export function Header() {
               variant="outline"
               className={cn(
                 "text-primary text-base 2xl:text-[20px] px-4 xl:px-6 2xl:px-10",
-                "w-auto min-w-0 xl:min-w-[165px] 2xl:min-w-[240px] 2xl:py-4",
+                "w-auto min-w-0 xl:min-w-41.25 2xl:min-w-60 2xl:py-4",
               )}
             >
               {siteConfig.voteCta.label}

@@ -50,7 +50,7 @@ export function NomineeDetailShell({
           className={cn(
             "shrink-0 font-display text-lg sm:text-2xl lg:text-[32px] 2xl:text-[48px]",
             "font-bold tracking-[1px] sm:tracking-[1.6px] 2xl:tracking-[2.4px]",
-            "text-primary leading-tight lg:leading-10 2xl:leading-[56px]",
+            "text-primary leading-tight lg:leading-10 2xl:leading-14",
           )}
         >
           {siteConfig.name}
@@ -60,7 +60,7 @@ export function NomineeDetailShell({
           className={cn(
             "flex min-w-0 flex-1 items-center justify-end sm:justify-center",
             "gap-3 overflow-x-auto sm:gap-6 px-1 sm:px-2",
-            "[-ms-overflow-style:none] [scrollbar-width:none] [&::-webkit-scrollbar]:hidden",
+            "[-ms-overflow-style:none] [scrollbar-none] [&::-webkit-scrollbar]:hidden",
           )}
         >
           {tabs.map((tab) => (
@@ -111,8 +111,8 @@ export function NomineeDetailShell({
             {activeTab === "detail" && (
               <div
                 className={cn(
-                  "relative w-full max-w-full overflow-hidden bg-background-elevated aspect-[4/5]",
-                  "sm:aspect-[3/4] lg:aspect-auto lg:max-h-[860px] lg:h-[min(860px,75vh)]",
+                  "relative w-full max-w-full overflow-hidden bg-background-elevated aspect-4/5",
+                  "sm:aspect-3/4 lg:aspect-auto lg:max-h-215 lg:h-[min(860px,75vh)]",
                 )}
               >
                 {nominee.coverImage ? (
@@ -162,11 +162,11 @@ export function NomineeDetailShell({
 
           {/* Cast Your Vote */}
           <section className="border-t border-border-strong py-16 sm:py-24 text-center">
-            <div className="mx-auto w-full max-w-full sm:max-w-xl lg:max-w-[576px] 2xl:max-w-4xl px-4 sm:px-6">
+            <div className="mx-auto w-full max-w-full sm:max-w-xl lg:max-w-xl 2xl:max-w-4xl px-4 sm:px-6">
               <h2
                 className={cn(
                   "font-display text-[40px] sm:text-[56px] lg:text-[72px] 2xl:text-[96px]",
-                  "leading-tight lg:leading-[72px] 2xl:leading-[112px] text-foreground",
+                  "leading-tight lg:leading-18 2xl:leading-28 text-foreground",
                 )}
               >
                 Cast Your Vote

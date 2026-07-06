@@ -47,9 +47,9 @@ export function NomineesSection() {
 
           <h1
             className={cn(
-              "mx-auto w-full max-w-full lg:max-w-[728px] 2xl:max-w-[896px]",
+              "mx-auto w-full max-w-full lg:max-w-182 2xl:max-w-4xl",
               "text-center font-display text-[40px] sm:text-[56px] lg:text-[72px] 2xl:text-[96px]",
-              "font-bold leading-tight lg:leading-[72px] 2xl:leading-[112px]",
+              "font-bold leading-tight lg:leading-18 2xl:leading-28",
               "tracking-tight lg:tracking-[-1.44px] 2xl:tracking-[-1.92px] text-foreground",
             )}
           >
@@ -59,9 +59,9 @@ export function NomineesSection() {
           </h1>
           <p
             className={cn(
-              "mx-auto mt-6 mb-12 sm:mb-20 w-full max-w-full lg:max-w-[665px] 2xl:max-w-[800px]",
+              "mx-auto mt-6 mb-12 sm:mb-20 w-full max-w-full lg:max-w-166.25 2xl:max-w-200",
               "text-center text-base sm:text-[18px] 2xl:text-[24px]",
-              "leading-7 2xl:leading-[36px] text-foreground-muted font-inter",
+              "leading-7 2xl:leading-9 text-foreground-muted font-inter",
             )}
           >
             Celebrating homes that redefine modern living in Ethiopia. This

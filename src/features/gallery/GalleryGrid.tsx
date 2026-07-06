@@ -32,7 +32,7 @@ function EditionSwitcher({
             onClick={() => onChange(yr)}
             className={cn(
               "font-display font-semibold transition-colors text-2xl sm:text-3xl lg:text-[32px]",
-              "2xl:text-[40px] leading-tight lg:leading-10 2xl:leading-[48px] cursor-pointer",
+              "2xl:text-[40px] leading-tight lg:leading-10 2xl:leading-12 cursor-pointer",
               yr === active
                 ? "text-primary border-b border-primary"
                 : "text-foreground-muted/40 hover:text-foreground-muted",

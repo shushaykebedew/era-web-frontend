@@ -6,8 +6,6 @@ import { cn } from "@/utils/cn";
  *  narrow  — page-hero text blocks, CTAs, forms (centered copy)
  *  default — standard content sections
  *  wide    — full-bleed grids, galleries, category cards
- *
- * All three grow at 2xl so content doesn't look isolated on 1920px+.
  */
 const SIZE_STYLES = {
   narrow: "max-w-4xl 2xl:max-w-6xl",

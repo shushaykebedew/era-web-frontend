@@ -15,7 +15,7 @@ export function PartnersPageContent() {
 
           <h1
             className={cn(
-              "mx-auto w-full max-w-[728px] 2xl:max-w-[896px]",
+              "mx-auto w-full max-w-182 2xl:max-w-4xl",
               "font-display text-3xl sm:text-4xl lg:text-[48px] xl:text-[72px] 2xl:text-[96px]",
               "font-bold leading-tight lg:leading-13 xl:leading-20 2xl:leading-28",
               "tracking-tight lg:tracking-[-1.44px] text-[#EAE1D7]",
@@ -25,7 +25,7 @@ export function PartnersPageContent() {
           </h1>
           <p
             className={cn(
-              "mx-auto mt-6 mb-12 max-w-[620px] 2xl:max-w-[800px]",
+              "mx-auto mt-6 mb-12 max-w-155 2xl:max-w-200",
               "text-base sm:mb-20 sm:text-[18px] 2xl:text-[24px]",
               "leading-7 2xl:leading-9 text-[#D1C5B2] font-inter",
             )}

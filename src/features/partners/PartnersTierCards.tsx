@@ -54,8 +54,8 @@ export function PartnersTierCards({ onSelectTier }: PartnersTierCardsProps) {
             <div
               key={tier.id}
               className={cn(
-                "relative flex min-h-[400px] w-full max-w-[392px] xl:max-w-[448px] 2xl:max-w-[600px]",
-                "mx-auto lg:mx-0 xl:min-h-[512px] 2xl:min-h-[600px]",
+                "relative flex min-h-100 w-full max-w-98 xl:max-w-md 2xl:max-w-150",
+                "mx-auto lg:mx-0 xl:min-h-128 2xl:min-h-150",
                 "flex-col border p-6 sm:p-8 2xl:p-10 transition-all duration-300",
                 tier.featured
                   ? "border-primary xl:-translate-y-6 z-10 shadow-[0px_25px_50px_-12px_#00000040] bg-[linear-gradient(0deg,#16130D,#16130D),radial-gradient(165.23%_125.62%_at_0%_0%,rgba(230,197,106,0.15)_0%,rgba(230,197,106,0)_50%)]"
@@ -82,7 +82,7 @@ export function PartnersTierCards({ onSelectTier }: PartnersTierCardsProps) {
 
               <h2
                 className={cn(
-                  "mb-5 font-display text-[32px] 2xl:text-[40px] font-bold leading-10 2xl:leading-[48px]",
+                  "mb-5 font-display text-[32px] 2xl:text-[40px] font-bold leading-10 2xl:leading-12",
                   tier.featured ? "text-primary" : "text-foreground",
                 )}
               >
