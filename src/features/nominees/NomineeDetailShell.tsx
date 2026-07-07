@@ -10,6 +10,7 @@ import { NomineeSidebar } from "./NomineeSidebar";
 import { DetailTab } from "./tabs/DetailTab";
 import { AwardsTab } from "./tabs/AwardsTab";
 import { GalleryTab } from "./tabs/GalleryTab";
+import { VoteModal } from "./VoteModal";
 
 type Tab = "detail" | "awards" | "gallery";
 
@@ -27,6 +28,7 @@ export function NomineeDetailShell({
   nextSlug,
 }: NomineeDetailShellProps) {
   const [activeTab, setActiveTab] = useState<Tab>("detail");
+  const [isVoteModalOpen, setIsVoteModalOpen] = useState(false);
 
   const tabs: { id: Tab; label: string }[] = [
     { id: "detail", label: "Detail" },
@@ -90,7 +92,7 @@ export function NomineeDetailShell({
             "text-[10px] sm:text-[12px] 2xl:text-[16px] leading-4 2xl:leading-6",
             "tracking-[1.8px] 2xl:tracking-[2.4px] whitespace-nowrap",
           )}
-          onClick={() => setActiveTab("detail")}
+          onClick={() => setIsVoteModalOpen(true)}
         >
           Vote For This Project
         </Button>
@@ -104,6 +106,7 @@ export function NomineeDetailShell({
             nominee={nominee}
             category={category}
             activeTab={activeTab}
+            onVoteClick={() => setIsVoteModalOpen(true)}
           />
 
           {/* Right — cover image (detail) or tab content top (awards/gallery) */}
@@ -188,6 +191,7 @@ export function NomineeDetailShell({
                   "text-sm sm:text-base 2xl:text-[24px] leading-6 2xl:leading-9",
                   "tracking-[2px] sm:tracking-[6.4px] 2xl:tracking-[8px]",
                 )}
+                onClick={() => setIsVoteModalOpen(true)}
               >
                 Vote Now
               </Button>
@@ -195,6 +199,12 @@ export function NomineeDetailShell({
           </section>
         </>
       )}
+
+      <VoteModal
+        isOpen={isVoteModalOpen}
+        onClose={() => setIsVoteModalOpen(false)}
+        nominee={nominee}
+      />
     </div>
   );
 }

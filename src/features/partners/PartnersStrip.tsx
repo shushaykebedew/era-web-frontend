@@ -4,8 +4,9 @@ import { cn } from "@/utils/cn";
 
 export function PartnersStrip({ partners }: { partners: Partner[] }) {
   return (
-    <section className={cn("bg-[#16130D]", "py-16")}>
-      <Container size="wide" className="w-full">
+    <section className="bg-[#16130D] py-16">
+      <div className="w-full mx-auto  min-w-0 px-8 lg:px-10 xl:px-12 2xl:px-16 max-w-screen-xl 2xl:max-w-screen-2xl">
+        {/* <div className="w-full mx-auto  min-w-0 px-8 lg:px-10 xl:px-12 2xl:px-16"> */}
         <p
           className={cn(
             "mb-10 2xl:mb-16 text-center text-xs 2xl:text-[16px] text-foreground-muted",
@@ -36,7 +37,7 @@ export function PartnersStrip({ partners }: { partners: Partner[] }) {
             </span>
           ))}
         </div>
-      </Container>
+      </div>
     </section>
   );
 }

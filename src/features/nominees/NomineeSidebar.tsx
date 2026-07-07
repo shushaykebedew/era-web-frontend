@@ -6,6 +6,7 @@ type NomineeSidebarProps = {
   nominee: Nominee;
   category?: AwardCategory;
   activeTab?: string;
+  onVoteClick?: () => void;
 };
 
 type StatusRow = {
@@ -24,6 +25,7 @@ export function NomineeSidebar({
   nominee,
   category,
   activeTab = "detail",
+  onVoteClick,
 }: NomineeSidebarProps) {
   const eyebrow = category?.tagline
     ? activeTab === "detail"
@@ -195,6 +197,7 @@ export function NomineeSidebar({
             "text-sm sm:text-base 2xl:text-[20px] uppercase font-bold",
             "tracking-[1.2px] 2xl:tracking-[1.6px] leading-4 2xl:leading-6",
           )}
+          onClick={onVoteClick}
         >
           Vote For This Project
         </Button>
