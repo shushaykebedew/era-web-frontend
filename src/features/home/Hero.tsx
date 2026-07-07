@@ -35,20 +35,20 @@ export function Hero({
 
         <h1
           className={cn(
-            "font-display text-4xl sm:text-5xl md:text-6xl lg:text-[72px] 2xl:text-[96px]",
+            "font-display text-3xl sm:text-5xl md:text-6xl lg:text-[72px] 2xl:text-[96px]",
             "w-full max-w-full lg:max-w-201.5 2xl:max-w-5xl",
             "font-bold tracking-tight lg:tracking-[-1.44px]",
             "leading-tight lg:leading-20 2xl:leading-28",
           )}
         >
-          Celebrating Excellence in
+          Celebrating Excellence in <br className="md:hidden" />
           <span className="text-primary italic pl-1">Ethiopian</span> Real
           Estate
         </h1>
 
         <p
           className={cn(
-            "font-inter mt-6 w-full max-w-full md:max-w-164.5 2xl:max-w-200",
+            "px-6 md:px-0 font-inter mt-6 w-full max-w-lg md:max-w-164.5 2xl:max-w-200",
             "text-sm sm:text-base lg:text-[18px] 2xl:text-[24px]",
             "leading-6 2xl:leading-9 text-foreground-muted",
           )}

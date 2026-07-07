@@ -5,7 +5,7 @@ import { cn } from "@/utils/cn";
 export function PartnersStrip({ partners }: { partners: Partner[] }) {
   return (
     <section className={cn("bg-[#16130D]", "py-16")}>
-      <Container size="wide">
+      <Container size="wide" className="w-full">
         <p
           className={cn(
             "mb-10 2xl:mb-16 text-center text-xs 2xl:text-[16px] text-foreground-muted",
@@ -19,7 +19,7 @@ export function PartnersStrip({ partners }: { partners: Partner[] }) {
             "flex bg-[#141311] flex-wrap items-center justify-center",
             "gap-x-8 sm:gap-x-14 2xl:gap-x-20",
             "gap-y-8 sm:gap-y-12 2xl:gap-y-16",
-            "py-8 2xl:py-12 lg:px-12 xl:px-24 2xl:px-32",
+            "py-8 2xl:py-12 px-4",
           )}
         >
           {partners.map((partner) => (

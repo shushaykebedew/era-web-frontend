@@ -39,7 +39,7 @@ function PartnerCard({
     <div
       className={cn(
         "group relative overflow-hidden md:w-full aspect-286/244",
-        "w-60 max-w-71.5 mx-auto lg:max-w-none",
+        "w-full sm:max-w-71.5 mx-auto lg:max-w-none",
         "bg-[#16130D] border border-[#4E4637]",
       )}
     >
