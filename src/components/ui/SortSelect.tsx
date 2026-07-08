@@ -2,9 +2,9 @@
 
 import { useEffect, useRef, useState } from "react";
 import { cn } from "@/utils/cn";
+import { Sort } from "@/types/ui";
 
 export const SORTS = ["Alphabetical", "Most Votes"] as const;
-export type Sort = (typeof SORTS)[number];
 
 export function SortSelect({
   value,

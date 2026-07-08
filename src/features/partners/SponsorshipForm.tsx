@@ -3,14 +3,11 @@
 import { useState } from "react";
 import { Container } from "@/components/ui/Container";
 import { Button } from "@/components/ui/Button";
-import { type TierId } from "./PartnersTierCards";
+import { type TierId } from "@/types/partners";
 import { cn } from "@/utils/cn";
 import { TierSelect } from "./TierSelect";
-
-type SponsorshipFormProps = {
-  /** Pre-select a tier when the user clicks a tier card CTA */
-  selectedTier?: TierId | "";
-};
+import { SponsorshipFormProps } from "@/types/partners";
+import { SlideUp } from "@/components/ui/animations";
 
 // ── Reusable field components ─────────────────────────────────────────────────
 function FieldLabel({
@@ -55,91 +52,97 @@ export function SponsorshipForm({ selectedTier = "" }: SponsorshipFormProps) {
       )}
     >
       <Container size="narrow">
-        <div className="text-left sm:text-center">
-          <h2
-            className={cn(
-              "font-display text-[28px] sm:text-[32px] text-foreground xl:text-[48px] 2xl:text-[64px]",
-              "font-semibold leading-tight xl:leading-14 2xl:leading-20",
-            )}
-          >
-            Request Sponsorship Package
-          </h2>
-          <p
-            className={cn(
-              "mx-auto mt-4 max-w-121 2xl:max-w-160 text-base 2xl:text-[24px]",
-              "leading-6 2xl:leading-9 text-foreground-muted font-inter",
-            )}
-          >
-            Complete the form below to receive our detailed partnership brochure
-            and schedule a private consultation with our directors.
-          </p>
-        </div>
-
-        {submitted ? (
-          <div className="mt-12 border border-primary bg-background-elevated p-10 text-center">
-            <p className="font-display text-2xl font-bold text-primary">
-              Request Received
-            </p>
-            <p className="mt-3 text-sm text-foreground-muted">
-              Our team will be in touch within 48 hours.
+        <SlideUp>
+          <div className="text-left sm:text-center">
+            <h2
+              className={cn(
+                "font-display text-[28px] sm:text-[32px] text-foreground xl:text-[48px] 2xl:text-[64px]",
+                "font-semibold leading-tight xl:leading-14 2xl:leading-20",
+              )}
+            >
+              Request Sponsorship Package
+            </h2>
+            <p
+              className={cn(
+                "mx-auto mt-4 max-w-121 2xl:max-w-160 text-base 2xl:text-[24px]",
+                "leading-6 2xl:leading-9 text-foreground-muted font-inter",
+              )}
+            >
+              Complete the form below to receive our detailed partnership
+              brochure and schedule a private consultation with our directors.
             </p>
           </div>
+        </SlideUp>
+
+        {submitted ? (
+          <SlideUp delay={0.2}>
+            <div className="mt-12 border border-primary bg-background-elevated p-10 text-center">
+              <p className="font-display text-2xl font-bold text-primary">
+                Request Received
+              </p>
+              <p className="mt-3 text-sm text-foreground-muted">
+                Our team will be in touch within 48 hours.
+              </p>
+            </div>
+          </SlideUp>
         ) : (
-          <form onSubmit={handleSubmit} className="mt-12 flex flex-col gap-6">
-            {/* Row 1 — Company + Email */}
-            <div className="grid grid-cols-1 gap-6 sm:grid-cols-2">
+          <SlideUp delay={0.2}>
+            <form onSubmit={handleSubmit} className="mt-12 flex flex-col gap-6">
+              {/* Row 1 — Company + Email */}
+              <div className="grid grid-cols-1 gap-6 sm:grid-cols-2">
+                <div className="flex flex-col gap-2">
+                  <input
+                    name="company"
+                    type="text"
+                    placeholder="Company Name"
+                    required
+                    className={fieldBase}
+                  />
+                </div>
+                <div className="flex flex-col gap-2">
+                  <input
+                    name="email"
+                    type="email"
+                    placeholder="Business Email"
+                    required
+                    className={fieldBase}
+                  />
+                </div>
+              </div>
+
+              {/* Row 2 — Tier select */}
               <div className="flex flex-col gap-2">
-                <input
-                  name="company"
-                  type="text"
-                  placeholder="Company Name"
-                  required
-                  className={fieldBase}
+                <FieldLabel htmlFor="tier">Interest Level</FieldLabel>
+                <TierSelect value={tier} onChange={setTier} required />
+              </div>
+
+              {/* Row 3 — Strategic vision */}
+              <div className="flex flex-col gap-2 mt-4">
+                <textarea
+                  id="vision"
+                  name="vision"
+                  placeholder="Strategic Vision"
+                  rows={3}
+                  className={`resize-none ${fieldBase}`}
                 />
               </div>
-              <div className="flex flex-col gap-2">
-                <input
-                  name="email"
-                  type="email"
-                  placeholder="Business Email"
-                  required
-                  className={fieldBase}
-                />
+
+              <div className="mt-4 flex justify-center">
+                <Button
+                  type="submit"
+                  variant="primary"
+                  size="sm"
+                  className={cn(
+                    "w-full sm:w-auto px-8 sm:px-12 2xl:px-16",
+                    "tracking-[2px] sm:tracking-[3.6px] 2xl:tracking-[4.8px]",
+                    "leading-4 bg-primary h-12 2xl:h-16 font-bold font-inter text-[12px] 2xl:text-[16px]",
+                  )}
+                >
+                  Send Request
+                </Button>
               </div>
-            </div>
-
-            {/* Row 2 — Tier select */}
-            <div className="flex flex-col gap-2">
-              <FieldLabel htmlFor="tier">Interest Level</FieldLabel>
-              <TierSelect value={tier} onChange={setTier} required />
-            </div>
-
-            {/* Row 3 — Strategic vision */}
-            <div className="flex flex-col gap-2 mt-4">
-              <textarea
-                id="vision"
-                name="vision"
-                placeholder="Strategic Vision"
-                rows={3}
-                className={`resize-none ${fieldBase}`}
-              />
-            </div>
-
-            <div className="mt-4 flex justify-center">
-              <Button
-                type="submit"
-                variant="primary"
-                size="sm"
-                className={cn(
-                  "w-full sm:w-auto px-8 sm:px-12 2xl:px-16",
-                  "tracking-[2px] sm:tracking-[3.6px] 2xl:tracking-[4.8px]",
-                  "leading-4 bg-primary h-12 2xl:h-16 font-bold font-inter text-[12px] 2xl:text-[16px]",
-                )}
-              >
-                Send Request
-              </Button>
-            </div>
-          </form>
+            </form>
+          </SlideUp>
         )}
       </Container>
     </section>

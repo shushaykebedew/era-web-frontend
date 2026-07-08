@@ -25,8 +25,8 @@ src/
       layout.tsx              # Header + Footer shell
       page.tsx                 # Homepage
       about/                   # "The Awards" page (mission, values, roadmap)
-      awards/                  # Category index + /awards/[slug] detail
-      nominees/                # Nominee index + /nominees/[slug] detail
+      awards/                  # Category index + /awards/[id] detail
+      nominees/                # Nominee index + /nominees/[id] detail
       gallery/ archives/ partners/  # Placeholder pages (design pending)
   components/
     ui/         # Generic, presentation-only primitives (Button, Badge, Container...)

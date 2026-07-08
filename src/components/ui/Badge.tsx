@@ -1,16 +1,11 @@
 import { cn } from "@/utils/cn";
+import { BadgeProps } from "@/types/ui";
 
 const VARIANT_STYLES = {
   nominee: "bg-primary text-primary-foreground",
   "past-winner": "bg-muted text-foreground-muted",
   shortlisted: "border border-primary text-primary",
 } as const;
-
-type BadgeProps = {
-  children: React.ReactNode;
-  variant?: keyof typeof VARIANT_STYLES;
-  className?: string;
-};
 
 export function Badge({
   children,

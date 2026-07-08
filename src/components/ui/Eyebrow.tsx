@@ -1,10 +1,5 @@
 import { cn } from "@/utils/cn";
-
-type EyebrowProps = {
-  children: React.ReactNode;
-  className?: string;
-  align?: "left" | "center";
-};
+import { EyebrowProps } from "@/types/ui";
 
 /** Small uppercase gold label used above section/page headings. */
 export function Eyebrow({ children, className, align = "left" }: EyebrowProps) {

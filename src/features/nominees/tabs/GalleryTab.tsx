@@ -53,12 +53,12 @@ function GalleryImg({
 
 export function GalleryTab({
   nominee,
-  prevSlug,
-  nextSlug,
+  prevId,
+  nextId,
 }: {
   nominee: Nominee;
-  prevSlug?: string;
-  nextSlug?: string;
+  prevId?: string;
+  nextId?: string;
 }) {
   const images = IMAGE_LABELS.map((label, i) => ({
     src:
@@ -147,9 +147,9 @@ export function GalleryTab({
           End of Gallery
         </p>
         <div className="flex flex-col items-center gap-4 sm:flex-row sm:gap-6">
-          {prevSlug ? (
+          {prevId ? (
             <Link
-              href={`/nominees/${prevSlug}`}
+              href={`/nominees/${prevId}`}
               className={cn(
                 "flex items-center gap-2 2xl:gap-3",
                 "text-[12px] 2xl:text-[16px] font-inter font-semibold",
@@ -181,9 +181,9 @@ export function GalleryTab({
             </span>
           )}
 
-          {nextSlug ? (
+          {nextId ? (
             <Link
-              href={`/nominees/${nextSlug}`}
+              href={`/nominees/${nextId}`}
               className={cn(
                 "flex items-center gap-2 2xl:gap-3 text-[12px] 2xl:text-[16px] font-inter",
                 "font-semibold tracking-[1.2px] 2xl:tracking-[1.6px] text-[#EAE1D7]",

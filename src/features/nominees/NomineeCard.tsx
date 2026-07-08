@@ -1,85 +1,89 @@
+"use client";
+
+import { useState } from "react";
 import Link from "next/link";
 import Image from "next/image";
 import type { Nominee } from "@/types";
 import { Badge } from "@/components/ui/Badge";
 import { Button } from "@/components/ui/Button";
 import { cn } from "@/utils/cn";
-
-type NomineeCardProps = {
-  nominee: Nominee;
-  variant?: "featured" | "grid";
-};
+import { NomineeCardProps } from "@/types/nominees";
+import { VoteModal } from "@/features/nominees/VoteModal";
 
 const OVERLAY_GRADIENT =
   "linear-gradient(0deg, #16130D 0%, rgba(22, 19, 13, 0) 50%, rgba(22, 19, 13, 0) 100%)";
 
 export function NomineeCard({ nominee, variant = "grid" }: NomineeCardProps) {
-  const href = `/nominees/${nominee.slug}`;
+  const href = `/nominees/${nominee.id}`;
   const badgeVariant =
     nominee.status === "past-winner" ? "past-winner" : "nominee";
   const badgeLabel =
     nominee.status === "past-winner" ? "Past Winner" : "Nominee";
 
+  const [isVoteModalOpen, setIsVoteModalOpen] = useState(false);
+
   if (variant === "featured") {
     return (
-      <article className="group flex min-w-0 flex-col bg-background-elevated border border-primary/10">
-        <Link
-          href={href}
-          className="relative block overflow-hidden bg-muted w-full aspect-4/5"
-        >
-          <div className="absolute left-4 top-4 2xl:left-6 2xl:top-6 z-10">
-            <Badge variant={badgeVariant}>{badgeLabel}</Badge>
-          </div>
-          {nominee.coverImage ? (
-            <Image
-              src={nominee.coverImage}
-              alt={nominee.name}
-              fill
-              className="object-cover transition-transform duration-500 group-hover:scale-105"
-            />
-          ) : (
-            <div className="h-full w-full bg-linear-to-br from-muted to-background-muted" />
-          )}
-        </Link>
-        <div className="flex min-w-0 flex-1 flex-col p-5 sm:p-6 2xl:p-8">
-          <h3
-            className={cn(
-              "mt-1 font-display text-2xl sm:text-3xl lg:text-[32px] 2xl:text-[40px]",
-              "leading-tight lg:leading-10 2xl:leading-12 font-semibold",
+      <>
+        <article className="group flex min-w-0 flex-col bg-background-elevated border border-primary/10">
+          <div className="relative block overflow-hidden bg-muted w-full aspect-4/5">
+            <div className="absolute left-4 top-4 2xl:left-6 2xl:top-6 z-10">
+              <Badge variant={badgeVariant}>{badgeLabel}</Badge>
+            </div>
+            {nominee.coverImage ? (
+              <Image
+                src={nominee.coverImage}
+                alt={nominee.name}
+                fill
+                className="object-cover transition-transform duration-500 group-hover:scale-105"
+              />
+            ) : (
+              <div className="h-full w-full bg-linear-to-br from-muted to-background-muted" />
             )}
-          >
-            <Link href={href} className="hover:text-primary">
-              {nominee.name}
-            </Link>
-          </h3>
-          <p className="text-base 2xl:text-[20px] leading-6 2xl:leading-8 text-foreground-muted">
-            {nominee.firm}
-          </p>
-          <div className="mt-5 2xl:mt-8 flex flex-wrap items-center justify-between gap-3 2xl:gap-5">
-            <span
-              className={cn(
-                "text-[12px] 2xl:text-[16px] font-semibold uppercase tracking-[1.2px]",
-                "2xl:tracking-[1.6px] leading-4 2xl:leading-6 text-primary",
-              )}
-            >
-              {nominee.votes?.toLocaleString()} Votes
-            </span>
-            <Button
-              as={Link}
-              href={href}
-              size="sm"
-              variant="outline"
-              className={cn(
-                "text-[10px] 2xl:text-[14px] leading-3.75 2xl:leading-5",
-                "tracking-[1px] 2xl:tracking-[1.5px] text-foreground",
-                "font-normal border border-primary/20",
-              )}
-            >
-              Vote
-            </Button>
           </div>
-        </div>
-      </article>
+          <div className="flex min-w-0 flex-1 flex-col p-5 sm:p-6 2xl:p-8">
+            <h3
+              className={cn(
+                "mt-1 font-display text-2xl sm:text-3xl lg:text-[32px] 2xl:text-[40px]",
+                "leading-tight lg:leading-10 2xl:leading-12 font-semibold",
+              )}
+            >
+              {nominee.name}
+            </h3>
+            <p className="text-base 2xl:text-[20px] leading-6 2xl:leading-8 text-foreground-muted">
+              {nominee.firm}
+            </p>
+            <div className="mt-5 2xl:mt-8 flex flex-wrap items-center justify-between gap-3 2xl:gap-5">
+              <span
+                className={cn(
+                  "text-[12px] 2xl:text-[16px] font-semibold uppercase tracking-[1.2px]",
+                  "2xl:tracking-[1.6px] leading-4 2xl:leading-6 text-primary",
+                )}
+              >
+                {nominee.votes?.toLocaleString()} Votes
+              </span>
+              <Button
+                size="sm"
+                variant="outline"
+                className={cn(
+                  "text-[10px] 2xl:text-[14px] leading-3.75 2xl:leading-5",
+                  "tracking-[1px] 2xl:tracking-[1.5px] text-foreground",
+                  "font-normal border border-primary/20",
+                )}
+                onClick={() => setIsVoteModalOpen(true)}
+              >
+                Vote
+              </Button>
+            </div>
+          </div>
+        </article>
+
+        <VoteModal
+          isOpen={isVoteModalOpen}
+          onClose={() => setIsVoteModalOpen(false)}
+          nominee={nominee}
+        />
+      </>
     );
   }
 

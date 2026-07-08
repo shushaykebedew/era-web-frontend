@@ -1,5 +1,10 @@
 import { Container } from "@/components/ui/Container";
 import { cn } from "@/utils/cn";
+import {
+  SlideUp,
+  StaggerContainer,
+  StaggerItem,
+} from "@/components/ui/animations";
 
 // ── Data ─────────────────────────────────────────────────────────────────────
 const confirmedPartners = [
@@ -46,7 +51,7 @@ function PartnerCard({
       {/* White overlay merged on top of the base fill */}
       {/* <div className="pointer-events-none absolute inset-0 bg-white/10 mix-blend-overlay" /> */}
 
-      <div className="relative flex h-full w-full flex-col items-center justify-center gap-6">
+      <div className="relative flex h-full w-full flex-col items-center justify-center gap-6 transition-transform duration-300 group-hover:scale-105">
         <img src={image} alt={name} />
 
         <span
@@ -72,36 +77,40 @@ export function ConfirmedPartners() {
   return (
     <section className="bg-[#1F1B15] py-16 sm:py-20 lg:py-24 2xl:py-32">
       <Container size="wide">
-        <div className="mb-10 flex flex-col justify-between gap-4 sm:flex-row sm:items-end">
-          <div className="flex flex-col gap-2">
-            <h1
-              className={cn(
-                "text-[28px] sm:text-[36px] lg:text-[42px] 2xl:text-[56px] font-display",
-                "font-semibold leading-tight lg:leading-14 2xl:leading-18 text-foreground",
-              )}
-            >
-              Confirmed Partners
-            </h1>
-            <p
-              className={cn(
-                "text-base sm:text-[18px] 2xl:text-[24px] leading-7 2xl:leading-9",
-                "text-foreground-muted max-w-lg 2xl:max-w-180 font-inter",
-              )}
-            >
-              Industry leaders already committed to celebrating Ethiopia&apos;s
-              architectural renaissance.
+        <SlideUp>
+          <div className="mb-10 flex flex-col justify-between gap-4 sm:flex-row sm:items-end">
+            <div className="flex flex-col gap-2">
+              <h1
+                className={cn(
+                  "text-[28px] sm:text-[36px] lg:text-[42px] 2xl:text-[56px] font-display",
+                  "font-semibold leading-tight lg:leading-14 2xl:leading-18 text-foreground",
+                )}
+              >
+                Confirmed Partners
+              </h1>
+              <p
+                className={cn(
+                  "text-base sm:text-[18px] 2xl:text-[24px] leading-7 2xl:leading-9",
+                  "text-foreground-muted max-w-lg 2xl:max-w-180 font-inter",
+                )}
+              >
+                Industry leaders already committed to celebrating
+                Ethiopia&apos;s architectural renaissance.
+              </p>
+            </div>
+            <p className="text-[12px] 2xl:text-base font-inter font-semibold uppercase tracking-[2.4px] leading-4 text-primary sm:shrink-0">
+              Excellence Through Collaboration
             </p>
           </div>
-          <p className="text-[12px] 2xl:text-base font-inter font-semibold uppercase tracking-[2.4px] leading-4 text-primary sm:shrink-0">
-            Excellence Through Collaboration
-          </p>
-        </div>
+        </SlideUp>
 
-        <div className="grid grid-cols-1 gap-4 sm:gap-8 2xl:gap-12 justify-items-center sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
+        <StaggerContainer className="grid grid-cols-1 gap-4 sm:gap-8 2xl:gap-12 justify-items-center sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
           {confirmedPartners.map((partner) => (
-            <PartnerCard key={partner.name} {...partner} />
+            <StaggerItem key={partner.name} className="w-full">
+              <PartnerCard {...partner} />
+            </StaggerItem>
           ))}
-        </div>
+        </StaggerContainer>
       </Container>
     </section>
   );

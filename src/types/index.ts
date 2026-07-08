@@ -1,5 +1,5 @@
 export type AwardCategory = {
-  slug: string;
+  id: string;
   name: string;
   group:
     | "Residential"
@@ -11,11 +11,7 @@ export type AwardCategory = {
   tagline: string;
   description: string;
   icon:
-    | "cat-icon-1"
-    | "cat-icon-2"
-    | "cat-icon-3"
-    | "cat-icon-4"
-    | "cat-icon-5";
+    "cat-icon-1" | "cat-icon-2" | "cat-icon-3" | "cat-icon-4" | "cat-icon-5";
   nomineeCount: number;
   coverImage?: string;
 };
@@ -23,11 +19,11 @@ export type AwardCategory = {
 export type NomineeStatus = "nominee" | "past-winner" | "shortlisted";
 
 export type Nominee = {
-  slug: string;
+  id: string;
   name: string;
   firm: string;
   location: string;
-  categorySlug: string;
+  categoryId: string;
   status: NomineeStatus;
   excerpt: string;
   description: string;

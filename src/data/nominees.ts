@@ -2,11 +2,11 @@ import type { Nominee } from "@/types";
 
 export const nominees: Nominee[] = [
   {
-    slug: "lideta-residency",
+    id: "lideta-residency",
     name: "Lideta Residency",
     firm: "The Zema Collective",
     location: "Addis Ababa, Ethiopia",
-    categorySlug: "urban-sanctuary",
+    categoryId: "urban-sanctuary",
     status: "nominee",
     excerpt:
       "A synthesis of traditional Ethiopian spatial hierarchies and ultra-modernist sustainability.",
@@ -39,11 +39,11 @@ export const nominees: Nominee[] = [
     ],
   },
   {
-    slug: "the-obsidian-tower",
+    id: "the-obsidian-tower",
     name: "The Obsidian Tower",
     firm: "Zoma Architects",
     location: "Bole District",
-    categorySlug: "urban-sanctuary",
+    categoryId: "urban-sanctuary",
     status: "nominee",
     excerpt: "A monolithic exploration of volcanic rock and light.",
     description:
@@ -52,11 +52,11 @@ export const nominees: Nominee[] = [
     coverImage: "/imgs/nominees/nominee-5.png",
   },
   {
-    slug: "verdant-heights",
+    id: "verdant-heights",
     name: "Verdant Heights",
     firm: "Elsa Design Co.",
     location: "Old Airport",
-    categorySlug: "urban-sanctuary",
+    categoryId: "urban-sanctuary",
     status: "nominee",
     excerpt:
       "Blending vernacular timber craftsmanship with contemporary cantilevered steel.",
@@ -66,11 +66,11 @@ export const nominees: Nominee[] = [
     coverImage: "/imgs/nominees/nominee-2.png",
   },
   {
-    slug: "eco-spine-plaza",
+    id: "eco-spine-plaza",
     name: "Eco-Spine Plaza",
     firm: "Habesha Urbanists",
     location: "Kazanchis",
-    categorySlug: "eco-innovator-gold",
+    categoryId: "eco-innovator-gold",
     status: "nominee",
     excerpt: "A vertical garden complex redefining sustainable urban density.",
     description:
@@ -79,11 +79,11 @@ export const nominees: Nominee[] = [
     coverImage: "/imgs/nominees/nominee-3.png",
   },
   {
-    slug: "zema-architecture-studio",
+    id: "zema-architecture-studio",
     name: "Zema Architecture Studio",
     firm: "The Obsidian House",
     location: "Addis Ababa",
-    categorySlug: "urban-sanctuary",
+    categoryId: "urban-sanctuary",
     status: "nominee",
     excerpt:
       "A monolithic exploration of volcanic rock and light, nestled in the outskirts of the capital.",
@@ -92,11 +92,11 @@ export const nominees: Nominee[] = [
     coverImage: "/imgs/nominees/nominee-6.png",
   },
   {
-    slug: "yohannes-and-partners",
+    id: "yohannes-and-partners",
     name: "Yohannes & Partners",
     firm: "Entoto Heights Villa",
     location: "Entoto",
-    categorySlug: "urban-sanctuary",
+    categoryId: "urban-sanctuary",
     status: "nominee",
     excerpt:
       "Blending vernacular timber craftsmanship with contemporary cantilevered steel structures.",
@@ -105,11 +105,11 @@ export const nominees: Nominee[] = [
     coverImage: "/imgs/nominees/nominee-7.png",
   },
   {
-    slug: "abyssinia-design-hub",
+    id: "abyssinia-design-hub",
     name: "Abyssinia Design Hub",
     firm: "The Mosaic Loft",
     location: "Addis Ababa",
-    categorySlug: "bespoke-living-award",
+    categoryId: "bespoke-living-award",
     status: "past-winner",
     excerpt:
       "An adaptive reuse project transforming a warehouse into an urban residential masterpiece.",
@@ -118,11 +118,11 @@ export const nominees: Nominee[] = [
     coverImage: "/imgs/nominees/nominee-4.png",
   },
   {
-    slug: "elevate-architects",
+    id: "elevate-architects",
     name: "Elevate Architects",
     firm: "Sky Garden Complex",
     location: "Bole, Addis Ababa",
-    categorySlug: "urban-sanctuary",
+    categoryId: "urban-sanctuary",
     status: "nominee",
     excerpt:
       "Vertical foresting meets luxury living in this eco-conscious high-density residential development.",
@@ -131,11 +131,11 @@ export const nominees: Nominee[] = [
     coverImage: "/imgs/nominees/nominee-5.png",
   },
   {
-    slug: "brook-tekle-architect",
+    id: "brook-tekle-architect",
     name: "Brook Tekle Architect",
     firm: "Rising Star — B.S.K.T.",
     location: "Addis Ababa",
-    categorySlug: "next-horizon-studio",
+    categoryId: "next-horizon-studio",
     status: "nominee",
     excerpt:
       "Nominated for 'Emerging Talent', Brook's work focuses on sustainable social housing solutions.",
@@ -144,11 +144,11 @@ export const nominees: Nominee[] = [
     coverImage: "/imgs/nominees/nominee-6.png",
   },
   {
-    slug: "selam-interior-design",
+    id: "selam-interior-design",
     name: "Selam Interior Design",
     firm: "The Heritage Manor",
     location: "Addis Ababa",
-    categorySlug: "bespoke-living-award",
+    categoryId: "bespoke-living-award",
     status: "nominee",
     excerpt:
       "A masterclass in interior architectural detailing, reviving historic aesthetics for modern living.",
@@ -158,10 +158,10 @@ export const nominees: Nominee[] = [
   },
 ];
 
-export const getNomineeBySlug = (slug: string) =>
-  nominees.find((nominee) => nominee.slug === slug);
+export const getNomineeById = (id: string) =>
+  nominees.find((nominee) => nominee.id === id);
 
-export const getNomineesByCategory = (categorySlug: string) =>
-  nominees.filter((nominee) => nominee.categorySlug === categorySlug);
+export const getNomineesByCategory = (categoryId: string) =>
+  nominees.filter((nominee) => nominee.categoryId === categoryId);
 
 export const getFeaturedNominees = (limit = 3) => nominees.slice(0, limit);

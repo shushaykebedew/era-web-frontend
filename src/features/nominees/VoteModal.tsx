@@ -5,17 +5,13 @@ import { Modal } from "@/components/ui/Modal";
 import { Button } from "@/components/ui/Button";
 import { cn } from "@/utils/cn";
 import type { Nominee } from "@/types";
-
-type VoteModalProps = {
-  isOpen: boolean;
-  onClose: () => void;
-  nominee: Nominee | null;
-};
-
-type VoteStep = "confirm" | "success";
+import { useRouter } from "next/navigation";
+import { VoteModalProps, VoteStep } from "@/types/nominees";
 
 export function VoteModal({ isOpen, onClose, nominee }: VoteModalProps) {
   const [step, setStep] = useState<VoteStep>("confirm");
+
+  const router = useRouter();
 
   // Reset state when modal opens
   useEffect(() => {
@@ -40,7 +36,8 @@ export function VoteModal({ isOpen, onClose, nominee }: VoteModalProps) {
 
   const handleViewOtherCategories = () => {
     onClose();
-    // Redirect logic would go here
+
+    router.push("/categories");
   };
 
   return (

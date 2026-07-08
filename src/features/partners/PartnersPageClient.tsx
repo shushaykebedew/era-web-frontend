@@ -1,7 +1,8 @@
 "use client";
 
 import { useState } from "react";
-import { PartnersTierCards, type TierId } from "./PartnersTierCards";
+import { PartnersTierCards } from "./PartnersTierCards";
+import { type TierId } from "@/types/partners";
 import { ConfirmedPartners } from "./ConfirmedPartners";
 import { SponsorshipForm } from "./SponsorshipForm";
 

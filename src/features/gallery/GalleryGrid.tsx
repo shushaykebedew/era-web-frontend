@@ -6,6 +6,8 @@ import { Container } from "@/components/ui/Container";
 import { cn } from "@/utils/cn";
 import { EDITIONS, FILTERS, galleryPhotos } from "@/data/gallery";
 import type { Edition, GalleryFilter, GalleryPhoto } from "@/types/gallery";
+import { motion } from "framer-motion";
+import { ease } from "@/components/ui/animations";
 
 // ── EditionSwitcher ───────────────────────────────────────────────────────────
 function EditionSwitcher({
@@ -76,9 +78,19 @@ function FilterPills({
   );
 }
 
-function PhotoCard({ photo }: { photo: GalleryPhoto }) {
+function PhotoCard({
+  photo,
+  index = 0,
+}: {
+  photo: GalleryPhoto;
+  index?: number;
+}) {
   return (
-    <div
+    <motion.div
+      initial={{ opacity: 0, y: 20 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      viewport={{ once: true, margin: "-50px" }}
+      transition={{ duration: 0.5, delay: index * 0.08, ease }}
       className="relative w-full min-w-0 overflow-hidden border border-[#4E4637]"
       style={{
         height: `clamp(180px, ${photo.height / 10}vw, ${photo.height}px)`,
@@ -90,7 +102,7 @@ function PhotoCard({ photo }: { photo: GalleryPhoto }) {
         fill
         className="object-cover grayscale transition-all duration-500 hover:grayscale-0"
       />
-    </div>
+    </motion.div>
   );
 }
 
@@ -116,8 +128,12 @@ function PhotoGrid({ photos }: { photos: GalleryPhoto[] }) {
     <div className="grid grid-cols-1 gap-3 2xl:gap-6 md:grid-cols-2 xl:grid-cols-3">
       {cols.map((col, colIdx) => (
         <div key={colIdx} className="flex min-w-0 flex-col gap-3 2xl:gap-6">
-          {col.map((photo) => (
-            <PhotoCard key={photo.id} photo={photo} />
+          {col.map((photo, photoIdx) => (
+            <PhotoCard
+              key={photo.id}
+              photo={photo}
+              index={colIdx * 2 + photoIdx}
+            />
           ))}
         </div>
       ))}

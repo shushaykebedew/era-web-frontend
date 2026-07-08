@@ -1,30 +1,37 @@
 "use client";
 
-import { useState } from "react";
+import { useState, Suspense } from "react";
+import { useSearchParams } from "next/navigation";
 import { Container } from "@/components/ui/Container";
 import { NomineeCard } from "@/features/nominees/NomineeCard";
 import { nominees } from "@/data/nominees";
+import { awardCategories } from "@/data/award-categories";
 import { cn } from "@/utils/cn";
-import { SortSelect, type Sort } from "@/components/ui/SortSelect";
+import { SortSelect } from "@/components/ui/SortSelect";
+import { type Sort } from "@/types/ui";
 import { Eyebrow } from "@/components/ui/Eyebrow";
-
-const FILTERS = ["All Projects", "Urban Estates", "Villa Retreats"] as const;
-type Filter = (typeof FILTERS)[number];
+import {
+  StaggerContainer,
+  StaggerItem,
+  FadeIn,
+} from "@/components/ui/animations";
 
 const PAGE_SIZE = 6;
 
-// ── NomineesSection ───────────────────────────────────────────────────────────
-// Combines the page hero, filter bar, card grid, and pagination into one
+// ── NomineesSectionContent ───────────────────────────────────────────────────────────
+function NomineesSectionContent() {
+  const searchParams = useSearchParams();
+  const initialCategory = searchParams?.get("category") || "all";
 
-export function NomineesSection() {
-  const [filter, setFilter] = useState<Filter>("All Projects");
+  const [activeCategoryId, setActiveCategoryId] =
+    useState<string>(initialCategory);
   const [sort, setSort] = useState<Sort>("Alphabetical");
   const [page, setPage] = useState(1);
 
   const filtered = nominees.filter((n) => {
-    if (filter === "Urban Estates") return n.categorySlug === "urban-sanctuary";
-    if (filter === "Villa Retreats")
-      return n.categorySlug === "bespoke-living-award";
+    if (activeCategoryId !== "all") {
+      return n.categoryId === activeCategoryId;
+    }
     return true;
   });
 
@@ -45,63 +52,86 @@ export function NomineesSection() {
             Excellence in Architecture
           </Eyebrow>
 
-          <h1
-            className={cn(
-              "mx-auto w-full max-w-full lg:max-w-182 2xl:max-w-4xl",
-              "text-center font-display text-[40px] sm:text-[56px] lg:text-[72px] 2xl:text-[96px]",
-              "font-bold leading-tight lg:leading-18 2xl:leading-28",
-              "tracking-tight lg:tracking-[-1.44px] 2xl:tracking-[-1.92px] text-foreground",
-            )}
-          >
-            Residential
-            <br />
-            <span className="italic text-primary">Excellence Nominees</span>
-          </h1>
-          <p
-            className={cn(
-              "mx-auto mt-6 mb-12 sm:mb-20 w-full max-w-full lg:max-w-166.25 2xl:max-w-200",
-              "text-center text-base sm:text-[18px] 2xl:text-[24px]",
-              "leading-7 2xl:leading-9 text-foreground-muted font-inter",
-            )}
-          >
-            Celebrating homes that redefine modern living in Ethiopia. This
-            category honors projects that balance environmental context,
-            structural innovation, and cultural legacy.
-          </p>
+          <FadeIn>
+            <h1
+              className={cn(
+                "mx-auto w-full max-w-full lg:max-w-182 2xl:max-w-4xl",
+                "text-center font-display text-[40px] sm:text-[56px] lg:text-[72px] 2xl:text-[96px]",
+                "font-bold leading-tight lg:leading-18 2xl:leading-28",
+                "tracking-tight lg:tracking-[-1.44px] 2xl:tracking-[-1.92px] text-foreground",
+              )}
+            >
+              Residential
+              <br />
+              <span className="italic text-primary">Excellence Nominees</span>
+            </h1>
+          </FadeIn>
+          <FadeIn delay={0.2}>
+            <p
+              className={cn(
+                "mx-auto mt-6 mb-12 sm:mb-20 w-full max-w-full lg:max-w-166.25 2xl:max-w-200",
+                "text-center text-base sm:text-[18px] 2xl:text-[24px]",
+                "leading-7 2xl:leading-9 text-foreground-muted font-inter",
+              )}
+            >
+              Celebrating homes that redefine modern living in Ethiopia. This
+              category honors projects that balance environmental context,
+              structural innovation, and cultural legacy.
+            </p>
+          </FadeIn>
         </Container>
       </section>
 
       {/* ── Filter bar ── */}
-      <section className="bg-background py-6 border-b border-border-strong">
+      <section className="bg-background py-6 border-b border-border-strong overflow-x-auto">
         <Container size="wide">
           <div className="flex flex-col gap-4 md:flex-row md:items-center md:justify-between">
-            <div className="flex min-w-0 flex-wrap items-center gap-4 sm:gap-8">
-              {FILTERS.map((f) => (
-                <button
-                  key={f}
-                  onClick={() => {
-                    setFilter(f);
-                    setPage(1);
-                  }}
-                  className={cn(
-                    "text-sm sm:text-base 2xl:text-[20px] font-inter uppercase tracking-[1.2px]",
-                    "sm:tracking-[1.6px] 2xl:tracking-[2px] leading-4 2xl:leading-6 pb-2",
-                    "cursor-pointer transition-colors",
-                    f === filter
-                      ? "text-foreground border-b-2 border-primary"
-                      : "text-foreground-muted hover:text-foreground",
-                  )}
-                >
-                  {f}
-                  {f === "All Projects" && (
-                    <span className="ml-1.5 2xl:ml-2.5 text-[10px] 2xl:text-[14px]">
-                      {nominees.length}
-                    </span>
-                  )}
-                </button>
-              ))}
+            <div className="flex min-w-0 items-center gap-4 sm:gap-8 whitespace-nowrap overflow-x-auto no-scrollbar pb-2">
+              <button
+                onClick={() => {
+                  setActiveCategoryId("all");
+                  setPage(1);
+                }}
+                className={cn(
+                  "text-sm sm:text-base 2xl:text-[20px] font-inter uppercase tracking-[1.2px]",
+                  "sm:tracking-[1.6px] 2xl:tracking-[2px] leading-4 2xl:leading-6",
+                  "cursor-pointer transition-colors shrink-0",
+                  activeCategoryId === "all"
+                    ? "text-foreground border-b-2 border-primary pb-2"
+                    : "text-foreground-muted hover:text-foreground pb-2 border-b-2 border-transparent",
+                )}
+              >
+                All Projects
+                <span className="ml-1.5 2xl:ml-2.5 text-[10px] 2xl:text-[14px]">
+                  {nominees.length}
+                </span>
+              </button>
+              {awardCategories.map((c) => {
+                const isActive = activeCategoryId === c.id;
+                return (
+                  <button
+                    key={c.id}
+                    onClick={() => {
+                      setActiveCategoryId(c.id);
+                      setPage(1);
+                    }}
+                    className={cn(
+                      "text-sm sm:text-base 2xl:text-[20px] font-inter uppercase tracking-[1.2px]",
+                      "sm:tracking-[1.6px] 2xl:tracking-[2px] leading-4 2xl:leading-6",
+                      "cursor-pointer transition-colors shrink-0",
+                      isActive
+                        ? "text-foreground border-b-2 border-primary pb-2"
+                        : "text-foreground-muted hover:text-foreground pb-2 border-b-2 border-transparent",
+                    )}
+                  >
+                    {c.name}
+                  </button>
+                );
+              })}
             </div>
-            <SortSelect value={sort} onChange={setSort} />
+            <div className="shrink-0">
+              <SortSelect value={sort} onChange={setSort} />
+            </div>
           </div>
         </Container>
       </section>
@@ -109,15 +139,13 @@ export function NomineesSection() {
       {/* ── Grid ── */}
       <section className="bg-background py-12 sm:py-16">
         <Container size="wide">
-          <div className="grid grid-cols-1 gap-x-6 2xl:gap-x-12 gap-y-14 2xl:gap-y-20 sm:grid-cols-2 lg:grid-cols-3">
+          <StaggerContainer className="grid grid-cols-1 gap-x-6 2xl:gap-x-12 gap-y-14 2xl:gap-y-20 sm:grid-cols-2 lg:grid-cols-3">
             {visible.map((nominee) => (
-              <NomineeCard
-                key={nominee.slug}
-                nominee={nominee}
-                variant="grid"
-              />
+              <StaggerItem key={nominee.id}>
+                <NomineeCard nominee={nominee} variant="grid" />
+              </StaggerItem>
             ))}
-          </div>
+          </StaggerContainer>
           <div className="mt-16 flex flex-col items-center gap-6">
             <p
               className={cn(
@@ -144,5 +172,13 @@ export function NomineesSection() {
         </Container>
       </section>
     </>
+  );
+}
+
+export function NomineesSection() {
+  return (
+    <Suspense>
+      <NomineesSectionContent />
+    </Suspense>
   );
 }

@@ -8,7 +8,7 @@ import type { AwardCategory } from "@/types";
  */
 export const awardCategories: AwardCategory[] = [
   {
-    slug: "urban-sanctuary",
+    id: "urban-sanctuary",
     name: "Urban Sanctuary Award",
     group: "Residential",
     tagline: "Residential",
@@ -19,7 +19,7 @@ export const awardCategories: AwardCategory[] = [
     coverImage: "/imgs/categories/award-category-1.png",
   },
   {
-    slug: "modern-workspace-pinnacle",
+    id: "modern-workspace-pinnacle",
     name: "Modern Workspace Pinnacle",
     group: "Commercial",
     tagline: "Commercial",
@@ -30,7 +30,7 @@ export const awardCategories: AwardCategory[] = [
     coverImage: "/imgs/categories/award-category-2.png",
   },
   {
-    slug: "eco-innovator-gold",
+    id: "eco-innovator-gold",
     name: "Eco-Innovator Gold",
     group: "Sustainability",
     tagline: "Sustainability",
@@ -41,7 +41,7 @@ export const awardCategories: AwardCategory[] = [
     coverImage: "/imgs/categories/award-category-3.png",
   },
   {
-    slug: "heritage-vanguard",
+    id: "heritage-vanguard",
     name: "Heritage Vanguard",
     group: "Culture",
     tagline: "Culture",
@@ -52,7 +52,7 @@ export const awardCategories: AwardCategory[] = [
     coverImage: "/imgs/categories/award-category-4.png",
   },
   {
-    slug: "bespoke-living-award",
+    id: "bespoke-living-award",
     name: "Bespoke Living Award",
     group: "Interior",
     tagline: "Interior",
@@ -62,7 +62,7 @@ export const awardCategories: AwardCategory[] = [
     nomineeCount: 10,
   },
   {
-    slug: "next-horizon-studio",
+    id: "next-horizon-studio",
     name: "Next Horizon Studio",
     group: "Emerging",
     tagline: "Emerging",
@@ -73,5 +73,5 @@ export const awardCategories: AwardCategory[] = [
   },
 ];
 
-export const getCategoryBySlug = (slug: string) =>
-  awardCategories.find((category) => category.slug === slug);
+export const getCategoryById = (id: string) =>
+  awardCategories.find((category) => category.id === id);

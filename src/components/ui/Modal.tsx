@@ -1,36 +1,15 @@
 "use client";
 
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useRef } from "react";
 import { cn } from "@/utils/cn";
-
-export type ModalProps = {
-  isOpen: boolean;
-  onClose: () => void;
-  children: React.ReactNode;
-  className?: string;
-};
+import { AnimatePresence, motion, useReducedMotion } from "framer-motion";
+import { ease } from "./animations";
+import { ModalProps } from "@/types/ui";
 
 export function Modal({ isOpen, onClose, children, className }: ModalProps) {
-  const [isMounted, setIsMounted] = useState(false);
-  const [isAnimating, setIsAnimating] = useState(false);
   const modalRef = useRef<HTMLDivElement>(null);
   const previousFocusRef = useRef<HTMLElement | null>(null);
-
-  // Handle Mount and Unmount for Animations
-  useEffect(() => {
-    if (isOpen) {
-      setIsMounted(true);
-      // Ensure the browser paints the initial state before adding the transition classes
-      requestAnimationFrame(() => {
-        requestAnimationFrame(() => setIsAnimating(true));
-      });
-    } else {
-      setIsAnimating(false);
-      // Wait for transition to finish before unmounting
-      const timer = setTimeout(() => setIsMounted(false), 300);
-      return () => clearTimeout(timer);
-    }
-  }, [isOpen]);
+  const shouldReduceMotion = useReducedMotion();
 
   // Handle Body Scroll Lock
   useEffect(() => {
@@ -81,7 +60,7 @@ export function Modal({ isOpen, onClose, children, className }: ModalProps) {
     if (!modalEl) return;
 
     const focusableElements = modalEl.querySelectorAll<HTMLElement>(
-      'button, [href], input, select, textarea, [tabindex]:not([tabindex="-1"])'
+      'button, [href], input, select, textarea, [tabindex]:not([tabindex="-1"])',
     );
     const firstElement = focusableElements[0];
     const lastElement = focusableElements[focusableElements.length - 1];
@@ -102,7 +81,10 @@ export function Modal({ isOpen, onClose, children, className }: ModalProps) {
       }
 
       if (e.shiftKey) {
-        if (document.activeElement === firstElement || document.activeElement === modalEl) {
+        if (
+          document.activeElement === firstElement ||
+          document.activeElement === modalEl
+        ) {
           lastElement?.focus();
           e.preventDefault();
         }
@@ -116,47 +98,79 @@ export function Modal({ isOpen, onClose, children, className }: ModalProps) {
 
     modalEl.addEventListener("keydown", handleTabKey);
     return () => modalEl.removeEventListener("keydown", handleTabKey);
-  }, [isOpen, isMounted]);
+  }, [isOpen]);
 
-  if (!isMounted) return null;
+  const backdropVariants = {
+    hidden: { opacity: 0 },
+    visible: { opacity: 1, transition: { duration: 0.3, ease } },
+    exit: { opacity: 0, transition: { duration: 0.2, ease } },
+  };
+
+  const modalVariants = {
+    hidden: { opacity: 0, y: 15, scale: 0.95 },
+    visible: {
+      opacity: 1,
+      y: 0,
+      scale: 1,
+      transition: { duration: 0.4, ease },
+    },
+    exit: {
+      opacity: 0,
+      y: 10,
+      scale: 0.95,
+      transition: { duration: 0.3, ease },
+    },
+  };
+
+  const reducedMotionModalVariants = {
+    hidden: { opacity: 0 },
+    visible: { opacity: 1, transition: { duration: 0.3, ease } },
+    exit: { opacity: 0, transition: { duration: 0.2, ease } },
+  };
 
   return (
-    <div className="fixed inset-0 z-50 overflow-y-auto overflow-x-hidden">
-      <div className="flex min-h-full items-center justify-center p-4 sm:p-6 text-center">
-        {/* Backdrop */}
-        <div
-          className={cn(
-            "fixed inset-0 bg-black/60 backdrop-blur-[2px] transition-opacity duration-300 ease-in-out",
-            isAnimating ? "opacity-100" : "opacity-0"
-          )}
-          onClick={onClose}
-          aria-hidden="true"
-        />
+    <AnimatePresence>
+      {isOpen && (
+        <div className="fixed inset-0 z-50 overflow-y-auto overflow-x-hidden">
+          <div className="flex min-h-full items-center justify-center p-4 sm:p-6 text-center">
+            {/* Backdrop */}
+            <motion.div
+              initial="hidden"
+              animate="visible"
+              exit="exit"
+              variants={backdropVariants}
+              className="fixed inset-0 bg-black/60 backdrop-blur-[2px]"
+              onClick={onClose}
+              aria-hidden="true"
+            />
 
-        {/* Modal Content */}
-        <div
-          ref={modalRef}
-          role="dialog"
-          aria-modal="true"
-          tabIndex={-1}
-          className={cn(
-            "relative w-[calc(100vw-2rem)] sm:w-full max-w-[500px]",
-            "bg-[#16130D] border border-primary/30",
-            "p-6 sm:p-12 text-left",
-            "flex flex-col items-center",
-            "overflow-hidden break-words",
-            "shadow-2xl",
-            // Animation classes
-            "transition-all duration-300 ease-out",
-            isAnimating
-              ? "opacity-100 translate-y-0 scale-100"
-              : "opacity-0 translate-y-4 scale-95",
-            className
-          )}
-        >
-          {children}
+            {/* Modal Content */}
+            <motion.div
+              ref={modalRef}
+              role="dialog"
+              aria-modal="true"
+              tabIndex={-1}
+              initial="hidden"
+              animate="visible"
+              exit="exit"
+              variants={
+                shouldReduceMotion ? reducedMotionModalVariants : modalVariants
+              }
+              className={cn(
+                "relative w-[calc(100vw-2rem)] sm:w-full max-w-[500px]",
+                "bg-[#16130D] border border-primary/30",
+                "p-6 sm:p-12 text-left",
+                "flex flex-col items-center",
+                "overflow-hidden break-words",
+                "shadow-2xl",
+                className,
+              )}
+            >
+              {children}
+            </motion.div>
+          </div>
         </div>
-      </div>
-    </div>
+      )}
+    </AnimatePresence>
   );
 }

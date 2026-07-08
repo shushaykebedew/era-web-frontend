@@ -1,20 +1,7 @@
 import type { Nominee, AwardCategory } from "@/types";
 import { Button } from "@/components/ui/Button";
 import { cn } from "@/utils/cn";
-
-type NomineeSidebarProps = {
-  nominee: Nominee;
-  category?: AwardCategory;
-  activeTab?: string;
-  onVoteClick?: () => void;
-};
-
-type StatusRow = {
-  label: string;
-  value: string;
-  variant: "gold" | "solid" | "badge";
-};
-
+import { NomineeSidebarProps, StatusRow } from "@/types/nominees";
 const STATUS_ROWS: StatusRow[] = [
   { label: "Recognition", value: "Finalist 2024", variant: "gold" },
   { label: "Category", value: "Residential Excellence", variant: "solid" },

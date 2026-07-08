@@ -1,7 +1,4 @@
-export type NavLink = {
-  label: string;
-  href: string;
-};
+import { NavLink } from "@/types/marketing";
 
 export const siteConfig = {
   name: "ERA 2026",

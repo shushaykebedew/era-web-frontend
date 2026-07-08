@@ -1,27 +1,38 @@
+"use client";
+
 import Link from "next/link";
+import { useRouter } from "next/navigation";
 import type { AwardCategory } from "@/types";
 import { CategoryIcon } from "@/components/ui/CategoryIcon";
 import { cn } from "@/utils/cn";
+import { motion } from "framer-motion";
+import { CategoryCardProps } from "@/types/marketing";
 
-type CategoryCardProps = {
-  category: AwardCategory;
-  variant?: "compact" | "feature";
-};
+const MotionLink = motion.create(Link);
 
 export function CategoryCard({
   category,
   variant = "compact",
 }: CategoryCardProps) {
-  const href = `/categories/${category.slug}`;
+  const router = useRouter();
+  const href = `/awards/${category.id}`;
+
+  const handleSeeNominees = (e: React.MouseEvent) => {
+    e.preventDefault();
+    e.stopPropagation();
+    router.push(`/nominees?category=${category.id}`);
+  };
 
   if (variant === "feature") {
     return (
-      <Link
+      <MotionLink
         href={href}
+        whileHover={{ y: -4 }}
+        transition={{ duration: 0.3 }}
         className={cn(
           "group relative flex min-h-50 sm:min-h-60 lg:min-h-65",
           "2xl:min-h-80 flex-col justify-end overflow-hidden bg-muted p-5",
-          "sm:p-6 lg:p-8 transition-transform duration-300 hover:-translate-y-1",
+          "sm:p-6 lg:p-8",
         )}
         style={
           category.coverImage
@@ -52,22 +63,25 @@ export function CategoryCard({
             {category.name}
           </h3>
           <span
+            onClick={handleSeeNominees}
             className={cn(
-              "mt-4 2xl:mt-6 inline-flex items-center gap-2 2xl:gap-3 text-[10px] 2xl:text-[14px]",
-              "uppercase tracking-[1px] 2xl:tracking-[1.5px] text-foreground/70",
-              "leading-3.75 2xl:leading-5 hover:text-primary",
+              "inline-flex items-center gap-2 2xl:gap-3 text-[10px] 2xl:text-[14px]",
+              "font-semibold uppercase tracking-[1px] 2xl:tracking-[1.5px]",
+              "leading-3.75 2xl:leading-5 group-hover:text-primary transition-colors cursor-pointer",
             )}
           >
             See Nominees
           </span>
         </div>
-      </Link>
+      </MotionLink>
     );
   }
 
   return (
-    <Link
+    <MotionLink
       href={href}
+      whileHover={{ y: -4 }}
+      transition={{ duration: 0.3 }}
       className={cn(
         "group flex flex-col min-h-70 lg:min-h-90 xl:min-h-100 2xl:min-h-120",
         "justify-between bg-[#16161A] hover:bg-[#252529] p-5 sm:p-6 lg:p-8 2xl:p-10",
@@ -101,9 +115,10 @@ export function CategoryCard({
       </div>
 
       <span
+        onClick={handleSeeNominees}
         className={cn(
           "mt-8 2xl:mt-12 inline-flex items-center gap-2 2xl:gap-3 text-[12px] 2xl:text-[16px]",
-          "font-inter font-semibold tracking-[1.2px] 2xl:tracking-[1.6px] text-primary",
+          "font-inter font-semibold tracking-[1.2px] 2xl:tracking-[1.6px] text-primary cursor-pointer",
         )}
       >
         View Nominees
@@ -112,6 +127,6 @@ export function CategoryCard({
           className="h-2.5 w-2.5 2xl:w-4 2xl:h-4 transition-transform duration-200 group-hover:translate-x-1"
         />
       </span>
-    </Link>
+    </MotionLink>
   );
 }

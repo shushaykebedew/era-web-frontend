@@ -1,15 +1,10 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
-import { TIERS, type TierId } from "./PartnersTierCards";
+import { TIERS } from "./PartnersTierCards";
+import { type TierId } from "@/types/partners";
 import { cn } from "@/utils/cn";
-
-type TierSelectProps = {
-  value: TierId | "";
-  onChange: (value: TierId) => void;
-  name?: string;
-  required?: boolean;
-};
+import { TierSelectProps } from "@/types/partners";
 
 export function TierSelect({
   value,

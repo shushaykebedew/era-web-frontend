@@ -1,13 +1,6 @@
 import { cn } from "@/utils/cn";
 import { Eyebrow } from "./Eyebrow";
-
-type SectionHeadingProps = {
-  eyebrow?: string;
-  title: React.ReactNode;
-  description?: string;
-  align?: "left" | "center";
-  className?: string;
-};
+import { SectionHeadingProps } from "@/types/ui";
 
 /** Standard eyebrow + heading + description block reused across sections. */
 export function SectionHeading({
