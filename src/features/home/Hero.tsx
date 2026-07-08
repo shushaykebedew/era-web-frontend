@@ -2,6 +2,7 @@ import Link from "next/link";
 import { siteConfig } from "@/data/site";
 import { Container } from "@/components/ui/Container";
 import { ServerButton as Button } from "@/components/ui/ServerButton";
+import { ScrollIndicatorLine } from "@/components/ui/ScrollIndicatorLine";
 import { cn } from "@/utils/cn";
 import { StaggerContainer, SlideUp, FadeIn } from "@/components/ui/animations";
 import { HeroProps } from "@/types/marketing";
@@ -104,11 +105,7 @@ export function Hero({
             >
               Discover
             </p>
-            <img
-              src="/icons/Vertical Divider.svg"
-              alt=""
-              className="h-12 w-0.5 2xl:h-16 2xl:w-1"
-            />
+            <ScrollIndicatorLine />
           </div>
         </div>
       </FadeIn>

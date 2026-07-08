@@ -95,3 +95,9 @@ canvas {
   background: var(--primary);
   color: var(--primary-foreground);
 }
+
+/* Thin primary scrollbar */
+/* "[&::-webkit-scrollbar]:h-0.5",
+   "[&::-webkit-scrollbar-track]:bg-transparent",
+   "[&::-webkit-scrollbar-thumb]:bg-primary",
+    "[&::-webkit-scrollbar-thumb]:rounded-[50px]", */

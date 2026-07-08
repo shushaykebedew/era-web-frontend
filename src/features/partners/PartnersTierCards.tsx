@@ -45,12 +45,18 @@ export function PartnersTierCards({ onSelectTier }: PartnersTierCardsProps) {
   return (
     <section className="bg-background pt-8 sm:pt-12 pb-16 sm:pb-20">
       <Container size="wide">
-        <StaggerContainer className="grid grid-cols-1 gap-8 sm:gap-12 md:grid-cols-2 lg:gap-6 xl:grid-cols-3 sm:items-start">
+        <StaggerContainer className="grid grid-cols-1 gap-8 sm:gap-12 md:grid-cols-2 lg:gap-6 xl:grid-cols-3">
           {TIERS.map((tier, index) => (
-            <StaggerItem key={tier.id} className="w-full">
+            <StaggerItem
+              key={tier.id}
+              className={cn(
+                "w-full h-full",
+                tier.featured && "order-first xl:order-0",
+              )}
+            >
               <div
                 className={cn(
-                  "relative flex min-h-100 w-full max-w-98 xl:max-w-md 2xl:max-w-150",
+                  "relative flex h-full w-full max-w-98 xl:max-w-md 2xl:max-w-150",
                   "mx-auto lg:mx-0 xl:min-h-128 2xl:min-h-150",
                   "flex-col border p-6 sm:p-8 2xl:p-10 transition-all duration-300",
                   tier.featured
