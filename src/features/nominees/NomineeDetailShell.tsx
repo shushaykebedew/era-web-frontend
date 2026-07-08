@@ -180,7 +180,7 @@ export function NomineeDetailShell({
                   generation of Ethiopian architecture.
                 </p>
                 <Button
-                  size="lg"
+                  size="md"
                   variant="primary"
                   className={cn(
                     "mt-10 w-full sm:w-auto bg-[#C9A24B] px-8 sm:px-12 2xl:px-16",

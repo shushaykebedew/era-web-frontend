@@ -1,18 +1,9 @@
 "use client";
 
-import {
-  type ComponentPropsWithoutRef,
-  type ElementType,
-  type ReactNode,
-} from "react";
+import { type ElementType } from "react";
 import { cn } from "@/utils/cn";
 import { motion, useReducedMotion } from "framer-motion";
-import {
-  ButtonVariant,
-  ButtonSize,
-  ButtonOwnProps,
-  ButtonProps,
-} from "@/types/ui";
+import { ButtonProps } from "@/types/ui";
 
 const VARIANT_STYLES = {
   primary:

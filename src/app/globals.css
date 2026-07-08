@@ -2,7 +2,7 @@
 
 :root {
   /* Base surfaces */
-  --background: #15110c; /* primary app background (near-black warm) */
+  --background: #16130d; /* primary app background (near-black warm) */
   --background-elevated: #1c1712; /* cards, raised panels */
   --background-muted: #100d09; /* footer / recessed sections */
   --foreground: #eae1d7; /* primary text on dark surfaces */

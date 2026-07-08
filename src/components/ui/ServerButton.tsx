@@ -1,6 +1,6 @@
 import { cn } from "@/utils/cn";
-import { type ComponentPropsWithoutRef, type ElementType } from "react";
-import { ButtonVariant, ButtonSize, ServerButtonProps } from "@/types/ui";
+import { type ElementType } from "react";
+import { ServerButtonProps } from "@/types/ui";
 
 const VARIANT_STYLES = {
   primary:

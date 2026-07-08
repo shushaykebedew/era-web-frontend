@@ -26,12 +26,20 @@ export function AwardsLandingPage({
         )}
       >
         <Image
-          src="/imgs/hero-image.png"
+          src="/imgs/hero-img.png"
           alt=""
           fill
           className="object-cover object-center"
           priority
           sizes="100vw"
+        />
+        <div
+          className="absolute inset-0"
+          style={{
+            background:
+              "linear-gradient(180deg, rgba(12, 12, 14, 0.4) 0%, #0C0C0E 100%)",
+          }}
+          aria-hidden
         />
         {/* Spacer that offsets the negative margin so hero content sits below the header */}
         <div className="h-20" aria-hidden />
