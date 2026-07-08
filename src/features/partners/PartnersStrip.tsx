@@ -12,7 +12,7 @@ import {
 export function PartnersStrip({ partners }: { partners: Partner[] }) {
   return (
     <section className="bg-[#16130D] py-16">
-      <div className="w-full mx-auto  min-w-0 px-8 lg:px-10 xl:px-12 2xl:px-16 max-w-screen-xl 2xl:max-w-screen-2xl">
+      <div className="w-full mx-auto  min-w-0 px-8 lg:px-10 xl:px-12 2xl:px-16 max-w-7xl 2xl:max-w-screen-2xl">
         {/* <div className="w-full mx-auto  min-w-0 px-8 lg:px-10 xl:px-12 2xl:px-16"> */}
         <FadeIn>
           <p

@@ -3,7 +3,7 @@
 import { Container } from "@/components/ui/Container";
 import { Button } from "@/components/ui/Button";
 import { cn } from "@/utils/cn";
-import { TierId, PartnersTierCardsProps } from "@/types/partners";
+import { PartnersTierCardsProps } from "@/types/partners";
 import { StaggerContainer, StaggerItem } from "@/components/ui/animations";
 
 // ── Data ─────────────────────────────────────────────────────────────────────

@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import Image from "next/image";
 import Link from "next/link";
 import type { Nominee, AwardCategory } from "@/types";
 import { Button } from "@/components/ui/Button";
@@ -113,10 +114,13 @@ export function NomineeDetailShell({
                   )}
                 >
                   {nominee.coverImage ? (
-                    <img
+                    <Image
                       src={nominee.coverImage}
                       alt={nominee.name}
-                      className="h-full w-full object-cover object-top"
+                      fill
+                      className="object-cover object-top"
+                      sizes="(max-width: 1024px) 100vw, 57vw"
+                      priority
                     />
                   ) : (
                     <div className="h-full w-full bg-background-elevated" />

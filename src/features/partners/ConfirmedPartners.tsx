@@ -1,3 +1,4 @@
+import Image from "next/image";
 import { Container } from "@/components/ui/Container";
 import { cn } from "@/utils/cn";
 import {
@@ -45,14 +46,22 @@ function PartnerCard({
       className={cn(
         "group relative overflow-hidden md:w-full aspect-286/244",
         "w-full sm:max-w-71.5 mx-auto lg:max-w-none",
-        "bg-[#16130D] border border-[#4E4637]",
+        "bg-[#131313] border border-[#4E4637]",
       )}
     >
       {/* White overlay merged on top of the base fill */}
       {/* <div className="pointer-events-none absolute inset-0 bg-white/10 mix-blend-overlay" /> */}
 
       <div className="relative flex h-full w-full flex-col items-center justify-center gap-6 transition-transform duration-300 group-hover:scale-105">
-        <img src={image} alt={name} />
+        <div className="relative h-24 w-48">
+          <Image
+            src={image}
+            alt={name}
+            fill
+            className="object-contain"
+            sizes="(max-width: 1536px) 160px, 208px"
+          />
+        </div>
 
         <span
           className={cn(

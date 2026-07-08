@@ -3,7 +3,6 @@
 import { useState } from "react";
 import Link from "next/link";
 import Image from "next/image";
-import type { Nominee } from "@/types";
 import { Badge } from "@/components/ui/Badge";
 import { Button } from "@/components/ui/Button";
 import { cn } from "@/utils/cn";
@@ -68,7 +67,7 @@ export function NomineeCard({ nominee, variant = "grid" }: NomineeCardProps) {
                 className={cn(
                   "text-[10px] 2xl:text-[14px] leading-3.75 2xl:leading-5",
                   "tracking-[1px] 2xl:tracking-[1.5px] text-foreground",
-                  "font-normal border border-primary/20",
+                  "font-normal border border-primary/20 hover:text-primary",
                 )}
                 onClick={() => setIsVoteModalOpen(true)}
               >

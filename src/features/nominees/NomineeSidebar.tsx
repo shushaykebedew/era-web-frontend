@@ -1,3 +1,4 @@
+import Image from "next/image";
 import type { Nominee, AwardCategory } from "@/types";
 import { Button } from "@/components/ui/Button";
 import { cn } from "@/utils/cn";
@@ -61,7 +62,7 @@ export function NomineeSidebar({
               "2xl:text-[20px] font-inter text-[#D1C5B299] leading-6 2xl:leading-8",
             )}
           >
-            <img src="/icons/location.svg" alt="" className="2xl:w-6 2xl:h-6" />
+            <Image src="/icons/location.svg" alt="" width={16} height={16} className="shrink-0 2xl:w-6 2xl:h-6" />
             {nominee.location}
           </div>
         )}
@@ -151,11 +152,7 @@ export function NomineeSidebar({
 
               {row.variant === "badge" ? (
                 <span className="flex items-center gap-1.5 2xl:gap-2.5 font-inter text-sm 2xl:text-[20px] font-semibold text-primary">
-                  <img
-                    src="/icons/checkmark-star.svg"
-                    alt=""
-                    className="2xl:w-6 2xl:h-6"
-                  />
+                  <Image src="/icons/checkmark-star.svg" alt="" width={16} height={16} className="shrink-0 2xl:w-6 2xl:h-6" />
                   {row.value}
                 </span>
               ) : (

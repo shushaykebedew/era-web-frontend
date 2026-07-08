@@ -1,3 +1,4 @@
+import Image from "next/image";
 import Link from "next/link";
 import { siteConfig } from "@/data/site";
 import { Container } from "@/components/ui/Container";
@@ -73,7 +74,7 @@ export function Footer() {
                 "border border-[#EBC16633] transition-opacity hover:opacity-70",
               )}
             >
-              <img src={src} alt="" className="w-5 h-5 2xl:w-7 2xl:h-7" />
+              <Image src={src} alt="" width={20} height={20} className="w-5 h-5 2xl:w-7 2xl:h-7" />
             </a>
           ))}
         </div>

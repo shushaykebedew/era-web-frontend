@@ -1,3 +1,4 @@
+import Image from "next/image";
 import Link from "next/link";
 import type { Nominee } from "@/types";
 import { cn } from "@/utils/cn";
@@ -30,7 +31,7 @@ function GalleryImg({
         className,
       )}
     >
-      <img src={src} alt={label} className="h-full w-full object-cover" />
+      <Image src={src} alt={label} fill className="object-cover" sizes="(max-width: 640px) 100vw, 50vw" />
       <div
         className={cn(
           "absolute bottom-3 left-3 right-3 w-fit max-w-[calc(100%-1.5rem)]",
@@ -113,10 +114,12 @@ export function GalleryTab({
             "border border-border-strong aspect-video w-full",
           )}
         >
-          <img
+          <Image
             src={images[5].src}
             alt={images[5].label}
-            className="h-full w-full object-cover opacity-40"
+            fill
+            className="object-cover opacity-40"
+            sizes="(max-width: 640px) 100vw, 50vw"
           />
           <div
             className={cn(
@@ -157,9 +160,11 @@ export function GalleryTab({
                 "transition-colors hover:text-primary",
               )}
             >
-              <img
+              <Image
                 src="/icons/forward-arrow.svg"
                 alt=""
+                width={12}
+                height={12}
                 className="h-3 w-3 2xl:h-4 2xl:w-4 rotate-180"
               />
               Previous Nominee
@@ -172,9 +177,11 @@ export function GalleryTab({
                 "tracking-[1.2px] 2xl:tracking-[1.6px] text-[#D1C5B299]",
               )}
             >
-              <img
+              <Image
                 src="/icons/forward-arrow.svg"
                 alt=""
+                width={12}
+                height={12}
                 className="h-3 w-3 2xl:h-4 2xl:w-4 rotate-180 opacity-40"
               />
               Previous Nominee
@@ -191,9 +198,11 @@ export function GalleryTab({
               )}
             >
               Next Nominee
-              <img
+              <Image
                 src="/icons/forward-arrow.svg"
                 alt=""
+                width={12}
+                height={12}
                 className="h-3 w-3 2xl:h-4 2xl:w-4"
               />
             </Link>
@@ -206,9 +215,11 @@ export function GalleryTab({
               )}
             >
               Next Nominee
-              <img
+              <Image
                 src="/icons/forward-arrow.svg"
                 alt=""
+                width={12}
+                height={12}
                 className="h-3 w-3 2xl:h-4 2xl:w-4 opacity-40"
               />
             </span>

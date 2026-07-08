@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
+import Image from "next/image";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { siteConfig } from "@/data/site";
@@ -112,9 +113,9 @@ export function Header() {
             aria-label="Toggle menu"
             aria-expanded={isMenuOpen}
             onClick={() => setIsMenuOpen((o) => !o)}
-            className="flex h-10 w-10 shrink-0 items-center justify-center text-foreground lg:hidden"
+            className="flex h-10 w-10 items-center justify-center text-foreground lg:hidden"
           >
-            <img src="/icons/menu.svg" alt="" />
+            <Image src="/icons/menu.svg" alt="" width={40} height={24} />
           </button>
         </div>
       </header>
@@ -132,15 +133,23 @@ export function Header() {
         )}
         style={{ backgroundColor: "#16130D", zIndex: 9999 }}
       >
-        {/* Close button */}
-        <div className="flex justify-end px-4 py-6 sm:px-6">
+        {/* Close button — mirrors the header bar so the icon lands on the exact same spot as the hamburger */}
+        <div className="flex h-16 lg:h-20 2xl:h-28 shrink-0 items-center justify-between px-4 sm:px-6 md:px-8">
+          {/* Logo placeholder to push close button to the right */}
+          <span
+            className={cn(
+              "font-display text-xl sm:text-2xl font-bold tracking-tight text-[#C9A24B]",
+            )}
+          >
+            {siteConfig.name}
+          </span>
           <button
             type="button"
             aria-label="Close menu"
             onClick={() => setIsMenuOpen(false)}
-            className="text-foreground"
+            className="flex h-10 w-10 items-center justify-center text-foreground"
           >
-            <img src="/icons/x-icon.svg" alt="" />
+            <Image src="/icons/x-icon.svg" alt="" width={18} height={18} />
           </button>
         </div>
 

@@ -1,10 +1,10 @@
 "use client";
 
 import { useState, useEffect } from "react";
+import Image from "next/image";
 import { Modal } from "@/components/ui/Modal";
 import { Button } from "@/components/ui/Button";
 import { cn } from "@/utils/cn";
-import type { Nominee } from "@/types";
 import { useRouter } from "next/navigation";
 import { VoteModalProps, VoteStep } from "@/types/nominees";
 
@@ -46,10 +46,12 @@ export function VoteModal({ isOpen, onClose, nominee }: VoteModalProps) {
         <div className="flex flex-col items-center w-full">
           {/* Icon Circle */}
           <div className=" w-16 h-16 lg:w-20 lg:h-20 rounded-full border border-primary/30 bg-[#231F19] flex items-center justify-center mb-6">
-            <img
+            <Image
               src="/icons/vote-modal-icon.svg"
               alt=""
-              className="h-8 w-8 lg:h-fit lg:w-fit"
+              width={32}
+              height={32}
+              className="h-8 w-8 lg:h-10 lg:w-10"
             />
           </div>
 
@@ -59,7 +61,7 @@ export function VoteModal({ isOpen, onClose, nominee }: VoteModalProps) {
           </h2>
 
           {/* Description */}
-          <p className="font-inter text-center text-foreground-muted text-sm sm:text-base 2xl:text-[20px] leading-relaxed mb-8 max-w-[340px] mx-auto">
+          <p className="font-inter text-center text-foreground-muted text-sm sm:text-base 2xl:text-[20px] leading-relaxed mb-8 max-w-85 mx-auto">
             Are you sure you want to vote for{" "}
             <span className="text-primary font-semibold">{nominee.name}</span>?
             Your contribution helps shape the future of architectural excellence
@@ -102,20 +104,22 @@ export function VoteModal({ isOpen, onClose, nominee }: VoteModalProps) {
         <div className="flex flex-col items-center w-full">
           {/* Icon Badge */}
           <div className="mb-6 flex items-center justify-center">
-            <img
+            <Image
               src="/icons/vote-confirm-icon.svg"
               alt=""
-              className="h-10 w-10 lg:h-fit lg:w-fit"
+              width={40}
+              height={40}
+              className="h-10 w-10 lg:h-12 lg:w-12"
             />
           </div>
 
           {/* Title */}
-          <h2 className="font-display text-center text-[24px] sm:text-3xl 2xl:text-[34px] font-semibold text-foreground mb-4 leading-[56px]">
+          <h2 className="font-display text-center text-[24px] sm:text-3xl 2xl:text-[34px] font-semibold text-foreground mb-4 leading-14">
             Excellence Acknowledged
           </h2>
 
           {/* Description */}
-          <p className="font-inter text-center text-foreground-muted text-sm sm:text-base 2xl:text-[20px] leading-7 mb-8 max-w-[473px] mx-auto">
+          <p className="font-inter text-center text-foreground-muted text-sm sm:text-base 2xl:text-[20px] leading-7 mb-8 max-w-118.25 mx-auto">
             Thank you for participating in the ERA 2026 Architectural Awards.
             Your contribution helps shape the future of excellence in Ethiopia.
           </p>
@@ -146,7 +150,12 @@ export function VoteModal({ isOpen, onClose, nominee }: VoteModalProps) {
 
           {/* Footer Text */}
           <div className="mt-12 pt-6 border-t border-[#4E46374D] w-full">
-            <p className="font-inter text-center text-foreground-muted text-[10px] sm:text-xs 2xl:text-sm uppercase tracking-[3px] leading-3.75">
+            <p
+              className={cn(
+                "font-inter text-center text-foreground-muted text-[10px]",
+                "sm:text-xs 2xl:text-sm uppercase tracking-[3px] leading-3.75",
+              )}
+            >
               ERA 2026
             </p>
           </div>

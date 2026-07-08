@@ -1,5 +1,6 @@
 "use client";
 
+import Image from "next/image";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import type { AwardCategory } from "@/types";
@@ -34,16 +35,16 @@ export function CategoryCard({
           "2xl:min-h-80 flex-col justify-end overflow-hidden bg-muted p-5",
           "sm:p-6 lg:p-8",
         )}
-        style={
-          category.coverImage
-            ? {
-                backgroundImage: `url(${category.coverImage})`,
-                backgroundSize: "cover",
-                backgroundPosition: "center",
-              }
-            : undefined
-        }
       >
+        {category.coverImage && (
+          <Image
+            src={category.coverImage}
+            alt=""
+            fill
+            className="object-cover object-center"
+            sizes="(max-width: 768px) 100vw, 50vw"
+          />
+        )}
         <div className="absolute inset-0 bg-linear-to-t from-black/80 via-black/30 to-transparent" />
         <div className="relative z-10">
           <p
@@ -122,8 +123,11 @@ export function CategoryCard({
         )}
       >
         View Nominees
-        <img
+        <Image
           src="/icons/forward-arrow.svg"
+          alt=""
+          width={10}
+          height={10}
           className="h-2.5 w-2.5 2xl:w-4 2xl:h-4 transition-transform duration-200 group-hover:translate-x-1"
         />
       </span>

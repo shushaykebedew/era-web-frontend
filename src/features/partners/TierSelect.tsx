@@ -2,7 +2,6 @@
 
 import { useEffect, useRef, useState } from "react";
 import { TIERS } from "./PartnersTierCards";
-import { type TierId } from "@/types/partners";
 import { cn } from "@/utils/cn";
 import { TierSelectProps } from "@/types/partners";
 

@@ -157,11 +157,11 @@ export function Modal({ isOpen, onClose, children, className }: ModalProps) {
                 shouldReduceMotion ? reducedMotionModalVariants : modalVariants
               }
               className={cn(
-                "relative w-[calc(100vw-2rem)] sm:w-full max-w-[500px]",
+                "relative w-[calc(100vw-2rem)] sm:w-full max-w-125",
                 "bg-[#16130D] border border-primary/30",
                 "p-6 sm:p-12 text-left",
                 "flex flex-col items-center",
-                "overflow-hidden break-words",
+                "overflow-hidden wrap-break-word",
                 "shadow-2xl",
                 className,
               )}

@@ -1,3 +1,4 @@
+import Image from "next/image";
 import type { Nominee } from "@/types";
 import { cn } from "@/utils/cn";
 
@@ -48,7 +49,7 @@ export function AwardsTab({ nominee }: { nominee: Nominee }) {
         <span className="absolute left-4 bottom-4 h-6 w-6 border-l border-b border-primary/40" />
         <span className="absolute right-4 bottom-4 h-6 w-6 border-r border-b border-primary/40" />
         <div className="flex flex-col items-center gap-3 text-center">
-          <img src="/icons/award-finalist.svg" alt="" />
+          <Image src="/icons/award-finalist.svg" alt="" width={64} height={64} />
           <p
             className={cn(
               "font-display text-[32px] sm:text-[48px] 2xl:text-[64px]",
@@ -143,7 +144,7 @@ export function AwardsTab({ nominee }: { nominee: Nominee }) {
               key={f.title}
               className="border border-[#EBC1661A] bg-[#110E08] p-6 2xl:p-10"
             >
-              <img src={f.icon} alt="" />
+              <Image src={f.icon} alt="" width={40} height={40} />
               <p className="mt-3 font-display text-[20px] 2xl:text-[28px] font-semibold text-[#F4EFE3] leading-7.5 2xl:leading-10">
                 {f.title}
               </p>
@@ -252,10 +253,12 @@ export function AwardsTab({ nominee }: { nominee: Nominee }) {
               key={i}
               className="relative aspect-8/5 min-w-0 flex-1 overflow-hidden border border-[#EBC1661A]"
             >
-              <img
+              <Image
                 src={src}
                 alt={`${nominee.name} image ${i + 1}`}
-                className="h-full w-full object-cover grayscale"
+                fill
+                className="object-cover grayscale"
+                sizes="(max-width: 640px) 100vw, 50vw"
               />
             </div>
           ))}

@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import React from "react";
 import Image from "next/image";
 import { Container } from "@/components/ui/Container";
 import { cn } from "@/utils/cn";
@@ -91,10 +92,12 @@ function PhotoCard({
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true, margin: "-50px" }}
       transition={{ duration: 0.5, delay: index * 0.08, ease }}
-      className="relative w-full min-w-0 overflow-hidden border border-[#4E4637]"
-      style={{
-        height: `clamp(180px, ${photo.height / 10}vw, ${photo.height}px)`,
-      }}
+      className="gallery-card relative w-full min-w-0 overflow-hidden border border-[#4E4637]"
+      style={
+        {
+          "--card-h": `clamp(180px, ${photo.height / 10}vw, ${photo.height}px)`,
+        } as React.CSSProperties
+      }
     >
       <Image
         src={photo.src}

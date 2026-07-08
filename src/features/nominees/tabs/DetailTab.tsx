@@ -1,3 +1,4 @@
+import Image from "next/image";
 import type { Nominee } from "@/types";
 import { cn } from "@/utils/cn";
 
@@ -31,7 +32,7 @@ export function DetailTab({ nominee }: { nominee: Nominee }) {
                     key={item.title}
                     className="flex items-start gap-5 2xl:gap-8"
                   >
-                    <img src={icon} className="mt-1" />
+                    <Image src={icon} alt="" width={24} height={24} className="mt-1 shrink-0" />
                     <div>
                       <p className="text-base 2xl:text-[20px] font-semibold text-[#EAE1D7] font-inter leading-6 2xl:leading-8">
                         {item.title}
@@ -95,10 +96,12 @@ export function DetailTab({ nominee }: { nominee: Nominee }) {
               key={i}
               className="relative min-w-0 overflow-hidden aspect-video md:aspect-4/3 lg:aspect-video"
             >
-              <img
+              <Image
                 src={src}
                 alt={`${nominee.name} — view ${i + 1}`}
-                className="h-full w-full object-cover"
+                fill
+                className="object-cover"
+                sizes="(max-width: 768px) 100vw, 33vw"
               />
               {/* Caption on center image */}
               {i === 1 && (
