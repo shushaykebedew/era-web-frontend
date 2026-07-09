@@ -23,25 +23,32 @@ src/
     globals.css              # Design tokens (Tailwind v4 @theme)
     (marketing)/              # Route group for all public marketing pages
       layout.tsx              # Header + Footer shell
-      page.tsx                 # Homepage
-      about/                   # "The Awards" page (mission, values, roadmap)
-      awards/                  # Category index + /awards/[id] detail
-      nominees/                # Nominee index + /nominees/[id] detail
-      gallery/ archives/ partners/  # Placeholder pages (design pending)
+      page.tsx                 # Homepage (redirects to /awards)
+      awards/                  # Award categories index + /awards/[id] detail
+      categories/              # Award categories listing page
+      nominees/                # Nominees index + /nominees/[id] detail
+      gallery/                 # Gallery page with hero, grid, and CTA
+      partners/                # Partners page with sponsorship tiers
   components/
     ui/         # Generic, presentation-only primitives (Button, Badge, Container...)
     layout/     # Header, Footer -- app chrome
-    sections/   # Page-level composed sections (Hero, AwardCategoriesSection...)
+  features/     # Page-level composed sections and domain-specific components
+    awards/     # Award categories and nominees sections
+    categories/ # Categories page content
+    gallery/    # Gallery components (Hero, Grid, CTA)
+    home/       # Home page sections
+    nominees/   # Nominee cards, filters, and voting
+    partners/   # Partner tiers, sponsorship form
   data/         # Fixture data standing in for a future CMS/API
-  types/        # Shared domain types (AwardCategory, Nominee, ...)
-  config/       # Non-visual site config (nav links, CTA copy, ceremony date)
-  lib/          # Pure utilities (cn, date/countdown helpers)
+  types/        # Shared domain types (AwardCategory, Nominee, Gallery, Partners, ...)
+  utils/        # Pure utilities (cn, date/countdown helpers)
+  fonts/        # Font files
 ```
 
 ### Why this structure
 
-- **`ui/` vs `sections/`** -- `ui/` components know nothing about the
-  business domain (a `Button` doesn't know what "Vote Now" means); `sections/`
+- **`ui/` vs `features/`** -- `ui/` components know nothing about the
+  business domain (a `Button` doesn't know what "Vote Now" means); `features/`
   components compose `ui/` primitives with domain data (`Nominee`,
   `AwardCategory`) into the actual page blocks shown in the screenshots. This
   split means redesigning a single page section never risks breaking a shared
@@ -68,13 +75,12 @@ src/
 
 - New award categories / nominees -> add entries to `src/data/*.ts`; pages
   driven by `generateStaticParams` pick them up automatically.
-- New section layouts -> add a component to `components/sections/`, keep all
-  configurable copy as props (with sensible defaults) like `Hero` and
-  `MissionSection` already do.
+- New section layouts -> add a component to `features/`, keep all
+  configurable copy as props (with sensible defaults) like sections in
+  `features/home/` and `features/gallery/` already do.
 - New color/typography -> edit tokens in `globals.css` only.
-- Placeholder pages (`gallery`, `archives`, `partners`) are intentionally
-  minimal -- they follow the same structural pattern as finished pages so
-  they're quick to flesh out later.
+- All public pages (`awards`, `categories`, `nominees`, `gallery`, `partners`)
+  follow a consistent structural pattern for maintainability and extensibility.
 
 ## Scripts
 
