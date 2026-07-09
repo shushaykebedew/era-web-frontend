@@ -2,8 +2,6 @@
 
 import Image from "next/image";
 import Link from "next/link";
-import { useRouter } from "next/navigation";
-import type { AwardCategory } from "@/types";
 import { CategoryIcon } from "@/components/ui/CategoryIcon";
 import { cn } from "@/utils/cn";
 import { motion } from "framer-motion";
@@ -15,14 +13,7 @@ export function CategoryCard({
   category,
   variant = "compact",
 }: CategoryCardProps) {
-  const router = useRouter();
-  const href = `/awards/${category.id}`;
-
-  const handleSeeNominees = (e: React.MouseEvent) => {
-    e.preventDefault();
-    e.stopPropagation();
-    router.push(`/nominees?category=${category.id}`);
-  };
+  const href = `/nominees?category=${category.id}`;
 
   if (variant === "feature") {
     return (
@@ -64,11 +55,10 @@ export function CategoryCard({
             {category.name}
           </h3>
           <span
-            onClick={handleSeeNominees}
             className={cn(
               "inline-flex items-center gap-2 2xl:gap-3 text-[10px] 2xl:text-[14px]",
               "font-semibold uppercase tracking-[1px] 2xl:tracking-[1.5px]",
-              "leading-3.75 2xl:leading-5 group-hover:text-primary transition-colors cursor-pointer",
+              "leading-3.75 2xl:leading-5 group-hover:text-primary transition-colors",
             )}
           >
             See Nominees
@@ -116,10 +106,9 @@ export function CategoryCard({
       </div>
 
       <span
-        onClick={handleSeeNominees}
         className={cn(
           "mt-8 2xl:mt-12 inline-flex items-center gap-2 2xl:gap-3 text-[12px] 2xl:text-[16px]",
-          "font-inter font-semibold tracking-[1.2px] 2xl:tracking-[1.6px] text-primary cursor-pointer",
+          "font-inter font-semibold tracking-[1.2px] 2xl:tracking-[1.6px] text-primary",
         )}
       >
         View Nominees

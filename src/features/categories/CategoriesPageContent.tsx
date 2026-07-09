@@ -87,7 +87,7 @@ export function CategoriesPageContent() {
                       "w-full sm:w-auto h-10 sm:h-10.5 2xl:h-15 px-4 sm:px-6 2xl:px-10",
                       "text-[12px] 2xl:text-[20px] font-semibold tracking-[1.2px] 2xl:tracking-[2px]",
                       "font-inter leading-4 2xl:leading-6 text-[#EBC166] border-[#EBC166]",
-                      "hover:border-primary/80 hover:text-primary/95",
+                      "hover:border-primary/80 hover:text-primary/90",
                     )}
                   >
                     Explore the Gallery
