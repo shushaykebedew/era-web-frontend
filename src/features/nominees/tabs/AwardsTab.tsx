@@ -49,7 +49,12 @@ export function AwardsTab({ nominee }: { nominee: Nominee }) {
         <span className="absolute left-4 bottom-4 h-6 w-6 border-l border-b border-primary/40" />
         <span className="absolute right-4 bottom-4 h-6 w-6 border-r border-b border-primary/40" />
         <div className="flex flex-col items-center gap-3 text-center">
-          <Image src="/icons/award-finalist.svg" alt="" width={64} height={64} />
+          <Image
+            src="/icons/award-finalist.svg"
+            alt=""
+            width={64}
+            height={64}
+          />
           <p
             className={cn(
               "font-display text-[32px] sm:text-[48px] 2xl:text-[64px]",
@@ -103,8 +108,8 @@ export function AwardsTab({ nominee }: { nominee: Nominee }) {
                 className={cn(
                   "font-display leading-7.5 2xl:leading-10",
                   step.active
-                    ? "text-[#EBC166] text-[24px] 2xl:text-[32px] font-semibold"
-                    : "text-[#F4EFE3] text-[20px] 2xl:text-[28px]",
+                    ? "text-[#EBC166] text-[22px] 2xl:text-[26px] font-semibold"
+                    : "text-[#F4EFE3] text-[18px] 2xl:text-[22px]",
                 )}
               >
                 {step.label}
@@ -144,7 +149,7 @@ export function AwardsTab({ nominee }: { nominee: Nominee }) {
               key={f.title}
               className="border border-[#EBC1661A] bg-[#110E08] p-6 2xl:p-10"
             >
-              <Image src={f.icon} alt="" width={40} height={40} />
+              <img src={f.icon} alt="" className="w-6 h-6 xl:w-8 xl:h-8" />
               <p className="mt-3 font-display text-[20px] 2xl:text-[28px] font-semibold text-[#F4EFE3] leading-7.5 2xl:leading-10">
                 {f.title}
               </p>
@@ -176,7 +181,7 @@ export function AwardsTab({ nominee }: { nominee: Nominee }) {
               </p>
               <p
                 className={cn(
-                  "mt-1.5 2xl:mt-2.5 font-display text-2xl sm:text-[28px] 2xl:text-[40px]",
+                  "mt-1.5 2xl:mt-2.5 font-display text-[20px] sm:text-[24px] 2xl:text-[32px]",
                   "text-[#EBC166] leading-10 2xl:leading-12",
                 )}
               >
@@ -199,7 +204,7 @@ export function AwardsTab({ nominee }: { nominee: Nominee }) {
               </p>
               <p
                 className={cn(
-                  "mt-1.5 2xl:mt-2.5 font-display text-2xl sm:text-[28px] 2xl:text-[40px]",
+                  "mt-1.5 2xl:mt-2.5 font-display text-[20px] sm:text-[24px] 2xl:text-[32px]",
                   "text-[#EBC166] leading-10 2xl:leading-12",
                 )}
               >
@@ -218,7 +223,7 @@ export function AwardsTab({ nominee }: { nominee: Nominee }) {
             </p>
             <p
               className={cn(
-                "mt-1.5 2xl:mt-2.5 font-display text-2xl sm:text-[28px] 2xl:text-[40px]",
+                "mt-1.5 2xl:mt-2.5 font-display text-[20px] sm:text-[24px] 2xl:text-[32px]",
                 "text-[#EBC166] leading-10 2xl:leading-12",
               )}
             >
@@ -236,7 +241,7 @@ export function AwardsTab({ nominee }: { nominee: Nominee }) {
             </p>
             <p
               className={cn(
-                "mt-1.5 2xl:mt-2.5 font-display text-2xl sm:text-[28px] 2xl:text-[40px]",
+                "mt-1.5 2xl:mt-2.5 font-display text-[20px] sm:text-[24px] 2xl:text-[32px]",
                 "text-[#EBC166] leading-10 2xl:leading-12",
               )}
             >

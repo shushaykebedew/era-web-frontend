@@ -58,6 +58,8 @@
   --font-display: var(--font-playfair), Georgia, "Times New Roman", serif;
   --font-sans:
     var(--font-inter), system-ui, -apple-system, "Segoe UI", sans-serif;
+  --font-inter:
+    var(--font-inter), system-ui, -apple-system, "Segoe UI", sans-serif;
 
   --radius-DEFAULT: var(--radius);
 }

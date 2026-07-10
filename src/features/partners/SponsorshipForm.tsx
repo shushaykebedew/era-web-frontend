@@ -56,8 +56,8 @@ export function SponsorshipForm({ selectedTier = "" }: SponsorshipFormProps) {
           <div className="text-left sm:text-center">
             <h2
               className={cn(
-                "font-display text-[28px] sm:text-[32px] text-foreground xl:text-[48px] 2xl:text-[64px]",
-                "font-semibold leading-tight xl:leading-14 2xl:leading-20",
+                "font-display text-[28px] sm:text-[32px] text-foreground xl:text-[48px]",
+                "2xl:text-[64px] font-semibold leading-tight xl:leading-14 2xl:leading-20",
               )}
             >
               Request Sponsorship Package
@@ -133,9 +133,9 @@ export function SponsorshipForm({ selectedTier = "" }: SponsorshipFormProps) {
                   variant="primary"
                   size="sm"
                   className={cn(
-                    "w-full sm:w-auto px-8 sm:px-12 2xl:px-16",
+                    "w-full sm:w-auto px-8 sm:px-12 2xl:px-16 bg-primary h-12 2xl:h-16",
                     "tracking-[2px] sm:tracking-[3.6px] 2xl:tracking-[4.8px]",
-                    "leading-4 bg-primary h-12 2xl:h-16 font-bold font-inter text-[12px] 2xl:text-[16px]",
+                    "leading-4 font-bold font-inter text-[12px] 2xl:text-[16px]",
                   )}
                 >
                   Send Request

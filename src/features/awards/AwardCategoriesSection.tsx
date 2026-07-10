@@ -1,7 +1,6 @@
 "use client";
 
 import Link from "next/link";
-import type { AwardCategory } from "@/types";
 import { Container } from "@/components/ui/Container";
 import { SectionHeading } from "@/components/ui/SectionHeading";
 import { CategoryCard } from "./CategoryCard";
@@ -43,7 +42,7 @@ export function AwardCategoriesSection({
                 <img
                   src="/icons/forward-arrow.svg"
                   alt="arrow"
-                  className="w-3.75 h-3.75 2xl:w-5 2xl:h-5"
+                  className="w-3 h-3 2xl:w-4 2xl:h-4"
                 />
               </Link>
             </div>

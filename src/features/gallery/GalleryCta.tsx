@@ -8,7 +8,12 @@ import { SlideUp } from "@/components/ui/animations";
 
 export function GalleryCta() {
   return (
-    <section className="border-t border-primary/20 bg-background-muted py-16 sm:py-20 lg:py-24 2xl:py-32 text-center">
+    <section
+      className={cn(
+        "border-t border-primary/20 bg-background-muted",
+        "py-16 sm:py-20 lg:py-24 2xl:py-32 text-center",
+      )}
+    >
       <Container size="narrow">
         <SlideUp>
           <h2

@@ -21,11 +21,10 @@ export function Hero({
           <SlideUp>
             <p
               className={cn(
-                "mb-6 2xl:mb-10 mt-20 lg:mt-0 max-w-full",
-                "font-inter text-primary border border-primary",
+                "mb-6 2xl:mb-10 mt-20 lg:mt-0 max-w-full py-1 px-3 sm:px-4 2xl:px-6",
+                "font-inter text-primary border border-primary leading-4 2xl:leading-6",
                 "text-[10px] sm:text-[12px] 2xl:text-[16px] font-semibold uppercase",
                 "tracking-[2px] sm:tracking-[3.6px] 2xl:tracking-[4.8px]",
-                "leading-4 2xl:leading-6 py-1 px-3 sm:px-4 2xl:px-6",
               )}
             >
               {eyebrow}

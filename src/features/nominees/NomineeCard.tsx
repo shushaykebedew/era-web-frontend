@@ -65,9 +65,8 @@ export function NomineeCard({ nominee, variant = "grid" }: NomineeCardProps) {
                 size="sm"
                 variant="outline"
                 className={cn(
-                  "text-[10px] 2xl:text-[14px] leading-3.75 2xl:leading-5",
-                  "tracking-[1px] 2xl:tracking-[1.5px] text-foreground",
-                  "font-normal border border-primary/20 hover:text-primary",
+                  "text-[10px] 2xl:text-[14px] leading-3.75 2xl:leading-5 font-normal  hover:text-primary",
+                  "tracking-[1px] 2xl:tracking-[1.5px] text-foreground border border-primary/20",
                 )}
                 onClick={() => setIsVoteModalOpen(true)}
               >
@@ -91,10 +90,7 @@ export function NomineeCard({ nominee, variant = "grid" }: NomineeCardProps) {
     <article className="group flex min-w-0 flex-col">
       <Link
         href={href}
-        className={cn(
-          "group relative block overflow-hidden bg-muted border border-primary/40",
-          "w-full aspect-4/5",
-        )}
+        className="group relative block overflow-hidden bg-muted border border-primary/40 w-full aspect-4/5"
       >
         <div className="absolute left-4 top-4 2xl:left-6 2xl:top-6 z-10">
           <Badge variant={badgeVariant}>{badgeLabel}</Badge>
@@ -144,9 +140,8 @@ export function NomineeCard({ nominee, variant = "grid" }: NomineeCardProps) {
         <Link
           href={href}
           className={cn(
-            "mt-4 2xl:mt-6 inline-flex items-center gap-1 2xl:gap-2",
-            "text-base 2xl:text-[20px] font-inter leading-6 2xl:leading-8",
-            "uppercase tracking-[1.6px] 2xl:tracking-[2px]",
+            "mt-4 2xl:mt-6 inline-flex items-center gap-1 2xl:gap-2 uppercase font-inter ",
+            "text-base 2xl:text-[20px] leading-6 2xl:leading-8 tracking-[1.6px] 2xl:tracking-[2px]",
             "text-primary hover:text-primary/80 transition-colors",
           )}
         >

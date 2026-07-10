@@ -37,7 +37,12 @@ export function AwardCategoryPageContent({
             Back to Categories
           </Link>
 
-          <div className="mt-8 2xl:mt-12 max-w-2xl 2xl:max-w-4xl border-l-2 2xl:border-l-4 border-primary pl-6 2xl:pl-8">
+          <div
+            className={cn(
+              "mt-8 2xl:mt-12 max-w-2xl 2xl:max-w-4xl border-l-2",
+              "2xl:border-l-4 border-primary pl-6 2xl:pl-8",
+            )}
+          >
             <Eyebrow className="mb-3">Excellence in Architecture</Eyebrow>
             <h1 className="font-display text-4xl font-bold sm:text-5xl 2xl:text-7xl">
               {category.group}

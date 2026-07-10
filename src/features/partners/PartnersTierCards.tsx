@@ -67,7 +67,12 @@ export function PartnersTierCards({ onSelectTier }: PartnersTierCardsProps) {
                 {/* Premier Partner badge */}
                 {tier.featured && (
                   <div className="absolute -top-3.5 left-1/2 -translate-x-1/2">
-                    <span className="bg-primary px-4 py-2 text-[12px] 2xl:text-base leading-4 font-inter font-bold uppercase tracking-[2.4px] text-[#16130D] whitespace-nowrap">
+                    <span
+                      className={cn(
+                        "bg-primary px-4 py-2 text-[12px] 2xl:text-base leading-4 font-inter",
+                        "font-bold uppercase tracking-[2.4px] text-[#16130D] whitespace-nowrap",
+                      )}
+                    >
                       Premier Partner
                     </span>
                   </div>
@@ -75,7 +80,8 @@ export function PartnersTierCards({ onSelectTier }: PartnersTierCardsProps) {
 
                 <p
                   className={cn(
-                    "mb-2 text-[12px] 2xl:text-base font-inter font-semibold uppercase tracking-[1.2px] leading-4",
+                    "mb-2 text-[12px] 2xl:text-base font-inter font-semibold",
+                    "uppercase tracking-[1.2px] leading-4",
                     tier.featured ? "text-primary" : "text-[#9A8F7E] ",
                   )}
                 >
@@ -110,7 +116,7 @@ export function PartnersTierCards({ onSelectTier }: PartnersTierCardsProps) {
 
                       <span
                         className={cn(
-                          "text-base 2xl:text-[20px] font-inter ",
+                          "text-base 2xl:text-[20px] font-inter",
                           tier.featured
                             ? "text-foreground font-medium leading-5"
                             : "text-foreground-muted leading-6",

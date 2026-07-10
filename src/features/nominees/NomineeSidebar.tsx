@@ -1,5 +1,4 @@
 import Image from "next/image";
-import type { Nominee, AwardCategory } from "@/types";
 import { Button } from "@/components/ui/Button";
 import { cn } from "@/utils/cn";
 import { NomineeSidebarProps, StatusRow } from "@/types/nominees";
@@ -24,7 +23,12 @@ export function NomineeSidebar({
       : "Best Residential";
 
   return (
-    <aside className="flex min-w-0 flex-col gap-6 2xl:gap-10 py-8 sm:py-10 lg:py-16 2xl:py-24 lg:pr-10 2xl:pr-16 lg:mt-20">
+    <aside
+      className={cn(
+        "flex min-w-0 flex-col gap-6 2xl:gap-10 py-8 sm:py-10",
+        "lg:py-16 2xl:py-24 lg:pr-10 2xl:pr-16 lg:mt-20",
+      )}
+    >
       {/* Eyebrow */}
       <p
         className={cn(
@@ -44,14 +48,19 @@ export function NomineeSidebar({
       <div>
         <h1
           className={cn(
-            "font-display text-[32px] sm:text-[40px] lg:text-[48px] 2xl:text-[64px] font-semibold",
-            "leading-tight lg:leading-15 2xl:leading-20 text-foreground",
+            "font-display text-[32px] sm:text-[40px] lg:text-[48px] 2xl:text-[64px]",
+            "font-semibold leading-tight lg:leading-15 2xl:leading-20 text-foreground",
           )}
         >
           {nominee.name}
         </h1>
 
-        <p className="mt-2 2xl:mt-3 text-[12px] 2xl:text-[16px] font-inter uppercase tracking-[1.5px] 2xl:tracking-[2px] text-[#D1C5B2]">
+        <p
+          className={cn(
+            "mt-2 2xl:mt-3 text-[12px] 2xl:text-[16px] font-inter uppercase",
+            "tracking-[1.5px] 2xl:tracking-[2px] text-[#D1C5B2]",
+          )}
+        >
           {nominee.firm}
         </p>
 
@@ -62,7 +71,13 @@ export function NomineeSidebar({
               "2xl:text-[20px] font-inter text-[#D1C5B299] leading-6 2xl:leading-8",
             )}
           >
-            <Image src="/icons/location.svg" alt="" width={16} height={16} className="shrink-0 2xl:w-6 2xl:h-6" />
+            <Image
+              src="/icons/location.svg"
+              alt=""
+              width={16}
+              height={16}
+              className="shrink-0 2xl:w-6 2xl:h-6"
+            />
             {nominee.location}
           </div>
         )}
@@ -91,7 +106,12 @@ export function NomineeSidebar({
           </div>
 
           <div>
-            <p className="text-[10px] 2xl:text-[14px] font-inter uppercase tracking-[1px] 2xl:tracking-[1.5px] leading-3.75 2xl:leading-5 text-primary">
+            <p
+              className={cn(
+                "text-[10px] 2xl:text-[14px] font-inter uppercase tracking-[1px]",
+                "2xl:tracking-[1.5px] leading-3.75 2xl:leading-5 text-primary",
+              )}
+            >
               Completion
             </p>
             <p className="mt-1 2xl:mt-2 font-inter text-base 2xl:text-[20px] leading-6 2xl:leading-8 text-foreground">
@@ -122,8 +142,8 @@ export function NomineeSidebar({
               <li
                 key={item}
                 className={cn(
-                  "flex items-center gap-2 2xl:gap-3",
-                  "text-[12px] 2xl:text-[16px] text-foreground-muted font-semibold",
+                  "flex items-center gap-2 2xl:gap-3 font-inter",
+                  "text-[12px] 2xl:text-[16px] text-foreground-muted font-medium",
                   "leading-4 2xl:leading-6 tracking-[1.2px] 2xl:tracking-[1.6px]",
                 )}
               >
@@ -151,8 +171,19 @@ export function NomineeSidebar({
               </p>
 
               {row.variant === "badge" ? (
-                <span className="flex items-center gap-1.5 2xl:gap-2.5 font-inter text-sm 2xl:text-[20px] font-semibold text-primary">
-                  <Image src="/icons/checkmark-star.svg" alt="" width={16} height={16} className="shrink-0 2xl:w-6 2xl:h-6" />
+                <span
+                  className={cn(
+                    "flex items-center gap-1.5 2xl:gap-2.5 font-inter text-sm",
+                    "2xl:text-[20px] font-semibold text-primary",
+                  )}
+                >
+                  <Image
+                    src="/icons/checkmark-star.svg"
+                    alt=""
+                    width={16}
+                    height={16}
+                    className="shrink-0 2xl:w-6 2xl:h-6"
+                  />
                   {row.value}
                 </span>
               ) : (

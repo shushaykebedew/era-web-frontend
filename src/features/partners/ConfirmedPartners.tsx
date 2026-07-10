@@ -44,15 +44,19 @@ function PartnerCard({
   return (
     <div
       className={cn(
-        "group relative overflow-hidden md:w-full aspect-286/244",
-        "w-full sm:max-w-71.5 mx-auto lg:max-w-none",
-        "bg-[#131313] border border-[#4E4637]",
+        "group relative overflow-hidden md:w-full aspect-286/244 bg-[#131313]",
+        "w-full sm:max-w-71.5 mx-auto lg:max-w-none border border-[#4E4637]",
       )}
     >
       {/* White overlay merged on top of the base fill */}
       {/* <div className="pointer-events-none absolute inset-0 bg-white/10 mix-blend-overlay" /> */}
 
-      <div className="relative flex h-full w-full flex-col items-center justify-center gap-6 transition-transform duration-300 group-hover:scale-105">
+      <div
+        className={cn(
+          "relative flex h-full w-full flex-col items-center justify-center",
+          "gap-6 transition-transform duration-300 group-hover:scale-105",
+        )}
+      >
         <div className="relative h-24 w-48">
           <Image
             src={image}
@@ -65,7 +69,8 @@ function PartnerCard({
 
         <span
           className={cn(
-            "text-[12px] 2xl:text-[16px] leading-4 2xl:leading-6 px-3 2xl:px-4 py-1 2xl:py-1.5 font-inter font-semibold uppercase",
+            "text-[12px] 2xl:text-[16px] leading-4 2xl:leading-6 font-semibold",
+            "px-3 2xl:px-4 py-1 2xl:py-1.5 font-inter uppercase",
             "tracking-[1.2px] 2xl:tracking-[1.6px] border",
             tier === "Gold"
               ? "text-primary border-[#EBC16633]"
@@ -107,13 +112,23 @@ export function ConfirmedPartners() {
                 Ethiopia&apos;s architectural renaissance.
               </p>
             </div>
-            <p className="text-[12px] 2xl:text-base font-inter font-semibold uppercase tracking-[2.4px] leading-4 text-primary sm:shrink-0">
+            <p
+              className={cn(
+                "text-[12px] 2xl:text-base font-inter font-semibold uppercase",
+                " tracking-[2.4px] leading-4 text-primary sm:shrink-0",
+              )}
+            >
               Excellence Through Collaboration
             </p>
           </div>
         </SlideUp>
 
-        <StaggerContainer className="grid grid-cols-1 gap-4 sm:gap-8 2xl:gap-12 justify-items-center sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
+        <StaggerContainer
+          className={cn(
+            "grid grid-cols-1 gap-4 sm:gap-8 2xl:gap-12 justify-items-center",
+            "sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4",
+          )}
+        >
           {confirmedPartners.map((partner) => (
             <StaggerItem key={partner.name} className="w-full">
               <PartnerCard {...partner} />

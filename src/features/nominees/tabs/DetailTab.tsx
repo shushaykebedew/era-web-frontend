@@ -32,7 +32,13 @@ export function DetailTab({ nominee }: { nominee: Nominee }) {
                     key={item.title}
                     className="flex items-start gap-5 2xl:gap-8"
                   >
-                    <Image src={icon} alt="" width={24} height={24} className="mt-1 shrink-0" />
+                    <Image
+                      src={icon}
+                      alt=""
+                      width={24}
+                      height={24}
+                      className="mt-1 shrink-0"
+                    />
                     <div>
                       <p className="text-base 2xl:text-[20px] font-semibold text-[#EAE1D7] font-inter leading-6 2xl:leading-8">
                         {item.title}
@@ -46,7 +52,7 @@ export function DetailTab({ nominee }: { nominee: Nominee }) {
               })}
             </ul>
           ) : (
-            <p className="text-[12px] 2xl:text-[16px] text-foreground-muted leading-5 2xl:leading-7">
+            <p className="text-[12px] 2xl:text-[16px] text-foreground-muted leading-5 2xl:leading-7 font-inter">
               Achievements will be published as the jury process concludes.
             </p>
           )}
@@ -109,7 +115,12 @@ export function DetailTab({ nominee }: { nominee: Nominee }) {
                   <p className="font-display text-[18px] 2xl:text-[24px] font-semibold text-foreground">
                     Ethiopia Basrie
                   </p>
-                  <p className="text-[10px] 2xl:text-[14px] font-inter uppercase tracking-[1.5px] 2xl:tracking-[2px] text-foreground-muted mt-0.5 2xl:mt-1">
+                  <p
+                    className={cn(
+                      "text-[10px] 2xl:text-[14px] font-inter uppercase tracking-[1.5px]",
+                      "2xl:tracking-[2px] text-foreground-muted mt-0.5 2xl:mt-1",
+                    )}
+                  >
                     Zema Architecture Studio
                   </p>
                 </div>
@@ -120,7 +131,10 @@ export function DetailTab({ nominee }: { nominee: Nominee }) {
                   {["Addis", "Ethiopia", "Finalist"].map((label) => (
                     <span
                       key={label}
-                      className="text-[9px] 2xl:text-[12px] font-inter font-semibold uppercase tracking-[2px] 2xl:tracking-[2.5px] text-foreground/60"
+                      className={cn(
+                        "text-[9px] 2xl:text-[12px] font-inter font-semibold uppercase",
+                        "tracking-[2px] 2xl:tracking-[2.5px] text-foreground/60",
+                      )}
                     >
                       {label}
                     </span>

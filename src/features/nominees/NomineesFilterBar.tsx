@@ -57,8 +57,7 @@ export function NomineesFilterBar({
               ref={categoryScrollRef}
               className={cn(
                 "flex min-w-0 items-center gap-4 sm:gap-8 whitespace-nowrap overflow-x-auto",
-                "[-ms-overflow-style:none] [scrollbar-none]",
-                "[&::-webkit-scrollbar]:hidden",
+                "[-ms-overflow-style:none] [scrollbar-none] [&::-webkit-scrollbar]:hidden",
               )}
             >
               {awardCategories.map((c) => {
@@ -93,7 +92,11 @@ export function NomineesFilterBar({
                 "cursor-pointer transition-colors",
               )}
             >
-              <ChevronRight size={18} strokeWidth={1.75} className="2xl:size-5" />
+              <ChevronRight
+                size={18}
+                strokeWidth={1.75}
+                className="2xl:size-5"
+              />
             </button>
           </div>
 

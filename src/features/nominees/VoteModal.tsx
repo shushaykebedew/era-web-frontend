@@ -45,7 +45,12 @@ export function VoteModal({ isOpen, onClose, nominee }: VoteModalProps) {
       {step === "confirm" ? (
         <div className="flex flex-col items-center w-full">
           {/* Icon Circle */}
-          <div className=" w-16 h-16 lg:w-20 lg:h-20 rounded-full border border-primary/30 bg-[#231F19] flex items-center justify-center mb-6">
+          <div
+            className={cn(
+              "w-16 h-16 lg:w-20 lg:h-20 rounded-full border border-primary/30",
+              "bg-[#231F19] flex items-center justify-center mb-6",
+            )}
+          >
             <Image
               src="/icons/vote-modal-icon.svg"
               alt=""
@@ -56,12 +61,22 @@ export function VoteModal({ isOpen, onClose, nominee }: VoteModalProps) {
           </div>
 
           {/* Title */}
-          <h2 className="font-display text-center text-[24px] sm:text-[32px] 2xl:text-[36px] font-semibold leading-10 text-foreground mb-4">
+          <h2
+            className={cn(
+              "font-display text-center text-[24px] sm:text-[32px]",
+              "2xl:text-[36px] font-semibold leading-10 text-foreground mb-4",
+            )}
+          >
             Confirm Your Selection
           </h2>
 
           {/* Description */}
-          <p className="font-inter text-center text-foreground-muted text-sm sm:text-base 2xl:text-[20px] leading-relaxed mb-8 max-w-85 mx-auto">
+          <p
+            className={cn(
+              "font-inter text-center text-foreground-muted text-sm sm:text-base",
+              "2xl:text-[20px] leading-relaxed mb-8 max-w-85 mx-auto",
+            )}
+          >
             Are you sure you want to vote for{" "}
             <span className="text-primary font-semibold">{nominee.name}</span>?
             Your contribution helps shape the future of architectural excellence
@@ -73,8 +88,8 @@ export function VoteModal({ isOpen, onClose, nominee }: VoteModalProps) {
             <Button
               size="lg"
               className={cn(
-                "w-full bg-primary text-[#402D00] hover:bg-primary/90 font-inter  text-[12px] 2xl:text-base",
-                "h-10 sm:h-12 font-semibold tracking-[1.2px] leading-4 ",
+                "w-full bg-primary text-[#402D00] hover:bg-primary/90 text-[12px] 2xl:text-base",
+                "h-10 sm:h-12 font-semibold tracking-[1.2px] leading-4 font-inter",
               )}
               onClick={handleConfirm}
             >
@@ -95,7 +110,12 @@ export function VoteModal({ isOpen, onClose, nominee }: VoteModalProps) {
 
           {/* Footer Text */}
           <div className="mt-8 pt-6 border-t border-[#4E46374D] w-full">
-            <p className="font-inter text-center text-foreground-muted text-[10px] sm:text-xs 2xl:text-sm uppercase tracking-[3px] leading-3.75">
+            <p
+              className={cn(
+                "font-inter text-center text-foreground-muted text-[10px]",
+                "sm:text-xs 2xl:text-sm uppercase tracking-[3px] leading-3.75",
+              )}
+            >
               ERA 2026
             </p>
           </div>
@@ -114,12 +134,22 @@ export function VoteModal({ isOpen, onClose, nominee }: VoteModalProps) {
           </div>
 
           {/* Title */}
-          <h2 className="font-display text-center text-[24px] sm:text-3xl 2xl:text-[34px] font-semibold text-foreground mb-4 leading-14">
+          <h2
+            className={cn(
+              "font-display text-center text-[24px] sm:text-3xl 2xl:text-[34px]",
+              "font-semibold text-foreground mb-4 leading-14",
+            )}
+          >
             Excellence Acknowledged
           </h2>
 
           {/* Description */}
-          <p className="font-inter text-center text-foreground-muted text-sm sm:text-base 2xl:text-[20px] leading-7 mb-8 max-w-118.25 mx-auto">
+          <p
+            className={cn(
+              "font-inter text-center text-foreground-muted text-sm sm:text-base",
+              "2xl:text-[20px] leading-7 mb-8 max-w-118.25 mx-auto",
+            )}
+          >
             Thank you for participating in the ERA 2026 Architectural Awards.
             Your contribution helps shape the future of excellence in Ethiopia.
           </p>

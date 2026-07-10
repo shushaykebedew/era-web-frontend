@@ -57,7 +57,7 @@ export function CategoryCard({
           <span
             className={cn(
               "inline-flex items-center gap-2 2xl:gap-3 text-[10px] 2xl:text-[14px]",
-              "font-semibold uppercase tracking-[1px] 2xl:tracking-[1.5px]",
+              "font-semibold uppercase tracking-[1px] 2xl:tracking-[1.5px] font-inter",
               "leading-3.75 2xl:leading-5 group-hover:text-primary transition-colors",
             )}
           >

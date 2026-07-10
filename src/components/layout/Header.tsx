@@ -45,7 +45,12 @@ export function Header() {
 
   return (
     <>
-      <header className="fixed top-0 left-0 right-0 z-50 w-full backdrop-blur-md bg-background/80 border-b border-primary/30 h-16 lg:h-20 2xl:h-28">
+      <header
+        className={cn(
+          "fixed top-0 left-0 right-0 z-50 w-full backdrop-blur-md bg-background/80",
+          "border-b border-primary/30 h-16 lg:h-20 2xl:h-28",
+        )}
+      >
         <div
           className={cn(
             "flex min-w-0 items-center justify-between h-full gap-3 w-full",
@@ -79,7 +84,7 @@ export function Header() {
                   aria-current={isActive ? "page" : undefined}
                   className={cn(
                     "whitespace-nowrap text-[12px] 2xl:text-base font-inter font-bold leading-4",
-                    "py-2 tracking-[1.2px] uppercase transition-colors hover:text-primary",
+                    "py-1 tracking-[1.2px] uppercase transition-colors hover:text-primary",
                     isActive
                       ? "text-primary border-b-2 border-primary"
                       : "text-foreground-muted",
@@ -133,7 +138,7 @@ export function Header() {
         )}
         style={{ backgroundColor: "#16130D", zIndex: 9999 }}
       >
-        {/* Close button — mirrors the header bar so the icon lands on the exact same spot as the hamburger */}
+        {/* Close button */}
         <div className="flex h-16 lg:h-20 2xl:h-28 shrink-0 items-center justify-between px-4 sm:px-6 md:px-8">
           {/* Logo placeholder to push close button to the right */}
           <span

@@ -33,7 +33,7 @@ export function Button<T extends ElementType = "button">({
 
   const baseClasses = cn(
     "inline-flex min-w-0 items-center justify-center gap-2 cursor-pointer text-center",
-    "font-sans font-semibold uppercase tracking-widest transition-colors duration-200",
+    "font-inter font-semibold uppercase tracking-widest transition-colors duration-200",
     VARIANT_STYLES[variant],
     SIZE_STYLES[size],
     className,

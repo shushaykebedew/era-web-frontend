@@ -31,7 +31,13 @@ function GalleryImg({
         className,
       )}
     >
-      <Image src={src} alt={label} fill className="object-cover" sizes="(max-width: 640px) 100vw, 50vw" />
+      <Image
+        src={src}
+        alt={label}
+        fill
+        className="object-cover"
+        sizes="(max-width: 640px) 100vw, 50vw"
+      />
       <div
         className={cn(
           "absolute bottom-3 left-3 right-3 w-fit max-w-[calc(100%-1.5rem)]",
@@ -140,7 +146,12 @@ export function GalleryTab({
       </div>
 
       {/* End of gallery navigation */}
-      <div className="mt-10 2xl:mt-16 flex flex-col items-center gap-4 2xl:gap-6 border-t border-[#EBC1661A] pt-16 2xl:pt-24">
+      <div
+        className={cn(
+          "mt-10 2xl:mt-16 flex flex-col items-center gap-4 2xl:gap-6",
+          "border-t border-[#EBC1661A] pt-16 2xl:pt-24",
+        )}
+      >
         <p
           className={cn(
             "text-[12px] 2xl:text-[16px] font-inter font-semibold leading-4 2xl:leading-6",
@@ -154,10 +165,9 @@ export function GalleryTab({
             <Link
               href={`/nominees/${prevId}`}
               className={cn(
-                "flex items-center gap-2 2xl:gap-3",
+                "flex items-center gap-2 2xl:gap-3 transition-colors hover:text-primary",
                 "text-[12px] 2xl:text-[16px] font-inter font-semibold",
                 "tracking-[1.2px] 2xl:tracking-[1.6px] text-[#EAE1D7]",
-                "transition-colors hover:text-primary",
               )}
             >
               <Image
@@ -172,9 +182,8 @@ export function GalleryTab({
           ) : (
             <span
               className={cn(
-                "flex items-center gap-2 2xl:gap-3",
-                "text-[12px] 2xl:text-[16px] font-inter font-semibold",
-                "tracking-[1.2px] 2xl:tracking-[1.6px] text-[#D1C5B299]",
+                "flex items-center gap-2 2xl:gap-3 font-inter font-semibold text-[#D1C5B299]",
+                "text-[12px] 2xl:text-[16px] tracking-[1.2px] 2xl:tracking-[1.6px]",
               )}
             >
               <Image
@@ -209,9 +218,8 @@ export function GalleryTab({
           ) : (
             <span
               className={cn(
-                "flex items-center gap-2 2xl:gap-3",
-                "text-[12px] 2xl:text-[16px] font-inter font-semibold",
-                "tracking-[1.2px] 2xl:tracking-[1.6px] text-[#D1C5B299]",
+                "flex items-center gap-2 2xl:gap-3 font-inter font-semibold text-[#D1C5B299]",
+                "text-[12px] 2xl:text-[16px] tracking-[1.2px] 2xl:tracking-[1.6px] ",
               )}
             >
               Next Nominee

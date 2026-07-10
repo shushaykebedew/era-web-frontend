@@ -19,10 +19,10 @@ export function PartnersPageContent() {
           <SlideUp delay={0.1}>
             <h1
               className={cn(
-                "mx-auto w-full max-w-182 2xl:max-w-4xl",
-                "font-display text-3xl sm:text-4xl lg:text-[48px] xl:text-[72px] 2xl:text-[96px]",
-                "font-bold leading-tight lg:leading-13 xl:leading-20 2xl:leading-28",
-                "tracking-tight lg:tracking-[-1.44px] text-[#EAE1D7]",
+                "mx-auto w-full max-w-182 2xl:max-w-4xl text-[#EAE1D7] font-display",
+                "font-bold text-3xl sm:text-4xl lg:text-[48px] xl:text-[72px] 2xl:text-[96px]",
+                "tracking-tight lg:tracking-[-1.44px] leading-tight lg:leading-13 xl:leading-20 2xl:leading-28",
+                "",
               )}
             >
               Partner with Ethiopia&apos;s Architectural Legacy
@@ -31,9 +31,8 @@ export function PartnersPageContent() {
           <SlideUp delay={0.2}>
             <p
               className={cn(
-                "mx-auto mt-6 mb-12 max-w-155 2xl:max-w-200",
-                "text-base sm:mb-20 sm:text-[18px] 2xl:text-[24px]",
-                "leading-7 2xl:leading-9 text-[#D1C5B2] font-inter",
+                "mx-auto mt-6 mb-12 max-w-155 2xl:max-w-200 text-[#D1C5B2] font-inter",
+                "text-base sm:mb-20 sm:text-[18px] 2xl:text-[24px] leading-7 2xl:leading-9 ",
               )}
             >
               The Ethiopia Real Estate Awards represent the pinnacle of industry

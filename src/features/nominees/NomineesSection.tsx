@@ -50,8 +50,8 @@ function NomineesSectionContent() {
           <FadeIn>
             <h1
               className={cn(
-                "mx-auto w-full max-w-full lg:max-w-182 2xl:max-w-4xl",
-                "text-center font-display text-[40px] sm:text-[56px] lg:text-[72px] 2xl:text-[96px]",
+                "mx-auto w-full max-w-full lg:max-w-182 2xl:max-w-4xl text-center font-display",
+                "text-[40px] sm:text-[56px] lg:text-[72px] 2xl:text-[96px]",
                 "font-bold leading-tight lg:leading-18 2xl:leading-28",
                 "tracking-tight lg:tracking-[-1.44px] 2xl:tracking-[-1.92px] text-foreground",
               )}
@@ -96,8 +96,8 @@ function NomineesSectionContent() {
             <div className="flex flex-col items-center justify-center py-6 sm:py-10 text-center">
               <div
                 className={cn(
-                  "mb-6 flex h-16 w-16 2xl:h-20 2xl:w-20 items-center justify-center rounded-full",
-                  "border border-border-strong bg-background-subtle",
+                  "mb-6 flex h-16 w-16 2xl:h-20 2xl:w-20 items-center justify-center",
+                  "border border-border-strong bg-background-subtle rounded-full",
                 )}
               >
                 <svg
@@ -128,8 +128,8 @@ function NomineesSectionContent() {
               </h2>
               <p
                 className={cn(
-                  "max-w-sm sm:max-w-md 2xl:max-w-lg font-inter",
-                  "text-sm sm:text-base 2xl:text-[18px] leading-6 2xl:leading-8 text-foreground-muted",
+                  "max-w-sm sm:max-w-md 2xl:max-w-lg font-inter text-foreground-muted",
+                  "text-sm sm:text-base 2xl:text-[18px] leading-6 2xl:leading-8 ",
                 )}
               >
                 Nominees for this category will be announced soon. <br />
