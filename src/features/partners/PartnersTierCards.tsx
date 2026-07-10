@@ -109,7 +109,7 @@ export function PartnersTierCards({ onSelectTier }: PartnersTierCardsProps) {
                         />
                       ) : (
                         <img
-                          src="/icons/check-mark.svg"
+                          src="/icons/checkmark.svg"
                           className="mt-1 h-3.5 w-3.5 2xl:h-4 2xl:w-4 shrink-0 text-primary"
                         />
                       )}

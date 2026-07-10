@@ -160,7 +160,7 @@ export function GalleryTab({
         >
           End of Gallery
         </p>
-        <div className="flex flex-col items-center gap-4 sm:flex-row sm:gap-6">
+        <div className="flex items-center gap-4  sm:gap-6">
           {prevId ? (
             <Link
               href={`/nominees/${prevId}`}

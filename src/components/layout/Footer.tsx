@@ -56,8 +56,8 @@ export function Footer() {
 
         <p
           className={cn(
-            "mt-6 2xl:mt-10 max-w-md 2xl:max-w-xl text-[11px] sm:text-sm xl:text-base",
-            "2xl:text-[20px] text-[#D1C5B2] font-inter leading-6 2xl:leading-8",
+            "mt-6 2xl:mt-10 max-w-lg 2xl:max-w-xl text-[11px] sm:text-sm 2xl:text-base",
+            "text-[#D1C5B2] font-inter leading-6 2xl:leading-8",
           )}
         >
           &copy; {year} {siteConfig.fullName}. {siteConfig.tagline}.
@@ -74,7 +74,13 @@ export function Footer() {
                 "border border-[#EBC16633] transition-opacity hover:opacity-70",
               )}
             >
-              <Image src={src} alt="" width={20} height={20} className="w-5 h-5 2xl:w-7 2xl:h-7" />
+              <Image
+                src={src}
+                alt=""
+                width={20}
+                height={20}
+                className="w-5 h-5 2xl:w-7 2xl:h-7"
+              />
             </a>
           ))}
         </div>
