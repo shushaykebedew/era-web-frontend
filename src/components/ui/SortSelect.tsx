@@ -3,8 +3,7 @@
 import { useEffect, useRef, useState } from "react";
 import { cn } from "@/utils/cn";
 import { Sort } from "@/types/ui";
-
-export const SORTS = ["Alphabetical", "Most Votes"] as const;
+import { SORTS } from "@/constants/ui";
 
 export function SortSelect({
   value,

@@ -1,198 +1,164 @@
 "use client";
 
-import { useEffect, useState } from "react";
-import Image from "next/image";
+import { useState, useEffect } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { siteConfig } from "@/data/site";
 import { Button } from "@/components/ui/Button";
 import { cn } from "@/utils/cn";
+import { useEscapeKey } from "@/hooks/useEscapeKey";
+import { useBodyScrollLock } from "@/hooks/useBodyScrollLock";
 
-export function Header() {
-  const [isMenuOpen, setIsMenuOpen] = useState(false);
+function DesktopNav() {
   const pathname = usePathname();
-
-  // Hide the main header on nominee detail pages since they have their own subnav
-  const isNomineeDetail =
-    pathname?.startsWith("/nominees/") && pathname !== "/nominees";
-
-  // Close on Escape
-  useEffect(() => {
-    if (!isMenuOpen) return;
-    function handleKey(e: KeyboardEvent) {
-      if (e.key === "Escape") setIsMenuOpen(false);
-    }
-    document.addEventListener("keydown", handleKey);
-    return () => document.removeEventListener("keydown", handleKey);
-  }, [isMenuOpen]);
-
-  // Close menu and restore scroll on route change
-  useEffect(() => {
-    queueMicrotask(() => setIsMenuOpen(false));
-  }, [pathname]);
-
-  // Lock body scroll while menu is open
-  useEffect(() => {
-    document.body.style.overflow = isMenuOpen ? "hidden" : "";
-    return () => {
-      document.body.style.overflow = "";
-    };
-  }, [isMenuOpen]);
-
-  if (isNomineeDetail) {
-    return null;
-  }
 
   return (
     <>
-      <header
-        className={cn(
-          "fixed top-0 left-0 right-0 z-50 w-full backdrop-blur-md bg-background/80",
-          "border-b border-primary/30 h-16 lg:h-20 2xl:h-28",
-        )}
-      >
-        <div
-          className={cn(
-            "flex min-w-0 items-center justify-between h-full gap-3 w-full",
-            "mx-auto w-full px-4 sm:px-6 md:px-8 lg:px-10 xl:px-12 2xl:px-16",
-          )}
-        >
-          {/* Logo */}
-          <Link
-            href="/"
-            className={cn(
-              "shrink-0 font-display text-xl sm:text-2xl lg:text-[32px] xl:text-[48px]",
-              "2xl:text-[64px] font-bold tracking-tight leading-tight xl:leading-13",
-              "2xl:leading-18 text-[#C9A24B]",
-            )}
-          >
-            {siteConfig.name}
-          </Link>
-
-          {/* Desktop nav */}
-          <nav className="hidden min-w-0 flex-wrap items-center justify-center gap-4 lg:gap-6 xl:gap-10 2xl:gap-14 lg:flex">
-            {siteConfig.nav.map((link) => {
-              const isActive =
-                link.href === "/"
-                  ? pathname === "/"
-                  : pathname === link.href ||
-                    pathname.startsWith(`${link.href}/`);
-              return (
-                <Link
-                  key={link.href}
-                  href={link.href}
-                  aria-current={isActive ? "page" : undefined}
-                  className={cn(
-                    "whitespace-nowrap text-[12px] 2xl:text-base font-inter font-bold leading-4",
-                    "py-1 tracking-[1.2px] uppercase transition-colors hover:text-primary",
-                    isActive
-                      ? "text-primary border-b-2 border-primary"
-                      : "text-foreground-muted",
-                  )}
-                >
-                  {link.label}
-                </Link>
-              );
-            })}
-          </nav>
-
-          {/* Desktop vote CTA */}
-          <div className="hidden lg:block">
-            <Button
-              as={Link}
-              href={siteConfig.voteCta.href}
-              size="sm"
-              variant="outline"
+      {/* Desktop nav */}
+      <nav className="hidden min-w-0 flex-wrap items-center justify-center gap-4 lg:gap-6 xl:gap-10 2xl:gap-14 lg:flex">
+        {siteConfig.nav.map((link) => {
+          const isActive =
+            link.href === "/"
+              ? pathname === "/"
+              : pathname === link.href || pathname.startsWith(`${link.href}/`);
+          return (
+            <Link
+              key={link.href}
+              href={link.href}
+              aria-current={isActive ? "page" : undefined}
               className={cn(
-                "text-primary text-base 2xl:text-[20px] px-4 xl:px-6 2xl:px-10",
-                "w-auto min-w-0 xl:min-w-41.25 2xl:min-w-60 2xl:py-4",
+                "whitespace-nowrap text-[12px] 2xl:text-base font-inter font-bold leading-4",
+                "py-1 tracking-[1.2px] uppercase transition-colors hover:text-primary",
+                isActive
+                  ? "text-primary border-b-2 border-primary"
+                  : "text-foreground-muted",
               )}
             >
-              {siteConfig.voteCta.label}
-            </Button>
-          </div>
+              {link.label}
+            </Link>
+          );
+        })}
+      </nav>
 
-          {/* Mobile hamburger */}
-          <button
-            type="button"
-            aria-label="Toggle menu"
-            aria-expanded={isMenuOpen}
-            onClick={() => setIsMenuOpen((o) => !o)}
-            className="flex h-10 w-10 items-center justify-center text-foreground lg:hidden"
-          >
-            <Image src="/icons/menu.svg" alt="" width={40} height={24} />
-          </button>
-        </div>
-      </header>
-
-      {/* Mobile menu — sibling of header, outside its stacking context */}
-      <div
-        role="dialog"
-        aria-modal="true"
-        aria-label="Navigation menu"
-        className={cn(
-          "fixed inset-0 flex flex-col transition-opacity duration-300 lg:hidden",
-          isMenuOpen
-            ? "pointer-events-auto opacity-100"
-            : "pointer-events-none opacity-0",
-        )}
-        style={{ backgroundColor: "#16130D", zIndex: 9999 }}
-      >
-        {/* Close button */}
-        <div className="flex h-16 lg:h-20 2xl:h-28 shrink-0 items-center justify-between px-4 sm:px-6 md:px-8">
-          {/* Logo placeholder to push close button to the right */}
-          <span
-            className={cn(
-              "font-display text-xl sm:text-2xl font-bold tracking-tight text-[#C9A24B]",
-            )}
-          >
-            {siteConfig.name}
-          </span>
-          <button
-            type="button"
-            aria-label="Close menu"
-            onClick={() => setIsMenuOpen(false)}
-            className="flex h-10 w-10 items-center justify-center text-foreground"
-          >
-            <Image src="/icons/x-icon.svg" alt="" width={18} height={18} />
-          </button>
-        </div>
-
-        {/* Nav links centred vertically */}
-        <nav className="flex flex-1 flex-col items-center gap-6 mt-6 overflow-y-auto px-4 pb-8">
-          {siteConfig.nav.map((link) => {
-            const isActive =
-              link.href === "/"
-                ? pathname === "/"
-                : pathname === link.href ||
-                  pathname.startsWith(`${link.href}/`);
-            return (
-              <Link
-                key={link.href}
-                href={link.href}
-                onClick={() => setIsMenuOpen(false)}
-                aria-current={isActive ? "page" : undefined}
-                className={cn(
-                  "text-center font-display text-[28px] sm:text-[32px] 2xl:text-[40px]",
-                  "font-semibold transition-colors hover:text-primary",
-                  isActive ? "text-primary" : "text-[#EAE1D7CC]",
-                )}
-              >
-                {link.label}
-              </Link>
-            );
-          })}
-
-          <Button
-            as={Link}
-            href={siteConfig.voteCta.href}
-            onClick={() => setIsMenuOpen(false)}
-            className="mt-6 2xl:mt-10 2xl:text-[20px] 2xl:py-4 2xl:px-10"
-          >
-            {siteConfig.voteCta.label}
-          </Button>
-        </nav>
+      {/* Desktop vote CTA */}
+      <div className="hidden lg:block">
+        <Button
+          as={Link}
+          href={siteConfig.voteCta.href}
+          size="sm"
+          variant="outline"
+          className={cn(
+            "text-primary text-base 2xl:text-[20px] px-4 xl:px-6 2xl:px-10",
+            "w-auto min-w-0 xl:min-w-41.25 2xl:min-w-60 2xl:py-4",
+          )}
+        >
+          {siteConfig.voteCta.label}
+        </Button>
       </div>
     </>
+  );
+}
+
+function MobileNav({ isMenuOpen, setIsMenuOpen }: { isMenuOpen: boolean; setIsMenuOpen: (v: boolean) => void }) {
+  const pathname = usePathname();
+
+  useEscapeKey(() => setIsMenuOpen(false), isMenuOpen);
+  useBodyScrollLock(isMenuOpen);
+
+  // Close menu when route changes
+  useEffect(() => {
+    setIsMenuOpen(false);
+  }, [pathname, setIsMenuOpen]);
+
+  return (
+    <>
+      {/* Mobile nav toggle */}
+      <button
+        type="button"
+        className="flex h-10 w-10 2xl:w-14 2xl:h-14 items-center justify-center rounded-md text-primary lg:hidden cursor-pointer"
+        onClick={() => setIsMenuOpen(!isMenuOpen)}
+        aria-expanded={isMenuOpen}
+      >
+        <span className="sr-only">Toggle navigation</span>
+        {isMenuOpen ? (
+          <svg className="h-6 w-6 2xl:h-8 2xl:w-8" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+          </svg>
+        ) : (
+          <svg className="h-6 w-6 2xl:h-8 2xl:w-8" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6h16M4 12h16M4 18h16" />
+          </svg>
+        )}
+      </button>
+
+      {/* Mobile nav drawer */}
+      {isMenuOpen && (
+        <div className="fixed inset-0 top-16 sm:top-20 z-40 bg-background/95 backdrop-blur-md lg:hidden">
+          <nav className="flex flex-col p-6 overflow-y-auto h-[calc(100vh-4rem)] sm:h-[calc(100vh-5rem)]">
+            <div className="flex flex-col space-y-6 flex-1">
+              {siteConfig.nav.map((link) => {
+                const isActive =
+                  link.href === "/"
+                    ? pathname === "/"
+                    : pathname === link.href || pathname.startsWith(`${link.href}/`);
+
+                return (
+                  <Link
+                    key={link.href}
+                    href={link.href}
+                    aria-current={isActive ? "page" : undefined}
+                    className={cn(
+                      "text-xl font-bold font-display tracking-wider",
+                      isActive ? "text-primary" : "text-foreground-muted",
+                    )}
+                  >
+                    {link.label}
+                  </Link>
+                );
+              })}
+            </div>
+
+            <div className="mt-8 pt-8 border-t border-border-strong pb-8">
+              <Button
+                as={Link}
+                href={siteConfig.voteCta.href}
+                className="w-full justify-center bg-primary text-background"
+                size="lg"
+              >
+                {siteConfig.voteCta.label}
+              </Button>
+            </div>
+          </nav>
+        </div>
+      )}
+    </>
+  );
+}
+
+export function Header() {
+  const [isMenuOpen, setIsMenuOpen] = useState(false);
+
+  return (
+    <header
+      className={cn(
+        "fixed inset-x-0 top-0 z-50 flex px-4 sm:px-6 md:px-8 lg:px-10 2xl:px-16",
+        "min-w-0 h-16 sm:h-20 2xl:h-28 items-center justify-between gap-4 lg:gap-8",
+        "border-b border-[#EBC16633] bg-[#16130DCC] backdrop-blur-[10px]",
+      )}
+    >
+      <Link
+        href="/"
+        className={cn(
+          "shrink-0 font-display text-2xl sm:text-[28px] lg:text-[32px] 2xl:text-[48px]",
+          "font-bold tracking-[1.4px] sm:tracking-[1.6px] 2xl:tracking-[2.4px]",
+          "text-primary leading-tight lg:leading-10 2xl:leading-14",
+        )}
+      >
+        {siteConfig.name}
+      </Link>
+
+      <DesktopNav />
+      <MobileNav isMenuOpen={isMenuOpen} setIsMenuOpen={setIsMenuOpen} />
+    </header>
   );
 }

@@ -1,12 +1,8 @@
 import Image from "next/image";
 import { Button } from "@/components/ui/Button";
 import { cn } from "@/utils/cn";
-import { NomineeSidebarProps, StatusRow } from "@/types/nominees";
-const STATUS_ROWS: StatusRow[] = [
-  { label: "Recognition", value: "Finalist 2024", variant: "gold" },
-  { label: "Category", value: "Residential Excellence", variant: "solid" },
-  { label: "Jury status", value: "Verified", variant: "badge" },
-];
+import { NomineeSidebarProps } from "@/types/nominees";
+import { STATUS_ROWS } from "@/constants/nominees";
 
 export function NomineeSidebar({
   nominee,

@@ -6,7 +6,7 @@ import { Modal } from "@/components/ui/Modal";
 import { Button } from "@/components/ui/Button";
 import { cn } from "@/utils/cn";
 import { useRouter } from "next/navigation";
-import { VoteModalProps, VoteStep } from "@/types/nominees";
+import { type VoteModalProps, type VoteStep } from "@/types/nominees";
 
 export function VoteModal({ isOpen, onClose, nominee }: VoteModalProps) {
   const [step, setStep] = useState<VoteStep>("confirm");
@@ -36,7 +36,6 @@ export function VoteModal({ isOpen, onClose, nominee }: VoteModalProps) {
 
   const handleViewOtherCategories = () => {
     onClose();
-
     router.push("/categories");
   };
 
@@ -44,7 +43,6 @@ export function VoteModal({ isOpen, onClose, nominee }: VoteModalProps) {
     <Modal isOpen={isOpen} onClose={onClose}>
       {step === "confirm" ? (
         <div className="flex flex-col items-center w-full">
-          {/* Icon Circle */}
           <div
             className={cn(
               "w-16 h-16 lg:w-20 lg:h-20 rounded-full border border-primary/30",
@@ -60,7 +58,6 @@ export function VoteModal({ isOpen, onClose, nominee }: VoteModalProps) {
             />
           </div>
 
-          {/* Title */}
           <h2
             className={cn(
               "font-display text-center text-[24px] sm:text-[32px]",
@@ -70,7 +67,6 @@ export function VoteModal({ isOpen, onClose, nominee }: VoteModalProps) {
             Confirm Your Selection
           </h2>
 
-          {/* Description */}
           <p
             className={cn(
               "font-inter text-center text-foreground-muted text-sm sm:text-base",
@@ -83,7 +79,6 @@ export function VoteModal({ isOpen, onClose, nominee }: VoteModalProps) {
             in Ethiopia.
           </p>
 
-          {/* Buttons */}
           <div className="w-full flex flex-col gap-4">
             <Button
               size="lg"
@@ -108,7 +103,6 @@ export function VoteModal({ isOpen, onClose, nominee }: VoteModalProps) {
             </Button>
           </div>
 
-          {/* Footer Text */}
           <div className="mt-8 pt-6 border-t border-[#4E46374D] w-full">
             <p
               className={cn(
@@ -122,7 +116,6 @@ export function VoteModal({ isOpen, onClose, nominee }: VoteModalProps) {
         </div>
       ) : (
         <div className="flex flex-col items-center w-full">
-          {/* Icon Badge */}
           <div className="mb-6 flex items-center justify-center">
             <Image
               src="/icons/vote-confirm-icon.svg"
@@ -133,7 +126,6 @@ export function VoteModal({ isOpen, onClose, nominee }: VoteModalProps) {
             />
           </div>
 
-          {/* Title */}
           <h2
             className={cn(
               "font-display text-center text-[24px] sm:text-3xl 2xl:text-[34px]",
@@ -143,7 +135,6 @@ export function VoteModal({ isOpen, onClose, nominee }: VoteModalProps) {
             Excellence Acknowledged
           </h2>
 
-          {/* Description */}
           <p
             className={cn(
               "font-inter text-center text-foreground-muted text-sm sm:text-base",
@@ -154,7 +145,6 @@ export function VoteModal({ isOpen, onClose, nominee }: VoteModalProps) {
             Your contribution helps shape the future of excellence in Ethiopia.
           </p>
 
-          {/* Buttons */}
           <div className="w-full flex flex-col gap-4">
             <Button
               variant="outline"
@@ -178,7 +168,6 @@ export function VoteModal({ isOpen, onClose, nominee }: VoteModalProps) {
             </button>
           </div>
 
-          {/* Footer Text */}
           <div className="mt-12 pt-6 border-t border-[#4E46374D] w-full">
             <p
               className={cn(

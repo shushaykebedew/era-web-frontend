@@ -11,7 +11,7 @@ import { DetailTab } from "./tabs/DetailTab";
 import { AwardsTab } from "./tabs/AwardsTab";
 import { GalleryTab } from "./tabs/GalleryTab";
 import { VoteModal } from "./VoteModal";
-import { Tab, NomineeDetailShellProps } from "@/types/nominees";
+import { type Tab, type NomineeDetailShellProps } from "@/types/nominees";
 import { SlideUp, FadeIn } from "@/components/ui/animations";
 
 export function NomineeDetailShell({
