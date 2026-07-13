@@ -3,10 +3,13 @@
 import { useState } from "react";
 import { PartnersTierCards } from "./PartnersTierCards";
 import { type TierId } from "@/types/partners";
-import { ConfirmedPartners } from "./ConfirmedPartners";
 import { SponsorshipForm } from "./SponsorshipForm";
 
-export function PartnersPageClient() {
+export function PartnersPageClient({
+  confirmedPartnersSlot,
+}: {
+  confirmedPartnersSlot: React.ReactNode;
+}) {
   const [selectedTier, setSelectedTier] = useState<TierId | "">("");
 
   function handleSelectTier(id: TierId) {
@@ -19,7 +22,7 @@ export function PartnersPageClient() {
   return (
     <>
       <PartnersTierCards onSelectTier={handleSelectTier} />
-      <ConfirmedPartners />
+      {confirmedPartnersSlot}
       <SponsorshipForm selectedTier={selectedTier} />
     </>
   );

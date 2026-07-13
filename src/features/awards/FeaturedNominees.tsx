@@ -1,5 +1,3 @@
-"use client";
-
 import type { Nominee } from "@/types";
 import { Container } from "@/components/ui/Container";
 import { SectionHeading } from "@/components/ui/SectionHeading";

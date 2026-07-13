@@ -1,5 +1,3 @@
-"use client";
-
 import type { Partner } from "@/types";
 import { cn } from "@/utils/cn";
 import {

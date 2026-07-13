@@ -1,5 +1,6 @@
 import { Container } from "@/components/ui/Container";
 import { PartnersPageClient } from "@/features/partners/PartnersPageClient";
+import { ConfirmedPartners } from "@/features/partners/ConfirmedPartners";
 import { Eyebrow } from "@/components/ui/Eyebrow";
 import { cn } from "@/utils/cn";
 import { FadeIn, SlideUp } from "@/components/ui/animations";
@@ -44,7 +45,7 @@ export function PartnersPageContent() {
       </section>
 
       {/* ── Interactive sections (client) ── */}
-      <PartnersPageClient />
+      <PartnersPageClient confirmedPartnersSlot={<ConfirmedPartners />} />
     </>
   );
 }

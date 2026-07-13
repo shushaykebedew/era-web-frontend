@@ -1,8 +1,6 @@
-"use client";
-
 import Link from "next/link";
 import { Container } from "@/components/ui/Container";
-import { Button } from "@/components/ui/Button";
+import { ServerButton as Button } from "@/components/ui/ServerButton";
 import { cn } from "@/utils/cn";
 import { SlideUp } from "@/components/ui/animations";
 
@@ -47,7 +45,7 @@ export function GalleryCta() {
                 "hover:border-primary/80 hover:text-primary",
               )}
             >
-              Nominate for 2025
+              Nominate for 2026
             </Button>
             <Link
               href="mailto:hello@example.com"
