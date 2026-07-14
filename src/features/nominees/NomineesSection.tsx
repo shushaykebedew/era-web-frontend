@@ -1,21 +1,24 @@
 "use client";
 
-import { Suspense } from "react";
+import { Suspense, useState, useEffect } from "react";
 import { useSearchParams } from "next/navigation";
 import { Container } from "@/components/ui/Container";
 import { NomineeCard } from "@/features/nominees/NomineeCard";
 import { NomineesFilterBar } from "@/features/nominees/NomineesFilterBar";
-import { nominees } from "@/data/nominees";
 import { cn } from "@/utils/cn";
 import { Eyebrow } from "@/components/ui/Eyebrow";
 import { FadeIn } from "@/components/ui/animations";
 import { useNomineesFilter } from "@/hooks/useNomineesFilter";
+import { fetchNominees } from "@/services/nominees";
+import { fetchCategories } from "@/services/categories";
+import { Nominee } from "@/types";
+import type { AwardCategory } from "@/types";
 
 function NomineesHero() {
   return (
     <section className="bg-background pt-28 text-center pb-10 sm:pt-36 lg:pt-40 2xl:pt-48">
       <Container size="narrow">
-        <Eyebrow align="center" className="">
+        <Eyebrow align="center">
           Excellence in Architecture
         </Eyebrow>
 
@@ -103,6 +106,28 @@ function EmptyState() {
 function NomineesSectionContent() {
   const searchParams = useSearchParams();
   const initialCategory = searchParams?.get("category") || "all";
+  
+  const [nomineesList, setNomineesList] = useState<Nominee[]>([]);
+  const [categoriesList, setCategoriesList] = useState<AwardCategory[]>([]);
+  const [isLoading, setIsLoading] = useState(true);
+
+  useEffect(() => {
+    async function loadData() {
+      try {
+        const [nominees, cats] = await Promise.all([
+          fetchNominees(),
+          fetchCategories(),
+        ]);
+        setNomineesList(nominees);
+        setCategoriesList(cats);
+      } catch (err) {
+        console.error("Failed to load nominees from API:", err);
+      } finally {
+        setIsLoading(false);
+      }
+    }
+    loadData();
+  }, []);
 
   const {
     activeCategoryId,
@@ -113,7 +138,18 @@ function NomineesSectionContent() {
     sortedLength,
     hasMore,
     loadMore,
-  } = useNomineesFilter(nominees, initialCategory, 6);
+  } = useNomineesFilter(nomineesList, initialCategory, 6);
+
+  if (isLoading) {
+    return (
+      <section className="bg-background min-h-screen py-36 flex flex-col items-center justify-center">
+        <div className="w-12 h-12 rounded-full border-t-2 border-primary border-r-2 border-r-transparent animate-spin mb-4" />
+        <div className="text-primary text-sm font-inter uppercase tracking-widest font-bold">
+          Loading Nominees
+        </div>
+      </section>
+    );
+  }
 
   return (
     <>
@@ -124,6 +160,8 @@ function NomineesSectionContent() {
         onCategoryChange={handleCategoryChange}
         sort={sort}
         onSortChange={setSort}
+        totalCount={nomineesList.length}
+        categories={categoriesList.length > 0 ? categoriesList : undefined}
       />
 
       <section className="bg-background py-12 sm:py-16">

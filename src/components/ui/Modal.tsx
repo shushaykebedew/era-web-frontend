@@ -1,6 +1,7 @@
 "use client";
 
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
+import { createPortal } from "react-dom";
 import { cn } from "@/utils/cn";
 import { AnimatePresence, motion, useReducedMotion } from "framer-motion";
 import { ease } from "./animations";
@@ -10,6 +11,11 @@ export function Modal({ isOpen, onClose, children, className }: ModalProps) {
   const modalRef = useRef<HTMLDivElement>(null);
   const previousFocusRef = useRef<HTMLElement | null>(null);
   const shouldReduceMotion = useReducedMotion();
+  const [mounted, setMounted] = useState(false);
+
+  useEffect(() => {
+    setMounted(true);
+  }, []);
 
   // Handle Body Scroll Lock
   useEffect(() => {
@@ -128,7 +134,9 @@ export function Modal({ isOpen, onClose, children, className }: ModalProps) {
     exit: { opacity: 0, transition: { duration: 0.2, ease } },
   };
 
-  return (
+  if (!mounted) return null;
+
+  return createPortal(
     <AnimatePresence>
       {isOpen && (
         <div className="fixed inset-0 z-50 overflow-y-auto overflow-x-hidden">
@@ -171,6 +179,7 @@ export function Modal({ isOpen, onClose, children, className }: ModalProps) {
           </div>
         </div>
       )}
-    </AnimatePresence>
+    </AnimatePresence>,
+    document.body
   );
 }

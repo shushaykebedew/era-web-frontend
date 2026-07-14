@@ -4,16 +4,18 @@ import { useRef } from "react";
 import { ChevronRight } from "lucide-react";
 import { Container } from "@/components/ui/Container";
 import { SortSelect } from "@/components/ui/SortSelect";
-import { nominees } from "@/data/nominees";
-import { awardCategories } from "@/data/award-categories";
+import { awardCategories as fallbackCategories } from "@/data/award-categories";
 import { cn } from "@/utils/cn";
 import { type Sort } from "@/types/ui";
+import type { AwardCategory } from "@/types";
 
 interface NomineesFilterBarProps {
   activeCategoryId: string;
   onCategoryChange: (id: string) => void;
   sort: Sort;
   onSortChange: (sort: Sort) => void;
+  totalCount?: number;
+  categories?: AwardCategory[];
 }
 
 export function NomineesFilterBar({
@@ -21,7 +23,10 @@ export function NomineesFilterBar({
   onCategoryChange,
   sort,
   onSortChange,
+  totalCount,
+  categories,
 }: NomineesFilterBarProps) {
+  const resolvedCategories = categories ?? fallbackCategories;
   const categoryScrollRef = useRef<HTMLDivElement>(null);
 
   const scrollCategoriesNext = () => {
@@ -48,7 +53,7 @@ export function NomineesFilterBar({
             >
               All Projects
               <span className="ml-1.5 2xl:ml-2.5 text-[10px] 2xl:text-[14px]">
-                {nominees.length}
+                {totalCount ?? 0}
               </span>
             </button>
 
@@ -60,7 +65,7 @@ export function NomineesFilterBar({
                 "[-ms-overflow-style:none] [scrollbar-none] [&::-webkit-scrollbar]:hidden",
               )}
             >
-              {awardCategories.map((c) => {
+              {resolvedCategories.map((c) => {
                 const isActive = activeCategoryId === c.id;
                 return (
                   <button

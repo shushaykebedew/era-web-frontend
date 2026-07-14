@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import localFont from "next/font/local";
 import "./globals.css";
 import { siteConfig } from "@/data/site";
+import { AuthProvider } from "@/context/AuthContext";
 
 const inter = localFont({
   src: "../fonts/Inter-VariableFont.ttf",
@@ -30,7 +31,7 @@ export default function RootLayout({
       <body
         className={`${inter.variable} ${playfair.variable} bg-background text-foreground antialiased`}
       >
-        {children}
+        <AuthProvider>{children}</AuthProvider>
       </body>
     </html>
   );

@@ -1,13 +1,20 @@
 import { AwardsLandingPage } from "@/features/home/AwardsLandingPage";
-import { awardCategories } from "@/data/award-categories";
-import { getFeaturedNominees } from "@/data/nominees";
 import { partners } from "@/data/content";
+import { fetchNominees } from "@/services/nominees";
+import { fetchCategories } from "@/services/categories";
 
-export default function HomePage() {
+export default async function HomePage() {
+  const [allNominees, categories] = await Promise.all([
+    fetchNominees(),
+    fetchCategories(),
+  ]);
+
+  const featuredNominees = allNominees.slice(0, 3);
+
   return (
     <AwardsLandingPage
-      categories={awardCategories}
-      featuredNominees={getFeaturedNominees(3)}
+      categories={categories}
+      featuredNominees={featuredNominees}
       partners={partners}
     />
   );
