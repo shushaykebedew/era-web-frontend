@@ -1,7 +1,6 @@
 # ERA 2026 — Ethiopia Real Estate Awards
 
-Next.js (App Router) + TypeScript + Tailwind CSS v4 implementation, built to absorb
-ongoing design changes without major rewrites.
+Next.js (App Router) + TypeScript + Tailwind CSS v4 implementation.
 
 ## Getting started
 

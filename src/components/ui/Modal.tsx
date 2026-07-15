@@ -165,7 +165,7 @@ export function Modal({ isOpen, onClose, children, className }: ModalProps) {
                 shouldReduceMotion ? reducedMotionModalVariants : modalVariants
               }
               className={cn(
-                "relative w-[calc(100vw-2rem)] sm:w-full max-w-125",
+                "relative w-[calc(100vw-2rem)] sm:w-full max-w-110 2xl:max-w-150",
                 "bg-[#16130D] border border-primary/30",
                 "p-6 sm:p-12 text-left",
                 "flex flex-col items-center",
@@ -180,6 +180,6 @@ export function Modal({ isOpen, onClose, children, className }: ModalProps) {
         </div>
       )}
     </AnimatePresence>,
-    document.body
+    document.body,
   );
 }
