@@ -1,14 +1,14 @@
 import Image from "next/image";
-import { Hero } from "@/features/home/Hero";
-import { AwardCategoriesSection } from "@/features/awards/AwardCategoriesSection";
-import { FeaturedNominees } from "@/features/awards/FeaturedNominees";
-import { PartnersStrip } from "@/features/partners/PartnersStrip";
-import { NewsletterCta } from "@/features/home/NewsletterCta";
-import TimeCounter from "@/features/home/TimeCounter";
-import type { AwardCategory, Nominee, Partner } from "@/types";
 import { cn } from "@/utils/cn";
+import { PartnersStrip } from "@/features/partners/PartnersStrip";
+import { Hero } from "./Hero";
+import { AwardCategoriesSection } from "./AwardCategoriesSection";
+import { FeaturedNominees } from "./FeaturedNominees";
+import { NewsletterCta } from "./NewsletterCta";
+import TimeCounter from "./TimeCounter";
+import type { AwardCategory, Nominee, Partner } from "@/types";
 
-export function AwardsLandingPage({
+export function Home({
   categories,
   featuredNominees,
   partners,

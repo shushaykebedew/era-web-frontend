@@ -1,6 +1,6 @@
 "use client";
 
-import { Modal } from "./Modal";
+import { Modal } from "../ui/Modal";
 import { AuthForm } from "./AuthForm";
 import { cn } from "@/utils/cn";
 

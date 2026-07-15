@@ -2,7 +2,7 @@
 
 import Image from "next/image";
 import Link from "next/link";
-import { CategoryIcon } from "@/components/ui/CategoryIcon";
+import { CategoryIcon } from "./CategoryIcon";
 import { cn } from "@/utils/cn";
 import { motion } from "framer-motion";
 import { CategoryCardProps } from "@/types/marketing";

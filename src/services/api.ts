@@ -1,7 +1,14 @@
 import axios from "axios";
 
+// In the browser, use the Next.js proxy (/api → backend).
+// On the server, use the backend URL directly (relative URLs have no host in Node).
+const baseURL =
+  typeof window === "undefined"
+    ? (process.env.NEXT_PUBLIC_API_URL ?? "https://era-backend-wrn6.onrender.com/api")
+    : "/api";
+
 export const api = axios.create({
-  baseURL: "/api",
+  baseURL,
   headers: { "Content-Type": "application/json" },
 });
 
@@ -56,19 +63,21 @@ api.interceptors.response.use(
 
       if (!refreshToken) {
         isRefreshing = false;
+        // No refresh token — session is gone, clear auth state
+        if (typeof window !== "undefined") {
+          (window as any).__authClearSession?.();
+        }
         return Promise.reject(error);
       }
 
       try {
-        const res = await axios.post("/api/auth/refresh", { refreshToken });
+        const res = await axios.post(`${baseURL}/auth/refresh`, { refreshToken });
 
         if (res.data?.success && res.data?.data?.accessToken) {
           const { accessToken, refreshToken: newRefreshToken } = res.data.data;
 
-          if (typeof window !== "undefined") {
-            localStorage.setItem("accessToken", accessToken);
-            if (newRefreshToken) localStorage.setItem("refreshToken", newRefreshToken);
-          }
+          localStorage.setItem("accessToken", accessToken);
+          if (newRefreshToken) localStorage.setItem("refreshToken", newRefreshToken);
 
           api.defaults.headers.common.Authorization = `Bearer ${accessToken}`;
           if (originalRequest.headers) {
@@ -83,10 +92,9 @@ api.interceptors.response.use(
         processQueue(refreshError, null);
         isRefreshing = false;
 
+        // Refresh failed — clear auth state so UI reflects logged-out
         if (typeof window !== "undefined") {
-          localStorage.removeItem("accessToken");
-          localStorage.removeItem("refreshToken");
-          localStorage.removeItem("user");
+          (window as any).__authClearSession?.();
         }
         return Promise.reject(refreshError);
       }

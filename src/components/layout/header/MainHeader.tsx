@@ -6,7 +6,7 @@ import { siteConfig } from "@/data/site";
 import { cn } from "@/utils/cn";
 import { DesktopNav } from "./DesktopNav";
 import { MobileNav } from "./MobileNav";
-import { AuthModal } from "@/components/ui/AuthModal";
+import { AuthModal } from "@/components/auth/AuthModal";
 
 export function MainHeader() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);

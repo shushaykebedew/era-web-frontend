@@ -4,7 +4,7 @@ import { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
 import Image from "next/image";
 import { Modal } from "@/components/ui/Modal";
-import { AuthForm } from "@/components/ui/AuthForm";
+import { AuthForm } from "@/components/auth/AuthForm";
 import { Button } from "@/components/ui/Button";
 import { cn } from "@/utils/cn";
 import { type VoteModalProps, type VoteStep } from "@/types/nominees";
@@ -184,7 +184,10 @@ export function VoteModal({ isOpen, onClose, nominee }: VoteModalProps) {
               RETURN TO DASHBOARD
             </Button>
             <button
-              onClick={() => { onClose(); router.push("/categories"); }}
+              onClick={() => {
+                onClose();
+                router.push("/categories");
+              }}
               className={cn(
                 "mt-2 text-foreground-muted text-[12px] 2xl:text-base font-semibold uppercase font-inter",
                 "tracking-[1.2px] leading-4 hover:text-primary transition-colors cursor-pointer",

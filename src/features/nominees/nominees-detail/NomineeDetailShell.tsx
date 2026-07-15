@@ -4,12 +4,12 @@ import { useState } from "react";
 import Image from "next/image";
 import { Button } from "@/components/ui/Button";
 import { cn } from "@/utils/cn";
-import { NomineeSidebar } from "./NomineeSidebar";
+import { NomineeSidebar } from "../NomineeSidebar";
 import { NomineeDetailHeader } from "./NomineeDetailHeader";
-import { DetailTab } from "./tabs/DetailTab";
-import { AwardsTab } from "./tabs/AwardsTab";
-import { GalleryTab } from "./tabs/GalleryTab";
-import { VoteModal } from "./VoteModal";
+import { DetailTab } from "../tabs/DetailTab";
+import { AwardsTab } from "../tabs/AwardsTab";
+import { GalleryTab } from "../tabs/GalleryTab";
+import { VoteModal } from "../VoteModal";
 import { type Tab, type NomineeDetailShellProps } from "@/types/nominees";
 import { SlideUp, FadeIn } from "@/components/ui/animations";
 

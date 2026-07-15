@@ -1,7 +1,7 @@
 import Link from "next/link";
 import { Container } from "@/components/ui/Container";
 import { SectionHeading } from "@/components/ui/SectionHeading";
-import { CategoryCard } from "./CategoryCard";
+import { CategoryCard } from "../categories/CategoryCard";
 import { cn } from "@/utils/cn";
 import {
   FadeIn,

@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
-import { AwardCategoryPageContent } from "@/features/awards/AwardCategoryPageContent";
+import { AwardCategoryPageContent } from "@/features/categories/AwardCategoryPageContent";
 import { fetchCategories, fetchCategoryById } from "@/services/categories";
 import { fetchNominees } from "@/services/nominees";
 import { AwardPageProps } from "@/types/marketing";
@@ -30,9 +30,6 @@ export default async function AwardCategoryPage({ params }: AwardPageProps) {
   const categoryNominees = allNominees.filter((n) => n.categoryId === id);
 
   return (
-    <AwardCategoryPageContent
-      category={category}
-      nominees={categoryNominees}
-    />
+    <AwardCategoryPageContent category={category} nominees={categoryNominees} />
   );
 }

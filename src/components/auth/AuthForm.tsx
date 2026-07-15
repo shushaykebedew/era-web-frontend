@@ -2,11 +2,11 @@
 
 import { useState } from "react";
 import { Eye, EyeOff } from "lucide-react";
-import { Button } from "./Button";
+import { Button } from "../ui/Button";
 import { cn } from "@/utils/cn";
 import { useAuth } from "@/context/AuthContext";
-import { Input } from "./Input";
-import { Label } from "./Label";
+import { Input } from "../ui/Input";
+import { Label } from "../ui/Label";
 
 interface AuthFormProps {
   loginLabel?: string;
@@ -75,7 +75,16 @@ export function AuthForm({
       }
       onSuccess?.();
     } catch (err: any) {
-      setError(err.message || "An unexpected authentication error occurred.");
+      const status = err.response?.status;
+      const apiData = err.response?.data;
+      setError(
+        status >= 500
+          ? "Something went wrong on our end. Please try again later."
+          : (apiData?.message ??
+              apiData?.error ??
+              err.message ??
+              "An unexpected error occurred."),
+      );
     } finally {
       setIsLoading(false);
     }

@@ -2,7 +2,7 @@ import Link from "next/link";
 import { Container } from "@/components/ui/Container";
 import { Eyebrow } from "@/components/ui/Eyebrow";
 import { ServerButton as Button } from "@/components/ui/ServerButton";
-import { AwardCategoriesSection } from "@/features/awards/AwardCategoriesSection";
+import { AwardCategoriesSection } from "@/features/home/AwardCategoriesSection";
 import { awardCategories } from "@/data/award-categories";
 import { cn } from "@/utils/cn";
 import { FadeIn, SlideUp } from "@/components/ui/animations";
@@ -75,10 +75,9 @@ function VisualExcellenceSection() {
 
             <SlideUp delay={0.1}>
               <p className="mt-6 text-base sm:text-[18px] 2xl:text-[24px] leading-7 2xl:leading-9 text-[#D1C5B2] font-inter">
-                The ERA awards recognize more than just buildings; we honor
-                the dialogue between a structure and its environment. Our
-                categories reflect the diverse needs of a rapidly urbanizing
-                nation.
+                The ERA awards recognize more than just buildings; we honor the
+                dialogue between a structure and its environment. Our categories
+                reflect the diverse needs of a rapidly urbanizing nation.
               </p>
             </SlideUp>
 
