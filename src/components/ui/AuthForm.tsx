@@ -45,7 +45,7 @@ export function AuthForm({
     "text-sm 2xl:text-lg font-inter text-foreground focus:outline-none focus:border-primary/60 transition-colors",
   );
   const labelCls =
-    "block text-xs 2xl:text-base font-inter font-bold tracking-wider uppercase text-foreground-muted mb-1.5 2xl:mb-2";
+    "block text-xs 2xl:text-base font-inter font-bold tracking-wider capitalize text-foreground-muted mb-1.5 2xl:mb-2";
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();

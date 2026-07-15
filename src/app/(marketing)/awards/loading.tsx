@@ -41,12 +41,12 @@ export default function AwardsLoading() {
         className={cn(
           "relative -mt-20 flex w-full min-w-0 flex-col items-center justify-center",
           "min-h-120 sm:min-h-150 lg:min-h-180 xl:min-h-205 2xl:min-h-256",
-          "bg-background-elevated"
+          "bg-background-elevated",
         )}
       >
         <div className="flex flex-col items-center gap-4 px-4">
           <Skeleton className="h-5 w-40" />
-          <Skeleton className="h-14 sm:h-20 lg:h-28 w-64 sm:w-96 lg:w-[520px]" />
+          <Skeleton className="h-14 sm:h-20 lg:h-28 w-64 sm:w-96 lg:w-130" />
           <Skeleton className="h-14 sm:h-20 lg:h-28 w-48 sm:w-80 lg:w-96" />
           <Skeleton className="h-5 w-72 sm:w-96 mt-2" />
           <Skeleton className="h-5 w-56 sm:w-80" />
