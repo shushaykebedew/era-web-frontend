@@ -51,8 +51,9 @@ export async function fetchCategories(): Promise<AwardCategory[]> {
   try {
     const res = await api.get("/award-categories");
     if (res.data?.success) {
-      categoriesCache = res.data.data.map((item: any) => mapApiCategory(item, findMockMatch(item)));
-      return categoriesCache;
+      const mapped = res.data.data.map((item: any) => mapApiCategory(item, findMockMatch(item)));
+      categoriesCache = mapped;
+      return mapped;
     }
   } catch (err) {
     console.warn("Failed to fetch categories from API, using fallback:", err);

@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useRef, useEffect } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { siteConfig } from "@/data/site";
@@ -16,6 +16,25 @@ export function DesktopNav({
   const pathname = usePathname();
   const { user, isAuthenticated, logout } = useAuth();
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
+  const dropdownRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    if (!isDropdownOpen) return;
+
+    function handleClickOutside(e: MouseEvent) {
+      if (
+        dropdownRef.current &&
+        !dropdownRef.current.contains(e.target as Node)
+      ) {
+        setIsDropdownOpen(false);
+      }
+    }
+
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+    };
+  }, [isDropdownOpen]);
 
   return (
     <>
@@ -48,12 +67,12 @@ export function DesktopNav({
       {/* Desktop auth controls */}
       <div className="hidden lg:flex items-center gap-4">
         {isAuthenticated && user ? (
-          <div className="relative">
+          <div className="relative" ref={dropdownRef}>
             <button
-              onClick={() => setIsDropdownOpen(!isDropdownOpen)}
+              onClick={() => setIsDropdownOpen((v) => !v)}
               className="flex items-center gap-2 px-3 py-1.5 rounded-full border border-primary/30 bg-[#231F19] text-primary text-sm font-semibold tracking-wider font-inter hover:bg-[#2D2820] transition-colors cursor-pointer"
             >
-              <div className="w-6 h-6 rounded-full bg-primary text-[#402D00] flex items-center justify-center font-bold text-xs">
+              <div className="w-6 h-6 2xl:w-8 2xl:h-8 rounded-full bg-primary text-[#402D00] flex items-center justify-center font-bold text-xs 2xl:text-sm">
                 {user.fullName
                   ? user.fullName
                       .split(" ")
@@ -63,35 +82,31 @@ export function DesktopNav({
                       .substring(0, 2)
                   : "U"}
               </div>
-              <span className="truncate max-w-30">{user.fullName}</span>
+              <span className="truncate max-w-30 2xl:max-w-36 2xl:text-base">
+                {user.fullName}
+              </span>
             </button>
 
             {isDropdownOpen && (
-              <>
-                <div
-                  className="fixed inset-0 z-10"
-                  onClick={() => setIsDropdownOpen(false)}
-                />
-                <div className="absolute right-0 mt-2 w-48 z-20 bg-[#16130D] border border-primary/30 shadow-xl rounded py-1 font-inter">
-                  <div className="px-4 py-2 border-b border-primary/10">
-                    <p className="text-[10px] text-foreground-muted uppercase tracking-wider font-bold">
-                      Logged in as
-                    </p>
-                    <p className="text-sm font-semibold text-foreground truncate">
-                      {user.username}
-                    </p>
-                  </div>
-                  <button
-                    onClick={() => {
-                      logout();
-                      setIsDropdownOpen(false);
-                    }}
-                    className="w-full text-left px-4 py-2 text-sm text-foreground hover:bg-primary/10 hover:text-primary transition-colors cursor-pointer"
-                  >
-                    Sign Out
-                  </button>
+              <div className="absolute right-0 mt-2 w-48 z-20 bg-[#16130D] border border-primary/30 shadow-xl rounded py-1 font-inter">
+                <div className="px-4 py-2 border-b border-primary/10">
+                  <p className="text-[10px] 2xl:text-[12px] text-foreground-muted uppercase tracking-wider font-bold">
+                    Logged in as
+                  </p>
+                  <p className="text-sm 2xl:text-[18px] font-semibold text-foreground truncate">
+                    {user.username}
+                  </p>
                 </div>
-              </>
+                <button
+                  onClick={() => {
+                    logout();
+                    setIsDropdownOpen(false);
+                  }}
+                  className="w-full text-left px-4 py-2 text-sm 2xl:text-base text-foreground hover:bg-primary/10 hover:text-primary transition-colors cursor-pointer"
+                >
+                  Sign Out
+                </button>
+              </div>
             )}
           </div>
         ) : (

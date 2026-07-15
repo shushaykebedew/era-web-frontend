@@ -8,6 +8,9 @@ import { cn } from "@/utils/cn";
 import { TierSelect } from "./TierSelect";
 import { SponsorshipFormProps } from "@/types/partners";
 import { SlideUp } from "@/components/ui/animations";
+import { Input } from "@/components/ui/Input";
+import { Textarea } from "@/components/ui/Textarea";
+import { Label } from "@/components/ui/Label";
 
 // ── Reusable field components ─────────────────────────────────────────────────
 function FieldLabel({
@@ -18,7 +21,7 @@ function FieldLabel({
   children: React.ReactNode;
 }) {
   return (
-    <label
+    <Label
       htmlFor={htmlFor}
       className={cn(
         "text-[10px] 2xl:text-base font-inter font-semibold uppercase",
@@ -26,7 +29,7 @@ function FieldLabel({
       )}
     >
       {children}
-    </label>
+    </Label>
   );
 }
 
@@ -91,7 +94,7 @@ export function SponsorshipForm({ selectedTier = "" }: SponsorshipFormProps) {
               {/* Row 1 — Company + Email */}
               <div className="grid grid-cols-1 gap-6 sm:grid-cols-2">
                 <div className="flex flex-col gap-2">
-                  <input
+                  <Input
                     name="company"
                     type="text"
                     placeholder="Company Name"
@@ -100,7 +103,7 @@ export function SponsorshipForm({ selectedTier = "" }: SponsorshipFormProps) {
                   />
                 </div>
                 <div className="flex flex-col gap-2">
-                  <input
+                  <Input
                     name="email"
                     type="email"
                     placeholder="Business Email"
@@ -118,7 +121,7 @@ export function SponsorshipForm({ selectedTier = "" }: SponsorshipFormProps) {
 
               {/* Row 3 — Strategic vision */}
               <div className="flex flex-col gap-2 mt-4">
-                <textarea
+                <Textarea
                   id="vision"
                   name="vision"
                   placeholder="Strategic Vision"

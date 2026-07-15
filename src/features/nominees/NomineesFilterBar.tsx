@@ -3,11 +3,11 @@
 import { useRef } from "react";
 import { ChevronRight } from "lucide-react";
 import { Container } from "@/components/ui/Container";
-import { SortSelect } from "@/components/ui/SortSelect";
 import { awardCategories as fallbackCategories } from "@/data/award-categories";
 import { cn } from "@/utils/cn";
 import { type Sort } from "@/types/ui";
 import type { AwardCategory } from "@/types";
+import { SortSelect } from "./SortSelect";
 
 interface NomineesFilterBarProps {
   activeCategoryId: string;

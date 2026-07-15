@@ -1,9 +1,11 @@
 "use client";
 
-import { useEffect, useRef, useState } from "react";
+import { Dropdown } from "@/components/ui/Dropdown";
 import { TIERS } from "./PartnersTierCards";
 import { cn } from "@/utils/cn";
-import { TierSelectProps } from "@/types/partners";
+import { TierSelectProps, TierId } from "@/types/partners";
+
+const selectOptions = TIERS.map((t) => ({ value: t.id, label: t.label }));
 
 export function TierSelect({
   value,
@@ -11,109 +13,58 @@ export function TierSelect({
   name = "tier",
   required,
 }: TierSelectProps) {
-  const [open, setOpen] = useState(false);
-  const [activeIndex, setActiveIndex] = useState(0);
-  const rootRef = useRef<HTMLDivElement>(null);
-  const listRef = useRef<HTMLUListElement>(null);
-
   const selected = TIERS.find((t) => t.id === value);
 
-  useEffect(() => {
-    function handleClick(e: MouseEvent) {
-      if (rootRef.current && !rootRef.current.contains(e.target as Node)) {
-        setOpen(false);
-      }
-    }
-    document.addEventListener("mousedown", handleClick);
-    return () => document.removeEventListener("mousedown", handleClick);
-  }, []);
-
-  useEffect(() => {
-    if (open) {
-      const idx = TIERS.findIndex((t) => t.id === value);
-      queueMicrotask(() => setActiveIndex(idx >= 0 ? idx : 0));
-    }
-  }, [open, value]);
-
-  function handleKeyDown(e: React.KeyboardEvent) {
-    if (!open) {
-      if (e.key === "Enter" || e.key === " " || e.key === "ArrowDown") {
-        e.preventDefault();
-        setOpen(true);
-      }
-      return;
-    }
-
-    switch (e.key) {
-      case "ArrowDown":
-        e.preventDefault();
-        setActiveIndex((i) => Math.min(i + 1, TIERS.length - 1));
-        break;
-      case "ArrowUp":
-        e.preventDefault();
-        setActiveIndex((i) => Math.max(i - 1, 0));
-        break;
-      case "Enter":
-      case " ":
-        e.preventDefault();
-        onChange(TIERS[activeIndex].id);
-        setOpen(false);
-        break;
-      case "Escape":
-        e.preventDefault();
-        setOpen(false);
-        break;
-      case "Tab":
-        setOpen(false);
-        break;
-    }
-  }
-
   return (
-    <div ref={rootRef} className="relative">
-      <input type="hidden" name={name} value={value} required={required} />
-
-      <button
-        type="button"
-        role="combobox"
-        aria-haspopup="listbox"
-        aria-expanded={open}
-        aria-controls="tier-listbox"
-        onClick={() => setOpen((o) => !o)}
-        onKeyDown={handleKeyDown}
-        className={cn(
-          "flex w-full items-center justify-between border-b border-[#4E4637] cursor-pointer",
-          "bg-transparent py-3 text-left text-base 2xl:text-[20px] outline-none transition-colors",
-          "focus:border-primary font-inter",
-          selected ? "text-foreground" : "text-[#9A8F7E]",
-        )}
-      >
-        <span className={cn(selected && "uppercase")}>
-          {selected ? selected.label : "Select Preferred Tier"}
-        </span>
-        <svg
-          width="12"
-          height="8"
-          viewBox="0 0 12 8"
-          fill="none"
-          className={cn(
-            "shrink-0 text-primary transition-transform duration-200",
-            open && "rotate-180",
-          )}
-        >
-          <path
-            d="M1 1.5L6 6.5L11 1.5"
-            stroke="currentColor"
-            strokeWidth="1.5"
-            strokeLinecap="round"
-            strokeLinejoin="round"
-          />
-        </svg>
-      </button>
-
-      {open && (
+    <Dropdown<TierId | "">
+      value={value}
+      onChange={(val) => onChange(val as TierId)}
+      options={selectOptions}
+      className="relative"
+      renderButton={({ open, onClick, onKeyDown }) => (
+        <>
+          <input type="hidden" name={name} value={value} required={required} />
+          <button
+            type="button"
+            role="combobox"
+            aria-haspopup="listbox"
+            aria-expanded={open}
+            aria-controls="tier-listbox"
+            onClick={onClick}
+            onKeyDown={onKeyDown}
+            className={cn(
+              "flex w-full items-center justify-between border-b border-[#4E4637] cursor-pointer",
+              "bg-transparent py-3 text-left text-base 2xl:text-[20px] outline-none transition-colors",
+              "focus:border-primary font-inter",
+              selected ? "text-foreground" : "text-[#9A8F7E]",
+            )}
+          >
+            <span className={cn(selected && "uppercase")}>
+              {selected ? selected.label : "Select Preferred Tier"}
+            </span>
+            <svg
+              width="12"
+              height="8"
+              viewBox="0 0 12 8"
+              fill="none"
+              className={cn(
+                "shrink-0 text-primary transition-transform duration-200",
+                open && "rotate-180",
+              )}
+            >
+              <path
+                d="M1 1.5L6 6.5L11 1.5"
+                stroke="currentColor"
+                strokeWidth="1.5"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+              />
+            </svg>
+          </button>
+        </>
+      )}
+      renderList={({ activeIndex, setActiveIndex, onSelect, options }) => (
         <ul
-          ref={listRef}
           id="tier-listbox"
           role="listbox"
           tabIndex={-1}
@@ -123,19 +74,16 @@ export function TierSelect({
             "animate-in fade-in slide-in-from-top-1 duration-150",
           )}
         >
-          {TIERS.map((t, i) => {
-            const isSelected = t.id === value;
+          {options.map((option, i) => {
+            const isSelected = option.value === value;
             const isActive = i === activeIndex;
             return (
               <li
-                key={t.id}
+                key={option.value}
                 role="option"
                 aria-selected={isSelected}
                 onMouseEnter={() => setActiveIndex(i)}
-                onClick={() => {
-                  onChange(t.id);
-                  setOpen(false);
-                }}
+                onClick={() => onSelect(option)}
                 className={cn(
                   "flex cursor-pointer items-center justify-between px-4 py-2.5 text-base",
                   "uppercase tracking-[0.5px] font-inter transition-colors",
@@ -143,7 +91,7 @@ export function TierSelect({
                   isSelected && "text-primary",
                 )}
               >
-                {t.label}
+                {option.label}
                 {isSelected && (
                   <svg
                     width="12"
@@ -166,6 +114,6 @@ export function TierSelect({
           })}
         </ul>
       )}
-    </div>
+    />
   );
 }

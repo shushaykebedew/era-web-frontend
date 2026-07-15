@@ -98,8 +98,12 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
       throw new Error(res.data?.message || "Login failed");
     } catch (err: any) {
       const apiData = err.response?.data;
+      const status = err.response?.status;
+      const serverError = status >= 500;
       throw new Error(
-        apiData?.message ?? apiData?.error ?? err.message ?? "Login failed. Please check your credentials.",
+        serverError
+          ? "Something went wrong on our end. Please try again later."
+          : apiData?.message ?? apiData?.error ?? err.message ?? "Login failed. Please check your credentials.",
       );
     }
   };
@@ -120,8 +124,12 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
       throw new Error(res.data?.message || "Registration failed");
     } catch (err: any) {
       const apiData = err.response?.data;
+      const status = err.response?.status;
+      const serverError = status >= 500;
       throw new Error(
-        apiData?.message ?? apiData?.error ?? err.message ?? "Registration failed. Please try again.",
+        serverError
+          ? "Something went wrong on our end. Please try again later."
+          : apiData?.message ?? apiData?.error ?? err.message ?? "Registration failed. Please try again.",
       );
     }
   };

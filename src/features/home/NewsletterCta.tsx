@@ -3,6 +3,7 @@ import { Button } from "@/components/ui/Button";
 import { cn } from "@/utils/cn";
 import { SlideUp } from "@/components/ui/animations";
 import { NewsletterCtaProps } from "@/types/marketing";
+import { Input } from "@/components/ui/Input";
 
 export function NewsletterCta({
   title = "Join the Gala Night",
@@ -33,7 +34,7 @@ export function NewsletterCta({
             <label htmlFor="newsletter-email" className="sr-only">
               Email Address
             </label>
-            <input
+            <Input
               id="newsletter-email"
               type="email"
               required
