@@ -35,7 +35,7 @@ export function Hero({
             <h1
               className={cn(
                 "font-display text-3xl sm:text-5xl md:text-6xl lg:text-[72px] 2xl:text-[96px]",
-                "w-full max-w-full lg:max-w-201.5 2xl:max-w-5xl",
+                "w-full max-w-full lg:max-w-201.5 2xl:max-w-275",
                 "font-bold tracking-tight lg:tracking-[-1.44px]",
                 "leading-tight lg:leading-20 2xl:leading-28",
               )}

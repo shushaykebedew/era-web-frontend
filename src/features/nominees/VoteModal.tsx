@@ -108,6 +108,8 @@ export function VoteModal({ isOpen, onClose, nominee }: VoteModalProps) {
           <div className="w-full flex flex-col gap-4">
             <Button
               size="lg"
+              isLoading={isVoting}
+              // spinnerColor="white"
               className={cn(
                 "w-full bg-primary text-[#402D00] hover:bg-primary/90 text-[12px] 2xl:text-base",
                 "h-10 sm:h-12 font-semibold tracking-[1.2px] leading-4 font-inter",
@@ -115,7 +117,7 @@ export function VoteModal({ isOpen, onClose, nominee }: VoteModalProps) {
               onClick={handleConfirm}
               disabled={isVoting}
             >
-              {isVoting ? "CASTING VOTE..." : "CONFIRM VOTE"}
+              CONFIRM VOTE
             </Button>
             <Button
               variant="outline"

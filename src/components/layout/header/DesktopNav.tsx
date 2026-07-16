@@ -7,6 +7,8 @@ import { siteConfig } from "@/data/site";
 import { Button } from "@/components/ui/Button";
 import { cn } from "@/utils/cn";
 import { useAuth } from "@/context/AuthContext";
+import { getUserInitials } from "@/utils/user";
+import { useMediaQuery } from "@/hooks/useMediaQuery";
 
 export function DesktopNav({
   onOpenAuthModal,
@@ -17,6 +19,7 @@ export function DesktopNav({
   const { user, isAuthenticated, logout } = useAuth();
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
   const dropdownRef = useRef<HTMLDivElement>(null);
+  const is2xl = useMediaQuery("(min-width: 1536px)");
 
   useEffect(() => {
     if (!isDropdownOpen) return;
@@ -39,7 +42,7 @@ export function DesktopNav({
   return (
     <>
       {/* Desktop nav links */}
-      <nav className="hidden min-w-0 flex-wrap items-center justify-center gap-4 lg:gap-6 xl:gap-10 2xl:gap-14 lg:flex">
+      <nav className="hidden min-w-0 flex-wrap items-center justify-center gap-4 xl:gap-10 2xl:gap-14 xl:flex">
         {siteConfig.nav.map((link) => {
           const isActive =
             link.href === "/"
@@ -51,7 +54,7 @@ export function DesktopNav({
               href={link.href}
               aria-current={isActive ? "page" : undefined}
               className={cn(
-                "whitespace-nowrap text-[12px] 2xl:text-base font-inter font-bold leading-4",
+                "whitespace-nowrap text-[12px] 2xl:text-[18px] font-inter font-bold leading-4",
                 "py-1 tracking-[1.2px] uppercase transition-colors hover:text-primary",
                 isActive
                   ? "text-primary border-b-2 border-primary"
@@ -65,24 +68,17 @@ export function DesktopNav({
       </nav>
 
       {/* Desktop auth controls */}
-      <div className="hidden lg:flex items-center gap-4">
+      <div className="hidden xl:flex items-center gap-4">
         {isAuthenticated && user ? (
           <div className="relative" ref={dropdownRef}>
             <button
               onClick={() => setIsDropdownOpen((v) => !v)}
               className="flex items-center gap-2 px-3 py-1.5 rounded-full border border-primary/30 bg-[#231F19] text-primary text-sm font-semibold tracking-wider font-inter hover:bg-[#2D2820] transition-colors cursor-pointer"
             >
-              <div className="w-6 h-6 2xl:w-8 2xl:h-8 rounded-full bg-primary text-[#402D00] flex items-center justify-center font-bold text-xs 2xl:text-sm">
-                {user.fullName
-                  ? user.fullName
-                      .split(" ")
-                      .map((n) => n[0])
-                      .join("")
-                      .toUpperCase()
-                      .substring(0, 2)
-                  : "U"}
+              <div className="w-6 h-6 2xl:w-10 2xl:h-10 rounded-full bg-primary text-[#402D00] flex items-center justify-center font-bold text-xs 2xl:text-base">
+                {getUserInitials(user.fullName)}
               </div>
-              <span className="truncate max-w-30 2xl:max-w-36 2xl:text-base">
+              <span className="truncate max-w-30 2xl:max-w-40 2xl:text-base">
                 {user.fullName}
               </span>
             </button>
@@ -90,10 +86,10 @@ export function DesktopNav({
             {isDropdownOpen && (
               <div className="absolute right-0 mt-2 w-48 z-20 bg-[#16130D] border border-primary/30 shadow-xl rounded py-1 font-inter">
                 <div className="px-4 py-2 border-b border-primary/10">
-                  <p className="text-[10px] 2xl:text-[12px] text-foreground-muted uppercase tracking-wider font-bold">
+                  <p className="text-[10px] 2xl:text-[14px] text-foreground-muted uppercase tracking-wider font-bold">
                     Logged in as
                   </p>
-                  <p className="text-sm 2xl:text-[18px] font-semibold text-foreground truncate">
+                  <p className="text-sm 2xl:text-[20px] font-semibold text-foreground truncate">
                     {user.username}
                   </p>
                 </div>
@@ -102,7 +98,7 @@ export function DesktopNav({
                     logout();
                     setIsDropdownOpen(false);
                   }}
-                  className="w-full text-left px-4 py-2 text-sm 2xl:text-base text-foreground hover:bg-primary/10 hover:text-primary transition-colors cursor-pointer"
+                  className="w-full text-left px-4 py-2 text-sm 2xl:text-[18px] text-foreground hover:bg-primary/10 hover:text-primary transition-colors cursor-pointer"
                 >
                   Sign Out
                 </button>
@@ -111,9 +107,9 @@ export function DesktopNav({
           </div>
         ) : (
           <Button
-            size="sm"
+            size={is2xl ? "md" : "sm"}
             variant="outline"
-            className="text-foreground-muted hover:border-primary text-base"
+            className="text-foreground-muted hover:border-primary text-base whitespace-nowrap"
             onClick={onOpenAuthModal}
           >
             Sign In
@@ -123,8 +119,8 @@ export function DesktopNav({
         <Button
           as={Link}
           href={siteConfig.voteCta.href}
-          size="sm"
-          className="text-[#402D00] bg-primary hover:bg-primary/95 text-base px-6 font-semibold"
+          size={is2xl ? "md" : "sm"}
+          className="text-[#402D00] bg-primary hover:bg-primary/95 text-base px-6 font-semibold whitespace-nowrap"
         >
           {siteConfig.voteCta.label}
         </Button>

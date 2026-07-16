@@ -38,10 +38,13 @@ export function NomineesFilterBar({
       <Container size="wide">
         <div className="flex flex-col gap-4">
           {/* ── Category tabs + scroll button ── */}
-          <div className="flex min-w-0 items-center gap-4 sm:gap-8">
+          <div className="flex min-w-0 items-center gap-4 sm:gap-8" role="tablist" aria-label="Filter by category">
             {/* "All Projects" — always visible */}
             <button
               onClick={() => onCategoryChange("all")}
+              role="tab"
+              aria-selected={activeCategoryId === "all"}
+              aria-controls="nominees-grid"
               className={cn(
                 "text-sm sm:text-base 2xl:text-[20px] font-inter uppercase tracking-[1.2px]",
                 "sm:tracking-[1.6px] 2xl:tracking-[2px] leading-4 2xl:leading-6",
@@ -71,6 +74,9 @@ export function NomineesFilterBar({
                   <button
                     key={c.id}
                     onClick={() => onCategoryChange(c.id)}
+                    role="tab"
+                    aria-selected={isActive}
+                    aria-controls="nominees-grid"
                     className={cn(
                       "text-sm sm:text-base 2xl:text-[20px] font-inter uppercase tracking-[1.2px]",
                       "sm:tracking-[1.6px] 2xl:tracking-[2px] leading-4 2xl:leading-6",

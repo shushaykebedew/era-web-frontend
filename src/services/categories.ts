@@ -1,6 +1,6 @@
 import { api } from "./api";
 import { awardCategories as mockCategories } from "@/data/award-categories";
-import { AwardCategory } from "@/types";
+import { AwardCategory, ApiCategoryResponse } from "@/types";
 
 function normaliseName(name: string): string {
   return name
@@ -11,7 +11,7 @@ function normaliseName(name: string): string {
     .trim();
 }
 
-function findMockMatch(apiItem: any): AwardCategory | undefined {
+function findMockMatch(apiItem: ApiCategoryResponse): AwardCategory | undefined {
   const byId = mockCategories.find((m) => m.id === apiItem.id);
   if (byId) return byId;
 
@@ -31,14 +31,18 @@ function findMockMatch(apiItem: any): AwardCategory | undefined {
   return best;
 }
 
-function mapApiCategory(apiItem: any, localMatch?: AwardCategory): AwardCategory {
+function mapApiCategory(apiItem: ApiCategoryResponse, localMatch?: AwardCategory): AwardCategory {
+  const validIcons: AwardCategory["icon"][] = ["cat-icon-1", "cat-icon-2", "cat-icon-3", "cat-icon-4", "cat-icon-5"];
+  const icon = apiItem.icon || localMatch?.icon || "cat-icon-1";
+  const safeIcon = validIcons.includes(icon as AwardCategory["icon"]) ? icon as AwardCategory["icon"] : "cat-icon-1";
+
   return {
     id: apiItem.id || localMatch?.id || "",
     name: apiItem.name || localMatch?.name || "Award Category",
-    group: apiItem.group || localMatch?.group || "Residential",
+    group: (apiItem.group || localMatch?.group || "Residential") as AwardCategory["group"],
     tagline: apiItem.tagline || localMatch?.tagline || apiItem.group || "Residential",
     description: apiItem.description || localMatch?.description || "",
-    icon: apiItem.icon || localMatch?.icon || "cat-icon-1",
+    icon: safeIcon,
     nomineeCount: apiItem.nomineeCount ?? localMatch?.nomineeCount ?? 0,
     coverImage: apiItem.coverImage || localMatch?.coverImage,
   };

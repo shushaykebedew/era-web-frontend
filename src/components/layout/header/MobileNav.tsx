@@ -10,6 +10,7 @@ import { cn } from "@/utils/cn";
 import { useEscapeKey } from "@/hooks/useEscapeKey";
 import { useBodyScrollLock } from "@/hooks/useBodyScrollLock";
 import { useAuth } from "@/context/AuthContext";
+import { getUserInitials } from "@/utils/user";
 
 export function MobileNav({
   isMenuOpen,
@@ -80,14 +81,7 @@ export function MobileNav({
             <div className="bg-[#231F19] border border-primary/20 p-4 rounded flex items-center justify-between">
               <div className="flex items-center gap-3">
                 <div className="w-8 h-8 rounded-full bg-primary text-[#402D00] flex items-center justify-center font-bold text-sm">
-                  {user.fullName
-                    ? user.fullName
-                        .split(" ")
-                        .map((n) => n[0])
-                        .join("")
-                        .toUpperCase()
-                        .substring(0, 2)
-                    : "U"}
+                  {getUserInitials(user.fullName)}
                 </div>
                 <div className="text-left">
                   <p className="text-sm font-bold text-foreground leading-tight">
@@ -140,14 +134,14 @@ export function MobileNav({
     <>
       <button
         type="button"
-        className="flex h-10 w-10 2xl:w-14 2xl:h-14 items-center justify-center rounded-md text-primary lg:hidden cursor-pointer"
+        className="flex h-10 w-10 items-center justify-center rounded-md text-primary xl:hidden cursor-pointer"
         onClick={() => setIsMenuOpen(!isMenuOpen)}
         aria-expanded={isMenuOpen}
       >
         <span className="sr-only">Toggle navigation</span>
         {isMenuOpen ? (
           <svg
-            className="h-6 w-6 2xl:h-8 2xl:w-8"
+            className="h-6 w-6"
             fill="none"
             viewBox="0 0 24 24"
             stroke="currentColor"
@@ -161,7 +155,7 @@ export function MobileNav({
           </svg>
         ) : (
           <svg
-            className="h-6 w-6 2xl:h-8 2xl:w-8"
+            className="h-6 w-6"
             fill="none"
             viewBox="0 0 24 24"
             stroke="currentColor"

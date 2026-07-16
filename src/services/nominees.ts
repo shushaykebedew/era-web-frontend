@@ -1,6 +1,6 @@
 import { api } from "./api";
 import { nominees as mockNominees } from "@/data/nominees";
-import { Nominee } from "@/types";
+import { Nominee, ApiNomineeResponse, ApiAwardEventResponse } from "@/types";
 
 const FALLBACK_COVERS = [
   "/imgs/nominees/nominee-1.png",
@@ -18,10 +18,10 @@ function fallbackCover(index: number): string {
   return FALLBACK_COVERS[index % FALLBACK_COVERS.length];
 }
 
-function mapApiNominee(apiItem: any, index = 0): Nominee {
+function mapApiNominee(apiItem: ApiNomineeResponse, index = 0): Nominee {
   const target = apiItem.target ?? {};
 
-  const name = apiItem.name ?? target.name ?? target.title ?? "Nominee";
+  const name = apiItem.name ?? target.name ?? "Nominee";
   const firm = apiItem.firm ?? target.firm ?? target.company?.name ?? target.developer ?? "—";
   const location = apiItem.location ?? target.location ?? target.city ?? "Ethiopia";
   const excerpt = apiItem.excerpt ?? target.excerpt ?? target.description ?? "Award Excellence Nominee";
@@ -63,14 +63,14 @@ export async function fetchNominees(): Promise<Nominee[]> {
   try {
     let page = 1;
     const limit = 50;
-    const all: any[] = [];
+    const all: ApiNomineeResponse[] = [];
 
     while (true) {
       const res = await api.get("/nominees", { params: { page, limit } });
       if (!res.data?.success) break;
 
       const data = res.data.data;
-      const items: any[] = Array.isArray(data) ? data : (data.items ?? data.nominees ?? []);
+      const items: ApiNomineeResponse[] = Array.isArray(data) ? data : (data.items ?? data.nominees ?? []);
       all.push(...items);
 
       const pagination = res.data.pagination ?? res.data.meta;
@@ -120,7 +120,7 @@ export async function castPublicVote(
       if (eventsRes.data?.success && eventsRes.data.data.length > 0) {
         const activeEvent =
           eventsRes.data.data.find(
-            (e: any) => e.status === "ACTIVE" || e.status === "STARTED",
+            (e: ApiAwardEventResponse) => e.status === "ACTIVE" || e.status === "STARTED",
           ) ?? eventsRes.data.data[0];
         activeEventId = activeEvent.id;
       }

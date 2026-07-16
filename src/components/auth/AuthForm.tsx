@@ -7,6 +7,7 @@ import { cn } from "@/utils/cn";
 import { useAuth } from "@/context/AuthContext";
 import { Input } from "../ui/Input";
 import { Label } from "../ui/Label";
+import { useMediaQuery } from "@/hooks/useMediaQuery";
 
 interface AuthFormProps {
   loginLabel?: string;
@@ -34,6 +35,7 @@ export function AuthForm({
 
   const [error, setError] = useState<string | null>(null);
   const [isLoading, setIsLoading] = useState(false);
+  const is2xl = useMediaQuery("(min-width: 1536px)");
 
   const passwordsMismatch =
     mode === "register" &&
@@ -41,11 +43,11 @@ export function AuthForm({
     password !== confirmPassword;
 
   const inputCls = cn(
-    "w-full h-11 2xl:h-14 bg-[#1F1B16] border border-primary/20 rounded px-4 2xl:px-5",
-    "text-sm 2xl:text-lg font-inter text-foreground focus:outline-none focus:border-primary/60 transition-colors",
+    "w-full h-11 2xl:h-16 bg-[#1F1B16] border border-primary/20 rounded px-4 2xl:px-5",
+    "text-sm 2xl:text-[20px] font-inter text-foreground focus:outline-none focus:border-primary/60 transition-colors",
   );
   const labelCls =
-    "block text-xs 2xl:text-base font-inter font-bold tracking-wider capitalize text-foreground-muted mb-1.5 2xl:mb-2";
+    "block text-xs 2xl:text-[20px] font-inter font-medium tracking-wider capitalize text-foreground-muted mb-1.5 2xl:mb-2";
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -240,7 +242,7 @@ export function AuthForm({
 
         <Button
           type="submit"
-          size="md"
+          size={is2xl ? "lg" : "md"}
           isLoading={isLoading}
           disabled={passwordsMismatch}
           spinnerColor="white"
@@ -251,7 +253,7 @@ export function AuthForm({
         </Button>
       </form>
 
-      <div className="mt-6 2xl:mt-8 text-center text-sm 2xl:text-lg font-inter text-foreground-muted">
+      <div className="mt-6 2xl:mt-8 text-center text-sm 2xl:text-[20px] font-inter text-foreground-muted">
         {mode === "login" ? (
           <>
             Don&apos;t have an account?{" "}
@@ -278,7 +280,7 @@ export function AuthForm({
       </div>
 
       <div className="mt-8 2xl:mt-10 pt-4 2xl:pt-5 border-t border-[#4E46374D] w-full text-center">
-        <p className="font-inter text-foreground-muted text-[10px] 2xl:text-xs uppercase tracking-[3px] leading-none">
+        <p className="font-inter text-foreground-muted text-[10px] 2xl:text-sm uppercase tracking-[3px] leading-none">
           ERA 2026
         </p>
       </div>
