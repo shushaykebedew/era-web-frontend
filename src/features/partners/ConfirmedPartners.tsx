@@ -6,32 +6,8 @@ import {
   StaggerContainer,
   StaggerItem,
 } from "@/components/ui/animations";
+import { confirmedPartners } from "@/data/partners";
 
-// ── Data ─────────────────────────────────────────────────────────────────────
-const confirmedPartners = [
-  {
-    name: "Ethio-Bank",
-    tier: "Gold",
-    image: "/imgs/partners/partner-1.png",
-  },
-  {
-    name: "Nile Air",
-    tier: "Silver",
-    image: "/imgs/partners/partner-2.png",
-  },
-  {
-    name: "Sol Luxury",
-    tier: "Gold",
-    image: "/imgs/partners/partner-3.png",
-  },
-  {
-    name: "Abys Trust",
-    tier: "Bronze",
-    image: "/imgs/partners/partner-4.png",
-  },
-];
-
-// ── Sub-component ─────────────────────────────────────────────────────────────
 function PartnerCard({
   name,
   tier,

@@ -3,6 +3,7 @@ import { Container } from "@/components/ui/Container";
 import { ServerButton as Button } from "@/components/ui/ServerButton";
 import { cn } from "@/utils/cn";
 import { SlideUp } from "@/components/ui/animations";
+import { siteConfig } from "@/data/site";
 
 export function GalleryCta() {
   return (
@@ -35,7 +36,7 @@ export function GalleryCta() {
           <div className="mt-10 flex w-full flex-col items-center justify-center gap-4 sm:flex-row">
             <Button
               as={Link}
-              href="/nominees"
+              href={siteConfig.nominateCta.href}
               variant="outline"
               size="sm"
               className={cn(
@@ -45,10 +46,10 @@ export function GalleryCta() {
                 "hover:border-primary/80 hover:text-primary",
               )}
             >
-              Nominate for 2026
+              {siteConfig.nominateCta.label}
             </Button>
             <Link
-              href="mailto:hello@example.com"
+              href={siteConfig.contactEmail}
               className={cn(
                 "normal-case text-[12px] 2xl:text-[16px] tracking-[1.2px] 2xl:tracking-[1.6px]",
                 "flex w-full justify-center sm:w-auto items-center",

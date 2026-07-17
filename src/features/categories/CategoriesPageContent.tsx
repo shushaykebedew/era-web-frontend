@@ -3,7 +3,7 @@ import { Container } from "@/components/ui/Container";
 import { Eyebrow } from "@/components/ui/Eyebrow";
 import { ServerButton as Button } from "@/components/ui/ServerButton";
 import { AwardCategoriesSection } from "@/features/home/AwardCategoriesSection";
-import { awardCategories } from "@/data/award-categories";
+import { awardCategories, featuredWinner } from "@/data/award-categories";
 import { cn } from "@/utils/cn";
 import { FadeIn, SlideUp } from "@/components/ui/animations";
 
@@ -110,8 +110,8 @@ function VisualExcellenceSection() {
             )}
           >
             <img
-              src="/imgs/image-1.png"
-              alt="Featured Winner 2023: Unity Sky Tower"
+              src={featuredWinner.image}
+              alt={featuredWinner.label}
               className="absolute inset-0 h-full w-full object-cover"
             />
             {/* Caption badge */}
@@ -130,7 +130,7 @@ function VisualExcellenceSection() {
                   "leading-4 sm:leading-4 2xl:leading-6 whitespace-normal sm:whitespace-nowrap",
                 )}
               >
-                Featured Winner 2023: Unity Sky Tower
+                {featuredWinner.label}
               </span>
             </div>
           </FadeIn>

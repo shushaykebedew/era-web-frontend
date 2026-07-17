@@ -7,8 +7,14 @@ export const siteConfig = {
     "The ultimate recognition for Ethiopian real estate visionaries and masters of design.",
   tagline: "Excellence in Architecture",
   ceremonyDate: "2026-09-12T18:00:00+03:00",
+  nominateYear: "2026",
+  contactEmail: "mailto:hello@example.com",
   voteCta: {
     label: "Vote Now",
+    href: "/nominees",
+  },
+  nominateCta: {
+    label: "Nominate for 2026",
     href: "/nominees",
   },
   nav: [
@@ -29,4 +35,9 @@ export const siteConfig = {
     share: "#",
     email: "mailto:hello@example.com",
   },
+  socialIcons: [
+    { href: "https://example.com", icon: "/icons/globe-footer.svg", label: "Website" },
+    { href: "#",                   icon: "/icons/share.svg",        label: "Share" },
+    { href: "mailto:hello@example.com", icon: "/icons/email.svg",   label: "Email" },
+  ],
 } as const;

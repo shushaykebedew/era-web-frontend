@@ -1,7 +1,30 @@
-import { type StatusRow } from "@/types/nominees";
+import type { StatusRow } from "@/types/nominees";
+import type { Nominee } from "@/types";
+import type { AwardCategory } from "@/types";
 
-export const STATUS_ROWS: StatusRow[] = [
-  { label: "Recognition", value: "Finalist 2024", variant: "gold" },
-  { label: "Category", value: "Residential Excellence", variant: "solid" },
-  { label: "Jury status", value: "Verified", variant: "badge" },
-];
+export const GALLERY_EXPLORATION_LABELS = [
+  "Exterior Views",
+  "Interior Spaces",
+  "Facade Details",
+  "Masterplan",
+] as const;
+
+export function getStatusRows(
+  nominee: Nominee,
+  category?: AwardCategory | null,
+): StatusRow[] {
+  const recognition =
+    nominee.status === "past-winner"
+      ? "Past Winner"
+      : nominee.status === "shortlisted"
+        ? "Shortlisted"
+        : "Finalist 2026";
+
+  const categoryLabel = category?.name ?? "Residential Excellence";
+
+  return [
+    { label: "Recognition",  value: recognition,   variant: "gold" },
+    { label: "Category",     value: categoryLabel, variant: "solid" },
+    { label: "Jury status",  value: "Verified",    variant: "badge" },
+  ];
+}

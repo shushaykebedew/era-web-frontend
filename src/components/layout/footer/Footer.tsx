@@ -4,24 +4,6 @@ import { siteConfig } from "@/data/site";
 import { Container } from "@/components/ui/Container";
 import { cn } from "@/utils/cn";
 
-const SOCIAL_ICONS = [
-  {
-    href: siteConfig.social.website,
-    src: "/icons/globe-footer.svg",
-    label: "Website",
-  },
-  {
-    href: siteConfig.social.share,
-    src: "/icons/share.svg",
-    label: "Share",
-  },
-  {
-    href: siteConfig.social.email,
-    src: "/icons/email.svg",
-    label: "Email",
-  },
-];
-
 export function Footer() {
   const year = new Date().getFullYear();
 
@@ -64,7 +46,7 @@ export function Footer() {
         </p>
 
         <div className="mt-6 2xl:mt-10 flex items-center gap-5 2xl:gap-8">
-          {SOCIAL_ICONS.map(({ href, src, label }) => (
+          {siteConfig.socialIcons.map(({ href, icon, label }) => (
             <a
               key={label}
               href={href}
@@ -75,7 +57,7 @@ export function Footer() {
               )}
             >
               <Image
-                src={src}
+                src={icon}
                 alt=""
                 width={20}
                 height={20}

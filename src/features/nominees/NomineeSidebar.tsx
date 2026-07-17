@@ -2,7 +2,20 @@ import Image from "next/image";
 import { Button } from "@/components/ui/Button";
 import { cn } from "@/utils/cn";
 import { NomineeSidebarProps } from "@/types/nominees";
-import { STATUS_ROWS } from "@/constants/nominees";
+import { getStatusRows, GALLERY_EXPLORATION_LABELS } from "@/constants/nominees";
+
+function formatScale(sqm?: number) {
+  if (!sqm) return null;
+  return `${sqm.toLocaleString()} SQM`;
+}
+
+function formatCompletion(date?: string) {
+  if (!date) return null;
+  return new Date(date).toLocaleDateString("en-US", {
+    month: "long",
+    year: "numeric",
+  });
+}
 
 export function NomineeSidebar({
   nominee,
@@ -18,6 +31,10 @@ export function NomineeSidebar({
       ? "Best Residential Design"
       : "Best Residential";
 
+  const scale = formatScale(nominee.scaleSqm);
+  const completion = formatCompletion(nominee.completionDate);
+  const statusRows = getStatusRows(nominee, category);
+
   return (
     <aside
       className={cn(
@@ -25,7 +42,6 @@ export function NomineeSidebar({
         "lg:py-16 2xl:py-24 lg:pr-10 2xl:pr-16 lg:mt-20",
       )}
     >
-      {/* Eyebrow */}
       <p
         className={cn(
           "flex min-w-0 items-center gap-2 2xl:gap-3 text-primary leading-4 2xl:leading-6",
@@ -40,7 +56,6 @@ export function NomineeSidebar({
         {eyebrow}
       </p>
 
-      {/* Name */}
       <div>
         <h1
           className={cn(
@@ -79,45 +94,45 @@ export function NomineeSidebar({
         )}
       </div>
 
-      {/* Description */}
       <p className="text-base 2xl:text-[20px] leading-7 2xl:leading-9 text-foreground-muted font-inter">
         {nominee.description}
       </p>
 
-      {/* Scale & Completion (Detail Tab) */}
-      {activeTab === "detail" && (
+      {activeTab === "detail" && (scale || completion) && (
         <div className="grid gap-6 grid-cols-2 sm:gap-12 lg:gap-16 xl:gap-24 2xl:gap-32 mt-4 border-t border-border-strong pt-6">
-          <div>
-            <p
-              className={cn(
-                "text-[10px] 2xl:text-[14px] font-inter uppercase  text-primary",
-                "tracking-[1px] 2xl:tracking-[1.5px] leading-3.75 2xl:leading-5",
-              )}
-            >
-              Scale
-            </p>
-            <p className="mt-1 2xl:mt-2 font-inter text-base 2xl:text-[20px] leading-6 2xl:leading-8 text-foreground">
-              4,500 SQM
-            </p>
-          </div>
-
-          <div>
-            <p
-              className={cn(
-                "text-[10px] 2xl:text-[14px] font-inter uppercase tracking-[1px]",
-                "2xl:tracking-[1.5px] leading-3.75 2xl:leading-5 text-primary",
-              )}
-            >
-              Completion
-            </p>
-            <p className="mt-1 2xl:mt-2 font-inter text-base 2xl:text-[20px] leading-6 2xl:leading-8 text-foreground">
-              March, 2024
-            </p>
-          </div>
+          {scale && (
+            <div>
+              <p
+                className={cn(
+                  "text-[10px] 2xl:text-[14px] font-inter uppercase text-primary",
+                  "tracking-[1px] 2xl:tracking-[1.5px] leading-3.75 2xl:leading-5",
+                )}
+              >
+                Scale
+              </p>
+              <p className="mt-1 2xl:mt-2 font-inter text-base 2xl:text-[20px] leading-6 2xl:leading-8 text-foreground">
+                {scale}
+              </p>
+            </div>
+          )}
+          {completion && (
+            <div>
+              <p
+                className={cn(
+                  "text-[10px] 2xl:text-[14px] font-inter uppercase tracking-[1px]",
+                  "2xl:tracking-[1.5px] leading-3.75 2xl:leading-5 text-primary",
+                )}
+              >
+                Completion
+              </p>
+              <p className="mt-1 2xl:mt-2 font-inter text-base 2xl:text-[20px] leading-6 2xl:leading-8 text-foreground">
+                {completion}
+              </p>
+            </div>
+          )}
         </div>
       )}
 
-      {/* Gallery exploration label (Gallery Tab) */}
       {activeTab === "gallery" && (
         <div className="mt-4">
           <p
@@ -129,12 +144,7 @@ export function NomineeSidebar({
             Gallery Exploration
           </p>
           <ul className="flex flex-col gap-2">
-            {[
-              "Exterior Views",
-              "Interior Spaces",
-              "Facade Details",
-              "Masterplan",
-            ].map((item) => (
+            {GALLERY_EXPLORATION_LABELS.map((item) => (
               <li
                 key={item}
                 className={cn(
@@ -151,15 +161,14 @@ export function NomineeSidebar({
         </div>
       )}
 
-      {/* Project Status Area (Awards Tab) */}
       {activeTab === "awards" && (
         <div className="mt-4 2xl:mt-6 flex flex-col bg-[#1F1B15] px-5 2xl:px-8 border border-[#EBC1661A]">
-          {STATUS_ROWS.map((row, i) => (
+          {statusRows.map((row, i) => (
             <div
               key={row.label}
               className={cn(
                 "flex flex-wrap items-center justify-between gap-3 2xl:gap-5 py-4 2xl:py-6",
-                i !== STATUS_ROWS.length - 1 && "border-b border-[#EBC1660D]",
+                i !== statusRows.length - 1 && "border-b border-[#EBC1660D]",
               )}
             >
               <p className="font-inter text-[12px] 2xl:text-[16px] font-semibold text-[#F4EFE3]">
@@ -198,7 +207,6 @@ export function NomineeSidebar({
         </div>
       )}
 
-      {/* Vote CTA */}
       <div className="mt-4 flex flex-col gap-2">
         <Button
           size="lg"

@@ -5,41 +5,10 @@ import { Button } from "@/components/ui/Button";
 import { cn } from "@/utils/cn";
 import { PartnersTierCardsProps } from "@/types/partners";
 import { StaggerContainer, StaggerItem } from "@/components/ui/animations";
+import { sponsorTiers } from "@/data/partners";
 
-// ── Data ─────────────────────────────────────────────────────────────────────
-export const TIERS = [
-  {
-    id: "bronze" as const,
-    label: "Bronze",
-    featured: false,
-    benefits: [
-      "Brand logo on official website partner block",
-      "Social media mentions in group partner posts",
-      "2 Invitations to the Grand Gala night",
-    ],
-  },
-  {
-    id: "gold" as const,
-    label: "Gold",
-    featured: true,
-    benefits: [
-      "Headline visibility on all event broadcast media",
-      "Prime speaking slot during the opening ceremony",
-      "Exhibition booth in the high-traffic VIP Lounge",
-      "10 VIP Table access with concierge service",
-    ],
-  },
-  {
-    id: "silver" as const,
-    label: "Silver",
-    featured: false,
-    benefits: [
-      "Dedicated promotional feature in the awards journal",
-      "Logo placement on main gala backdrop",
-      "6 VIP Invitation to the Grand Gala night",
-    ],
-  },
-] as const;
+// Keep TIERS exported so TierSelect can import it without changing its import path
+export const TIERS = sponsorTiers;
 
 export function PartnersTierCards({ onSelectTier }: PartnersTierCardsProps) {
   return (

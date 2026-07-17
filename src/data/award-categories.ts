@@ -1,11 +1,5 @@
 import type { AwardCategory } from "@/types";
 
-/**
- * Fixture data standing in for a future CMS/API. Each section component
- * pulls from here (or, in `app/`, from a server fetch using these as
- * fallbacks) so swapping a real data source later only means changing this
- * file's export, not the consuming components.
- */
 export const awardCategories: AwardCategory[] = [
   {
     id: "urban-sanctuary",
@@ -72,6 +66,11 @@ export const awardCategories: AwardCategory[] = [
     nomineeCount: 6,
   },
 ];
+
+export const featuredWinner = {
+  label: "Featured Winner 2023: Unity Sky Tower",
+  image: "/imgs/image-1.png",
+};
 
 export const getCategoryById = (id: string) =>
   awardCategories.find((category) => category.id === id);
