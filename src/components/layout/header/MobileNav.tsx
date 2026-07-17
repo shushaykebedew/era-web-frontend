@@ -137,6 +137,7 @@ export function MobileNav({
         className="flex h-10 w-10 items-center justify-center rounded-md text-primary xl:hidden cursor-pointer"
         onClick={() => setIsMenuOpen(!isMenuOpen)}
         aria-expanded={isMenuOpen}
+        aria-label={isMenuOpen ? "Close navigation menu" : "Open navigation menu"}
       >
         <span className="sr-only">Toggle navigation</span>
         {isMenuOpen ? (

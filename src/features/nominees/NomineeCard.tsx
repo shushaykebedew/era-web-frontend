@@ -146,9 +146,11 @@ export function NomineeCard({ nominee, variant = "grid" }: NomineeCardProps) {
           )}
         >
           View Profile{" "}
-          <img
+          <Image
             src="/icons/forward-arrow.svg"
             alt=""
+            width={10}
+            height={10}
             className="h-2.5 w-2.5 2xl:h-4 2xl:w-4"
           />
         </Link>

@@ -1,5 +1,18 @@
 import { useEffect } from "react";
 
+function resetScrollLock() {
+  const scrollY = document.body.style.top;
+  document.body.style.overflow = "";
+  document.documentElement.style.overflow = "";
+  document.body.style.position = "";
+  document.body.style.top = "";
+  document.body.style.width = "";
+  document.body.style.paddingRight = "";
+  if (scrollY) {
+    window.scrollTo(0, parseInt(scrollY) * -1);
+  }
+}
+
 export function useBodyScrollLock(isLocked: boolean) {
   useEffect(() => {
     if (isLocked) {
@@ -15,28 +28,11 @@ export function useBodyScrollLock(isLocked: boolean) {
         document.body.style.paddingRight = `${scrollbarWidth}px`;
       }
     } else {
-      const scrollY = document.body.style.top;
-      document.body.style.overflow = "";
-      document.documentElement.style.overflow = "";
-      document.body.style.position = "";
-      document.body.style.top = "";
-      document.body.style.width = "";
-      document.body.style.paddingRight = "";
-      // Restore scroll position
-      window.scrollTo(0, parseInt(scrollY || "0") * -1);
+      resetScrollLock();
     }
 
     return () => {
-      const scrollY = document.body.style.top;
-      document.body.style.overflow = "";
-      document.documentElement.style.overflow = "";
-      document.body.style.position = "";
-      document.body.style.top = "";
-      document.body.style.width = "";
-      document.body.style.paddingRight = "";
-      if (scrollY) {
-        window.scrollTo(0, parseInt(scrollY) * -1);
-      }
+      resetScrollLock();
     };
   }, [isLocked]);
 }

@@ -52,6 +52,7 @@ export type ModalProps = {
   onClose: () => void;
   children: ReactNode;
   className?: string;
+  ariaLabel?: string;
 };
 
 export type SectionHeadingProps = {

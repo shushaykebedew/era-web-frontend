@@ -15,6 +15,7 @@ export function AuthModal({ isOpen, onClose, onSuccess }: AuthModalProps) {
     <Modal
       isOpen={isOpen}
       onClose={onClose}
+      ariaLabel="Voter Authentication"
       className="max-w-100 2xl:max-w-150"
     >
       <div className="w-full">

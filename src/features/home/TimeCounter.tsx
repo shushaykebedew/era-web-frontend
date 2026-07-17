@@ -89,7 +89,7 @@ function Countdown({
   );
 }
 
-function TimeCounter() {
+export default function TimeCounter() {
   return (
     <div
       className={cn(
@@ -114,5 +114,3 @@ function TimeCounter() {
     </div>
   );
 }
-
-export default TimeCounter;

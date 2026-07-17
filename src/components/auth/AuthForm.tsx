@@ -76,15 +76,16 @@ export function AuthForm({
         });
       }
       onSuccess?.();
-    } catch (err: any) {
-      const status = err.response?.status;
-      const apiData = err.response?.data;
+    } catch (err) {
+      const axiosErr = err as any;
+      const status = axiosErr.response?.status;
+      const apiData = axiosErr.response?.data;
       setError(
         status >= 500
           ? "Something went wrong on our end. Please try again later."
           : (apiData?.message ??
               apiData?.error ??
-              err.message ??
+              axiosErr.message ??
               "An unexpected error occurred."),
       );
     } finally {

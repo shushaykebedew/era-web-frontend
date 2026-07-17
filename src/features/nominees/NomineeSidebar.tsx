@@ -2,7 +2,10 @@ import Image from "next/image";
 import { Button } from "@/components/ui/Button";
 import { cn } from "@/utils/cn";
 import { NomineeSidebarProps } from "@/types/nominees";
-import { getStatusRows, GALLERY_EXPLORATION_LABELS } from "@/constants/nominees";
+import {
+  getStatusRows,
+  GALLERY_EXPLORATION_LABELS,
+} from "@/constants/nominees";
 
 function formatScale(sqm?: number) {
   if (!sqm) return null;
@@ -209,7 +212,7 @@ export function NomineeSidebar({
 
       <div className="mt-4 flex flex-col gap-2">
         <Button
-          size="lg"
+          size="md"
           variant="primary"
           className={cn(
             "w-full bg-[#C9A24B] text-[#4F3900] hover:bg-primary/90 2xl:h-16",

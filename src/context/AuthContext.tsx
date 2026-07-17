@@ -78,9 +78,9 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
 
   useEffect(() => {
     // Expose clearSession so api.ts can call it on unrecoverable 401
-    (window as any).__authClearSession = clearSession;
+    window.__authClearSession = clearSession;
     return () => {
-      delete (window as any).__authClearSession;
+      window.__authClearSession = undefined;
     };
   }, [clearSession]);
 

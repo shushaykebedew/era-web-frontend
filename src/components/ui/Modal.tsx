@@ -6,8 +6,9 @@ import { cn } from "@/utils/cn";
 import { AnimatePresence, motion, useReducedMotion } from "framer-motion";
 import { ease } from "./animations";
 import { ModalProps } from "@/types/ui";
+import { useBodyScrollLock } from "@/hooks/useBodyScrollLock";
 
-export function Modal({ isOpen, onClose, children, className }: ModalProps) {
+export function Modal({ isOpen, onClose, children, className, ariaLabel }: ModalProps) {
   const modalRef = useRef<HTMLDivElement>(null);
   const previousFocusRef = useRef<HTMLElement | null>(null);
   const shouldReduceMotion = useReducedMotion();
@@ -18,19 +19,7 @@ export function Modal({ isOpen, onClose, children, className }: ModalProps) {
   }, []);
 
   // Handle Body Scroll Lock
-  useEffect(() => {
-    if (isOpen) {
-      document.body.style.overflow = "hidden";
-      document.documentElement.style.overflow = "hidden";
-    } else {
-      document.body.style.overflow = "";
-      document.documentElement.style.overflow = "";
-    }
-    return () => {
-      document.body.style.overflow = "";
-      document.documentElement.style.overflow = "";
-    };
-  }, [isOpen]);
+  useBodyScrollLock(isOpen);
 
   // Handle Escape Key Close
   useEffect(() => {
@@ -157,6 +146,7 @@ export function Modal({ isOpen, onClose, children, className }: ModalProps) {
               ref={modalRef}
               role="dialog"
               aria-modal="true"
+              aria-label={ariaLabel}
               tabIndex={-1}
               initial="hidden"
               animate="visible"

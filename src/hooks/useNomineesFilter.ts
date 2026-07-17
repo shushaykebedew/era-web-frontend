@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useMemo } from "react";
 import { type Sort } from "@/types/ui";
 import { type Nominee } from "@/types";
 
@@ -11,19 +11,25 @@ export function useNomineesFilter(
   const [sort, setSort] = useState<Sort>("Alphabetical");
   const [page, setPage] = useState(1);
 
-  const filtered = initialNominees.filter((n) => {
-    if (activeCategoryId !== "all") {
-      return n.categoryId === activeCategoryId;
-    }
-    return true;
-  });
+  const filtered = useMemo(() => {
+    return initialNominees.filter((n) => {
+      if (activeCategoryId !== "all") {
+        return n.categoryId === activeCategoryId;
+      }
+      return true;
+    });
+  }, [initialNominees, activeCategoryId]);
 
-  const sorted = [...filtered].sort((a, b) => {
-    if (sort === "Most Votes") return (b.votes ?? 0) - (a.votes ?? 0);
-    return a.name.localeCompare(b.name);
-  });
+  const sorted = useMemo(() => {
+    return [...filtered].sort((a, b) => {
+      if (sort === "Most Votes") return (b.votes ?? 0) - (a.votes ?? 0);
+      return a.name.localeCompare(b.name);
+    });
+  }, [filtered, sort]);
 
-  const visible = sorted.slice(0, page * pageSize);
+  const visible = useMemo(() => {
+    return sorted.slice(0, page * pageSize);
+  }, [sorted, page, pageSize]);
   const hasMore = visible.length < sorted.length;
 
   const handleCategoryChange = (id: string) => {

@@ -12,8 +12,7 @@ import { FadeIn } from "@/components/ui/animations";
 import { useNomineesFilter } from "@/hooks/useNomineesFilter";
 import { fetchNominees } from "@/services/nominees";
 import { fetchCategories } from "@/services/categories";
-import { Nominee } from "@/types";
-import type { AwardCategory } from "@/types";
+import type { Nominee, AwardCategory } from "@/types";
 
 function NomineesHero() {
   return (

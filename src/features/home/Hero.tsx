@@ -69,7 +69,10 @@ export function Hero({
                 as={Link}
                 href={siteConfig.voteCta.href}
                 size="lg"
-                className="w-full sm:w-auto sm:min-w-39 2xl:min-w-60 h-12 2xl:h-18 font-bold text-[12px] 2xl:text-[20px]"
+                className={cn(
+                  "w-full sm:w-auto sm:min-w-39 2xl:min-w-60 h-12 2xl:h-18",
+                  "font-bold text-[12px] 2xl:text-[20px]",
+                )}
               >
                 {siteConfig.voteCta.label}
               </Button>
@@ -78,7 +81,10 @@ export function Hero({
                 href="/nominees"
                 variant="outline"
                 size="lg"
-                className="w-full sm:w-auto sm:min-w-50 2xl:min-w-[320px] h-12 2xl:h-18 text-[12px] 2xl:text-[20px] font-semibold"
+                className={cn(
+                  "w-full sm:w-auto sm:min-w-50 2xl:min-w-[320px] h-12 2xl:h-18",
+                  "text-[12px] 2xl:text-[20px] font-semibold hover:text-primary",
+                )}
               >
                 Explore Nominees
               </Button>

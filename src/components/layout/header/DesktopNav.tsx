@@ -73,6 +73,8 @@ export function DesktopNav({
           <div className="relative" ref={dropdownRef}>
             <button
               onClick={() => setIsDropdownOpen((v) => !v)}
+              aria-label="User navigation menu"
+              aria-expanded={isDropdownOpen}
               className="flex items-center gap-2 px-3 py-1.5 rounded-full border border-primary/30 bg-[#231F19] text-primary text-sm font-semibold tracking-wider font-inter hover:bg-[#2D2820] transition-colors cursor-pointer"
             >
               <div className="w-6 h-6 2xl:w-10 2xl:h-10 rounded-full bg-primary text-[#402D00] flex items-center justify-center font-bold text-xs 2xl:text-base">

@@ -1,6 +1,5 @@
 import type { StatusRow } from "@/types/nominees";
-import type { Nominee } from "@/types";
-import type { AwardCategory } from "@/types";
+import type { Nominee, AwardCategory } from "@/types";
 
 export const GALLERY_EXPLORATION_LABELS = [
   "Exterior Views",

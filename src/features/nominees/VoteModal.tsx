@@ -39,7 +39,7 @@ export function VoteModal({ isOpen, onClose, nominee }: VoteModalProps) {
   };
 
   return (
-    <Modal isOpen={isOpen} onClose={onClose}>
+    <Modal isOpen={isOpen} onClose={onClose} ariaLabel="Cast Public Vote">
       {!isAuthenticated && (
         <div className="flex flex-col items-center w-full">
           <div

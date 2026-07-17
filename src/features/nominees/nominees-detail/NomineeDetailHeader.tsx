@@ -5,7 +5,6 @@ import { Button } from "@/components/ui/Button";
 import { siteConfig } from "@/data/site";
 import { cn } from "@/utils/cn";
 import { type Tab } from "@/types/nominees";
-import { useMediaQuery } from "@/hooks/useMediaQuery";
 
 interface NomineeDetailHeaderProps {
   activeTab?: Tab;
@@ -26,8 +25,6 @@ export function NomineeDetailHeader({
   onVoteClick,
   staticMode = false,
 }: NomineeDetailHeaderProps) {
-  const is2xl = useMediaQuery("(min-width: 1536px)");
-
   return (
     <nav
       className={cn(
@@ -74,7 +71,7 @@ export function NomineeDetailHeader({
           </div>
 
           <Button
-            size={is2xl ? "md" : "sm"}
+            size="md"
             variant="outline"
             className={cn(
               "hidden md:inline-flex shrink-0 border-[#EBC1664D] font-semibold",

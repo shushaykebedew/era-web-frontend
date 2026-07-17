@@ -65,7 +65,7 @@ api.interceptors.response.use(
         isRefreshing = false;
         // No refresh token — session is gone, clear auth state
         if (typeof window !== "undefined") {
-          (window as any).__authClearSession?.();
+          window.__authClearSession?.();
         }
         return Promise.reject(error);
       }
@@ -94,7 +94,7 @@ api.interceptors.response.use(
 
         // Refresh failed — clear auth state so UI reflects logged-out
         if (typeof window !== "undefined") {
-          (window as any).__authClearSession?.();
+          window.__authClearSession?.();
         }
         return Promise.reject(refreshError);
       }

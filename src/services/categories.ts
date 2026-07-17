@@ -55,7 +55,7 @@ export async function fetchCategories(): Promise<AwardCategory[]> {
   try {
     const res = await api.get("/award-categories");
     if (res.data?.success) {
-      const mapped = res.data.data.map((item: any) => mapApiCategory(item, findMockMatch(item)));
+      const mapped = res.data.data.map((item: ApiCategoryResponse) => mapApiCategory(item, findMockMatch(item)));
       categoriesCache = mapped;
       return mapped;
     }
