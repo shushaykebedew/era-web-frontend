@@ -74,7 +74,7 @@ export function CategoryCard({
       whileHover={{ y: -4 }}
       transition={{ duration: 0.3 }}
       className={cn(
-        "group flex flex-col min-h-70 lg:min-h-90 xl:min-h-100 2xl:min-h-120",
+        "group flex h-full flex-col min-h-70 lg:min-h-90 xl:min-h-100 2xl:min-h-120",
         "justify-between bg-[#16161A] hover:bg-[#252529] p-5 sm:p-6 lg:p-8 2xl:p-10",
         "border border-[#252529] transition-colors duration-300",
       )}

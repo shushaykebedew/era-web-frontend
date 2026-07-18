@@ -9,7 +9,21 @@ function resetScrollLock() {
   document.body.style.width = "";
   document.body.style.paddingRight = "";
   if (scrollY) {
-    window.scrollTo(0, parseInt(scrollY) * -1);
+    const parsedScrollY = parseInt(scrollY) * -1;
+    
+    // Temporarily disable smooth scrolling on html element
+    const originalScrollBehavior = document.documentElement.style.scrollBehavior;
+    document.documentElement.style.scrollBehavior = "auto";
+    
+    window.scrollTo({
+      top: parsedScrollY,
+      behavior: "instant",
+    });
+    
+    // Restore original scroll behavior next frame
+    requestAnimationFrame(() => {
+      document.documentElement.style.scrollBehavior = originalScrollBehavior;
+    });
   }
 }
 

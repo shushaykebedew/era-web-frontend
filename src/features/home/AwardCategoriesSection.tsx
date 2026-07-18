@@ -80,7 +80,7 @@ export function AwardCategoriesSection({
       <Container size="wide">
         <StaggerContainer className="mt-12 2xl:mt-16 grid grid-cols-1 gap-8 2xl:gap-12 sm:grid-cols-2 lg:grid-cols-3">
           {items.map((category) => (
-            <StaggerItem key={category.id}>
+            <StaggerItem key={category.id} className="h-full">
               <CategoryCard category={category} variant="compact" />
             </StaggerItem>
           ))}

@@ -40,7 +40,7 @@ export function Modal({ isOpen, onClose, children, className, ariaLabel }: Modal
     if (!isOpen) {
       // Restore focus when modal closes
       if (previousFocusRef.current) {
-        previousFocusRef.current.focus();
+        previousFocusRef.current.focus({ preventScroll: true });
         previousFocusRef.current = null;
       }
       return;
