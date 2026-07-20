@@ -106,7 +106,7 @@ export default function TimeCounter() {
               "tracking-[1.2px] 2xl:tracking-[1.6px] uppercase mx-auto text-primary",
             )}
           >
-            GALA CEREMONY BEGINS IN
+            ERA CEREMONY BEGINS IN
           </h3>
           <Countdown targetDate={siteConfig.ceremonyDate} />
         </FadeIn>
