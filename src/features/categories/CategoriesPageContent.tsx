@@ -3,7 +3,9 @@ import { Container } from "@/components/ui/Container";
 import { Eyebrow } from "@/components/ui/Eyebrow";
 import { ServerButton as Button } from "@/components/ui/ServerButton";
 import { AwardCategoriesSection } from "@/features/home/AwardCategoriesSection";
-import { awardCategories, featuredWinner } from "@/data/award-categories";
+import { featuredWinner } from "@/data/award-categories";
+import { fetchCategories } from "@/services/categories";
+import type { AwardCategory } from "@/types";
 import { cn } from "@/utils/cn";
 import { FadeIn, SlideUp } from "@/components/ui/animations";
 
@@ -38,8 +40,8 @@ function CategoriesHero() {
               "text-base sm:text-[18px] 2xl:text-[24px] text-[#D1C5B2] leading-7 2xl:leading-9 ",
             )}
           >
-            Celebrating the visionaries who redefine Ethiopia&apos;s skyline
-            through innovation, sustainability, and cultural preservation.
+            Celebrating the visionaries who redefine Ethiopia's skyline through
+            innovation, sustainability, and cultural preservation.
           </p>
         </SlideUp>
       </Container>
@@ -140,11 +142,75 @@ function VisualExcellenceSection() {
   );
 }
 
-export function CategoriesPageContent() {
+function CategoriesEmptyState() {
+  return (
+    <section className="bg-background py-16 sm:py-20 lg:py-24 2xl:py-32">
+      <Container size="wide">
+        <div className="flex flex-col items-center justify-center py-12 text-center">
+          <div
+            className={cn(
+              "mb-6 flex h-16 w-16 2xl:h-20 2xl:w-20 items-center justify-center",
+              "border border-border-strong bg-background-subtle rounded-full",
+            )}
+          >
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              width="28"
+              height="28"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              strokeWidth="1.5"
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              className="text-foreground-muted 2xl:w-8 2xl:h-8"
+              aria-hidden="true"
+            >
+              <circle cx="12" cy="12" r="10" />
+              <path d="M12 8v4" />
+              <path d="M12 16h.01" />
+            </svg>
+          </div>
+          <h2
+            className={cn(
+              "font-display text-xl sm:text-2xl 2xl:text-3xl font-semibold",
+              "text-foreground tracking-tight mb-3",
+            )}
+          >
+            Coming Soon
+          </h2>
+          <p
+            className={cn(
+              "max-w-sm sm:max-w-md 2xl:max-w-lg font-inter text-foreground-muted",
+              "text-sm sm:text-base 2xl:text-[18px] leading-6 2xl:leading-8 ",
+            )}
+          >
+            Award categories will be announced soon.
+            <br />
+            Check back later to see the full list of categories.
+          </p>
+        </div>
+      </Container>
+    </section>
+  );
+}
+
+export async function CategoriesPageContent() {
+  let categories: AwardCategory[];
+  try {
+    categories = await fetchCategories();
+  } catch {
+    categories = [];
+  }
+
   return (
     <>
       <CategoriesHero />
-      <AwardCategoriesSection categories={awardCategories} variant="full" />
+      {categories.length > 0 ? (
+        <AwardCategoriesSection categories={categories} variant="full" />
+      ) : (
+        <CategoriesEmptyState />
+      )}
       <VisualExcellenceSection />
     </>
   );

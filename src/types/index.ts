@@ -11,7 +11,11 @@ export type AwardCategory = {
   tagline: string;
   description: string;
   icon:
-    "cat-icon-1" | "cat-icon-2" | "cat-icon-3" | "cat-icon-4" | "cat-icon-5";
+    | "cat-icon-1"
+    | "cat-icon-2"
+    | "cat-icon-3"
+    | "cat-icon-4"
+    | "cat-icon-5";
   nomineeCount: number;
   coverImage?: string;
 };
@@ -46,19 +50,19 @@ export type Partner = {
 export type ApiNomineeResponse = {
   id: string;
   name?: string;
-  firm?: string;
-  location?: string;
+  firm?: string | null;
+  location?: string | null;
   awardCategoryId?: string;
   categoryId?: string;
   status?: string;
-  excerpt?: string;
-  description?: string;
-  coverImage?: string;
-  gallery?: string[];
-  scaleSqm?: number;
-  completionDate?: string;
-  quote?: string;
-  achievements?: { title: string; description: string }[];
+  excerpt?: string | null;
+  description?: string | null;
+  coverImage?: string | null;
+  gallery?: string[] | null;
+  scaleSqm?: number | null;
+  completionDate?: string | null;
+  quote?: string | null;
+  achievements?: { title: string; description: string }[] | null;
   votes?: number;
   _count?: {
     publicVotes?: number;
@@ -87,14 +91,13 @@ export type ApiCategoryResponse = {
   name?: string;
   group?: string;
   tagline?: string;
-  description?: string;
+  description?: string | null;
   icon?: string;
   nomineeCount?: number;
-  coverImage?: string;
+  coverImage?: string | null;
 };
 
 export type ApiAwardEventResponse = {
   id: string;
   status: string;
 };
-

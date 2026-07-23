@@ -14,6 +14,7 @@ import { castPublicVote } from "@/services/nominees";
 export function VoteModal({ isOpen, onClose, nominee }: VoteModalProps) {
   const [step, setStep] = useState<VoteStep>("confirm");
   const [isVoting, setIsVoting] = useState(false);
+  const [errorMsg, setErrorMsg] = useState<string | null>(null);
   const { isAuthenticated } = useAuth();
   const router = useRouter();
 
@@ -21,6 +22,7 @@ export function VoteModal({ isOpen, onClose, nominee }: VoteModalProps) {
     if (isOpen) {
       setStep("confirm");
       setIsVoting(false);
+      setErrorMsg(null);
     }
   }, [isOpen]);
 
@@ -28,13 +30,19 @@ export function VoteModal({ isOpen, onClose, nominee }: VoteModalProps) {
 
   const handleConfirm = async () => {
     setIsVoting(true);
+    setErrorMsg(null);
     try {
       await castPublicVote(nominee.id, nominee.categoryId);
-    } catch {
-      // Fall through to success regardless — API may be unavailable
+      setStep("success");
+    } catch (err: any) {
+      const msg =
+        err?.response?.data?.message ||
+        (err?.response?.status === 409
+          ? "You have already voted for a nominee in this category."
+          : "Failed to submit vote. Please try again.");
+      setErrorMsg(msg);
     } finally {
       setIsVoting(false);
-      setStep("success");
     }
   };
 
@@ -105,6 +113,11 @@ export function VoteModal({ isOpen, onClose, nominee }: VoteModalProps) {
             Your contribution helps shape the future of architectural excellence
             in Ethiopia.
           </p>
+          {errorMsg && (
+            <div className="w-full mb-6 p-3 bg-red-500/10 border border-red-500/30 rounded text-red-400 text-xs text-center font-inter">
+              {errorMsg}
+            </div>
+          )}
           <div className="w-full flex flex-col gap-4">
             <Button
               size="lg"
