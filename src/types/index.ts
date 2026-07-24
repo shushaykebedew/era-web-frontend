@@ -67,23 +67,6 @@ export type ApiNomineeResponse = {
   _count?: {
     publicVotes?: number;
   };
-  target?: {
-    name?: string;
-    firm?: string;
-    company?: { name?: string };
-    developer?: string;
-    location?: string;
-    city?: string;
-    excerpt?: string;
-    description?: string;
-    coverImage?: string;
-    image?: string;
-    gallery?: string[];
-    scaleSqm?: number;
-    completionDate?: string;
-    quote?: string;
-    achievements?: { title: string; description: string }[];
-  };
 };
 
 export type ApiCategoryResponse = {

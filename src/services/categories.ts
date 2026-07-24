@@ -1,5 +1,4 @@
 import { api } from "./api";
-import { awardCategories as mockCategories } from "@/data/award-categories";
 import { AwardCategory, ApiCategoryResponse } from "@/types";
 
 const VALID_ICONS: AwardCategory["icon"][] = [
@@ -46,20 +45,17 @@ let categoriesCache: AwardCategory[] | null = null;
 
 export async function fetchCategories(): Promise<AwardCategory[]> {
   if (categoriesCache) return categoriesCache;
-  try {
-    const res = await api.get("/award-categories");
-    if (res.data?.success && Array.isArray(res.data.data)) {
-      const mapped = res.data.data.map((item: ApiCategoryResponse) =>
-        mapApiCategory(item),
-      );
-      categoriesCache = mapped;
-      return mapped;
-    }
-  } catch (err) {
-    console.warn("Failed to fetch categories from API, using fallback:", err);
+
+  const res = await api.get("/award-categories");
+  if (res.data?.success && Array.isArray(res.data.data)) {
+    const mapped = res.data.data.map((item: ApiCategoryResponse) =>
+      mapApiCategory(item),
+    );
+    categoriesCache = mapped;
+    return mapped;
   }
-  categoriesCache = mockCategories;
-  return mockCategories;
+
+  throw new Error("Failed to fetch categories from API");
 }
 
 export async function fetchCategoryById(
@@ -69,16 +65,10 @@ export async function fetchCategoryById(
   const fromCache = all.find((c) => c.id === id);
   if (fromCache) return fromCache;
 
-  try {
-    const res = await api.get(`/award-categories/${id}`);
-    if (res.data?.success) return mapApiCategory(res.data.data);
-  } catch (err) {
-    console.warn(
-      `Failed to fetch category ${id} from API, using fallback:`,
-      err,
-    );
-  }
-  return mockCategories.find((c) => c.id === id) ?? null;
+  const res = await api.get(`/award-categories/${id}`);
+  if (res.data?.success) return mapApiCategory(res.data.data);
+
+  return null;
 }
 
 export function clearCategoriesCache() {

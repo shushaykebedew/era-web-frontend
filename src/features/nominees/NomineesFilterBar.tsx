@@ -3,7 +3,6 @@
 import { useRef } from "react";
 import { ChevronRight } from "lucide-react";
 import { Container } from "@/components/ui/Container";
-import { awardCategories as fallbackCategories } from "@/data/award-categories";
 import { cn } from "@/utils/cn";
 import { type Sort } from "@/types/ui";
 import type { AwardCategory } from "@/types";
@@ -15,7 +14,7 @@ interface NomineesFilterBarProps {
   sort: Sort;
   onSortChange: (sort: Sort) => void;
   totalCount?: number;
-  categories?: AwardCategory[];
+  categories: AwardCategory[];
 }
 
 export function NomineesFilterBar({
@@ -26,7 +25,7 @@ export function NomineesFilterBar({
   totalCount,
   categories,
 }: NomineesFilterBarProps) {
-  const resolvedCategories = categories ?? fallbackCategories;
+  const resolvedCategories = categories;
   const categoryScrollRef = useRef<HTMLDivElement>(null);
 
   const scrollCategoriesNext = () => {
@@ -38,7 +37,11 @@ export function NomineesFilterBar({
       <Container size="wide">
         <div className="flex flex-col gap-4">
           {/* ── Category tabs + scroll button ── */}
-          <div className="flex min-w-0 items-center gap-4 sm:gap-8" role="tablist" aria-label="Filter by category">
+          <div
+            className="flex min-w-0 items-center gap-4 sm:gap-8"
+            role="tablist"
+            aria-label="Filter by category"
+          >
             {/* "All Projects" — always visible */}
             <button
               onClick={() => onCategoryChange("all")}

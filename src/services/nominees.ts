@@ -1,5 +1,4 @@
 import { api } from "./api";
-import { nominees as mockNominees } from "@/data/nominees";
 import { Nominee, ApiNomineeResponse, ApiAwardEventResponse } from "@/types";
 
 const FALLBACK_COVERS = [
@@ -19,22 +18,21 @@ function fallbackCover(index: number): string {
 }
 
 function mapApiNominee(apiItem: ApiNomineeResponse, index = 0): Nominee {
-  const target = apiItem.target ?? {};
-
-  const name = apiItem.name ?? target.name ?? "Nominee";
-  const firm = apiItem.firm ?? target.firm ?? target.company?.name ?? target.developer ?? "—";
-  const location = apiItem.location ?? target.location ?? target.city ?? "Ethiopia";
-  const excerpt = apiItem.excerpt ?? target.excerpt ?? target.description ?? "Award Excellence Nominee";
-  const description = apiItem.description ?? target.description ?? excerpt;
-  const coverImage = apiItem.coverImage ?? target.coverImage ?? target.image ?? fallbackCover(index);
+  const name = apiItem.name ?? "Nominee";
+  const firm = apiItem.firm ?? "—";
+  const location = apiItem.location ?? "Ethiopia";
+  const excerpt =
+    apiItem.excerpt ?? apiItem.description ?? "Award Excellence Nominee";
+  const description = apiItem.description ?? excerpt;
+  const coverImage = apiItem.coverImage ?? fallbackCover(index);
 
   const rawStatus = (apiItem.status ?? "").toLowerCase();
   const status: Nominee["status"] =
     rawStatus === "past_winner" || rawStatus === "past-winner"
       ? "past-winner"
       : rawStatus === "shortlisted"
-      ? "shortlisted"
-      : "nominee";
+        ? "shortlisted"
+        : "nominee";
 
   return {
     id: apiItem.id,
@@ -46,11 +44,11 @@ function mapApiNominee(apiItem: ApiNomineeResponse, index = 0): Nominee {
     excerpt,
     description,
     coverImage,
-    gallery: apiItem.gallery ?? target.gallery ?? [],
-    scaleSqm: apiItem.scaleSqm ?? target.scaleSqm,
-    completionDate: apiItem.completionDate ?? target.completionDate,
-    quote: apiItem.quote ?? target.quote,
-    achievements: apiItem.achievements ?? target.achievements ?? [],
+    gallery: apiItem.gallery ?? [],
+    scaleSqm: apiItem.scaleSqm ?? undefined,
+    completionDate: apiItem.completionDate ?? undefined,
+    quote: apiItem.quote ?? undefined,
+    achievements: apiItem.achievements ?? [],
     votes: apiItem._count?.publicVotes ?? apiItem.votes ?? 0,
   };
 }
@@ -60,35 +58,32 @@ let nomineesCache: Nominee[] | null = null;
 export async function fetchNominees(): Promise<Nominee[]> {
   if (nomineesCache) return nomineesCache;
 
-  try {
-    let page = 1;
-    const limit = 50;
-    const all: ApiNomineeResponse[] = [];
+  let page = 1;
+  const limit = 50;
+  const all: ApiNomineeResponse[] = [];
 
-    while (true) {
-      const res = await api.get("/nominees", { params: { page, limit } });
-      if (!res.data?.success) break;
+  while (true) {
+    const res = await api.get("/nominees", { params: { page, limit } });
+    if (!res.data?.success) break;
 
-      const data = res.data.data;
-      const items: ApiNomineeResponse[] = Array.isArray(data) ? data : (data.items ?? data.nominees ?? []);
-      all.push(...items);
+    const data = res.data.data;
+    const items: ApiNomineeResponse[] = Array.isArray(data)
+      ? data
+      : (data.items ?? data.nominees ?? []);
+    all.push(...items);
 
-      const pagination = res.data.pagination ?? res.data.meta;
-      const total = pagination?.total ?? res.data.total ?? items.length;
-      if (all.length >= total || items.length < limit) break;
-      page++;
-    }
-
-    if (all.length > 0) {
-      nomineesCache = all.map((item, i) => mapApiNominee(item, i));
-      return nomineesCache;
-    }
-  } catch (err) {
-    console.warn("Failed to fetch nominees from API, using fallback data:", err);
+    const pagination = res.data.pagination ?? res.data.meta;
+    const total = pagination?.total ?? res.data.total ?? items.length;
+    if (all.length >= total || items.length < limit) break;
+    page++;
   }
 
-  nomineesCache = mockNominees;
-  return mockNominees;
+  if (all.length > 0) {
+    nomineesCache = all.map((item, i) => mapApiNominee(item, i));
+    return nomineesCache;
+  }
+
+  throw new Error("Failed to fetch nominees from API");
 }
 
 export async function fetchNomineeById(id: string): Promise<Nominee | null> {
@@ -97,14 +92,10 @@ export async function fetchNomineeById(id: string): Promise<Nominee | null> {
     if (cached) return cached;
   }
 
-  try {
-    const res = await api.get(`/nominees/${id}`);
-    if (res.data?.success) return mapApiNominee(res.data.data, 0);
-  } catch (err) {
-    console.warn(`Failed to fetch nominee ${id} from API, using fallback:`, err);
-  }
+  const res = await api.get(`/nominees/${id}`);
+  if (res.data?.success) return mapApiNominee(res.data.data, 0);
 
-  return mockNominees.find((m) => m.id === id) ?? null;
+  return null;
 }
 
 export async function castPublicVote(
@@ -120,7 +111,8 @@ export async function castPublicVote(
       if (eventsRes.data?.success && eventsRes.data.data.length > 0) {
         const activeEvent =
           eventsRes.data.data.find(
-            (e: ApiAwardEventResponse) => e.status === "ACTIVE" || e.status === "STARTED",
+            (e: ApiAwardEventResponse) =>
+              e.status === "ACTIVE" || e.status === "STARTED",
           ) ?? eventsRes.data.data[0];
         activeEventId = activeEvent.id;
       }
@@ -131,7 +123,11 @@ export async function castPublicVote(
 
   if (!activeEventId) activeEventId = "00000000-0000-0000-0000-000000000000";
 
-  const res = await api.post("/public-votes", { nomineeId, awardCategoryId, awardEventId: activeEventId });
+  const res = await api.post("/public-votes", {
+    nomineeId,
+    awardCategoryId,
+    awardEventId: activeEventId,
+  });
   return res.data;
 }
 

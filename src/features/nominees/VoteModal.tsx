@@ -114,7 +114,7 @@ export function VoteModal({ isOpen, onClose, nominee }: VoteModalProps) {
             in Ethiopia.
           </p>
           {errorMsg && (
-            <div className="w-full mb-6 p-3 bg-red-500/10 border border-red-500/30 rounded text-red-400 text-xs text-center font-inter">
+            <div className="w-full mb-6 p-3 bg-red-500/10 border border-red-500/30 rounded text-foreground-muted/70 text-xs text-center font-inter">
               {errorMsg}
             </div>
           )}

@@ -201,7 +201,7 @@ function NomineesSectionContent() {
         sort={sort}
         onSortChange={setSort}
         totalCount={nomineesList.length}
-        categories={categoriesList.length > 0 ? categoriesList : undefined}
+        categories={categoriesList}
       />
 
       <section className="bg-background py-12 sm:py-16">
@@ -210,7 +210,10 @@ function NomineesSectionContent() {
             <EmptyState />
           ) : (
             <>
-              <div id="nominees-grid" className="grid grid-cols-1 gap-x-6 2xl:gap-x-12 gap-y-14 2xl:gap-y-20 sm:grid-cols-2 lg:grid-cols-3">
+              <div
+                id="nominees-grid"
+                className="grid grid-cols-1 gap-x-6 2xl:gap-x-12 gap-y-14 2xl:gap-y-20 sm:grid-cols-2 lg:grid-cols-3"
+              >
                 {visible.map((nominee) => (
                   <NomineeCard
                     key={nominee.id}

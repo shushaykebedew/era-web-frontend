@@ -20,25 +20,32 @@ export function NomineeDetailPage({ id }: NomineeDetailPageProps) {
 
   useEffect(() => {
     async function load() {
-      const [found, all] = await Promise.all([
-        fetchNomineeById(id),
-        fetchNominees(),
-      ]);
+      try {
+        const [found, all] = await Promise.all([
+          fetchNomineeById(id),
+          fetchNominees(),
+        ]);
 
-      if (!found) {
+        if (!found) {
+          setNominee(null);
+          return;
+        }
+
+        setNominee(found);
+
+        if (found.categoryId) {
+          fetchCategoryById(found.categoryId)
+            .then(setCategory)
+            .catch(() => setCategory(null));
+        }
+
+        const idx = all.findIndex((n) => n.id === id);
+        setPrevId(idx > 0 ? all[idx - 1].id : undefined);
+        setNextId(idx < all.length - 1 ? all[idx + 1].id : undefined);
+      } catch (err) {
+        console.error("Failed to load nominee:", err);
         setNominee(null);
-        return;
       }
-
-      setNominee(found);
-
-      if (found.categoryId) {
-        fetchCategoryById(found.categoryId).then(setCategory);
-      }
-
-      const idx = all.findIndex((n) => n.id === id);
-      setPrevId(idx > 0 ? all[idx - 1].id : undefined);
-      setNextId(idx < all.length - 1 ? all[idx + 1].id : undefined);
     }
 
     load();
