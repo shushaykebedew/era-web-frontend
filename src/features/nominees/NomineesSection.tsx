@@ -104,6 +104,7 @@ function EmptyState() {
 function NomineesSectionContent() {
   const searchParams = useSearchParams();
   const initialCategory = searchParams?.get("category") || "all";
+  const initialTargetType = searchParams?.get("targetType") || "all";
 
   const [nomineesList, setNomineesList] = useState<Nominee[]>([]);
   const [categoriesList, setCategoriesList] = useState<AwardCategory[]>([]);
@@ -130,13 +131,21 @@ function NomineesSectionContent() {
   const {
     activeCategoryId,
     handleCategoryChange,
+    activeTargetType,
+    handleTargetTypeChange,
     sort,
     setSort,
     visible,
     sortedLength,
     hasMore,
     loadMore,
-  } = useNomineesFilter(nomineesList, initialCategory, 6);
+  } = useNomineesFilter(
+    nomineesList,
+    initialCategory,
+    initialTargetType,
+    categoriesList,
+    6,
+  );
 
   if (isLoading) {
     return (
@@ -198,6 +207,8 @@ function NomineesSectionContent() {
       <NomineesFilterBar
         activeCategoryId={activeCategoryId}
         onCategoryChange={handleCategoryChange}
+        activeTargetType={activeTargetType}
+        onTargetTypeChange={handleTargetTypeChange}
         sort={sort}
         onSortChange={setSort}
         totalCount={nomineesList.length}

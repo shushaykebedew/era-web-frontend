@@ -38,6 +38,7 @@ function mapApiCategory(apiItem: ApiCategoryResponse): AwardCategory {
     icon,
     nomineeCount: apiItem.nomineeCount ?? 0,
     coverImage: apiItem.coverImage || undefined,
+    targetType: apiItem.targetType ?? null,
   };
 }
 

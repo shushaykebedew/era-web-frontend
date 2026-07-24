@@ -1,24 +1,50 @@
 import { useState, useMemo } from "react";
 import { type Sort } from "@/types/ui";
-import { type Nominee } from "@/types";
+import { type Nominee, type AwardCategory } from "@/types";
 
 export function useNomineesFilter(
   initialNominees: Nominee[],
   initialCategory: string,
-  pageSize: number = 6
+  initialTargetType: string,
+  categories: AwardCategory[],
+  pageSize: number = 6,
 ) {
-  const [activeCategoryId, setActiveCategoryId] = useState<string>(initialCategory);
+  const [activeCategoryId, setActiveCategoryId] =
+    useState<string>(initialCategory);
+  const [activeTargetType, setActiveTargetType] =
+    useState<string>(initialTargetType);
   const [sort, setSort] = useState<Sort>("Alphabetical");
   const [page, setPage] = useState(1);
 
+  // Build a categoryId → targetType code map from the categories list so we
+  // can derive each nominee's target type without an extra API call.
+  const categoryTargetTypeMap = useMemo(() => {
+    const map = new Map<string, string | null>();
+    categories.forEach((c) => {
+      map.set(c.id, c.targetType ?? null);
+    });
+    return map;
+  }, [categories]);
+
   const filtered = useMemo(() => {
     return initialNominees.filter((n) => {
+      // Category filter
       if (activeCategoryId !== "all") {
-        return n.categoryId === activeCategoryId;
+        if (n.categoryId !== activeCategoryId) return false;
+      }
+      // Target type filter — derived from the nominee's category
+      if (activeTargetType !== "all") {
+        const catTargetType = categoryTargetTypeMap.get(n.categoryId);
+        if (catTargetType !== activeTargetType) return false;
       }
       return true;
     });
-  }, [initialNominees, activeCategoryId]);
+  }, [
+    initialNominees,
+    activeCategoryId,
+    activeTargetType,
+    categoryTargetTypeMap,
+  ]);
 
   const sorted = useMemo(() => {
     return [...filtered].sort((a, b) => {
@@ -37,11 +63,18 @@ export function useNomineesFilter(
     setPage(1);
   };
 
+  const handleTargetTypeChange = (code: string) => {
+    setActiveTargetType(code);
+    setPage(1);
+  };
+
   const loadMore = () => setPage((p) => p + 1);
 
   return {
     activeCategoryId,
     handleCategoryChange,
+    activeTargetType,
+    handleTargetTypeChange,
     sort,
     setSort,
     visible,

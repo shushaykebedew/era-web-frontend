@@ -11,6 +11,7 @@ export const awardCategories: AwardCategory[] = [
     icon: "cat-icon-1",
     nomineeCount: 12,
     coverImage: "/imgs/categories/award-category-1.png",
+    targetType: "PROJECT",
   },
   {
     id: "modern-workspace-pinnacle",
@@ -22,6 +23,7 @@ export const awardCategories: AwardCategory[] = [
     icon: "cat-icon-2",
     nomineeCount: 9,
     coverImage: "/imgs/categories/award-category-2.png",
+    targetType: "PROJECT",
   },
   {
     id: "eco-innovator-gold",
@@ -33,6 +35,7 @@ export const awardCategories: AwardCategory[] = [
     icon: "cat-icon-3",
     nomineeCount: 8,
     coverImage: "/imgs/categories/award-category-3.png",
+    targetType: "PROJECT",
   },
   {
     id: "heritage-vanguard",
@@ -44,6 +47,7 @@ export const awardCategories: AwardCategory[] = [
     icon: "cat-icon-4",
     nomineeCount: 7,
     coverImage: "/imgs/categories/award-category-4.png",
+    targetType: "PROJECT",
   },
   {
     id: "bespoke-living-award",
@@ -54,6 +58,7 @@ export const awardCategories: AwardCategory[] = [
       "For interior spaces that redefine luxury through tactile materials and light manipulation.",
     icon: "cat-icon-5",
     nomineeCount: 10,
+    targetType: "PROPERTY",
   },
   {
     id: "next-horizon-studio",
@@ -64,6 +69,7 @@ export const awardCategories: AwardCategory[] = [
       "Spotlighting young architectural firms showing exceptional promise in Ethiopia's growing market.",
     icon: "cat-icon-1",
     nomineeCount: 6,
+    targetType: "COMPANY",
   },
 ];
 

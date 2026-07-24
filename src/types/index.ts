@@ -1,3 +1,20 @@
+export type AwardTargetType = {
+  id: string;
+  name: string;
+  code: string;
+  description?: string | null;
+  isActive?: boolean;
+};
+
+export const AWARD_TARGET_TYPES: AwardTargetType[] = [
+  { id: "project", name: "Project", code: "PROJECT" },
+  { id: "company", name: "Company", code: "COMPANY" },
+  { id: "person", name: "Person", code: "PERSON" },
+  { id: "product", name: "Product", code: "PRODUCT" },
+  { id: "profile", name: "Profile", code: "PROFILE" },
+  { id: "property", name: "Property", code: "PROPERTY" },
+];
+
 export type AwardCategory = {
   id: string;
   name: string;
@@ -18,6 +35,7 @@ export type AwardCategory = {
     | "cat-icon-5";
   nomineeCount: number;
   coverImage?: string;
+  targetType?: string | null;
 };
 
 export type NomineeStatus = "nominee" | "past-winner" | "shortlisted";
@@ -78,6 +96,7 @@ export type ApiCategoryResponse = {
   icon?: string;
   nomineeCount?: number;
   coverImage?: string | null;
+  targetType?: string | null;
 };
 
 export type ApiAwardEventResponse = {

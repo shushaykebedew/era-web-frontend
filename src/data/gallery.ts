@@ -21,7 +21,7 @@ export const galleryPhotos: GalleryPhoto[] = [
   {
     id: 1,
     src: "/imgs/gallery/Gallery Item 1.png",
-    alt: "Stage lights at the 2024 gala ceremony",
+    alt: "Stage lights at the 2024 ERA ceremony",
     edition: 2024,
     tag: "Ceremony",
     height: 480,
@@ -61,7 +61,7 @@ export const galleryPhotos: GalleryPhoto[] = [
   {
     id: 6,
     src: "/imgs/gallery/Gallery Item 6.png",
-    alt: "Gala dinner table setting",
+    alt: "ERA dinner table setting",
     edition: 2024,
     tag: "Ceremony",
     height: 216,
@@ -110,7 +110,7 @@ export const galleryPhotos: GalleryPhoto[] = [
   {
     id: 12,
     src: "/imgs/gallery/Gallery Item 6.png",
-    alt: "2023 gala dinner",
+    alt: "2023 ERA dinner",
     edition: 2023,
     tag: "Ceremony",
     height: 216,
@@ -159,7 +159,7 @@ export const galleryPhotos: GalleryPhoto[] = [
   {
     id: 18,
     src: "/imgs/gallery/Gallery Item 6.png",
-    alt: "2022 gala dinner table",
+    alt: "2022 ERA dinner table",
     edition: 2022,
     tag: "Ceremony",
     height: 216,

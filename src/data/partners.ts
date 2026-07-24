@@ -14,9 +14,9 @@ export type SponsorTier = {
 };
 
 export const confirmedPartners: ConfirmedPartner[] = [
-  { name: "Ethio-Bank", tier: "Gold",   image: "/imgs/partners/partner-1.png" },
-  { name: "Nile Air",   tier: "Silver", image: "/imgs/partners/partner-2.png" },
-  { name: "Sol Luxury", tier: "Gold",   image: "/imgs/partners/partner-3.png" },
+  { name: "Ethio-Bank", tier: "Gold", image: "/imgs/partners/partner-1.png" },
+  { name: "Nile Air", tier: "Silver", image: "/imgs/partners/partner-2.png" },
+  { name: "Sol Luxury", tier: "Gold", image: "/imgs/partners/partner-3.png" },
   { name: "Abys Trust", tier: "Bronze", image: "/imgs/partners/partner-4.png" },
 ];
 
@@ -28,7 +28,7 @@ export const sponsorTiers: SponsorTier[] = [
     benefits: [
       "Brand logo on official website partner block",
       "Social media mentions in group partner posts",
-      "2 Invitations to the Grand Gala night",
+      "2 Invitations to the Grand ERA night",
     ],
   },
   {
@@ -48,8 +48,8 @@ export const sponsorTiers: SponsorTier[] = [
     featured: false,
     benefits: [
       "Dedicated promotional feature in the awards journal",
-      "Logo placement on main gala backdrop",
-      "6 VIP Invitation to the Grand Gala night",
+      "Logo placement on main ERA backdrop",
+      "6 VIP Invitation to the Grand ERA night",
     ],
   },
 ];

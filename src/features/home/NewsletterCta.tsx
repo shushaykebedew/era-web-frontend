@@ -6,7 +6,7 @@ import { NewsletterCtaProps } from "@/types/marketing";
 import { Input } from "@/components/ui/Input";
 
 export function NewsletterCta({
-  title = "Join the Gala Night",
+  title = "Join the Ceremony Night",
   description = "Subscribe to receive exclusive invitations to the awards ceremony and early access to ticket sales.",
 }: NewsletterCtaProps) {
   return (
