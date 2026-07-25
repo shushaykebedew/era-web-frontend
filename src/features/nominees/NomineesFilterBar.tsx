@@ -57,9 +57,9 @@ export function NomineesFilterBar({
   return (
     <section className="bg-background py-6 border-b border-border-strong overflow-visible">
       <Container size="wide">
-        <div className="flex flex-col lg:flex-row lg:justify-between gap-6">
+        <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 sm:gap-x-10 lg:flex  lg:flex-row md:gap-6 lg:justify-between">
           {/* ── Category */}
-          <div className="relative w-72 flex flex-col gap-1.5 font-inter">
+          <div className="relative w-full md:w-72 flex flex-col gap-1.5 font-inter">
             <label className="text-xs uppercase tracking-wider font-semibold text-foreground-muted">
               Filter by Category
             </label>
@@ -83,7 +83,7 @@ export function NomineesFilterBar({
                   <span className="truncate text-left text-foreground font-medium">
                     {selectedCategory.label}
                   </span>
-                 
+
                   <svg
                     className="w-4 h-4 text-primary shrink-0 transition-transform duration-200 ml-2"
                     fill="none"
@@ -99,7 +99,12 @@ export function NomineesFilterBar({
                   </svg>
                 </button>
               )}
-              renderList={({ activeIndex, setActiveIndex, onSelect, options }) => (
+              renderList={({
+                activeIndex,
+                setActiveIndex,
+                onSelect,
+                options,
+              }) => (
                 <ul
                   id="category-listbox"
                   role="listbox"
@@ -120,7 +125,8 @@ export function NomineesFilterBar({
                           "px-4 py-2.5 text-sm flex items-center justify-between cursor-pointer transition-colors duration-150 font-inter select-none",
                           "text-foreground-muted hover:text-foreground",
                           isActive && "bg-primary/10 text-primary",
-                          isSelected && "bg-primary/15 text-primary font-semibold"
+                          isSelected &&
+                            "bg-primary/15 text-primary font-semibold",
                         )}
                       >
                         <span className="truncate">{option.label}</span>
@@ -148,7 +154,7 @@ export function NomineesFilterBar({
           </div>
 
           {/* ── Target Type dropdown ── */}
-          <div className="relative w-72 flex flex-col gap-1.5 font-inter">
+          <div className="relative w-full md:w-72 flex flex-col gap-1.5 font-inter">
             <label className="text-xs uppercase tracking-wider font-semibold text-foreground-muted">
               Filter by Type
             </label>
@@ -187,7 +193,12 @@ export function NomineesFilterBar({
                   </svg>
                 </button>
               )}
-              renderList={({ activeIndex, setActiveIndex, onSelect, options }) => (
+              renderList={({
+                activeIndex,
+                setActiveIndex,
+                onSelect,
+                options,
+              }) => (
                 <ul
                   id="target-type-listbox"
                   role="listbox"
@@ -208,7 +219,8 @@ export function NomineesFilterBar({
                           "px-4 py-2.5 text-sm flex items-center justify-between cursor-pointer transition-colors duration-150 font-inter select-none",
                           "text-foreground-muted hover:text-foreground",
                           isActive && "bg-primary/10 text-primary",
-                          isSelected && "bg-primary/15 text-primary font-semibold"
+                          isSelected &&
+                            "bg-primary/15 text-primary font-semibold",
                         )}
                       >
                         <span className="truncate">{option.label}</span>
@@ -236,7 +248,7 @@ export function NomineesFilterBar({
           </div>
 
           {/* Sort */}
-          <div className="shrink-0">
+          <div className="w-full md:w-72 md:shrink-0 *:w-full">
             <SortSelect value={sort} onChange={onSortChange} />
           </div>
         </div>
