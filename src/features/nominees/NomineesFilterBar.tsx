@@ -57,152 +57,107 @@ export function NomineesFilterBar({
   return (
     <section className="bg-background py-6 border-b border-border-strong overflow-visible">
       <Container size="wide">
-        <div className="flex flex-col lg:flex-row lg:justify-between gap-4">
+        <div className="flex flex-col lg:flex-row lg:justify-between gap-6">
           {/* ── Category */}
-          <div className="flex min-w-0 items-center justify-between gap-4">
-            {/* Category Select dropdown */}
-            <div className="flex min-w-0 items-center gap-4">
-              <span
-                className={cn(
-                  "text-[12px] 2xl:text-[16px] font-inter uppercase tracking-[1.2px]",
-                  "sm:tracking-[1.6px] 2xl:tracking-[2px] leading-4 2xl:leading-6",
-                  "text-foreground-muted shrink-0",
-                )}
-              >
-                Filter by Category:
-              </span>
+          <div className="relative w-72 flex flex-col gap-1.5 font-inter">
+            <label className="text-xs uppercase tracking-wider font-semibold text-foreground-muted">
+              Filter by Category
+            </label>
 
-              <Dropdown<string>
-                value={activeCategoryId}
-                onChange={onCategoryChange}
-                options={categoryOptions}
-                className="relative min-w-40 sm:min-w-48"
-                renderButton={({ open, onClick, onKeyDown }) => (
-                  <button
-                    type="button"
-                    role="combobox"
-                    aria-haspopup="listbox"
-                    aria-expanded={open}
-                    aria-controls="category-listbox"
-                    onClick={onClick}
-                    onKeyDown={onKeyDown}
-                    className={cn(
-                      "flex items-center gap-1.5 2xl:gap-2.5 bg-transparent text-sm sm:text-base",
-                      "2xl:text-[20px] font-inter uppercase tracking-[1.2px] 2xl:tracking-[1.6px]",
-                      "text-primary outline-none cursor-pointer",
-                    )}
-                  >
+            <Dropdown<string>
+              value={activeCategoryId}
+              onChange={onCategoryChange}
+              options={categoryOptions}
+              className="relative w-full"
+              renderButton={({ open, onClick, onKeyDown }) => (
+                <button
+                  type="button"
+                  role="combobox"
+                  aria-haspopup="listbox"
+                  aria-expanded={open}
+                  aria-controls="category-listbox"
+                  onClick={onClick}
+                  onKeyDown={onKeyDown}
+                  className="w-full h-11 px-4 bg-background-elevated border border-primary/20 rounded text-foreground text-sm font-inter flex items-center justify-between outline-none cursor-pointer transition-all duration-200 select-none hover:border-primary/40 focus:border-primary/60 focus:ring-1 focus:ring-primary/30"
+                >
+                  <span className="truncate text-left text-foreground font-medium">
                     {selectedCategory.label}
-                    <svg
-                      width="10"
-                      height="7"
-                      viewBox="0 0 12 8"
-                      fill="none"
-                      className={cn(
-                        "shrink-0 transition-transform duration-200",
-                        open && "rotate-180",
-                      )}
-                    >
-                      <path
-                        d="M1 1.5L6 6.5L11 1.5"
-                        stroke="currentColor"
-                        strokeWidth="1.5"
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                      />
-                    </svg>
-                  </button>
-                )}
-                renderList={({
-                  activeIndex,
-                  setActiveIndex,
-                  onSelect,
-                  options,
-                }) => (
-                  <ul
-                    id="category-listbox"
-                    role="listbox"
-                    tabIndex={-1}
-                    className={cn(
-                      "absolute left-0 top-full z-20 mt-2 min-w-40 sm:min-w-48",
-                      "2xl:min-w-60 overflow-hidden border border-border-strong",
-                      "bg-background-elevated shadow-[0_12px_32px_rgba(0,0,0,0.5)]",
-                    )}
+                  </span>
+                 
+                  <svg
+                    className="w-4 h-4 text-primary shrink-0 transition-transform duration-200 ml-2"
+                    fill="none"
+                    stroke="currentColor"
+                    viewBox="0 0 24 24"
                   >
-                    {options.map((option, i) => {
-                      const isSelected = option.value === activeCategoryId;
-                      const isActive = i === activeIndex;
-                      return (
-                        <li
-                          key={option.value}
-                          role="option"
-                          aria-selected={isSelected}
-                          onMouseEnter={() => setActiveIndex(i)}
-                          onClick={() => onSelect(option)}
-                          className={cn(
-                            "flex cursor-pointer items-center gap-1 justify-between px-4 py-3",
-                            "2xl:px-6 2xl:py-4 text-sm 2xl:text-base uppercase tracking-[0.5px]",
-                            "2xl:tracking-[0.8px] font-inter transition-colors",
-                            isActive
-                              ? "bg-primary/10 text-primary"
-                              : "text-foreground-muted",
-                            isSelected && "text-primary",
-                          )}
-                        >
-                          {option.label}
-                          {isSelected && (
-                            <svg
-                              width="12"
-                              height="10"
-                              viewBox="0 0 12 10"
-                              fill="none"
-                              className="shrink-0"
-                            >
-                              <path
-                                d="M1 5L4.5 8.5L11 1"
-                                stroke="currentColor"
-                                strokeWidth="1.5"
-                                strokeLinecap="round"
-                                strokeLinejoin="round"
-                              />
-                            </svg>
-                          )}
-                        </li>
-                      );
-                    })}
-                  </ul>
-                )}
-              />
-
-              {/* Nominee count badge */}
-              <span
-                className={cn(
-                  "text-[12px] 2xl:text-[18px] font-inter font-semibold",
-                  "text-foreground-muted",
-                )}
-              >
-                ({totalCount ?? 0})
-              </span>
-            </div>
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      strokeWidth="2"
+                      d="M19 9l-7 7-7-7"
+                    />
+                  </svg>
+                </button>
+              )}
+              renderList={({ activeIndex, setActiveIndex, onSelect, options }) => (
+                <ul
+                  id="category-listbox"
+                  role="listbox"
+                  tabIndex={-1}
+                  className="absolute left-0 right-0 top-[calc(100%+6px)] z-50 max-h-60 overflow-y-auto bg-[#1c1712] border border-primary/30 rounded shadow-[0_12px_32px_rgba(0,0,0,0.8)] py-1.5 flex flex-col font-inter scrollbar-thin scrollbar-thumb-primary/30 animate-in fade-in-0 zoom-in-95 duration-150"
+                >
+                  {options.map((option, i) => {
+                    const isSelected = option.value === activeCategoryId;
+                    const isActive = i === activeIndex;
+                    return (
+                      <li
+                        key={option.value}
+                        role="option"
+                        aria-selected={isSelected}
+                        onMouseEnter={() => setActiveIndex(i)}
+                        onClick={() => onSelect(option)}
+                        className={cn(
+                          "px-4 py-2.5 text-sm flex items-center justify-between cursor-pointer transition-colors duration-150 font-inter select-none",
+                          "text-foreground-muted hover:text-foreground",
+                          isActive && "bg-primary/10 text-primary",
+                          isSelected && "bg-primary/15 text-primary font-semibold"
+                        )}
+                      >
+                        <span className="truncate">{option.label}</span>
+                        {isSelected && (
+                          <svg
+                            className="w-4 h-4 text-primary shrink-0 ml-2"
+                            fill="none"
+                            stroke="currentColor"
+                            viewBox="0 0 24 24"
+                          >
+                            <path
+                              strokeLinecap="round"
+                              strokeLinejoin="round"
+                              strokeWidth="2.5"
+                              d="M5 13l4 4L19 7"
+                            />
+                          </svg>
+                        )}
+                      </li>
+                    );
+                  })}
+                </ul>
+              )}
+            />
           </div>
 
           {/* ── Target Type dropdown ── */}
-          <div className="flex min-w-0 items-center gap-4">
-            <span
-              className={cn(
-                "text-[12px] 2xl:text-[16px] font-inter uppercase tracking-[1.2px]",
-                "sm:tracking-[1.6px] 2xl:tracking-[2px] leading-4 2xl:leading-6",
-                "text-foreground-muted shrink-0",
-              )}
-            >
-              Filter by Type:
-            </span>
+          <div className="relative w-72 flex flex-col gap-1.5 font-inter">
+            <label className="text-xs uppercase tracking-wider font-semibold text-foreground-muted">
+              Filter by Type
+            </label>
 
             <Dropdown<string>
               value={activeTargetType}
               onChange={onTargetTypeChange}
               options={targetTypeOptions}
-              className="relative min-w-40 sm:min-w-48"
+              className="relative w-full"
               renderButton={({ open, onClick, onKeyDown }) => (
                 <button
                   type="button"
@@ -212,48 +167,32 @@ export function NomineesFilterBar({
                   aria-controls="target-type-listbox"
                   onClick={onClick}
                   onKeyDown={onKeyDown}
-                  className={cn(
-                    "flex items-center gap-1.5 2xl:gap-2.5 bg-transparent text-sm sm:text-base",
-                    "2xl:text-[20px] font-inter uppercase tracking-[1.2px] 2xl:tracking-[1.6px]",
-                    "text-primary outline-none cursor-pointer",
-                  )}
+                  className="w-full h-11 px-4 bg-background-elevated border border-primary/20 rounded text-foreground text-sm font-inter flex items-center justify-between outline-none cursor-pointer transition-all duration-200 select-none hover:border-primary/40 focus:border-primary/60 focus:ring-1 focus:ring-primary/30"
                 >
-                  {selectedTargetType.label}
+                  <span className="truncate text-left text-foreground font-medium">
+                    {selectedTargetType.label}
+                  </span>
                   <svg
-                    width="10"
-                    height="7"
-                    viewBox="0 0 12 8"
+                    className="w-4 h-4 text-primary shrink-0 transition-transform duration-200 ml-2"
                     fill="none"
-                    className={cn(
-                      "shrink-0 transition-transform duration-200",
-                      open && "rotate-180",
-                    )}
+                    stroke="currentColor"
+                    viewBox="0 0 24 24"
                   >
                     <path
-                      d="M1 1.5L6 6.5L11 1.5"
-                      stroke="currentColor"
-                      strokeWidth="1.5"
                       strokeLinecap="round"
                       strokeLinejoin="round"
+                      strokeWidth="2"
+                      d="M19 9l-7 7-7-7"
                     />
                   </svg>
                 </button>
               )}
-              renderList={({
-                activeIndex,
-                setActiveIndex,
-                onSelect,
-                options,
-              }) => (
+              renderList={({ activeIndex, setActiveIndex, onSelect, options }) => (
                 <ul
                   id="target-type-listbox"
                   role="listbox"
                   tabIndex={-1}
-                  className={cn(
-                    "absolute left-0 top-full z-20 mt-2 min-w-40 sm:min-w-48",
-                    "2xl:min-w-60 overflow-hidden border border-border-strong",
-                    "bg-background-elevated shadow-[0_12px_32px_rgba(0,0,0,0.5)]",
-                  )}
+                  className="absolute left-0 right-0 top-[calc(100%+6px)] z-50 max-h-60 overflow-y-auto bg-[#1c1712] border border-primary/30 rounded shadow-[0_12px_32px_rgba(0,0,0,0.8)] py-1.5 flex flex-col font-inter scrollbar-thin scrollbar-thumb-primary/30 animate-in fade-in-0 zoom-in-95 duration-150"
                 >
                   {options.map((option, i) => {
                     const isSelected = option.value === activeTargetType;
@@ -266,30 +205,25 @@ export function NomineesFilterBar({
                         onMouseEnter={() => setActiveIndex(i)}
                         onClick={() => onSelect(option)}
                         className={cn(
-                          "flex cursor-pointer items-center gap-1 justify-between px-4 py-3",
-                          "2xl:px-6 2xl:py-4 text-sm 2xl:text-base uppercase tracking-[0.5px]",
-                          "2xl:tracking-[0.8px] font-inter transition-colors",
-                          isActive
-                            ? "bg-primary/10 text-primary"
-                            : "text-foreground-muted",
-                          isSelected && "text-primary",
+                          "px-4 py-2.5 text-sm flex items-center justify-between cursor-pointer transition-colors duration-150 font-inter select-none",
+                          "text-foreground-muted hover:text-foreground",
+                          isActive && "bg-primary/10 text-primary",
+                          isSelected && "bg-primary/15 text-primary font-semibold"
                         )}
                       >
-                        {option.label}
+                        <span className="truncate">{option.label}</span>
                         {isSelected && (
                           <svg
-                            width="12"
-                            height="10"
-                            viewBox="0 0 12 10"
+                            className="w-4 h-4 text-primary shrink-0 ml-2"
                             fill="none"
-                            className="shrink-0"
+                            stroke="currentColor"
+                            viewBox="0 0 24 24"
                           >
                             <path
-                              d="M1 5L4.5 8.5L11 1"
-                              stroke="currentColor"
-                              strokeWidth="1.5"
                               strokeLinecap="round"
                               strokeLinejoin="round"
+                              strokeWidth="2.5"
+                              d="M5 13l4 4L19 7"
                             />
                           </svg>
                         )}

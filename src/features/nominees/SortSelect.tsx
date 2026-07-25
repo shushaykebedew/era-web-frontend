@@ -15,21 +15,16 @@ export function SortSelect({
   onChange: (value: Sort) => void;
 }) {
   return (
-    <div className="flex flex-wrap items-center gap-x-4 2xl:gap-x-6 gap-y-2 2xl:gap-y-3">
-      <span
-        className={cn(
-          "text-[12px] 2xl:text-[16px] font-inter uppercase tracking-[1.6px]",
-          "2xl:tracking-[2.4px] leading-4 2xl:leading-6 text-foreground-muted",
-        )}
-      >
-        Sort By:
-      </span>
+    <div className="relative w-64 flex flex-col gap-1.5 font-inter">
+      <label className="text-xs uppercase tracking-wider font-semibold text-foreground-muted">
+        Sort By
+      </label>
 
       <Dropdown<Sort>
         value={value}
         onChange={onChange}
         options={selectOptions}
-        className="relative"
+        className="relative w-full"
         renderButton={({ open, onClick, onKeyDown }) => (
           <button
             type="button"
@@ -39,29 +34,22 @@ export function SortSelect({
             aria-controls="sort-listbox"
             onClick={onClick}
             onKeyDown={onKeyDown}
-            className={cn(
-              "flex items-center gap-1.5 2xl:gap-2.5 bg-transparent text-sm sm:text-base",
-              "2xl:text-[20px] font-inter uppercase tracking-[1.2px] 2xl:tracking-[1.6px]",
-              "text-primary outline-none cursor-pointer",
-            )}
+            className="w-full h-11 px-4 bg-background-elevated border border-primary/20 rounded text-foreground text-sm font-inter flex items-center justify-between outline-none cursor-pointer transition-all duration-200 select-none hover:border-primary/40 focus:border-primary/60 focus:ring-1 focus:ring-primary/30"
           >
-            {value}
+            <span className="truncate text-left text-foreground font-medium">
+              {value}
+            </span>
             <svg
-              width="10"
-              height="7"
-              viewBox="0 0 12 8"
+              className="w-4 h-4 text-primary shrink-0 transition-transform duration-200 ml-2"
               fill="none"
-              className={cn(
-                "shrink-0 transition-transform duration-200",
-                open && "rotate-180",
-              )}
+              stroke="currentColor"
+              viewBox="0 0 24 24"
             >
               <path
-                d="M1 1.5L6 6.5L11 1.5"
-                stroke="currentColor"
-                strokeWidth="1.5"
                 strokeLinecap="round"
                 strokeLinejoin="round"
+                strokeWidth="2"
+                d="M19 9l-7 7-7-7"
               />
             </svg>
           </button>
@@ -71,11 +59,7 @@ export function SortSelect({
             id="sort-listbox"
             role="listbox"
             tabIndex={-1}
-            className={cn(
-              "absolute left-0 top-full z-20 mt-2 min-w-40",
-              "2xl:min-w-60 overflow-hidden border border-border-strong",
-              "bg-background-elevated shadow-[0_12px_32px_rgba(0,0,0,0.5)]",
-            )}
+            className="absolute left-0 right-0 top-[calc(100%+6px)] z-50 max-h-60 overflow-y-auto bg-[#1c1712] border border-primary/30 rounded shadow-[0_12px_32px_rgba(0,0,0,0.8)] py-1.5 flex flex-col font-inter scrollbar-thin scrollbar-thumb-primary/30 animate-in fade-in-0 zoom-in-95 duration-150"
           >
             {options.map((option, i) => {
               const isSelected = option.value === value;
@@ -88,30 +72,25 @@ export function SortSelect({
                   onMouseEnter={() => setActiveIndex(i)}
                   onClick={() => onSelect(option)}
                   className={cn(
-                    "flex cursor-pointer items-center gap-1 justify-between px-4 py-3",
-                    "2xl:px-6 2xl:py-4 text-sm 2xl:text-base uppercase tracking-[0.5px]",
-                    "2xl:tracking-[0.8px] font-inter transition-colors",
-                    isActive
-                      ? "bg-primary/10 text-primary"
-                      : "text-foreground-muted",
-                    isSelected && "text-primary",
+                    "px-4 py-2.5 text-sm flex items-center justify-between cursor-pointer transition-colors duration-150 font-inter select-none",
+                    "text-foreground-muted hover:text-foreground",
+                    isActive && "bg-primary/10 text-primary",
+                    isSelected && "bg-primary/15 text-primary font-semibold"
                   )}
                 >
-                  {option.label}
+                  <span className="truncate">{option.label}</span>
                   {isSelected && (
                     <svg
-                      width="12"
-                      height="10"
-                      viewBox="0 0 12 10"
+                      className="w-4 h-4 text-primary shrink-0 ml-2"
                       fill="none"
-                      className="shrink-0"
+                      stroke="currentColor"
+                      viewBox="0 0 24 24"
                     >
                       <path
-                        d="M1 5L4.5 8.5L11 1"
-                        stroke="currentColor"
-                        strokeWidth="1.5"
                         strokeLinecap="round"
                         strokeLinejoin="round"
+                        strokeWidth="2.5"
+                        d="M5 13l4 4L19 7"
                       />
                     </svg>
                   )}
