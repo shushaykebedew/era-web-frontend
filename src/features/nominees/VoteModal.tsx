@@ -11,7 +11,7 @@ import { type VoteModalProps, type VoteStep } from "@/types/nominees";
 import { useAuth } from "@/context/AuthContext";
 import { castPublicVote } from "@/services/nominees";
 
-export function VoteModal({ isOpen, onClose, nominee }: VoteModalProps) {
+export function VoteModal({ isOpen, onClose, nominee, onVoteSuccess }: VoteModalProps) {
   const [step, setStep] = useState<VoteStep>("confirm");
   const [isVoting, setIsVoting] = useState(false);
   const [errorMsg, setErrorMsg] = useState<string | null>(null);
@@ -33,6 +33,7 @@ export function VoteModal({ isOpen, onClose, nominee }: VoteModalProps) {
     setErrorMsg(null);
     try {
       await castPublicVote(nominee.id, nominee.categoryId);
+      onVoteSuccess?.();
       setStep("success");
     } catch (err: any) {
       const msg =
@@ -52,7 +53,7 @@ export function VoteModal({ isOpen, onClose, nominee }: VoteModalProps) {
         <div className="flex flex-col items-center w-full">
           <div
             className={cn(
-              "w-16 h-16 lg:w-20 lg:h-20 rounded-full border border-primary/30",
+              "w-16 h-16 2xl:w-20 2xl:h-20 rounded-full border border-primary/30",
               "bg-[#231F19] flex items-center justify-center mb-6",
             )}
           >
@@ -61,13 +62,13 @@ export function VoteModal({ isOpen, onClose, nominee }: VoteModalProps) {
               alt=""
               width={32}
               height={32}
-              className="h-8 w-8 lg:h-10 lg:w-10"
+              className="h-8 w-8 2xl:h-10 2xl:w-10"
             />
           </div>
-          <h2 className="font-display text-center text-[24px] sm:text-[32px] font-semibold text-foreground leading-10 mb-2">
+          <h2 className="font-display text-center text-[24px] 2xl:text-[32px] font-semibold text-foreground leading-10 mb-2">
             Voter Verification
           </h2>
-          <p className="text-center text-foreground-muted text-sm sm:text-base leading-relaxed mb-6">
+          <p className="text-center text-foreground-muted text-sm 2xl:text-base leading-relaxed mb-6">
             Please sign in or register to cast your vote for{" "}
             <span className="text-primary font-semibold">{nominee.name}</span>.
           </p>
@@ -82,7 +83,7 @@ export function VoteModal({ isOpen, onClose, nominee }: VoteModalProps) {
         <div className="flex flex-col items-center w-full">
           <div
             className={cn(
-              "w-16 h-16 lg:w-20 lg:h-20 rounded-full border border-primary/30",
+              "w-16 h-16 2xl:w-20 2xl:h-20 rounded-full border border-primary/30",
               "bg-[#231F19] flex items-center justify-center mb-6",
             )}
           >
@@ -91,12 +92,12 @@ export function VoteModal({ isOpen, onClose, nominee }: VoteModalProps) {
               alt=""
               width={32}
               height={32}
-              className="h-8 w-8 lg:h-10 lg:w-10"
+              className="h-8 w-8 2xl:h-10 2xl:w-10"
             />
           </div>
           <h2
             className={cn(
-              "font-display text-center text-[24px] sm:text-[32px]",
+              "font-display text-center text-[24px]",
               "2xl:text-[36px] font-semibold leading-10 text-foreground mb-4",
             )}
           >
@@ -104,7 +105,7 @@ export function VoteModal({ isOpen, onClose, nominee }: VoteModalProps) {
           </h2>
           <p
             className={cn(
-              "font-inter text-center text-foreground-muted text-sm sm:text-base",
+              "font-inter text-center text-foreground-muted text-sm",
               "2xl:text-[20px] leading-relaxed mb-8 max-w-85 mx-auto",
             )}
           >
@@ -114,7 +115,7 @@ export function VoteModal({ isOpen, onClose, nominee }: VoteModalProps) {
             in Ethiopia.
           </p>
           {errorMsg && (
-            <div className="w-full mb-6 p-3 bg-red-500/10 border border-red-500/30 rounded text-foreground-muted/70 text-xs text-center font-inter">
+            <div className="w-full mb-6 p-3 bg-red-500/10 border border-red-500/30 rounded text-foreground-muted/70 text-xs 2xl:text-sm text-center font-inter">
               {errorMsg}
             </div>
           )}
@@ -166,12 +167,12 @@ export function VoteModal({ isOpen, onClose, nominee }: VoteModalProps) {
               alt=""
               width={40}
               height={40}
-              className="h-10 w-10 lg:h-12 lg:w-12"
+              className="h-10 w-10 2xl:h-12 2xl:w-12"
             />
           </div>
           <h2
             className={cn(
-              "font-display text-center text-[24px] sm:text-3xl 2xl:text-[34px]",
+              "font-display text-center text-[24px] 2xl:text-[34px]",
               "font-semibold text-foreground mb-4 leading-14",
             )}
           >
@@ -179,7 +180,7 @@ export function VoteModal({ isOpen, onClose, nominee }: VoteModalProps) {
           </h2>
           <p
             className={cn(
-              "font-inter text-center text-foreground-muted text-sm sm:text-base",
+              "font-inter text-center text-foreground-muted text-sm e",
               "2xl:text-[20px] leading-7 mb-8 max-w-118.25 mx-auto",
             )}
           >

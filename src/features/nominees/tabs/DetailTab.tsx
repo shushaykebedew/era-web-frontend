@@ -77,18 +77,8 @@ export function DetailTab({ nominee }: { nominee: Nominee }) {
               "leading-7 2xl:leading-9 text-[#D1C5B2CC] font-inter",
             )}
           >
-            <p>
-              The core philosophy of the {nominee.name} was to move away from
-              the generic glass facade that dominates modern metropolitan
-              skylines — instead the design team at {nominee.firm} studied
-              carefully the climate and aerial structures of the Ethiopian
-              plateau.
-            </p>
-            <p>
-              The result is a building that breathes. A centre atrium functions
-              as a thermal chimney, drawing cool air from the shaded base and
-              routing heat through a rooftop garden system. Each unit is
-              oriented to maximise morning light while minimising glare.
+            <p className="whitespace-pre-line">
+              {nominee.description || nominee.excerpt || "Description will be published soon."}
             </p>
           </div>
         </div>
@@ -113,7 +103,7 @@ export function DetailTab({ nominee }: { nominee: Nominee }) {
               {i === 1 && (
                 <div className="absolute bottom-4 left-0 right-0 text-center">
                   <p className="font-display text-[18px] 2xl:text-[24px] font-semibold text-foreground">
-                    Ethiopia Basrie
+                    {nominee.name}
                   </p>
                   <p
                     className={cn(
@@ -121,14 +111,14 @@ export function DetailTab({ nominee }: { nominee: Nominee }) {
                       "2xl:tracking-[2px] text-foreground-muted mt-0.5 2xl:mt-1",
                     )}
                   >
-                    Zema Architecture Studio
+                    {nominee.firm || nominee.location || "Ethiopia"}
                   </p>
                 </div>
               )}
               {/* ADDIS / ETHIOPIA / FINALIST on first image */}
               {i === 0 && (
                 <div className="absolute bottom-4 left-3 right-3 2xl:bottom-6 2xl:left-5 flex flex-wrap gap-3 2xl:gap-4">
-                  {["Addis", "Ethiopia", "Finalist"].map((label) => (
+                  {[nominee.location || "Ethiopia", nominee.status].filter(Boolean).map((label) => (
                     <span
                       key={label}
                       className={cn(

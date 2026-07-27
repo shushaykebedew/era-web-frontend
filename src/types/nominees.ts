@@ -26,5 +26,7 @@ export type VoteModalProps = {
   isOpen: boolean;
   onClose: () => void;
   nominee: Nominee | null;
+  /** Called when a vote is successfully submitted. */
+  onVoteSuccess?: () => void;
 };
 export type VoteStep = "confirm" | "success";

@@ -144,6 +144,11 @@ export async function castPublicVote(
     awardCategoryId,
     awardEventId: activeEventId,
   });
+
+  // Bust the module-level cache so the next call to fetchNominees() returns
+  // fresh data from the backend with the updated vote count.
+  nomineesCache = null;
+
   return res.data;
 }
 
