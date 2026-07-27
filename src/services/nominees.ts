@@ -1,5 +1,6 @@
 import { api } from "./api";
 import { Nominee, ApiNomineeResponse, ApiAwardEventResponse } from "@/types";
+import { nominees as staticNominees } from "@/data/nominees";
 
 const FALLBACK_COVERS = [
   "/imgs/nominees/nominee-1.png",
@@ -58,32 +59,43 @@ let nomineesCache: Nominee[] | null = null;
 export async function fetchNominees(): Promise<Nominee[]> {
   if (nomineesCache) return nomineesCache;
 
-  let page = 1;
-  const limit = 50;
-  const all: ApiNomineeResponse[] = [];
+  try {
+    let page = 1;
+    const limit = 50;
+    const all: ApiNomineeResponse[] = [];
 
-  while (true) {
-    const res = await api.get("/nominees", { params: { page, limit } });
-    if (!res.data?.success) break;
+    while (true) {
+      const res = await api.get("/nominees", { params: { page, limit } });
+      if (!res.data?.success) break;
 
-    const data = res.data.data;
-    const items: ApiNomineeResponse[] = Array.isArray(data)
-      ? data
-      : (data.items ?? data.nominees ?? []);
-    all.push(...items);
+      const data = res.data.data;
+      const items: ApiNomineeResponse[] = Array.isArray(data)
+        ? data
+        : (data.items ?? data.nominees ?? []);
+      all.push(...items);
 
-    const pagination = res.data.pagination ?? res.data.meta;
-    const total = pagination?.total ?? res.data.total ?? items.length;
-    if (all.length >= total || items.length < limit) break;
-    page++;
+      const pagination = res.data.pagination ?? res.data.meta;
+      const total = pagination?.total ?? res.data.total ?? items.length;
+      if (all.length >= total || items.length < limit) break;
+      page++;
+    }
+
+    if (all.length > 0) {
+      nomineesCache = all.map((item, i) => mapApiNominee(item, i));
+      return nomineesCache;
+    }
+  } catch (error) {
+    // During build (SSG) or when the backend requires auth, the API call
+    // may fail with 401. Fall back to static data so the build succeeds
+    // and the page renders with placeholder content.
+    console.warn(
+      "Failed to fetch nominees from API, falling back to static data:",
+      error,
+    );
   }
 
-  if (all.length > 0) {
-    nomineesCache = all.map((item, i) => mapApiNominee(item, i));
-    return nomineesCache;
-  }
-
-  throw new Error("Failed to fetch nominees from API");
+  // Fall back to static data (not cached so the API is retried on next call)
+  return staticNominees;
 }
 
 export async function fetchNomineeById(id: string): Promise<Nominee | null> {
@@ -92,8 +104,12 @@ export async function fetchNomineeById(id: string): Promise<Nominee | null> {
     if (cached) return cached;
   }
 
-  const res = await api.get(`/nominees/${id}`);
-  if (res.data?.success) return mapApiNominee(res.data.data, 0);
+  try {
+    const res = await api.get(`/nominees/${id}`);
+    if (res.data?.success) return mapApiNominee(res.data.data, 0);
+  } catch (error) {
+    console.warn(`Failed to fetch nominee ${id} from API:`, error);
+  }
 
   return null;
 }

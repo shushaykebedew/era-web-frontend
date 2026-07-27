@@ -1,5 +1,6 @@
 import { api } from "./api";
 import { AwardCategory, ApiCategoryResponse } from "@/types";
+import { awardCategories as staticCategories } from "@/data/award-categories";
 
 const VALID_ICONS: AwardCategory["icon"][] = [
   "cat-icon-1",
@@ -47,16 +48,27 @@ let categoriesCache: AwardCategory[] | null = null;
 export async function fetchCategories(): Promise<AwardCategory[]> {
   if (categoriesCache) return categoriesCache;
 
-  const res = await api.get("/award-categories");
-  if (res.data?.success && Array.isArray(res.data.data)) {
-    const mapped = res.data.data.map((item: ApiCategoryResponse) =>
-      mapApiCategory(item),
+  try {
+    const res = await api.get("/award-categories");
+    if (res.data?.success && Array.isArray(res.data.data)) {
+      const mapped = res.data.data.map((item: ApiCategoryResponse) =>
+        mapApiCategory(item),
+      );
+      categoriesCache = mapped;
+      return mapped;
+    }
+  } catch (error) {
+    // During build (SSG) or when the backend requires auth, the API call
+    // may fail with 401. Fall back to static data so the build succeeds
+    // and the page renders with placeholder content.
+    console.warn(
+      "Failed to fetch categories from API, falling back to static data:",
+      error,
     );
-    categoriesCache = mapped;
-    return mapped;
   }
 
-  throw new Error("Failed to fetch categories from API");
+  // Fall back to static data (not cached so the API is retried on next call)
+  return staticCategories;
 }
 
 export async function fetchCategoryById(
@@ -66,8 +78,12 @@ export async function fetchCategoryById(
   const fromCache = all.find((c) => c.id === id);
   if (fromCache) return fromCache;
 
-  const res = await api.get(`/award-categories/${id}`);
-  if (res.data?.success) return mapApiCategory(res.data.data);
+  try {
+    const res = await api.get(`/award-categories/${id}`);
+    if (res.data?.success) return mapApiCategory(res.data.data);
+  } catch (error) {
+    console.warn(`Failed to fetch category ${id} from API:`, error);
+  }
 
   return null;
 }
@@ -75,3 +91,5 @@ export async function fetchCategoryById(
 export function clearCategoriesCache() {
   categoriesCache = null;
 }
+
+
