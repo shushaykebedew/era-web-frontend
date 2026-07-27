@@ -65,7 +65,7 @@ function Countdown({
                 className={cn(
                   "mt-2 text-[9px] sm:text-[10px] xl:text-[12px] 2xl:text-[16px] font-inter",
                   "font-semibold uppercase leading-6 2xl:leading-8 tracking-[1.2px]",
-                  "2xl:tracking-[1.6px] text-[#D1C5B299]",
+                  "2xl:tracking-[1.6px] text-foreground-muted/60",
                 )}
               >
                 {label}
@@ -94,7 +94,7 @@ export default function TimeCounter() {
     <div
       className={cn(
         "relative z-10 min-h-45 sm:min-h-55 xl:min-h-66.5 2xl:min-h-85",
-        "border-y border-[#EBC1661A] bg-[#110E08] flex items-center py-10 sm:py-12 xl:py-0",
+        "border-y border-primary/10 bg-[#110E08] flex items-center py-10 sm:py-12 xl:py-0",
       )}
     >
       <Container className="text-center">

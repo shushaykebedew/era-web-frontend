@@ -8,7 +8,7 @@ export function Footer() {
   const year = new Date().getFullYear();
 
   return (
-    <footer className="border-t border-[#EBC1664D] bg-[#110E08] py-12 sm:py-16 2xl:py-24">
+    <footer className="border-t border-primary/30 bg-[#110E08] py-12 sm:py-16 2xl:py-24">
       <Container className="flex flex-col items-center text-center">
         <div
           className={cn(
@@ -26,7 +26,7 @@ export function Footer() {
               key={link.href}
               href={link.href}
               className={cn(
-                "text-[10px] sm:text-[11px] xl:text-[12px] 2xl:text-base text-[#D1C5B2]",
+                "text-[10px] sm:text-[11px] xl:text-[12px] 2xl:text-base text-foreground-muted",
                 "font-semibold leading-4 2xl:leading-6 tracking-[1.2px] 2xl:tracking-[1.6px]",
                 "font-inter transition-colors hover:text-primary",
               )}
@@ -39,7 +39,7 @@ export function Footer() {
         <p
           className={cn(
             "mt-6 2xl:mt-10 max-w-lg 2xl:max-w-xl text-[11px] sm:text-sm 2xl:text-base",
-            "text-[#D1C5B2] font-inter leading-6 2xl:leading-8",
+            "text-foreground-muted font-inter leading-6 2xl:leading-8",
           )}
         >
           &copy; {year} {siteConfig.fullName}. {siteConfig.tagline}.
@@ -53,7 +53,7 @@ export function Footer() {
               aria-label={label}
               className={cn(
                 "flex h-10 w-10 2xl:h-14 2xl:w-14 items-center justify-center",
-                "border border-[#EBC16633] transition-opacity hover:opacity-70",
+                "border border-primary/20 transition-opacity hover:opacity-70",
               )}
             >
               <Image

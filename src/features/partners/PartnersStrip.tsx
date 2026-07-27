@@ -8,7 +8,7 @@ import {
 
 export function PartnersStrip({ partners }: { partners: Partner[] }) {
   return (
-    <section className="bg-[#16130D] py-16">
+    <section className="bg-background py-16">
       <div className="w-full mx-auto  min-w-0 px-8 lg:px-10 xl:px-12 2xl:px-16 max-w-7xl 2xl:max-w-screen-2xl">
         {/* <div className="w-full mx-auto  min-w-0 px-8 lg:px-10 xl:px-12 2xl:px-16"> */}
         <FadeIn>
@@ -33,7 +33,7 @@ export function PartnersStrip({ partners }: { partners: Partner[] }) {
                 className={cn(
                   "font-display text-[20px] sm:text-[28px] xl:text-[32px] 2xl:text-[40px] uppercase",
                   "tracking-tight xl:tracking-[-1.6px] transition-colors hover:text-foreground",
-                  "text-[#EAE1D7CC] leading-tight sm:leading-10 2xl:leading-12",
+                  "text-foreground/80 leading-tight sm:leading-10 2xl:leading-12",
                 )}
               >
                 {partner.name}

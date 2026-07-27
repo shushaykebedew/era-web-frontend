@@ -20,7 +20,7 @@ export function PartnersPageContent() {
           <SlideUp delay={0.1}>
             <h1
               className={cn(
-                "mx-auto w-full max-w-182 2xl:max-w-4xl text-[#EAE1D7] font-display",
+                "mx-auto w-full max-w-182 2xl:max-w-4xl text-foreground font-display",
                 "font-bold text-3xl sm:text-4xl lg:text-[48px] xl:text-[72px] 2xl:text-[96px]",
                 "tracking-tight lg:tracking-[-1.44px] leading-tight lg:leading-13 xl:leading-20 2xl:leading-28",
                 "",
@@ -32,7 +32,7 @@ export function PartnersPageContent() {
           <SlideUp delay={0.2}>
             <p
               className={cn(
-                "mx-auto mt-6 mb-12 max-w-155 2xl:max-w-200 text-[#D1C5B2] font-inter",
+                "mx-auto mt-6 mb-12 max-w-155 2xl:max-w-200 text-foreground-muted font-inter",
                 "text-base sm:mb-20 sm:text-[18px] 2xl:text-[24px] leading-7 2xl:leading-9 ",
               )}
             >

@@ -40,10 +40,10 @@ export function DetailTab({ nominee }: { nominee: Nominee }) {
                       className="mt-1 shrink-0"
                     />
                     <div>
-                      <p className="text-base 2xl:text-[20px] font-semibold text-[#EAE1D7] font-inter leading-6 2xl:leading-8">
+                      <p className="text-base 2xl:text-[20px] font-semibold text-foreground font-inter leading-6 2xl:leading-8">
                         {item.title}
                       </p>
-                      <p className="mt-1 2xl:mt-2 text-[14px] 2xl:text-[20px] text-[#D1C5B2] leading-5 2xl:leading-7 font-inter">
+                      <p className="mt-1 2xl:mt-2 text-[14px] 2xl:text-[20px] text-foreground-muted leading-5 2xl:leading-7 font-inter">
                         {item.description}
                       </p>
                     </div>
@@ -65,7 +65,7 @@ export function DetailTab({ nominee }: { nominee: Nominee }) {
               className={cn(
                 "font-display text-[28px] sm:text-[36px] lg:text-[48px] 2xl:text-[64px]",
                 "italic leading-tight lg:leading-12 2xl:leading-20",
-                "text-[#EAE1D7E5] tracking-tight lg:tracking-[-1.2px]",
+                "text-foreground/90 tracking-tight lg:tracking-[-1.2px]",
               )}
             >
               &ldquo;{nominee.quote}&rdquo;
@@ -74,7 +74,7 @@ export function DetailTab({ nominee }: { nominee: Nominee }) {
           <div
             className={cn(
               "grid grid-cols-1 gap-5 sm:grid-cols-2 text-base 2xl:text-[24px]",
-              "leading-7 2xl:leading-9 text-[#D1C5B2CC] font-inter",
+              "leading-7 2xl:leading-9 text-foreground-muted/80 font-inter",
             )}
           >
             <p className="whitespace-pre-line">

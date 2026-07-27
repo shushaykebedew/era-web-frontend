@@ -37,7 +37,7 @@ function CategoriesHero() {
           <p
             className={cn(
               "mx-auto mt-5 w-full max-w-full lg:max-w-166.25 2xl:max-w-200 font-inter",
-              "text-base sm:text-[18px] 2xl:text-[24px] text-[#D1C5B2] leading-7 2xl:leading-9 ",
+              "text-base sm:text-[18px] 2xl:text-[24px] text-foreground-muted leading-7 2xl:leading-9 ",
             )}
           >
             Celebrating the visionaries who redefine Ethiopia's skyline through
@@ -51,7 +51,7 @@ function CategoriesHero() {
 
 function VisualExcellenceSection() {
   return (
-    <section className="bg-background py-16 sm:py-20 lg:py-24 2xl:py-32 border-t border-[#EBC16633] w-full overflow-hidden">
+    <section className="bg-background py-16 sm:py-20 lg:py-24 2xl:py-32 border-t border-primary/20 w-full overflow-hidden">
       <div className="mx-auto w-full max-w-screen-2xl px-4 sm:px-6 md:px-8 lg:px-10 xl:px-12 2xl:px-16">
         <div className="flex min-w-0 flex-col gap-12 overflow-hidden lg:flex-row lg:justify-between lg:gap-8">
           {/* Left — text */}
@@ -60,7 +60,7 @@ function VisualExcellenceSection() {
               <p
                 className={cn(
                   "mb-4 2xl:mb-6 text-[12px] 2xl:text-[16px] font-inter font-semibold uppercase",
-                  "leading-4 2xl:leading-6 tracking-[1.2px] 2xl:tracking-[1.6px] text-[#EBC166]",
+                  "leading-4 2xl:leading-6 tracking-[1.2px] 2xl:tracking-[1.6px] text-primary",
                 )}
               >
                 Visual Excellence
@@ -68,7 +68,7 @@ function VisualExcellenceSection() {
               <h2
                 className={cn(
                   "font-display text-[36px] sm:text-[48px] 2xl:text-[64px] font-semibold",
-                  "leading-tight lg:leading-14 2xl:leading-20 text-[#EAE1D7]",
+                  "leading-tight lg:leading-14 2xl:leading-20 text-foreground",
                 )}
               >
                 A Legacy of Form and Function
@@ -76,7 +76,7 @@ function VisualExcellenceSection() {
             </SlideUp>
 
             <SlideUp delay={0.1}>
-              <p className="mt-6 text-base sm:text-[18px] 2xl:text-[24px] leading-7 2xl:leading-9 text-[#D1C5B2] font-inter">
+              <p className="mt-6 text-base sm:text-[18px] 2xl:text-[24px] leading-7 2xl:leading-9 text-foreground-muted font-inter">
                 The ERA awards recognize more than just buildings; we honor the
                 dialogue between a structure and its environment. Our categories
                 reflect the diverse needs of a rapidly urbanizing nation.
@@ -93,7 +93,7 @@ function VisualExcellenceSection() {
                   className={cn(
                     "w-full sm:w-auto h-10 sm:h-10.5 2xl:h-15 px-4 sm:px-6 2xl:px-10",
                     "text-[12px] 2xl:text-[20px] font-semibold tracking-[1.2px] 2xl:tracking-[2px]",
-                    "font-inter leading-4 2xl:leading-6 text-[#EBC166] border-[#EBC166]",
+                    "font-inter leading-4 2xl:leading-6 text-primary border-primary",
                     "hover:border-primary/80 hover:text-primary/90",
                   )}
                 >
@@ -122,13 +122,13 @@ function VisualExcellenceSection() {
                 "absolute bottom-4 left-4 max-w-[calc(100%-32px)] sm:max-w-none",
                 "sm:bottom-5 sm:left-12 2xl:bottom-8 2xl:left-16",
                 "bg-[#16130D99] px-3 py-1.5 sm:py-0 sm:h-8 2xl:h-12 2xl:px-5",
-                "border-l-2 2xl:border-l-4 border-[#EBC166] backdrop-blur-md flex items-center",
+                "border-l-2 2xl:border-l-4 border-primary backdrop-blur-md flex items-center",
               )}
             >
               <span
                 className={cn(
                   "text-[10px] sm:text-[12px] 2xl:text-[16px] font-inter font-semibold",
-                  "tracking-[1.2px] 2xl:tracking-[1.6px] text-[#EAE1D7]",
+                  "tracking-[1.2px] 2xl:tracking-[1.6px] text-foreground",
                   "leading-4 sm:leading-4 2xl:leading-6 whitespace-normal sm:whitespace-nowrap",
                 )}
               >

@@ -11,7 +11,12 @@ import { type VoteModalProps, type VoteStep } from "@/types/nominees";
 import { useAuth } from "@/context/AuthContext";
 import { castPublicVote } from "@/services/nominees";
 
-export function VoteModal({ isOpen, onClose, nominee, onVoteSuccess }: VoteModalProps) {
+export function VoteModal({
+  isOpen,
+  onClose,
+  nominee,
+  onVoteSuccess,
+}: VoteModalProps) {
   const [step, setStep] = useState<VoteStep>("confirm");
   const [isVoting, setIsVoting] = useState(false);
   const [errorMsg, setErrorMsg] = useState<string | null>(null);
@@ -123,7 +128,7 @@ export function VoteModal({ isOpen, onClose, nominee, onVoteSuccess }: VoteModal
             <Button
               size="lg"
               isLoading={isVoting}
-              // spinnerColor="white"
+              spinnerColor="white"
               className={cn(
                 "w-full bg-primary text-[#402D00] hover:bg-primary/90 text-[12px] 2xl:text-base",
                 "h-10 sm:h-12 font-semibold tracking-[1.2px] leading-4 font-inter",

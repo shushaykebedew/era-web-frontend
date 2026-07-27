@@ -50,7 +50,7 @@ export function SponsorshipForm({ selectedTier = "" }: SponsorshipFormProps) {
     <section
       id="sponsorship-form"
       className={cn(
-        "bg-[#110E08] border border-[#EBC16633] my-10 sm:my-20 2xl:my-28",
+        "bg-[#110E08] border border-primary/20 my-10 sm:my-20 2xl:my-28",
         "w-[calc(100%-2rem)] max-w-4xl 2xl:max-w-5xl mx-auto py-12 sm:py-20 lg:py-24 2xl:py-32",
       )}
     >

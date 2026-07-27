@@ -72,7 +72,7 @@ export function NomineeSidebar({
         <p
           className={cn(
             "mt-2 2xl:mt-3 text-[12px] 2xl:text-[16px] font-inter uppercase",
-            "tracking-[1.5px] 2xl:tracking-[2px] text-[#D1C5B2]",
+            "tracking-[1.5px] 2xl:tracking-[2px] text-foreground-muted",
           )}
         >
           {nominee.firm}
@@ -82,7 +82,7 @@ export function NomineeSidebar({
           <div
             className={cn(
               "mt-1 flex min-w-0 items-center gap-1.5 2xl:gap-2.5 text-sm sm:text-base",
-              "2xl:text-[20px] font-inter text-[#D1C5B299] leading-6 2xl:leading-8",
+              "2xl:text-[20px] font-inter text-foreground-muted/60 leading-6 2xl:leading-8",
             )}
           >
             <Image
@@ -165,13 +165,13 @@ export function NomineeSidebar({
       )}
 
       {activeTab === "awards" && (
-        <div className="mt-4 2xl:mt-6 flex flex-col bg-[#1F1B15] px-5 2xl:px-8 border border-[#EBC1661A]">
+        <div className="mt-4 2xl:mt-6 flex flex-col bg-[#1F1B15] px-5 2xl:px-8 border border-primary/10">
           {statusRows.map((row, i) => (
             <div
               key={row.label}
               className={cn(
                 "flex flex-wrap items-center justify-between gap-3 2xl:gap-5 py-4 2xl:py-6",
-                i !== statusRows.length - 1 && "border-b border-[#EBC1660D]",
+                i !== statusRows.length - 1 && "border-b border-primary/5",
               )}
             >
               <p className="font-inter text-[12px] 2xl:text-[16px] font-semibold text-[#F4EFE3]">

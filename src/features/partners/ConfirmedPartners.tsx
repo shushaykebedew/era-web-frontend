@@ -49,10 +49,10 @@ function PartnerCard({
             "px-3 2xl:px-4 py-1 2xl:py-1.5 font-inter uppercase",
             "tracking-[1.2px] 2xl:tracking-[1.6px] border",
             tier === "Gold"
-              ? "text-primary border-[#EBC16633]"
+              ? "text-primary border-primary/20"
               : tier === "Silver"
-                ? "text-[#D1C5B2] border-[#9A8F7E33]"
-                : "text-[#D1C5B299] border-[#9A8F7E1A]",
+                ? "text-foreground-muted border-[#9A8F7E33]"
+                : "text-foreground-muted/60 border-[#9A8F7E1A]",
           )}
         >
           {tier}

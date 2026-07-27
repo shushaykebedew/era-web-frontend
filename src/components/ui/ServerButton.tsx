@@ -26,7 +26,7 @@ export function ServerButton<T extends ElementType = "button">({
 }: ServerButtonProps<T>) {
   const Component = as ?? "button";
   const base = cn(
-    "inline-flex items-center justify-center gap-2 font-sans font-semibold uppercase tracking-widest transition-colors duration-200",
+    "inline-flex items-center justify-center gap-2 font-inter font-semibold uppercase tracking-widest transition-colors duration-200",
     VARIANT_STYLES[variant],
     SIZE_STYLES[size],
     className,

@@ -37,7 +37,7 @@ export function MainHeader() {
       className={cn(
         "fixed inset-x-0 top-0 z-50 flex px-4 sm:px-6 md:px-8 lg:px-10 2xl:px-16",
         "min-w-0 h-16 sm:h-20 2xl:h-28 items-center justify-between gap-4 lg:gap-8",
-        "border-b border-[#EBC16633] bg-[#16130DCC] backdrop-blur-[10px]",
+        "border-b border-primary/20 bg-background/80 backdrop-blur-[10px]",
       )}
     >
       <Link

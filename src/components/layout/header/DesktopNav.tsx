@@ -86,7 +86,7 @@ export function DesktopNav({
             </button>
 
             {isDropdownOpen && (
-              <div className="absolute right-0 mt-2 w-48 z-20 bg-[#16130D] border border-primary/30 shadow-xl rounded py-1 font-inter">
+              <div className="absolute right-0 mt-2 w-48 z-20 bg-background border border-primary/30 shadow-xl rounded py-1 font-inter">
                 <div className="px-4 py-2 border-b border-primary/10">
                   <p className="text-[10px] 2xl:text-[14px] text-foreground-muted uppercase tracking-wider font-bold">
                     Logged in as

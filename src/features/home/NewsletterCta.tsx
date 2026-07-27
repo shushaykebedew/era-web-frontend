@@ -41,7 +41,7 @@ export function NewsletterCta({
               placeholder="Email Address"
               className={cn(
                 "w-full border border-primary/40 font-inter bg-[#1F1B15] px-4 2xl:px-8 h-12.5",
-                "2xl:h-18 text-base 2xl:text-[24px] text-foreground placeholder:text-[#D1C5B280]",
+                "2xl:h-18 text-base 2xl:text-[24px] text-foreground placeholder:text-foreground-muted/50",
                 "focus:border-primary focus:outline-none",
               )}
             />

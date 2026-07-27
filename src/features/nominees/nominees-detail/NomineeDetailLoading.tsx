@@ -8,7 +8,7 @@ export function NomineeDetailLoading() {
         className={cn(
           "fixed inset-x-0 top-0 z-50 flex px-3 sm:px-6 lg:px-10 2xl:px-16",
           "h-16 sm:h-20 2xl:h-28 items-center justify-between gap-2",
-          "border-b border-primary/20 bg-[#16130DCC] backdrop-blur-[10px]",
+          "border-b border-primary/20 bg-background/80 backdrop-blur-[10px]",
         )}
       >
         <Skeleton className="h-6 w-24 sm:w-32" />

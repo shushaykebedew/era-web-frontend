@@ -112,7 +112,7 @@ export function NomineesFilterBar({
                   id="category-listbox"
                   role="listbox"
                   tabIndex={-1}
-                  className="absolute left-0 right-0 top-[calc(100%+6px)] 2xl:top-[calc(100%+10px)] z-50 max-h-60 2xl:max-h-[360px] overflow-y-auto bg-[#1c1712] border border-primary/30 rounded shadow-[0_12px_32px_rgba(0,0,0,0.8)] py-1.5 2xl:py-3 flex flex-col font-inter scrollbar-thin scrollbar-thumb-primary/30 animate-in fade-in-0 zoom-in-95 duration-150"
+                  className="absolute left-0 right-0 top-[calc(100%+6px)] 2xl:top-[calc(100%+10px)] z-50 max-h-60 2xl:max-h-[360px] overflow-y-auto bg-background-elevated border border-primary/30 rounded shadow-[0_12px_32px_rgba(0,0,0,0.8)] py-1.5 2xl:py-3 flex flex-col font-inter scrollbar-thin scrollbar-thumb-primary/30 animate-in fade-in-0 zoom-in-95 duration-150"
                 >
                   {options.map((option, i) => {
                     const isSelected = option.value === activeCategoryId;
@@ -209,7 +209,7 @@ export function NomineesFilterBar({
                   id="target-type-listbox"
                   role="listbox"
                   tabIndex={-1}
-                  className="absolute left-0 right-0 top-[calc(100%+6px)] 2xl:top-[calc(100%+10px)] z-50 max-h-60 2xl:max-h-[360px] overflow-y-auto bg-[#1c1712] border border-primary/30 rounded shadow-[0_12px_32px_rgba(0,0,0,0.8)] py-1.5 2xl:py-3 flex flex-col font-inter scrollbar-thin scrollbar-thumb-primary/30 animate-in fade-in-0 zoom-in-95 duration-150"
+                  className="absolute left-0 right-0 top-[calc(100%+6px)] 2xl:top-[calc(100%+10px)] z-50 max-h-60 2xl:max-h-[360px] overflow-y-auto bg-background-elevated border border-primary/30 rounded shadow-[0_12px_32px_rgba(0,0,0,0.8)] py-1.5 2xl:py-3 flex flex-col font-inter scrollbar-thin scrollbar-thumb-primary/30 animate-in fade-in-0 zoom-in-95 duration-150"
                 >
                   {options.map((option, i) => {
                     const isSelected = option.value === activeTargetType;

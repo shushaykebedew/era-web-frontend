@@ -41,7 +41,7 @@ function GalleryImg({
       <div
         className={cn(
           "absolute bottom-3 left-3 right-3 w-fit max-w-[calc(100%-1.5rem)]",
-          "bg-[#16130D66] border border-[#EBC16633] py-1 px-2",
+          "bg-background/40 border border-primary/20 py-1 px-2",
         )}
       >
         <p
@@ -130,7 +130,7 @@ export function GalleryTab({
           <div
             className={cn(
               "absolute bottom-3 left-3 right-3 w-fit max-w-[calc(100%-1.5rem)]",
-              "bg-[#16130D66] border border-[#EBC16633] py-1 px-2",
+              "bg-background/40 border border-primary/20 py-1 px-2",
             )}
           >
             <p
@@ -149,13 +149,13 @@ export function GalleryTab({
       <div
         className={cn(
           "mt-10 2xl:mt-16 flex flex-col items-center gap-4 2xl:gap-6",
-          "border-t border-[#EBC1661A] pt-16 2xl:pt-24",
+          "border-t border-primary/10 pt-16 2xl:pt-24",
         )}
       >
         <p
           className={cn(
             "text-[12px] 2xl:text-[16px] font-inter font-semibold leading-4 2xl:leading-6",
-            "uppercase tracking-[1.2px] 2xl:tracking-[1.6px] text-[#D1C5B299]",
+            "uppercase tracking-[1.2px] 2xl:tracking-[1.6px] text-foreground-muted/60",
           )}
         >
           End of Gallery
@@ -167,7 +167,7 @@ export function GalleryTab({
               className={cn(
                 "flex items-center gap-2 2xl:gap-3 transition-colors hover:text-primary",
                 "text-[12px] 2xl:text-[16px] font-inter font-semibold",
-                "tracking-[1.2px] 2xl:tracking-[1.6px] text-[#EAE1D7]",
+                "tracking-[1.2px] 2xl:tracking-[1.6px] text-foreground",
               )}
             >
               <Image
@@ -182,7 +182,7 @@ export function GalleryTab({
           ) : (
             <span
               className={cn(
-                "flex items-center gap-2 2xl:gap-3 font-inter font-semibold text-[#D1C5B299]",
+                "flex items-center gap-2 2xl:gap-3 font-inter font-semibold text-foreground-muted/60",
                 "text-[12px] 2xl:text-[16px] tracking-[1.2px] 2xl:tracking-[1.6px]",
               )}
             >
@@ -202,7 +202,7 @@ export function GalleryTab({
               href={`/nominees/${nextId}`}
               className={cn(
                 "flex items-center gap-2 2xl:gap-3 text-[12px] 2xl:text-[16px] font-inter",
-                "font-semibold tracking-[1.2px] 2xl:tracking-[1.6px] text-[#EAE1D7]",
+                "font-semibold tracking-[1.2px] 2xl:tracking-[1.6px] text-foreground",
                 "transition-colors hover:text-primary",
               )}
             >
@@ -218,7 +218,7 @@ export function GalleryTab({
           ) : (
             <span
               className={cn(
-                "flex items-center gap-2 2xl:gap-3 font-inter font-semibold text-[#D1C5B299]",
+                "flex items-center gap-2 2xl:gap-3 font-inter font-semibold text-foreground-muted/60",
                 "text-[12px] 2xl:text-[16px] tracking-[1.2px] 2xl:tracking-[1.6px] ",
               )}
             >

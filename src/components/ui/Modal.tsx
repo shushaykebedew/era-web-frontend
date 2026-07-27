@@ -156,7 +156,7 @@ export function Modal({ isOpen, onClose, children, className, ariaLabel }: Modal
               }
               className={cn(
                 "relative w-[calc(100vw-2rem)] sm:w-full max-w-110 2xl:max-w-150",
-                "bg-[#16130D] border border-primary/30",
+                "bg-background border border-primary/30",
                 "p-6 sm:p-12 text-left",
                 "flex flex-col items-center",
                 "overflow-hidden wrap-break-word",
