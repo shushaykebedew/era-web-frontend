@@ -11,7 +11,7 @@ const nextConfig: NextConfig = {
     ];
   },
   async rewrites() {
-    const apiUrl = process.env.NEXT_PUBLIC_API_URL ?? "https://era-backend-wrn6.onrender.com/api";
+    const apiUrl = process.env.NEXT_PUBLIC_API_URL ?? "https://era-backend-5001.onrender.com/api";
     return [
       {
         source: "/api/:path*",

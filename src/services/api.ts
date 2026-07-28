@@ -4,7 +4,7 @@ import axios from "axios";
 // On the server, use the backend URL directly (relative URLs have no host in Node).
 const baseURL =
   typeof window === "undefined"
-    ? (process.env.NEXT_PUBLIC_API_URL ?? "https://era-backend-wrn6.onrender.com/api")
+    ? (process.env.NEXT_PUBLIC_API_URL ?? "https://era-backend-5001.onrender.com/api")
     : "/api";
 
 export const api = axios.create({
