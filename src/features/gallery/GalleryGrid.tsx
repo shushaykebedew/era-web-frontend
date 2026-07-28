@@ -106,11 +106,13 @@ function PhotoCard({
 
 // ── PhotoGrid ─────────────────────────────────────────────────────────────────
 
-function PhotoGrid({ photos }: { photos: GalleryPhoto[] }) {
+function PhotoGrid({ photos, edition }: { photos: GalleryPhoto[]; edition: Edition }) {
   if (photos.length === 0) {
     return (
-      <p className="py-20 2xl:py-32 text-center text-foreground-muted 2xl:text-xl">
-        No photos for this selection yet.
+      <p className="py-20 2xl:py-32 text-center text-foreground-muted 2xl:text-xl font-inter">
+        {edition === 2026
+          ? "No photos for the 2026 edition yet as the event has not taken place."
+          : "No photos for this selection yet."}
       </p>
     );
   }
@@ -140,7 +142,7 @@ function PhotoGrid({ photos }: { photos: GalleryPhoto[] }) {
 
 // ── GalleryGrid (main export) ─────────────────────────────────────────────────
 export function GalleryGrid() {
-  const [edition, setEdition] = useState<Edition>(2025);
+  const [edition, setEdition] = useState<Edition>(2026);
   const [filter, setFilter] = useState<GalleryFilter>("All Moments");
 
   const visible = galleryPhotos.filter(
@@ -163,7 +165,7 @@ export function GalleryGrid() {
       {/* Photo grid */}
       <section className="bg-background pt-10 pb-16 sm:pt-12 sm:pb-20 lg:pb-25 2xl:pb-32">
         <Container size="wide">
-          <PhotoGrid photos={visible} />
+          <PhotoGrid photos={visible} edition={edition} />
         </Container>
       </section>
     </>

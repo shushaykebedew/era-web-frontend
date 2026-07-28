@@ -41,10 +41,10 @@ export function MobileNav({
     <AnimatePresence>
       {isMenuOpen && (
         <motion.div
-          initial={{ y: "-100%" }}
-          animate={{ y: 0 }}
-          exit={{ y: "-100%" }}
-          transition={{ duration: 0.8, ease: [0.4, 0, 0.2, 1] }}
+          initial={{ x: "100%" }}
+          animate={{ x: 0 }}
+          exit={{ x: "100%" }}
+          transition={{ duration: 0.4, ease: [0.22, 1, 0.36, 1] }}
           style={{
             position: "fixed",
             top: `var(--header-height, ${headerHeight}px)`,

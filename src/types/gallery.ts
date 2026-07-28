@@ -1,4 +1,4 @@
-export type Edition = 2025 | 2024 | 2023;
+export type Edition = 2026 | 2025 | 2024;
 
 export type GalleryFilter =
   | "All Moments"

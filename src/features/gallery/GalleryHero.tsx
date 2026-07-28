@@ -35,7 +35,7 @@ export function GalleryHero() {
             )}
           >
             A curated narrative of architectural excellence and cinematic
-            moments from the 2024 Ethiopian Real Estate Awards.
+            moments from the Ethiopian Real Estate Awards.
           </p>
         </SlideUp>
       </Container>
