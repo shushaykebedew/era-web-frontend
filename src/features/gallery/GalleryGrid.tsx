@@ -93,17 +93,12 @@ function PhotoCard({
       viewport={{ once: true, margin: "-50px" }}
       transition={{ duration: 0.5, delay: index * 0.08, ease }}
       className="gallery-card relative w-full min-w-0 overflow-hidden border border-[#4E4637]"
-      style={
-        {
-          "--card-h": `clamp(180px, ${photo.height / 10}vw, ${photo.height}px)`,
-        } as React.CSSProperties
-      }
     >
-      <Image
+      <img
         src={photo.src}
         alt={photo.alt}
-        fill
-        className="object-cover grayscale transition-all duration-500 hover:grayscale-0"
+        loading="lazy"
+        className="w-full h-auto object-cover grayscale transition-all duration-500 hover:grayscale-0 block"
       />
     </motion.div>
   );
@@ -120,12 +115,11 @@ function PhotoGrid({ photos }: { photos: GalleryPhoto[] }) {
     );
   }
 
-  // Split into 3 columns in sequential pairs: [0,1] / [2,3] / [4,5]
-  const cols: GalleryPhoto[][] = [
-    photos.slice(0, 2),
-    photos.slice(2, 4),
-    photos.slice(4, 6),
-  ];
+  // Distribute photos into 3 columns dynamically
+  const cols: GalleryPhoto[][] = [[], [], []];
+  photos.forEach((photo, idx) => {
+    cols[idx % 3].push(photo);
+  });
 
   return (
     <div className="grid grid-cols-1 gap-3 2xl:gap-6 md:grid-cols-2 xl:grid-cols-3">
@@ -135,7 +129,7 @@ function PhotoGrid({ photos }: { photos: GalleryPhoto[] }) {
             <PhotoCard
               key={photo.id}
               photo={photo}
-              index={colIdx * 2 + photoIdx}
+              index={photoIdx * 3 + colIdx}
             />
           ))}
         </div>
@@ -146,7 +140,7 @@ function PhotoGrid({ photos }: { photos: GalleryPhoto[] }) {
 
 // ── GalleryGrid (main export) ─────────────────────────────────────────────────
 export function GalleryGrid() {
-  const [edition, setEdition] = useState<Edition>(2024);
+  const [edition, setEdition] = useState<Edition>(2025);
   const [filter, setFilter] = useState<GalleryFilter>("All Moments");
 
   const visible = galleryPhotos.filter(

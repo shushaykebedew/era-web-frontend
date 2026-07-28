@@ -98,17 +98,6 @@ canvas {
   color: var(--primary-foreground);
 }
 
-/* Gallery photo cards — portrait on mobile, variable height on md+ */
-.gallery-card {
-  aspect-ratio: 3 / 4;
-}
-
-@media (min-width: 768px) {
-  .gallery-card {
-    aspect-ratio: auto;
-    height: var(--card-h);
-  }
-}
 
 /* Thin primary scrollbar */
 /* "[&::-webkit-scrollbar]:h-0.5",

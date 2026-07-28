@@ -1,4 +1,4 @@
-export type Edition = 2024 | 2023 | 2022;
+export type Edition = 2025 | 2024 | 2023;
 
 export type GalleryFilter =
   | "All Moments"
@@ -12,5 +12,4 @@ export type GalleryPhoto = {
   alt: string;
   edition: Edition;
   tag: Exclude<GalleryFilter, "All Moments">;
-  height: number;
 };

@@ -60,24 +60,40 @@ export async function fetchNominees(): Promise<Nominee[]> {
   if (nomineesCache) return nomineesCache;
 
   try {
-    let page = 1;
-    const limit = 50;
+    const limit = 100;
     const all: ApiNomineeResponse[] = [];
 
-    while (true) {
-      const res = await api.get("/nominees", { params: { page, limit } });
-      if (!res.data?.success) break;
+    // Fetch first page to get total count
+    const firstRes = await api.get("/nominees", { params: { page: 1, limit } });
+    if (!firstRes.data?.success) return staticNominees; // Return fallback if API fails early
 
-      const data = res.data.data;
-      const items: ApiNomineeResponse[] = Array.isArray(data)
-        ? data
-        : (data.items ?? data.nominees ?? []);
-      all.push(...items);
+    const firstData = firstRes.data.data;
+    const firstItems: ApiNomineeResponse[] = Array.isArray(firstData)
+      ? firstData
+      : (firstData.items ?? firstData.nominees ?? []);
+    all.push(...firstItems);
 
-      const pagination = res.data.pagination ?? res.data.meta;
-      const total = pagination?.total ?? res.data.total ?? items.length;
-      if (all.length >= total || items.length < limit) break;
-      page++;
+    const pagination = firstRes.data.pagination ?? firstRes.data.meta;
+    const total = pagination?.total ?? firstRes.data.total ?? firstItems.length;
+
+    // If there are more items, fetch them in parallel
+    if (all.length < total && firstItems.length > 0) {
+      const totalPages = Math.ceil(total / limit);
+      const promises = [];
+      for (let p = 2; p <= totalPages; p++) {
+        promises.push(api.get("/nominees", { params: { page: p, limit } }));
+      }
+      
+      const results = await Promise.all(promises);
+      for (const res of results) {
+        if (res.data?.success) {
+          const data = res.data.data;
+          const items = Array.isArray(data)
+            ? data
+            : (data.items ?? data.nominees ?? []);
+          all.push(...items);
+        }
+      }
     }
 
     if (all.length > 0) {
