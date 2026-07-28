@@ -2,6 +2,7 @@
 
 import { useState, useEffect } from "react";
 import { createPortal } from "react-dom";
+import { motion, AnimatePresence } from "framer-motion";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { siteConfig } from "@/data/site";
@@ -36,99 +37,108 @@ export function MobileNav({
     setIsMenuOpen(false);
   }, [pathname, setIsMenuOpen]);
 
-  const drawer = isMenuOpen ? (
-    <div
-      style={{
-        position: "fixed",
-        top: `var(--header-height, ${headerHeight}px)`,
-        left: 0,
-        right: 0,
-        bottom: 0,
-        backgroundColor: "#16130d",
-        zIndex: 9999,
-      }}
-    >
-      <nav
-        style={{ height: "100%", overflowY: "auto" }}
-        className="flex flex-col p-6"
-      >
-        <div className="flex flex-col items-center justify-center space-y-6 flex-1">
-          {siteConfig.nav.map((link) => {
-            const isActive =
-              link.href === "/"
-                ? pathname === "/"
-                : pathname === link.href ||
-                  pathname.startsWith(`${link.href}/`);
-
-            return (
-              <Link
-                key={link.href}
-                href={link.href}
-                aria-current={isActive ? "page" : undefined}
-                className={cn(
-                  "text-xl font-bold font-display tracking-wider text-center",
-                  isActive ? "text-primary" : "text-foreground-muted",
-                )}
-              >
-                {link.label}
-              </Link>
-            );
-          })}
-        </div>
-
-        <div className="pt-8 pb-8 flex flex-col gap-4 w-full">
-          {isAuthenticated && user ? (
-            <div className="bg-[#231F19] border border-primary/20 p-4 rounded flex items-center justify-between">
-              <div className="flex items-center gap-3">
-                <div className="w-8 h-8 rounded-full bg-primary text-[#402D00] flex items-center justify-center font-bold text-sm">
-                  {getUserInitials(user.fullName)}
-                </div>
-                <div className="text-left">
-                  <p className="text-sm font-bold text-foreground leading-tight">
-                    {user.fullName}
-                  </p>
-                  <p className="text-xs text-foreground-muted font-inter">
-                    @{user.username}
-                  </p>
-                </div>
-              </div>
-              <button
-                onClick={() => {
-                  logout();
-                  setIsMenuOpen(false);
-                }}
-                className="text-xs font-bold text-red-400 hover:text-red-300 font-inter uppercase tracking-wider cursor-pointer"
-              >
-                Logout
-              </button>
-            </div>
-          ) : (
-            <Button
-              variant="outline"
-              className="w-full justify-center text-primary border-primary/30"
-              size="lg"
-              onClick={() => {
-                setIsMenuOpen(false);
-                onOpenAuthModal();
-              }}
-            >
-              Sign In
-            </Button>
-          )}
-
-          <Button
-            as={Link}
-            href={siteConfig.voteCta.href}
-            className="w-full justify-center bg-primary text-[#402D00] font-semibold"
-            size="lg"
-            onClick={() => setIsMenuOpen(false)}
+  const drawer = (
+    <AnimatePresence>
+      {isMenuOpen && (
+        <motion.div
+          initial={{ y: "-100%" }}
+          animate={{ y: 0 }}
+          exit={{ y: "-100%" }}
+          transition={{ duration: 0.8, ease: [0.4, 0, 0.2, 1] }}
+          style={{
+            position: "fixed",
+            top: `var(--header-height, ${headerHeight}px)`,
+            left: 0,
+            right: 0,
+            bottom: 0,
+            backgroundColor: "#16130d",
+            zIndex: 40,
+            willChange: "transform",
+          }}
+        >
+          <nav
+            style={{ height: "100%", overflowY: "auto" }}
+            className="flex flex-col p-6"
           >
-            {siteConfig.voteCta.label}
-          </Button>
-        </div>
-      </nav>
-    </div>
-  ) : null;
+            <div className="flex flex-col items-center justify-center space-y-6 flex-1">
+              {siteConfig.nav.map((link) => {
+                const isActive =
+                  link.href === "/"
+                    ? pathname === "/"
+                    : pathname === link.href ||
+                      pathname.startsWith(`${link.href}/`);
+
+                return (
+                  <Link
+                    key={link.href}
+                    href={link.href}
+                    aria-current={isActive ? "page" : undefined}
+                    className={cn(
+                      "text-xl font-bold font-display tracking-wider text-center",
+                      isActive ? "text-primary" : "text-foreground-muted",
+                    )}
+                  >
+                    {link.label}
+                  </Link>
+                );
+              })}
+            </div>
+
+            <div className="pt-8 pb-8 flex flex-col gap-4 w-full">
+              {isAuthenticated && user ? (
+                <div className="bg-[#231F19] border border-primary/20 p-4 rounded flex items-center justify-between">
+                  <div className="flex items-center gap-3">
+                    <div className="w-8 h-8 rounded-full bg-primary text-[#402D00] flex items-center justify-center font-bold text-sm">
+                      {getUserInitials(user.fullName)}
+                    </div>
+                    <div className="text-left">
+                      <p className="text-sm font-bold text-foreground leading-tight">
+                        {user.fullName}
+                      </p>
+                      <p className="text-xs text-foreground-muted font-inter">
+                        @{user.username}
+                      </p>
+                    </div>
+                  </div>
+                  <button
+                    onClick={() => {
+                      logout();
+                      setIsMenuOpen(false);
+                    }}
+                    className="text-xs font-bold text-red-400 hover:text-red-300 font-inter uppercase tracking-wider cursor-pointer"
+                  >
+                    Logout
+                  </button>
+                </div>
+              ) : (
+                <Button
+                  variant="outline"
+                  className="w-full justify-center text-primary border-primary/30"
+                  size="lg"
+                  onClick={() => {
+                    setIsMenuOpen(false);
+                    onOpenAuthModal();
+                  }}
+                >
+                  Sign In
+                </Button>
+              )}
+
+              <Button
+                as={Link}
+                href={siteConfig.voteCta.href}
+                className="w-full justify-center bg-primary text-[#402D00] font-semibold"
+                size="lg"
+                onClick={() => setIsMenuOpen(false)}
+              >
+                {siteConfig.voteCta.label}
+              </Button>
+            </div>
+          </nav>
+        </motion.div>
+      )}
+    </AnimatePresence>
+  );
 
   return (
     <>
