@@ -1,6 +1,7 @@
 "use client";
 
 import { useState, useEffect } from "react";
+import Image from "next/image";
 import { Container } from "@/components/ui/Container";
 import { cn } from "@/utils/cn";
 import { EDITIONS, FILTERS, galleryPhotos } from "@/data/gallery";
@@ -89,15 +90,18 @@ function PhotoCard({
     <motion.div
       initial={{ opacity: 0, y: 20 }}
       whileInView={{ opacity: 1, y: 0 }}
-      viewport={{ once: true, margin: "-50px" }}
-      transition={{ duration: 0.5, delay: index * 0.08, ease }}
+      viewport={{ once: true, margin: "-100px" }}
+      transition={{ duration: 0.4, delay: Math.min(index * 0.05, 0.5), ease }}
       className="gallery-card relative w-full min-w-0 overflow-hidden border border-[#4E4637]"
+      style={{ aspectRatio: '4/3' }}
     >
-      <img
+      <Image
         src={photo.src}
         alt={photo.alt}
-        loading="lazy"
-        className="w-full h-auto object-cover grayscale transition-all duration-500 hover:grayscale-0 block"
+        fill
+        sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+        className="object-cover grayscale transition-all duration-500 hover:grayscale-0"
+        quality={75}
       />
     </motion.div>
   );
@@ -115,9 +119,25 @@ function PhotoGrid({
   isLoading?: boolean;
 }) {
   if (isLoading) {
+    // Show skeleton loaders
+    const skeletonCols = [[], [], []] as any[][];
+    for (let i = 0; i < 3; i++) {
+      skeletonCols[i % 3].push(i);
+    }
+
     return (
-      <div className="py-20 text-center text-foreground-muted font-inter">
-        Loading gallery moments…
+      <div className="grid grid-cols-1 gap-3 2xl:gap-6 md:grid-cols-2 xl:grid-cols-3">
+        {skeletonCols.map((col, colIdx) => (
+          <div key={colIdx} className="flex min-w-0 flex-col gap-3 2xl:gap-6">
+            {col.map((_, photoIdx) => (
+              <div
+                key={photoIdx}
+                className="relative w-full min-w-0 overflow-hidden border border-[#4E4637] bg-background-muted/30 animate-pulse"
+                style={{ aspectRatio: '4/3' }}
+              />
+            ))}
+          </div>
+        ))}
       </div>
     );
   }
@@ -161,10 +181,12 @@ export function GalleryGrid() {
   const [filter, setFilter] = useState<GalleryFilter>("All Moments");
   const [photos, setPhotos] = useState<GalleryPhoto[]>([]);
   const [isLoading, setIsLoading] = useState<boolean>(true);
+  const [visibleCount, setVisibleCount] = useState<number>(30); // Load images in batches
 
   useEffect(() => {
     let isMounted = true;
     setIsLoading(true);
+    setVisibleCount(30); // Reset visible count on filter/edition change
 
     fetchGalleryPhotos({
       edition: Number(edition),
@@ -194,6 +216,20 @@ export function GalleryGrid() {
     };
   }, [edition, filter]);
 
+  // Load more images when scrolling near bottom
+  useEffect(() => {
+    const handleScroll = () => {
+      if (window.innerHeight + document.documentElement.scrollTop >= document.documentElement.offsetHeight - 500) {
+        setVisibleCount((prev) => Math.min(prev + 15, photos.length));
+      }
+    };
+
+    window.addEventListener('scroll', handleScroll, { passive: true });
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, [photos.length]);
+
+  const visiblePhotos = photos.slice(0, visibleCount);
+
   return (
     <>
       {/* Filters row */}
@@ -209,7 +245,14 @@ export function GalleryGrid() {
       {/* Photo grid */}
       <section className="bg-background pt-10 pb-16 sm:pt-12 sm:pb-20 lg:pb-25 2xl:pb-32">
         <Container size="wide">
-          <PhotoGrid photos={photos} edition={edition} isLoading={isLoading} />
+          <PhotoGrid photos={visiblePhotos} edition={edition} isLoading={isLoading} />
+          {visibleCount < photos.length && (
+            <div className="text-center py-8">
+              <span className="text-sm text-foreground-muted font-inter">
+                Loading more images...
+              </span>
+            </div>
+          )}
         </Container>
       </section>
     </>

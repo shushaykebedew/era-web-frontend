@@ -2,6 +2,14 @@ import { api } from "./api";
 import { galleryPhotos as staticPhotos } from "@/data/gallery";
 import type { GalleryPhoto } from "@/types/gallery";
 
+// Helper to generate optimized Cloudinary URL
+function getOptimizedImageUrl(url: string): string {
+  if (!url) return url;
+  // For now, return the original URL to ensure images display correctly
+  // We can add optimizations later once the basic display is working
+  return url;
+}
+
 export async function fetchGalleryPhotos(params?: {
   edition?: number;
   tag?: string;
@@ -12,7 +20,7 @@ export async function fetchGalleryPhotos(params?: {
     if (res.data?.success && Array.isArray(res.data.data) && res.data.data.length > 0) {
       return res.data.data.map((item: any) => ({
         id: item.id,
-        src: item.secureUrl,
+        src: getOptimizedImageUrl(item.secureUrl),
         alt: item.alt || item.filename || "ERA Gallery Photo",
         edition: item.edition,
         tag: item.tag || "Winners",
