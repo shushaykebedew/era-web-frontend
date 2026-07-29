@@ -62,7 +62,7 @@ export function NomineeSidebar({
       <div>
         <h1
           className={cn(
-            "font-display text-[32px] sm:text-[40px] lg:text-[48px] 2xl:text-[64px]",
+            "font-display text-[28px] sm:text-[36px] lg:text-[44px] 2xl:text-[50px]",
             "font-semibold leading-tight lg:leading-15 2xl:leading-20 text-foreground",
           )}
         >

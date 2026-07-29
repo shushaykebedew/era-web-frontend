@@ -6,14 +6,14 @@ const NOMINATION_STEPS = [
   {
     id: "shortlisted",
     label: "Shortlisted",
-    date: "March 12, 2024",
+    date: "March 12, 2025",
     body: "Selected from over 400 entries across East Africa for its innovative use of local materials and communal living spaces.",
     active: false,
   },
   {
     id: "jury",
     label: "Jury Reviewed",
-    date: "May 05, 2024",
+    date: "May 05, 2025",
     body: 'Technical site visit and presentation to the Grand Jury. Commended for thermal efficiency and "cultural resonance."',
     active: false,
   },
@@ -21,7 +21,7 @@ const NOMINATION_STEPS = [
     id: "finalist",
     label: "Finalist",
     date: "Active Award",
-    body: "Elevated to the final round of the 2024 Ethiopia Real Estate Awards. Now entering public voting and final deliberation.",
+    body: "Elevated to the final round of the 2025 Ethiopia Real Estate Awards. Now entering public voting and final deliberation.",
     active: true,
   },
 ] as const;
@@ -62,7 +62,7 @@ export function AwardsTab({ nominee }: { nominee: Nominee }) {
               "tracking-tight lg:tracking-[-2.4px] uppercase font-semibold text-primary",
             )}
           >
-            Finalist 2024
+            Finalist 2025
           </p>
           <p
             className={cn(
@@ -118,7 +118,9 @@ export function AwardsTab({ nominee }: { nominee: Nominee }) {
                 className={cn(
                   "mt-0.5 2xl:mt-1 text-[12px] 2xl:text-[16px] font-inter font-semibold",
                   "leading-4 2xl:leading-6 tracking-[1.2px] 2xl:tracking-[1.6px]",
-                  step.active ? "text-primary/80 uppercase" : "text-foreground-muted",
+                  step.active
+                    ? "text-primary/80 uppercase"
+                    : "text-foreground-muted",
                 )}
               >
                 {step.date}

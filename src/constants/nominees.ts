@@ -17,13 +17,13 @@ export function getStatusRows(
       ? "Past Winner"
       : nominee.status === "shortlisted"
         ? "Shortlisted"
-        : "Finalist 2026";
+        : "Finalist 2025";
 
   const categoryLabel = category?.name ?? "Residential Excellence";
 
   return [
-    { label: "Recognition",  value: recognition,   variant: "gold" },
-    { label: "Category",     value: categoryLabel, variant: "solid" },
-    { label: "Jury status",  value: "Verified",    variant: "badge" },
+    { label: "Recognition", value: recognition, variant: "gold" },
+    { label: "Category", value: categoryLabel, variant: "solid" },
+    { label: "Status", value: "Verified", variant: "badge" },
   ];
 }

@@ -13,7 +13,7 @@ export const nominees: Nominee[] = [
     description:
       "A synthesis of traditional Ethiopian spatial hierarchies and ultra-modernist sustainability. The Lideta Residency stands as a testament to the future of vertical living in East Africa.",
     scaleSqm: 4500,
-    completionDate: "2024-03-01",
+    completionDate: "2026-03-01",
     quote:
       "An architecture that listens to the wind of the highlands while speaking the language of tomorrow.",
     achievements: [

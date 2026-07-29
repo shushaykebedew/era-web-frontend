@@ -1,14 +1,13 @@
 "use client";
 
-import { useState } from "react";
-import React from "react";
-import Image from "next/image";
+import { useState, useEffect } from "react";
 import { Container } from "@/components/ui/Container";
 import { cn } from "@/utils/cn";
 import { EDITIONS, FILTERS, galleryPhotos } from "@/data/gallery";
 import type { Edition, GalleryFilter, GalleryPhoto } from "@/types/gallery";
 import { motion } from "framer-motion";
 import { ease } from "@/components/ui/animations";
+import { fetchGalleryPhotos } from "@/services/gallery";
 
 // ── EditionSwitcher ───────────────────────────────────────────────────────────
 function EditionSwitcher({
@@ -106,7 +105,23 @@ function PhotoCard({
 
 // ── PhotoGrid ─────────────────────────────────────────────────────────────────
 
-function PhotoGrid({ photos, edition }: { photos: GalleryPhoto[]; edition: Edition }) {
+function PhotoGrid({
+  photos,
+  edition,
+  isLoading,
+}: {
+  photos: GalleryPhoto[];
+  edition: Edition;
+  isLoading?: boolean;
+}) {
+  if (isLoading) {
+    return (
+      <div className="py-20 text-center text-foreground-muted font-inter">
+        Loading gallery moments…
+      </div>
+    );
+  }
+
   if (photos.length === 0) {
     return (
       <p className="py-20 2xl:py-32 text-center text-foreground-muted 2xl:text-xl font-inter">
@@ -142,13 +157,42 @@ function PhotoGrid({ photos, edition }: { photos: GalleryPhoto[]; edition: Editi
 
 // ── GalleryGrid (main export) ─────────────────────────────────────────────────
 export function GalleryGrid() {
-  const [edition, setEdition] = useState<Edition>(2026);
+  const [edition, setEdition] = useState<Edition>(2025);
   const [filter, setFilter] = useState<GalleryFilter>("All Moments");
+  const [photos, setPhotos] = useState<GalleryPhoto[]>([]);
+  const [isLoading, setIsLoading] = useState<boolean>(true);
 
-  const visible = galleryPhotos.filter(
-    (p) =>
-      p.edition === edition && (filter === "All Moments" || p.tag === filter),
-  );
+  useEffect(() => {
+    let isMounted = true;
+    setIsLoading(true);
+
+    fetchGalleryPhotos({
+      edition: Number(edition),
+      tag: filter !== "All Moments" ? filter : undefined,
+    })
+      .then((data) => {
+        if (isMounted) {
+          setPhotos(data);
+          setIsLoading(false);
+        }
+      })
+      .catch(() => {
+        if (isMounted) {
+          setPhotos(
+            galleryPhotos.filter(
+              (p) =>
+                p.edition === edition &&
+                (filter === "All Moments" || p.tag === filter)
+            )
+          );
+          setIsLoading(false);
+        }
+      });
+
+    return () => {
+      isMounted = false;
+    };
+  }, [edition, filter]);
 
   return (
     <>
@@ -165,9 +209,10 @@ export function GalleryGrid() {
       {/* Photo grid */}
       <section className="bg-background pt-10 pb-16 sm:pt-12 sm:pb-20 lg:pb-25 2xl:pb-32">
         <Container size="wide">
-          <PhotoGrid photos={visible} edition={edition} />
+          <PhotoGrid photos={photos} edition={edition} isLoading={isLoading} />
         </Container>
       </section>
     </>
   );
 }
+

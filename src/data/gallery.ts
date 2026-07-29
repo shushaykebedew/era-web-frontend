@@ -1,6 +1,6 @@
 import type { GalleryPhoto } from "@/types/gallery";
 
-export const EDITIONS = [2026, 2025, 2024] as const;
+export const EDITIONS = [2026, 2025] as const;
 export const FILTERS = [
   "All Moments",
   "Winners",
@@ -60,47 +60,33 @@ export const galleryPhotos: GalleryPhoto[] = [
     tag: "Ceremony",
   },
 
-  // ── 2024 ──────────────────────────────────────────────────────────────────
+  // ── 2025 ──────────────────────────────────────────────────────────────────
   {
     id: 7,
     src: "/imgs/gallery/image 7.jpg",
-    alt: "2024 ceremony stage",
-    edition: 2024,
+    alt: "2025 ceremony stage",
+    edition: 2025,
     tag: "Ceremony",
   },
   {
     id: 8,
     src: "/imgs/gallery/image 8.jpg",
-    alt: "2024 winner announcement",
-    edition: 2024,
-    tag: "Winners",
+    alt: "2025 ceremony stage",
+    edition: 2025,
+    tag: "Ceremony",
   },
   {
     id: 9,
     src: "/imgs/gallery/image 9.jpg",
-    alt: "2024 networking evening",
-    edition: 2024,
+    alt: "2025 networking evening",
+    edition: 2025,
     tag: "Networking",
   },
   {
     id: 10,
     src: "/imgs/gallery/image 10.jpg",
-    alt: "2024 award ceremony highlights",
-    edition: 2024,
-    tag: "Ceremony",
-  },
-  {
-    id: 11,
-    src: "/imgs/gallery/image 1.jpg",
-    alt: "2024 winners circle",
-    edition: 2024,
-    tag: "Ceremony",
-  },
-  {
-    id: 12,
-    src: "/imgs/gallery/image 2.jpg",
-    alt: "2024 ERA dinner",
-    edition: 2024,
+    alt: "2025 award ceremony highlights",
+    edition: 2025,
     tag: "Ceremony",
   },
 ];
