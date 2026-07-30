@@ -15,7 +15,7 @@ export function PartnersTierCards({ onSelectTier }: PartnersTierCardsProps) {
   return (
     <section className="bg-background pt-8 sm:pt-12 pb-16 sm:pb-20">
       <Container size="wide">
-        <StaggerContainer className="grid grid-cols-1 gap-8 sm:gap-12 md:grid-cols-2 lg:gap-6 xl:grid-cols-3">
+        <StaggerContainer className="grid grid-cols-1 gap-8 sm:gap-12 md:grid-cols-2 xl:grid-cols-3">
           {TIERS.map((tier, index) => (
             <StaggerItem
               key={tier.id}
@@ -36,7 +36,11 @@ export function PartnersTierCards({ onSelectTier }: PartnersTierCardsProps) {
                 {tier.featured && (
                   <div className="absolute -top-5 left-1/2 z-20 -translate-x-1/2">
                     <div className="flex h-11 w-11 items-center justify-center rounded-full bg-primary shadow-[0px_8px_20px_-6px_rgba(230,197,106,0.6)] ring-4 ring-[#16130D]">
-                      <Star className="h-4.5 w-4.5 text-[#16130D]" fill="#16130D" strokeWidth={1.5} />
+                      <Star
+                        className="h-4.5 w-4.5 text-[#16130D]"
+                        fill="#16130D"
+                        strokeWidth={1.5}
+                      />
                     </div>
                   </div>
                 )}
@@ -132,7 +136,9 @@ export function PartnersTierCards({ onSelectTier }: PartnersTierCardsProps) {
                       )}
                       onClick={() => onSelectTier(tier.id)}
                     >
-                      {tier.featured ? `Select ${tier.label} Tier` : "Enquire Now"}
+                      {tier.featured
+                        ? `Select ${tier.label} Tier`
+                        : "Enquire Now"}
                     </Button>
                   </div>
                 </div>

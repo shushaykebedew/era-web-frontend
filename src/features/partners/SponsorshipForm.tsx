@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useRef, useState } from "react";
 import { Container } from "@/components/ui/Container";
 import { Button } from "@/components/ui/Button";
 import { type TierId } from "@/types/partners";
@@ -11,6 +11,8 @@ import { SlideUp } from "@/components/ui/animations";
 import { Input } from "@/components/ui/Input";
 import { Textarea } from "@/components/ui/Textarea";
 import { Label } from "@/components/ui/Label";
+import { Upload, X, Image as ImageIcon } from "lucide-react";
+import { partnersService } from "@/services/partners";
 
 // ── Reusable field components ─────────────────────────────────────────────────
 function FieldLabel({
@@ -34,16 +36,109 @@ function FieldLabel({
 }
 
 const fieldBase =
-  "border-b border-[#4E4637] bg-transparent py-3 2xl:py-5 text-base 2xl:text-[20px] text-foreground outline-none placeholder:text-[#9A8F7E] focus:border-primary placeholder:uppercase";
+  "border-b border-[#4E4637] bg-transparent py-3 2xl:py-5 text-base 2xl:text-[20px] text-foreground outline-none placeholder:text-[#9A8F7E] focus:border-primary";
 
 // ── Main export ──────────────────────────────────────────────────────────────
 export function SponsorshipForm({ selectedTier = "" }: SponsorshipFormProps) {
   const [tier, setTier] = useState<TierId | "">(selectedTier);
-  const [submitted, setSubmitted] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
+  const [error, setError] = useState<string | null>(null);
+  const [success, setSuccess] = useState(false);
+  const [fieldErrors, setFieldErrors] = useState<Record<string, string>>({});
 
-  function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
+  // Logo upload state
+  const fileInputRef = useRef<HTMLInputElement>(null);
+  const [logoFile, setLogoFile] = useState<File | null>(null);
+  const [logoPreview, setLogoPreview] = useState<string | null>(null);
+
+  function handleLogoChange(e: React.ChangeEvent<HTMLInputElement>) {
+    const file = e.target.files?.[0] ?? null;
+    if (!file) return;
+    setLogoFile(file);
+    const reader = new FileReader();
+    reader.onload = (ev) => setLogoPreview(ev.target?.result as string);
+    reader.readAsDataURL(file);
+  }
+
+  function clearLogo() {
+    setLogoFile(null);
+    setLogoPreview(null);
+    if (fileInputRef.current) fileInputRef.current.value = "";
+  }
+
+  async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
-    setSubmitted(true);
+    setIsLoading(true);
+    setError(null);
+    setFieldErrors({});
+
+    const form = e.currentTarget;
+    const data = new FormData(form);
+
+    // Client-side validation
+    const errors: Record<string, string> = {};
+    const company = data.get("company") as string;
+    const email = data.get("email") as string;
+    const phone = data.get("phone") as string;
+
+    if (!company || !company.trim()) {
+      errors.company = "Company name is required";
+    }
+    if (!email || !email.trim()) {
+      errors.email = "Email is required";
+    } else if (!/^[^\s@]+@[^\s@]+\.[a-zA-Z]{2,}$/.test(email)) {
+      errors.email = "Invalid email format";
+    } else if (email.includes('.demo')) {
+      errors.email = "Invalid email format";
+    }
+    if (!tier) {
+      errors.tier = "Partnership tier is required";
+    }
+
+    if (Object.keys(errors).length > 0) {
+      setFieldErrors(errors);
+      setIsLoading(false);
+      return;
+    }
+
+    try {
+      await partnersService.submit({
+        name: company,
+        contactEmail: email,
+        contactPhone: phone,
+        contactName: data.get("contactName") as string,
+        website: data.get("website") as string,
+        description: data.get("vision") as string,
+        tier: tier ? tier.toUpperCase() : undefined,
+        logo: logoFile,
+      });
+      // Clear form on success instead of showing success message
+      form.reset();
+      setTier("");
+      setLogoFile(null);
+      setLogoPreview(null);
+      if (fileInputRef.current) fileInputRef.current.value = "";
+      setSuccess(true);
+      setTimeout(() => setSuccess(false), 3000);
+    } catch (err: any) {
+      const validationErrors = err?.response?.data?.errors;
+      if (validationErrors && validationErrors.length > 0) {
+        // Extract the first validation error message
+        const emailError = validationErrors.find((e: any) => e.field === 'contactEmail');
+        if (emailError) {
+          setError(emailError.message);
+        } else {
+          setError(validationErrors[0].message);
+        }
+      } else {
+        setError(
+          err?.response?.data?.message ||
+            "Failed to submit request. Please try again.",
+        );
+      }
+    } finally {
+      setIsLoading(false);
+    }
   }
 
   return (
@@ -63,7 +158,7 @@ export function SponsorshipForm({ selectedTier = "" }: SponsorshipFormProps) {
                 "2xl:text-[64px] font-semibold leading-tight xl:leading-14 2xl:leading-20",
               )}
             >
-              Request Sponsorship Package
+              Request Partnership Package
             </h2>
             <p
               className={cn(
@@ -77,21 +172,10 @@ export function SponsorshipForm({ selectedTier = "" }: SponsorshipFormProps) {
           </div>
         </SlideUp>
 
-        {submitted ? (
-          <SlideUp delay={0.2}>
-            <div className="mt-12 border border-primary bg-background-elevated p-10 text-center">
-              <p className="font-display text-2xl font-bold text-primary">
-                Request Received
-              </p>
-              <p className="mt-3 text-sm text-foreground-muted">
-                Our team will be in touch within 48 hours.
-              </p>
-            </div>
-          </SlideUp>
-        ) : (
-          <SlideUp delay={0.2}>
-            <form onSubmit={handleSubmit} className="mt-12 flex flex-col gap-6">
-              {/* Row 1 — Company + Email */}
+        <SlideUp delay={0.2}>
+          <form onSubmit={handleSubmit} className="mt-12 flex flex-col gap-6">
+
+              {/* Row 1 — Company Name + Website */}
               <div className="grid grid-cols-1 gap-6 sm:grid-cols-2">
                 <div className="flex flex-col gap-2">
                   <Input
@@ -99,6 +183,29 @@ export function SponsorshipForm({ selectedTier = "" }: SponsorshipFormProps) {
                     type="text"
                     placeholder="Company Name"
                     required
+                    className={fieldBase}
+                  />
+                  {fieldErrors.company && (
+                    <span className="text-xs text-danger">{fieldErrors.company}</span>
+                  )}
+                </div>
+                <div className="flex flex-col gap-2">
+                  <Input
+                    name="website"
+                    type="url"
+                    placeholder="Website URL"
+                    className={fieldBase}
+                  />
+                </div>
+              </div>
+
+              {/* Row 2 — Contact Name + Email */}
+              <div className="grid grid-cols-1 gap-6 sm:grid-cols-2">
+                <div className="flex flex-col gap-2">
+                  <Input
+                    name="contactName"
+                    type="text"
+                    placeholder="Contact Name"
                     className={fieldBase}
                   />
                 </div>
@@ -110,24 +217,99 @@ export function SponsorshipForm({ selectedTier = "" }: SponsorshipFormProps) {
                     required
                     className={fieldBase}
                   />
+                  {fieldErrors.email && (
+                    <span className="text-xs text-danger">{fieldErrors.email}</span>
+                  )}
                 </div>
               </div>
 
-              {/* Row 2 — Tier select */}
+              {/* Row 3 — Phone */}
               <div className="flex flex-col gap-2">
-                <FieldLabel htmlFor="tier">Interest Level</FieldLabel>
-                <TierSelect value={tier} onChange={setTier} required />
+                <Input
+                  name="phone"
+                  type="tel"
+                  placeholder="Phone Number"
+                  className={fieldBase}
+                  maxLength={13}
+                />
               </div>
 
-              {/* Row 3 — Strategic vision */}
+              {/* Row 4 — Tier select */}
+              <div className="flex flex-col gap-2">
+                <FieldLabel htmlFor="tier">Partnership Tier</FieldLabel>
+                <TierSelect value={tier} onChange={setTier} required />
+                {fieldErrors.tier && (
+                  <span className="text-xs text-danger">{fieldErrors.tier}</span>
+                )}
+              </div>
+
+              {/* Row 5 — Strategic vision */}
               <div className="flex flex-col gap-2 mt-4">
                 <Textarea
                   id="vision"
                   name="vision"
-                  placeholder="Strategic Vision"
+                  placeholder="Strategic Vision — Tell us about your partnership goals"
                   rows={3}
                   className={`resize-none ${fieldBase}`}
                 />
+              </div>
+
+              {/* Row 6 — Logo upload */}
+              <div className="flex flex-col gap-2">
+                <FieldLabel htmlFor="partner-logo-upload-web">
+                  Company Logo (Optional)
+                </FieldLabel>
+                <div className="flex items-start gap-4">
+                  {/* Preview box */}
+                  <div className="w-20 h-20 border border-[#4E4637] bg-[#131313] flex items-center justify-center shrink-0 overflow-hidden relative">
+                    {logoPreview ? (
+                      <>
+                        {/* eslint-disable-next-line @next/next/no-img-element */}
+                        <img
+                          src={logoPreview}
+                          alt="Logo preview"
+                          className="object-contain w-full h-full p-1"
+                        />
+                        <button
+                          type="button"
+                          onClick={clearLogo}
+                          className="absolute top-1 right-1 bg-background rounded-full p-0.5 border border-border text-foreground-muted hover:text-danger transition-colors cursor-pointer"
+                          title="Remove logo"
+                        >
+                          <X className="w-3 h-3" />
+                        </button>
+                      </>
+                    ) : (
+                      <ImageIcon className="w-7 h-7 text-foreground/20" />
+                    )}
+                  </div>
+
+                  <div className="flex flex-col gap-2">
+                    <input
+                      ref={fileInputRef}
+                      id="partner-logo-upload-web"
+                      type="file"
+                      accept="image/*"
+                      className="hidden"
+                      onChange={handleLogoChange}
+                    />
+                    <button
+                      type="button"
+                      onClick={() => fileInputRef.current?.click()}
+                      className={cn(
+                        "flex items-center gap-2 border border-[#4E4637] px-4 py-2 cursor-pointer",
+                        "text-[12px] font-inter font-semibold uppercase tracking-[1.5px]",
+                        "text-foreground-muted hover:border-primary hover:text-primary transition-colors",
+                      )}
+                    >
+                      <Upload className="w-3.5 h-3.5" />
+                      {logoPreview ? "Replace Logo" : "Upload Logo"}
+                    </button>
+                    <p className="text-xs text-foreground-muted">
+                      PNG, JPG, SVG or WEBP. Max 5 MB.
+                    </p>
+                  </div>
+                </div>
               </div>
 
               <div className="mt-4 flex justify-center">
@@ -135,6 +317,9 @@ export function SponsorshipForm({ selectedTier = "" }: SponsorshipFormProps) {
                   type="submit"
                   variant="primary"
                   size="sm"
+                  isLoading={isLoading}
+                  disabled={isLoading}
+                  style={{ minWidth: '200px' }}
                   className={cn(
                     "w-full sm:w-auto px-8 sm:px-12 2xl:px-16 bg-primary h-12 2xl:h-16",
                     "tracking-[2px] sm:tracking-[3.6px] 2xl:tracking-[4.8px]",
@@ -144,9 +329,22 @@ export function SponsorshipForm({ selectedTier = "" }: SponsorshipFormProps) {
                   Send Request
                 </Button>
               </div>
+
+              {/* Error message */}
+              {error && (
+                <div className="border border-danger/40 bg-danger/10 px-4 py-3 text-sm text-danger">
+                  {error}
+                </div>
+              )}
+
+              {/* Success message */}
+              {success && (
+                <div className="border border-primary/40 bg-primary/10 px-4 py-3 text-sm text-primary">
+                  Request submitted successfully!
+                </div>
+              )}
             </form>
           </SlideUp>
-        )}
       </Container>
     </section>
   );

@@ -18,7 +18,7 @@ export function PartnersStrip({ partners }: { partners: Partner[] }) {
               "font-semibold uppercase tracking-[0.3em] 2xl:tracking-[0.4em] font-inter",
             )}
           >
-            Distinguished Partners
+            Our Partners
           </p>
         </FadeIn>
         <StaggerContainer

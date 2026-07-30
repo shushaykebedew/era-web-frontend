@@ -59,9 +59,17 @@ export type Nominee = {
 };
 
 export type Partner = {
+  id?: string;
   name: string;
-  logo?: string;
+  logo?: string | null;
   href?: string;
+  website?: string | null;
+  description?: string | null;
+  contactName?: string | null;
+  contactEmail?: string | null;
+  contactPhone?: string | null;
+  status?: string;
+  tier?: string;
 };
 
 // API Response Types
