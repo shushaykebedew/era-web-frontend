@@ -20,8 +20,6 @@ export function useNominees() {
   return useQuery<Nominee[]>({
     queryKey: nomineeKeys.all,
     queryFn: fetchNominees,
-    // Static fallback data keeps the UI non-empty while the API loads.
-    placeholderData: [],
   });
 }
 
@@ -39,6 +37,5 @@ export function useCategories() {
   return useQuery<AwardCategory[]>({
     queryKey: categoryKeys.all,
     queryFn: fetchCategories,
-    placeholderData: [],
   });
 }
