@@ -105,6 +105,7 @@ export type ApiCategoryResponse = {
   nomineeCount?: number;
   coverImage?: string | null;
   targetType?: string | null;
+  isActive?: boolean;
 };
 
 export type ApiAwardEventResponse = {

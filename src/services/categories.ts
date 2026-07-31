@@ -47,20 +47,21 @@ export async function fetchCategories(): Promise<AwardCategory[]> {
   try {
     const res = await api.get("/award-categories");
     if (res.data?.success && Array.isArray(res.data.data)) {
-      return res.data.data.map((item: ApiCategoryResponse) =>
-        mapApiCategory(item),
-      );
+      return res.data.data
+        .filter((item: ApiCategoryResponse) => item.isActive !== false)
+        .map((item: ApiCategoryResponse) => mapApiCategory(item));
     }
   } catch (error) {
-    // During build (SSG) or when the backend requires auth, the API call
-    // may fail with 401. Fall back to static data so the build succeeds.
+    // During build (SSG) or when the backend is unreachable, fall back to
+    // static data so the page still renders.
     console.warn(
       "Failed to fetch categories from API, falling back to static data:",
       error,
     );
+    return staticCategories;
   }
 
-  return staticCategories;
+  return [];
 }
 
 export async function fetchCategoryById(
