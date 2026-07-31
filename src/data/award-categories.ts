@@ -74,7 +74,7 @@ export const awardCategories: AwardCategory[] = [
 ];
 
 export const featuredWinner = {
-  label: "Featured Winner 2023: Unity Sky Tower",
+  label: "Featured Winner 2025: Unity Sky Tower",
   image: "/imgs/image-1.png",
 };
 
