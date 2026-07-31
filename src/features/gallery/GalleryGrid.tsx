@@ -4,11 +4,12 @@ import { useState, useEffect } from "react";
 import Image from "next/image";
 import { Container } from "@/components/ui/Container";
 import { cn } from "@/utils/cn";
-import { EDITIONS, FILTERS, galleryPhotos } from "@/data/gallery";
+import { EDITIONS, FILTERS } from "@/data/gallery";
 import type { Edition, GalleryFilter, GalleryPhoto } from "@/types/gallery";
 import { motion } from "framer-motion";
 import { ease } from "@/components/ui/animations";
-import { fetchGalleryPhotos } from "@/services/gallery";
+import { useGalleryPhotos } from "@/hooks/queries/useGalleryPhotos";
+import { Skeleton } from "@/components/ui/Skeleton";
 
 // ── EditionSwitcher ───────────────────────────────────────────────────────────
 function EditionSwitcher({
@@ -108,7 +109,6 @@ function PhotoCard({
 }
 
 // ── PhotoGrid ─────────────────────────────────────────────────────────────────
-
 function PhotoGrid({
   photos,
   edition,
@@ -119,21 +119,19 @@ function PhotoGrid({
   isLoading?: boolean;
 }) {
   if (isLoading) {
-    // Show skeleton loaders
-    const skeletonCols = [[], [], []] as any[][];
-    for (let i = 0; i < 3; i++) {
-      skeletonCols[i % 3].push(i);
-    }
+    // 9 skeleton cards distributed across 3 columns, same as nominee grid style
+    const skeletonCols: number[][] = [[], [], []];
+    for (let i = 0; i < 9; i++) skeletonCols[i % 3].push(i);
 
     return (
       <div className="grid grid-cols-1 gap-3 2xl:gap-6 md:grid-cols-2 xl:grid-cols-3">
         {skeletonCols.map((col, colIdx) => (
           <div key={colIdx} className="flex min-w-0 flex-col gap-3 2xl:gap-6">
             {col.map((_, photoIdx) => (
-              <div
+              <Skeleton
                 key={photoIdx}
-                className="relative w-full min-w-0 overflow-hidden border border-[#4E4637] bg-background-muted/30 animate-pulse"
-                style={{ aspectRatio: '4/3' }}
+                className="relative w-full min-w-0"
+                style={{ aspectRatio: "4/3" }}
               />
             ))}
           </div>
@@ -179,53 +177,28 @@ function PhotoGrid({
 export function GalleryGrid() {
   const [edition, setEdition] = useState<Edition>(2025);
   const [filter, setFilter] = useState<GalleryFilter>("All Moments");
-  const [photos, setPhotos] = useState<GalleryPhoto[]>([]);
-  const [isLoading, setIsLoading] = useState<boolean>(true);
-  const [visibleCount, setVisibleCount] = useState<number>(30); // Load images in batches
+  const [visibleCount, setVisibleCount] = useState<number>(30);
 
+  const { data: photos = [], isLoading } = useGalleryPhotos(edition, filter);
+
+  // Reset visible count when edition/filter changes
   useEffect(() => {
-    let isMounted = true;
-    setIsLoading(true);
-    setVisibleCount(30); // Reset visible count on filter/edition change
-
-    fetchGalleryPhotos({
-      edition: Number(edition),
-      tag: filter !== "All Moments" ? filter : undefined,
-    })
-      .then((data) => {
-        if (isMounted) {
-          setPhotos(data);
-          setIsLoading(false);
-        }
-      })
-      .catch(() => {
-        if (isMounted) {
-          setPhotos(
-            galleryPhotos.filter(
-              (p) =>
-                p.edition === edition &&
-                (filter === "All Moments" || p.tag === filter)
-            )
-          );
-          setIsLoading(false);
-        }
-      });
-
-    return () => {
-      isMounted = false;
-    };
+    setVisibleCount(30);
   }, [edition, filter]);
 
-  // Load more images when scrolling near bottom
+  // Infinite scroll: load more when scrolling near bottom
   useEffect(() => {
     const handleScroll = () => {
-      if (window.innerHeight + document.documentElement.scrollTop >= document.documentElement.offsetHeight - 500) {
+      if (
+        window.innerHeight + document.documentElement.scrollTop >=
+        document.documentElement.offsetHeight - 500
+      ) {
         setVisibleCount((prev) => Math.min(prev + 15, photos.length));
       }
     };
 
-    window.addEventListener('scroll', handleScroll, { passive: true });
-    return () => window.removeEventListener('scroll', handleScroll);
+    window.addEventListener("scroll", handleScroll, { passive: true });
+    return () => window.removeEventListener("scroll", handleScroll);
   }, [photos.length]);
 
   const visiblePhotos = photos.slice(0, visibleCount);
@@ -258,4 +231,3 @@ export function GalleryGrid() {
     </>
   );
 }
-

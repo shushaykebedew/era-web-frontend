@@ -54,18 +54,14 @@ function mapApiNominee(apiItem: ApiNomineeResponse, index = 0): Nominee {
   };
 }
 
-let nomineesCache: Nominee[] | null = null;
-
 export async function fetchNominees(): Promise<Nominee[]> {
-  if (nomineesCache) return nomineesCache;
-
   try {
     const limit = 100;
     const all: ApiNomineeResponse[] = [];
 
     // Fetch first page to get total count
     const firstRes = await api.get("/nominees", { params: { page: 1, limit } });
-    if (!firstRes.data?.success) return staticNominees; // Return fallback if API fails early
+    if (!firstRes.data?.success) return staticNominees;
 
     const firstData = firstRes.data.data;
     const firstItems: ApiNomineeResponse[] = Array.isArray(firstData)
@@ -76,14 +72,14 @@ export async function fetchNominees(): Promise<Nominee[]> {
     const pagination = firstRes.data.pagination ?? firstRes.data.meta;
     const total = pagination?.total ?? firstRes.data.total ?? firstItems.length;
 
-    // If there are more items, fetch them in parallel
+    // If there are more items, fetch remaining pages in parallel
     if (all.length < total && firstItems.length > 0) {
       const totalPages = Math.ceil(total / limit);
       const promises = [];
       for (let p = 2; p <= totalPages; p++) {
         promises.push(api.get("/nominees", { params: { page: p, limit } }));
       }
-      
+
       const results = await Promise.all(promises);
       for (const res of results) {
         if (res.data?.success) {
@@ -97,29 +93,21 @@ export async function fetchNominees(): Promise<Nominee[]> {
     }
 
     if (all.length > 0) {
-      nomineesCache = all.map((item, i) => mapApiNominee(item, i));
-      return nomineesCache;
+      return all.map((item, i) => mapApiNominee(item, i));
     }
   } catch (error) {
     // During build (SSG) or when the backend requires auth, the API call
-    // may fail with 401. Fall back to static data so the build succeeds
-    // and the page renders with placeholder content.
+    // may fail with 401. Fall back to static data so the build succeeds.
     console.warn(
       "Failed to fetch nominees from API, falling back to static data:",
       error,
     );
   }
 
-  // Fall back to static data (not cached so the API is retried on next call)
   return staticNominees;
 }
 
 export async function fetchNomineeById(id: string): Promise<Nominee | null> {
-  if (nomineesCache) {
-    const cached = nomineesCache.find((n) => n.id === id);
-    if (cached) return cached;
-  }
-
   try {
     const res = await api.get(`/nominees/${id}`);
     if (res.data?.success) return mapApiNominee(res.data.data, 0);
@@ -161,13 +149,14 @@ export async function castPublicVote(
     awardEventId: activeEventId,
   });
 
-  // Bust the module-level cache so the next call to fetchNominees() returns
-  // fresh data from the backend with the updated vote count.
-  nomineesCache = null;
-
   return res.data;
 }
 
+/**
+ * @deprecated Cache invalidation is now handled by TanStack Query.
+ * This is kept as a no-op so existing call-sites compile while they are
+ * migrated to queryClient.invalidateQueries.
+ */
 export function clearNomineesCache() {
-  nomineesCache = null;
+  // no-op — TanStack Query manages the cache
 }

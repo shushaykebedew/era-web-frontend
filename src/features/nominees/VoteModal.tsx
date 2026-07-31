@@ -3,6 +3,7 @@
 import { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
 import Image from "next/image";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { Modal } from "@/components/ui/Modal";
 import { AuthForm } from "@/components/auth/AuthForm";
 import { Button } from "@/components/ui/Button";
@@ -10,6 +11,7 @@ import { cn } from "@/utils/cn";
 import { type VoteModalProps, type VoteStep } from "@/types/nominees";
 import { useAuth } from "@/context/AuthContext";
 import { castPublicVote } from "@/services/nominees";
+import { nomineeKeys } from "@/hooks/queries/useNominees";
 
 export function VoteModal({
   isOpen,
@@ -18,39 +20,38 @@ export function VoteModal({
   onVoteSuccess,
 }: VoteModalProps) {
   const [step, setStep] = useState<VoteStep>("confirm");
-  const [isVoting, setIsVoting] = useState(false);
-  const [errorMsg, setErrorMsg] = useState<string | null>(null);
   const { isAuthenticated } = useAuth();
   const router = useRouter();
+  const queryClient = useQueryClient();
 
+  // Reset step whenever the modal opens
   useEffect(() => {
-    if (isOpen) {
-      setStep("confirm");
-      setIsVoting(false);
-      setErrorMsg(null);
-    }
+    if (isOpen) setStep("confirm");
   }, [isOpen]);
+
+  const { mutate: submitVote, isPending, error, reset } = useMutation({
+    mutationFn: () => castPublicVote(nominee!.id, nominee!.categoryId),
+    onSuccess: () => {
+      // Invalidate the nominees list so vote counts refresh automatically
+      queryClient.invalidateQueries({ queryKey: nomineeKeys.all });
+      onVoteSuccess?.();
+      setStep("success");
+    },
+  });
+
+  // Reset mutation error state when modal closes/reopens
+  useEffect(() => {
+    if (isOpen) reset();
+  }, [isOpen, reset]);
 
   if (!nominee) return null;
 
-  const handleConfirm = async () => {
-    setIsVoting(true);
-    setErrorMsg(null);
-    try {
-      await castPublicVote(nominee.id, nominee.categoryId);
-      onVoteSuccess?.();
-      setStep("success");
-    } catch (err: any) {
-      const msg =
-        err?.response?.data?.message ||
-        (err?.response?.status === 409
-          ? "You have already voted for a nominee in this category."
-          : "Failed to submit vote. Please try again.");
-      setErrorMsg(msg);
-    } finally {
-      setIsVoting(false);
-    }
-  };
+  const errorMsg = error
+    ? (error as any)?.response?.data?.message ||
+      ((error as any)?.response?.status === 409
+        ? "You have already voted for a nominee in this category."
+        : "Failed to submit vote. Please try again.")
+    : null;
 
   return (
     <Modal isOpen={isOpen} onClose={onClose} ariaLabel="Cast Public Vote">
@@ -127,14 +128,14 @@ export function VoteModal({
           <div className="w-full flex flex-col gap-4">
             <Button
               size="lg"
-              isLoading={isVoting}
+              isLoading={isPending}
               spinnerColor="white"
               className={cn(
                 "w-full bg-primary text-[#402D00] hover:bg-primary/90 text-[12px] 2xl:text-base",
                 "h-10 sm:h-12 font-semibold tracking-[1.2px] leading-4 font-inter",
               )}
-              onClick={handleConfirm}
-              disabled={isVoting}
+              onClick={() => submitVote()}
+              disabled={isPending}
             >
               CONFIRM VOTE
             </Button>
@@ -146,7 +147,7 @@ export function VoteModal({
                 "h-10 sm:h-12 font-semibold tracking-[1.2px] leading-4",
               )}
               onClick={onClose}
-              disabled={isVoting}
+              disabled={isPending}
             >
               CANCEL
             </Button>
@@ -185,7 +186,7 @@ export function VoteModal({
           </h2>
           <p
             className={cn(
-              "font-inter text-center text-foreground-muted text-sm e",
+              "font-inter text-center text-foreground-muted text-sm",
               "2xl:text-[20px] leading-7 mb-8 max-w-118.25 mx-auto",
             )}
           >

@@ -7,8 +7,9 @@ import React, {
   useEffect,
   useCallback,
 } from "react";
+import { useQueryClient } from "@tanstack/react-query";
 import { api } from "@/services/api";
-import { clearNomineesCache } from "@/services/nominees";
+import { nomineeKeys, categoryKeys } from "@/hooks/queries/useNominees";
 
 export interface AuthUser {
   id: string;
@@ -69,12 +70,15 @@ function safeParseUser(raw: string | null): AuthUser | null {
 export function AuthProvider({ children }: { children: React.ReactNode }) {
   const [user, setUser] = useState<AuthUser | null>(null);
   const [isLoading, setIsLoading] = useState(true);
+  const queryClient = useQueryClient();
 
   const clearSession = useCallback(() => {
     clearTokens();
     setUser(null);
-    clearNomineesCache();
-  }, []);
+    // Invalidate cached data that may belong to the logged-out user
+    queryClient.invalidateQueries({ queryKey: nomineeKeys.all });
+    queryClient.invalidateQueries({ queryKey: categoryKeys.all });
+  }, [queryClient]);
 
   useEffect(() => {
     // Expose clearSession so api.ts can call it on unrecoverable 401
