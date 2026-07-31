@@ -1,58 +1,35 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useMemo } from "react";
 import { notFound } from "next/navigation";
-import { fetchNomineeById, fetchNominees } from "@/services/nominees";
-import { fetchCategoryById } from "@/services/categories";
+import { useNomineeDetail, useNominees, useCategories } from "@/hooks/queries/useNominees";
 import { NomineeDetailShell } from "./NomineeDetailShell";
 import { NomineeDetailLoading } from "./NomineeDetailLoading";
-import type { Nominee, AwardCategory } from "@/types";
 
 interface NomineeDetailPageProps {
   id: string;
 }
 
 export function NomineeDetailPage({ id }: NomineeDetailPageProps) {
-  const [nominee, setNominee] = useState<Nominee | null | undefined>(undefined);
-  const [category, setCategory] = useState<AwardCategory | null>(null);
-  const [prevId, setPrevId] = useState<string | undefined>();
-  const [nextId, setNextId] = useState<string | undefined>();
+  const { data: nominee, isLoading: nomineeLoading } = useNomineeDetail(id);
+  const { data: allNominees = [] } = useNominees();
+  const { data: allCategories = [] } = useCategories();
 
-  useEffect(() => {
-    async function load() {
-      try {
-        const [found, all] = await Promise.all([
-          fetchNomineeById(id),
-          fetchNominees(),
-        ]);
+  const category = useMemo(
+    () => allCategories.find((c) => c.id === nominee?.categoryId) ?? null,
+    [allCategories, nominee?.categoryId],
+  );
 
-        if (!found) {
-          setNominee(null);
-          return;
-        }
+  const { prevId, nextId } = useMemo(() => {
+    const idx = allNominees.findIndex((n) => n.id === id);
+    return {
+      prevId: idx > 0 ? allNominees[idx - 1].id : undefined,
+      nextId: idx < allNominees.length - 1 ? allNominees[idx + 1].id : undefined,
+    };
+  }, [allNominees, id]);
 
-        setNominee(found);
-
-        if (found.categoryId) {
-          fetchCategoryById(found.categoryId)
-            .then(setCategory)
-            .catch(() => setCategory(null));
-        }
-
-        const idx = all.findIndex((n) => n.id === id);
-        setPrevId(idx > 0 ? all[idx - 1].id : undefined);
-        setNextId(idx < all.length - 1 ? all[idx + 1].id : undefined);
-      } catch (err) {
-        console.error("Failed to load nominee:", err);
-        setNominee(null);
-      }
-    }
-
-    load();
-  }, [id]);
-
-  if (nominee === undefined) return <NomineeDetailLoading />;
-  if (nominee === null) return notFound();
+  if (nomineeLoading) return <NomineeDetailLoading />;
+  if (!nominee) return notFound();
 
   return (
     <NomineeDetailShell

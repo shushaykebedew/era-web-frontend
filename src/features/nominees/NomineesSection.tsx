@@ -1,6 +1,6 @@
 "use client";
 
-import { Suspense, useState, useEffect } from "react";
+import { Suspense } from "react";
 import { useSearchParams } from "next/navigation";
 import { Container } from "@/components/ui/Container";
 import { NomineeCard } from "@/features/nominees/NomineeCard";
@@ -10,9 +10,7 @@ import { cn } from "@/utils/cn";
 import { Eyebrow } from "@/components/ui/Eyebrow";
 import { FadeIn } from "@/components/ui/animations";
 import { useNomineesFilter } from "@/hooks/useNomineesFilter";
-import { fetchNominees } from "@/services/nominees";
-import { fetchCategories } from "@/services/categories";
-import type { Nominee, AwardCategory } from "@/types";
+import { useNominees, useCategories } from "@/hooks/queries/useNominees";
 
 function NomineesHero() {
   return (
@@ -106,27 +104,10 @@ function NomineesSectionContent() {
   const initialCategory = searchParams?.get("category") || "all";
   const initialTargetType = searchParams?.get("targetType") || "all";
 
-  const [nomineesList, setNomineesList] = useState<Nominee[]>([]);
-  const [categoriesList, setCategoriesList] = useState<AwardCategory[]>([]);
-  const [isLoading, setIsLoading] = useState(true);
+  const { data: nomineesList = [], isLoading: nomineesLoading } = useNominees();
+  const { data: categoriesList = [], isLoading: categoriesLoading } = useCategories();
 
-  useEffect(() => {
-    async function loadData() {
-      try {
-        const [nominees, cats] = await Promise.all([
-          fetchNominees(),
-          fetchCategories(),
-        ]);
-        setNomineesList(nominees);
-        setCategoriesList(cats);
-      } catch (err) {
-        console.error("Failed to load nominees from API:", err);
-      } finally {
-        setIsLoading(false);
-      }
-    }
-    loadData();
-  }, []);
+  const isLoading = nomineesLoading || categoriesLoading;
 
   const {
     activeCategoryId,
@@ -150,7 +131,7 @@ function NomineesSectionContent() {
   if (isLoading) {
     return (
       <>
-        {/* Hero skeleton — same structure as NomineesHero */}
+        {/* Hero skeleton */}
         <section className="bg-background pt-28 text-center pb-10 sm:pt-36 lg:pt-40 2xl:pt-48">
           <Container size="narrow">
             <Skeleton className="h-3 w-44 mx-auto" />
@@ -166,12 +147,17 @@ function NomineesSectionContent() {
           </Container>
         </section>
 
-        {/* Filter bar skeleton */}
-        <div className="border-t border-b border-border-strong py-4">
+        {/* Filter bar skeleton — mirrors: Category dropdown | Type dropdown | Sort dropdown */}
+        <div className="bg-background py-6 2xl:py-10 border-b border-border-strong">
           <Container size="wide">
-            <div className="flex flex-wrap items-center gap-3">
-              {Array.from({ length: 5 }).map((_, i) => (
-                <Skeleton key={i} className="h-8 w-24" />
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 sm:gap-x-10 lg:flex lg:flex-row md:gap-6 2xl:gap-10 lg:justify-between">
+              {Array.from({ length: 3 }).map((_, i) => (
+                <div key={i} className="w-full md:w-72 2xl:w-[26rem] flex flex-col gap-1.5 2xl:gap-3">
+                  {/* Label */}
+                  <Skeleton className="h-3 w-32 2xl:w-40" />
+                  {/* Dropdown button */}
+                  <Skeleton className="h-11 2xl:h-16 w-full rounded" />
+                </div>
               ))}
             </div>
           </Container>

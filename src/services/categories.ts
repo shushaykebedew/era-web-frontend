@@ -43,40 +43,33 @@ function mapApiCategory(apiItem: ApiCategoryResponse): AwardCategory {
   };
 }
 
-let categoriesCache: AwardCategory[] | null = null;
-
 export async function fetchCategories(): Promise<AwardCategory[]> {
-  if (categoriesCache) return categoriesCache;
-
   try {
     const res = await api.get("/award-categories");
     if (res.data?.success && Array.isArray(res.data.data)) {
-      const mapped = res.data.data.map((item: ApiCategoryResponse) =>
+      return res.data.data.map((item: ApiCategoryResponse) =>
         mapApiCategory(item),
       );
-      categoriesCache = mapped;
-      return mapped;
     }
   } catch (error) {
     // During build (SSG) or when the backend requires auth, the API call
-    // may fail with 401. Fall back to static data so the build succeeds
-    // and the page renders with placeholder content.
+    // may fail with 401. Fall back to static data so the build succeeds.
     console.warn(
       "Failed to fetch categories from API, falling back to static data:",
       error,
     );
   }
 
-  // Fall back to static data (not cached so the API is retried on next call)
   return staticCategories;
 }
 
 export async function fetchCategoryById(
   id: string,
 ): Promise<AwardCategory | null> {
+  // Try fetching all categories first (TanStack Query will have them cached)
   const all = await fetchCategories();
-  const fromCache = all.find((c) => c.id === id);
-  if (fromCache) return fromCache;
+  const found = all.find((c) => c.id === id);
+  if (found) return found;
 
   try {
     const res = await api.get(`/award-categories/${id}`);
@@ -88,8 +81,11 @@ export async function fetchCategoryById(
   return null;
 }
 
+/**
+ * @deprecated Cache invalidation is now handled by TanStack Query.
+ * Kept as a no-op so existing call-sites compile during migration.
+ */
 export function clearCategoriesCache() {
-  categoriesCache = null;
+  // no-op — TanStack Query manages the cache
 }
-
 
