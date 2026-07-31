@@ -121,19 +121,45 @@ export function SponsorshipForm({ selectedTier = "" }: SponsorshipFormProps) {
       setSuccess(true);
       setTimeout(() => setSuccess(false), 3000);
     } catch (err: any) {
-      const validationErrors = err?.response?.data?.errors;
-      if (validationErrors && validationErrors.length > 0) {
-        // Extract the first validation error message
-        const emailError = validationErrors.find((e: any) => e.field === 'contactEmail');
-        if (emailError) {
-          setError(emailError.message);
-        } else {
-          setError(validationErrors[0].message);
+      const responseData = err?.response?.data;
+      const validationErrors: { field: string; message: string }[] =
+        responseData?.errors ?? [];
+
+      if (validationErrors.length > 0) {
+        // Map known fields to inline field errors; anything else goes to the banner
+        const fieldMap: Record<string, string> = {};
+        const unmapped: string[] = [];
+
+        for (const ve of validationErrors) {
+          if (ve.field === "name") {
+            fieldMap.company = ve.message;
+          } else if (ve.field === "contactEmail") {
+            fieldMap.email = ve.message;
+          } else if (ve.field === "contactName") {
+            fieldMap.contactName = ve.message;
+          } else if (ve.field === "contactPhone") {
+            fieldMap.phone = ve.message;
+          } else if (ve.field === "website") {
+            fieldMap.website = ve.message;
+          } else if (ve.field === "tier") {
+            fieldMap.tier = ve.message;
+          } else {
+            unmapped.push(ve.message);
+          }
+        }
+
+        if (Object.keys(fieldMap).length > 0) {
+          setFieldErrors(fieldMap);
+        }
+        // Show the first unmapped error (or the top-level message) in the banner
+        if (unmapped.length > 0) {
+          setError(unmapped[0]);
+        } else if (Object.keys(fieldMap).length === 0) {
+          setError(responseData?.message ?? "Failed to submit request. Please try again.");
         }
       } else {
         setError(
-          err?.response?.data?.message ||
-            "Failed to submit request. Please try again.",
+          responseData?.message ?? "Failed to submit request. Please try again.",
         );
       }
     } finally {
@@ -196,6 +222,9 @@ export function SponsorshipForm({ selectedTier = "" }: SponsorshipFormProps) {
                     placeholder="Website URL"
                     className={fieldBase}
                   />
+                  {fieldErrors.website && (
+                    <span className="text-xs text-danger">{fieldErrors.website}</span>
+                  )}
                 </div>
               </div>
 
@@ -208,6 +237,9 @@ export function SponsorshipForm({ selectedTier = "" }: SponsorshipFormProps) {
                     placeholder="Contact Name"
                     className={fieldBase}
                   />
+                  {fieldErrors.contactName && (
+                    <span className="text-xs text-danger">{fieldErrors.contactName}</span>
+                  )}
                 </div>
                 <div className="flex flex-col gap-2">
                   <Input
@@ -232,6 +264,9 @@ export function SponsorshipForm({ selectedTier = "" }: SponsorshipFormProps) {
                   className={fieldBase}
                   maxLength={13}
                 />
+                {fieldErrors.phone && (
+                  <span className="text-xs text-danger">{fieldErrors.phone}</span>
+                )}
               </div>
 
               {/* Row 4 — Tier select */}
