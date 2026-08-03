@@ -41,6 +41,7 @@ function mapApiNominee(apiItem: ApiNomineeResponse, index = 0): Nominee {
     firm,
     location,
     categoryId: apiItem.awardCategoryId ?? apiItem.categoryId ?? "",
+    category: apiItem.awardCategory,
     status,
     excerpt,
     description,

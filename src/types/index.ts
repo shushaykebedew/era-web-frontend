@@ -46,6 +46,7 @@ export type Nominee = {
   firm: string;
   location: string;
   categoryId: string;
+  category?: { id: string; name: string };
   status: NomineeStatus;
   excerpt: string;
   description: string;
@@ -80,6 +81,7 @@ export type ApiNomineeResponse = {
   location?: string | null;
   awardCategoryId?: string;
   categoryId?: string;
+  awardCategory?: { id: string; name: string };
   status?: string;
   excerpt?: string | null;
   description?: string | null;

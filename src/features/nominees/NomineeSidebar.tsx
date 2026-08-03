@@ -75,7 +75,7 @@ export function NomineeSidebar({
             "tracking-[1.5px] 2xl:tracking-[2px] text-foreground-muted",
           )}
         >
-          {nominee.firm}
+          {nominee.category?.name || nominee.firm}
         </p>
 
         {nominee.location && (

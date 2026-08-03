@@ -111,7 +111,7 @@ export function DetailTab({ nominee }: { nominee: Nominee }) {
                       "2xl:tracking-[2px] text-foreground-muted mt-0.5 2xl:mt-1",
                     )}
                   >
-                    {nominee.firm || nominee.location || "Ethiopia"}
+                    {nominee.category?.name || nominee.firm || nominee.location || "Ethiopia"}
                   </p>
                 </div>
               )}

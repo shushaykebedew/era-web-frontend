@@ -53,7 +53,7 @@ export function NomineeCard({ nominee, variant = "grid" }: NomineeCardProps) {
               {nominee.name}
             </h3>
             <p className="text-base 2xl:text-[20px] leading-6 2xl:leading-8 text-foreground-muted">
-              {nominee.firm}
+              {nominee.category?.name || nominee.firm}
             </p>
             <div className="mt-auto flex flex-wrap items-center justify-between gap-3 2xl:gap-5 2xl:mt-8">
               <span
@@ -129,7 +129,7 @@ export function NomineeCard({ nominee, variant = "grid" }: NomineeCardProps) {
               className="h-4 w-0.5 2xl:h-6 2xl:w-1 bg-primary shrink-0"
               aria-hidden
             />
-            {nominee.firm}
+            {nominee.category?.name || nominee.firm}
           </p>
           <h3
             className={cn(
