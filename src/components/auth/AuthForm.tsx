@@ -8,6 +8,15 @@ import { useAuth } from "@/context/AuthContext";
 import { Input } from "../ui/Input";
 import { Label } from "../ui/Label";
 import { useMediaQuery } from "@/hooks/useMediaQuery";
+import {
+  validateRequiredName,
+  validateUsername,
+  validateEmail,
+  validatePhone,
+  validatePassword,
+  validateConfirmPassword,
+  sanitizePhone,
+} from "@/utils/validation";
 
 interface AuthFormProps {
   loginLabel?: string;
@@ -34,6 +43,7 @@ export function AuthForm({
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
 
   const [error, setError] = useState<string | null>(null);
+  const [fieldErrors, setFieldErrors] = useState<Record<string, string>>({});
   const [isLoading, setIsLoading] = useState(false);
   const is2xl = useMediaQuery("(min-width: 1536px)");
 
@@ -48,25 +58,55 @@ export function AuthForm({
   );
   const labelCls =
     "block text-xs 2xl:text-[20px] font-inter font-medium tracking-wider capitalize text-foreground-muted mb-1.5 2xl:mb-2";
+  const errorCls = "mt-1.5 text-xs 2xl:text-sm font-inter text-red-400";
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setError(null);
 
-    if (mode === "register" && password !== confirmPassword) {
-      setError("Passwords do not match.");
-      return;
+    if (mode === "register") {
+      const errors: Record<string, string> = {};
+
+      const nameErr = validateRequiredName(fullName, "Full Name");
+      if (nameErr) errors.fullName = nameErr;
+
+      const usernameErr = validateUsername(username);
+      if (usernameErr) errors.username = usernameErr;
+
+      const emailErr = validateEmail(email);
+      if (emailErr) errors.email = emailErr;
+
+      const phoneErr = validatePhone(phone);
+      if (phoneErr) errors.phone = phoneErr;
+
+      const passwordErr = validatePassword(password, true);
+      if (passwordErr) errors.password = passwordErr;
+
+      const confirmErr = validateConfirmPassword(password, confirmPassword);
+      if (confirmErr) errors.confirmPassword = confirmErr;
+
+      if (Object.keys(errors).length > 0) {
+        setFieldErrors(errors);
+        return;
+      }
+      setFieldErrors({});
+    } else {
+      if (!identifier) {
+        setFieldErrors({ identifier: "Please enter your identifier" });
+        return;
+      }
+      if (!password) {
+        setFieldErrors({ password: "Password is required" });
+        return;
+      }
+      setFieldErrors({});
     }
 
     setIsLoading(true);
     try {
       if (mode === "login") {
-        if (!identifier || !password)
-          throw new Error("Please enter your identifier and password.");
         await login(identifier, password);
       } else {
-        if (!fullName || !username || !password)
-          throw new Error("Full name, username, and password are required.");
         await register({
           fullName,
           username,
@@ -96,6 +136,7 @@ export function AuthForm({
   const toggleMode = () => {
     setMode((m) => (m === "login" ? "register" : "login"));
     setError(null);
+    setFieldErrors({});
     setPassword("");
     setConfirmPassword("");
   };
@@ -118,23 +159,39 @@ export function AuthForm({
               <Label className={labelCls}>Full Name *</Label>
               <Input
                 type="text"
-                required
                 placeholder="Enter your full name"
                 value={fullName}
-                onChange={(e) => setFullName(e.target.value)}
-                className={inputCls}
+                onChange={(e) => {
+                  setFullName(e.target.value);
+                  setFieldErrors((prev) => ({ ...prev, fullName: "" }));
+                }}
+                className={cn(
+                  inputCls,
+                  fieldErrors.fullName && "border-red-500/60",
+                )}
               />
+              {fieldErrors.fullName && (
+                <p className={errorCls}>{fieldErrors.fullName}</p>
+              )}
             </div>
             <div>
               <Label className={labelCls}>Username *</Label>
               <Input
                 type="text"
-                required
                 placeholder="Enter your username"
                 value={username}
-                onChange={(e) => setUsername(e.target.value)}
-                className={inputCls}
+                onChange={(e) => {
+                  setUsername(e.target.value);
+                  setFieldErrors((prev) => ({ ...prev, username: "" }));
+                }}
+                className={cn(
+                  inputCls,
+                  fieldErrors.username && "border-red-500/60",
+                )}
               />
+              {fieldErrors.username && (
+                <p className={errorCls}>{fieldErrors.username}</p>
+              )}
             </div>
             <div>
               <Label className={labelCls}>Email Address</Label>
@@ -142,19 +199,37 @@ export function AuthForm({
                 type="email"
                 placeholder="Enter your email address"
                 value={email}
-                onChange={(e) => setEmail(e.target.value)}
-                className={inputCls}
+                onChange={(e) => {
+                  setEmail(e.target.value);
+                  setFieldErrors((prev) => ({ ...prev, email: "" }));
+                }}
+                className={cn(
+                  inputCls,
+                  fieldErrors.email && "border-red-500/60",
+                )}
               />
+              {fieldErrors.email && (
+                <p className={errorCls}>{fieldErrors.email}</p>
+              )}
             </div>
             <div>
               <Label className={labelCls}>Phone Number</Label>
               <Input
                 type="tel"
-                placeholder="Enter your phone number"
+                placeholder="e.g. +2519... or 09..."
                 value={phone}
-                onChange={(e) => setPhone(e.target.value)}
-                className={inputCls}
+                onChange={(e) => {
+                  setPhone(sanitizePhone(e.target.value));
+                  setFieldErrors((prev) => ({ ...prev, phone: "" }));
+                }}
+                className={cn(
+                  inputCls,
+                  fieldErrors.phone && "border-red-500/60",
+                )}
               />
+              {fieldErrors.phone && (
+                <p className={errorCls}>{fieldErrors.phone}</p>
+              )}
             </div>
           </>
         )}
@@ -164,12 +239,20 @@ export function AuthForm({
             <Label className={labelCls}>Username, Email, or Phone *</Label>
             <Input
               type="text"
-              required
               placeholder="Enter username, email, or phone"
               value={identifier}
-              onChange={(e) => setIdentifier(e.target.value)}
-              className={inputCls}
+              onChange={(e) => {
+                setIdentifier(e.target.value);
+                setFieldErrors((prev) => ({ ...prev, identifier: "" }));
+              }}
+              className={cn(
+                inputCls,
+                fieldErrors.identifier && "border-red-500/60",
+              )}
             />
+            {fieldErrors.identifier && (
+              <p className={errorCls}>{fieldErrors.identifier}</p>
+            )}
           </div>
         )}
 
@@ -178,11 +261,17 @@ export function AuthForm({
           <div className="relative">
             <Input
               type={showPassword ? "text" : "password"}
-              required
               placeholder="Enter your password"
               value={password}
-              onChange={(e) => setPassword(e.target.value)}
-              className={cn(inputCls, "pr-11 2xl:pr-14")}
+              onChange={(e) => {
+                setPassword(e.target.value);
+                setFieldErrors((prev) => ({ ...prev, password: "" }));
+              }}
+              className={cn(
+                inputCls,
+                "pr-11 2xl:pr-14",
+                fieldErrors.password && "border-red-500/60",
+              )}
             />
             <button
               type="button"
@@ -198,6 +287,9 @@ export function AuthForm({
               )}
             </button>
           </div>
+          {fieldErrors.password && (
+            <p className={errorCls}>{fieldErrors.password}</p>
+          )}
         </div>
 
         {mode === "register" && (
@@ -206,15 +298,18 @@ export function AuthForm({
             <div className="relative">
               <Input
                 type={showConfirmPassword ? "text" : "password"}
-                required
                 placeholder="Re-enter your password"
                 value={confirmPassword}
-                onChange={(e) => setConfirmPassword(e.target.value)}
+                onChange={(e) => {
+                  setConfirmPassword(e.target.value);
+                  setFieldErrors((prev) => ({ ...prev, confirmPassword: "" }));
+                }}
                 aria-invalid={passwordsMismatch}
                 className={cn(
                   inputCls,
                   "pr-11 2xl:pr-14",
-                  passwordsMismatch && "border-red-500/60 focus:border-red-500",
+                  (passwordsMismatch || fieldErrors.confirmPassword) &&
+                    "border-red-500/60 focus:border-red-500",
                 )}
               />
               <button
@@ -233,9 +328,9 @@ export function AuthForm({
                 )}
               </button>
             </div>
-            {passwordsMismatch && (
-              <p className="mt-1.5 text-xs 2xl:text-sm font-inter text-red-400">
-                Passwords do not match.
+            {(passwordsMismatch || fieldErrors.confirmPassword) && (
+              <p className={errorCls}>
+                {fieldErrors.confirmPassword || "Passwords do not match."}
               </p>
             )}
           </div>

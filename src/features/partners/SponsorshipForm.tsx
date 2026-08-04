@@ -13,6 +13,12 @@ import { Textarea } from "@/components/ui/Textarea";
 import { Label } from "@/components/ui/Label";
 import { Upload, X, Image as ImageIcon } from "lucide-react";
 import { partnersService } from "@/services/partners";
+import {
+  validateRequiredName,
+  validateRequiredEmail,
+  validatePhone,
+  sanitizePhone,
+} from "@/utils/validation";
 
 // ── Reusable field components ─────────────────────────────────────────────────
 function FieldLabel({
@@ -45,6 +51,7 @@ export function SponsorshipForm({ selectedTier = "" }: SponsorshipFormProps) {
   const [error, setError] = useState<string | null>(null);
   const [success, setSuccess] = useState(false);
   const [fieldErrors, setFieldErrors] = useState<Record<string, string>>({});
+  const [phone, setPhone] = useState("");
 
   // Logo upload state
   const fileInputRef = useRef<HTMLInputElement>(null);
@@ -79,18 +86,16 @@ export function SponsorshipForm({ selectedTier = "" }: SponsorshipFormProps) {
     const errors: Record<string, string> = {};
     const company = data.get("company") as string;
     const email = data.get("email") as string;
-    const phone = data.get("phone") as string;
 
-    if (!company || !company.trim()) {
-      errors.company = "Company name is required";
-    }
-    if (!email || !email.trim()) {
-      errors.email = "Email is required";
-    } else if (!/^[^\s@]+@[^\s@]+\.[a-zA-Z]{2,}$/.test(email)) {
-      errors.email = "Invalid email format";
-    } else if (email.includes('.demo')) {
-      errors.email = "Invalid email format";
-    }
+    const companyErr = validateRequiredName(company, "Company Name");
+    if (companyErr) errors.company = companyErr;
+
+    const emailErr = validateRequiredEmail(email);
+    if (emailErr) errors.email = emailErr;
+
+    const phoneErr = validatePhone(phone);
+    if (phoneErr) errors.phone = phoneErr;
+
     if (!tier) {
       errors.tier = "Partnership tier is required";
     }
@@ -115,6 +120,7 @@ export function SponsorshipForm({ selectedTier = "" }: SponsorshipFormProps) {
       // Clear form on success instead of showing success message
       form.reset();
       setTier("");
+      setPhone("");
       setLogoFile(null);
       setLogoPreview(null);
       if (fileInputRef.current) fileInputRef.current.value = "";
@@ -261,8 +267,12 @@ export function SponsorshipForm({ selectedTier = "" }: SponsorshipFormProps) {
                   name="phone"
                   type="tel"
                   placeholder="Phone Number"
+                  value={phone}
+                  onChange={(e) => {
+                    setPhone(sanitizePhone(e.target.value));
+                    setFieldErrors((prev) => ({ ...prev, phone: "" }));
+                  }}
                   className={fieldBase}
-                  maxLength={13}
                 />
                 {fieldErrors.phone && (
                   <span className="text-xs text-danger">{fieldErrors.phone}</span>

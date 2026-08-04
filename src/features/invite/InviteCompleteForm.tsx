@@ -9,6 +9,7 @@ import { Button } from "@/components/ui/Button";
 import { AlertCircle, CheckCircle2 } from "lucide-react";
 import { motion } from "framer-motion";
 import { cn } from "@/utils/cn";
+import { validateRequiredName, validatePhone, sanitizePhone } from "@/utils/validation";
 
 export function InviteCompleteForm() {
   const searchParams = useSearchParams();
@@ -23,6 +24,7 @@ export function InviteCompleteForm() {
   });
 
   const [isSuccess, setIsSuccess] = useState(false);
+  const [fieldErrors, setFieldErrors] = useState<Record<string, string>>({});
 
   const { data: validationResult, isLoading: isValidating, error: validationError } = useQuery({
     queryKey: ["validateInviteToken", token],
@@ -94,11 +96,28 @@ export function InviteCompleteForm() {
   }
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setFormData((prev) => ({ ...prev, [e.target.name]: e.target.value }));
+    const { name, value } = e.target;
+    const sanitized = name === "phone" ? sanitizePhone(value) : value;
+    setFormData((prev) => ({ ...prev, [name]: sanitized }));
+    setFieldErrors((prev) => ({ ...prev, [name]: "" }));
   };
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
+    const errors: Record<string, string> = {};
+
+    const nameErr = validateRequiredName(formData.fullName, "Full Name");
+    if (nameErr) errors.fullName = nameErr;
+
+    const phoneErr = validatePhone(formData.phone);
+    if (phoneErr) errors.phone = phoneErr;
+
+    if (Object.keys(errors).length > 0) {
+      setFieldErrors(errors);
+      return;
+    }
+
+    setFieldErrors({});
     completeMutation.mutate({
       token,
       ...formData,
@@ -138,8 +157,11 @@ export function InviteCompleteForm() {
           value={formData.fullName}
           onChange={handleChange}
           required
-          className={fieldBase}
+          className={cn(fieldBase, fieldErrors.fullName && "border-red-500")}
         />
+        {fieldErrors.fullName && (
+          <p className="text-xs text-red-400 font-inter mt-0.5">{fieldErrors.fullName}</p>
+        )}
       </div>
 
       <div className="flex flex-col gap-2 text-left">
@@ -152,8 +174,11 @@ export function InviteCompleteForm() {
           value={formData.phone}
           onChange={handleChange}
           required
-          className={fieldBase}
+          className={cn(fieldBase, fieldErrors.phone && "border-red-500")}
         />
+        {fieldErrors.phone && (
+          <p className="text-xs text-red-400 font-inter mt-0.5">{fieldErrors.phone}</p>
+        )}
       </div>
 
       <div className="flex flex-col gap-2 text-left">
