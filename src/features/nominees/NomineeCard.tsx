@@ -8,6 +8,8 @@ import { Button } from "@/components/ui/Button";
 import { cn } from "@/utils/cn";
 import { NomineeCardProps } from "@/types/nominees";
 import { VoteModal } from "@/features/nominees/VoteModal";
+import { useAuth } from "@/context/AuthContext";
+import { useMyVotes } from "@/hooks/queries/useNominees";
 
 const OVERLAY_GRADIENT =
   "linear-gradient(0deg, #16130D 0%, rgba(22, 19, 13, 0) 50%, rgba(22, 19, 13, 0) 100%)";
@@ -19,6 +21,16 @@ export function NomineeCard({ nominee, variant = "grid" }: NomineeCardProps) {
   const badgeLabel =
     nominee.status === "past-winner" ? "Past Winner" : "Nominee";
 
+  const { isAuthenticated } = useAuth();
+  const { data: myVotes = [] } = useMyVotes(isAuthenticated);
+
+  const hasVotedThisNominee = myVotes.some(
+    (v: any) => v.nomineeId === nominee.id && v.awardCategoryId === nominee.categoryId
+  );
+  const hasVotedInCategory = myVotes.some(
+    (v: any) => v.awardCategoryId === nominee.categoryId
+  );
+
   const [isVoteModalOpen, setIsVoteModalOpen] = useState(false);
   const [voteCount, setVoteCount] = useState(nominee.votes ?? 0);
 
@@ -27,7 +39,7 @@ export function NomineeCard({ nominee, variant = "grid" }: NomineeCardProps) {
   if (variant === "featured") {
     return (
       <>
-        <article className="group flex min-w-0 flex-col bg-background-elevated border border-primary/10">
+        <article className="group flex min-w-0 flex-col bg-background-elevated border border-primary/10 transition-all duration-300 hover:border-primary/30 hover:shadow-[0_4px_20px_rgba(235,193,102,0.05)]">
           <div className="relative block overflow-hidden bg-muted w-full aspect-4/5">
             <div className="absolute left-4 top-4 2xl:left-6 2xl:top-6 z-10">
               <Badge variant={badgeVariant}>{badgeLabel}</Badge>
@@ -68,12 +80,17 @@ export function NomineeCard({ nominee, variant = "grid" }: NomineeCardProps) {
                 size="sm"
                 variant="outline"
                 className={cn(
-                  "text-[10px] 2xl:text-[14px] leading-3.75 2xl:leading-5 font-normal  hover:text-primary",
-                  "h-8 tracking-[1px] 2xl:tracking-[1.5px] text-foreground border border-primary/20",
+                  "text-[10px] 2xl:text-[14px] leading-3.75 2xl:leading-5 font-semibold tracking-[1px] 2xl:tracking-[1.5px] h-8 transition-all duration-200",
+                  hasVotedThisNominee
+                    ? "bg-primary/20 text-primary border border-primary/50 cursor-default"
+                    : hasVotedInCategory
+                    ? "text-foreground-muted/40 border border-primary/5 opacity-50 cursor-not-allowed"
+                    : "text-foreground border border-primary/20 hover:bg-primary hover:text-[#402D00] hover:border-primary cursor-pointer"
                 )}
-                onClick={() => setIsVoteModalOpen(true)}
+                onClick={() => !hasVotedInCategory && setIsVoteModalOpen(true)}
+                disabled={hasVotedInCategory}
               >
-                Vote
+                {hasVotedThisNominee ? "Voted" : "Vote"}
               </Button>
             </div>
           </div>
@@ -105,7 +122,7 @@ export function NomineeCard({ nominee, variant = "grid" }: NomineeCardProps) {
               src={nominee.coverImage}
               alt={nominee.name}
               fill
-              className="object-cover grayscale transition-transform duration-500 group-hover:scale-105"
+              className="object-cover transition-transform duration-500 group-hover:scale-105"
             />
           ) : (
             <div className="h-full w-full bg-linear-to-br from-muted to-background-muted" />
@@ -118,7 +135,7 @@ export function NomineeCard({ nominee, variant = "grid" }: NomineeCardProps) {
         </Link>
 
         {/* Text */}
-        <div className="flex flex-1 flex-col pt-4 px-3 pb-3 border border-primary/40 border-t-0">
+        <div className="flex flex-1 flex-col pt-4 px-3 pb-3 border border-primary/40 border-t-0 transition-colors duration-300 group-hover:border-primary">
           <p
             className={cn(
               "flex min-w-0 items-center gap-2 2xl:gap-3 text-[10px] 2xl:text-[14px] font-inter",
@@ -134,7 +151,7 @@ export function NomineeCard({ nominee, variant = "grid" }: NomineeCardProps) {
           <h3
             className={cn(
               "mt-2 2xl:mt-3 font-display text-2xl sm:text-3xl lg:text-[32px]",
-              "2xl:text-[40px] leading-[1.2] font-semibold text-foreground",
+              "2xl:text-[40px] leading-[1.2] font-semibold text-foreground transition-colors duration-300 group-hover:text-primary",
             )}
           >
             {nominee.name}
@@ -155,12 +172,17 @@ export function NomineeCard({ nominee, variant = "grid" }: NomineeCardProps) {
               size="sm"
               variant="outline"
               className={cn(
-                "text-[10px] 2xl:text-[14px] leading-3.75 2xl:leading-5 font-normal  hover:text-primary",
-                "h-8 tracking-[1px] 2xl:tracking-[1.5px] text-foreground border border-primary/20",
+                "text-[10px] 2xl:text-[14px] leading-3.75 2xl:leading-5 font-semibold tracking-[1px] 2xl:tracking-[1.5px] h-8 transition-all duration-200",
+                hasVotedThisNominee
+                  ? "bg-primary/20 text-primary border border-primary/50 cursor-default"
+                  : hasVotedInCategory
+                  ? "text-foreground-muted/40 border border-primary/5 opacity-50 cursor-not-allowed"
+                  : "text-foreground border border-primary/20 hover:bg-primary hover:text-[#402D00] hover:border-primary cursor-pointer"
               )}
-              onClick={() => setIsVoteModalOpen(true)}
+              onClick={() => !hasVotedInCategory && setIsVoteModalOpen(true)}
+              disabled={hasVotedInCategory}
             >
-              Vote
+              {hasVotedThisNominee ? "Voted" : "Vote"}
             </Button>
           </div>
         </div>

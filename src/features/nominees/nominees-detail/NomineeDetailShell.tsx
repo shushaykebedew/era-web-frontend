@@ -12,6 +12,8 @@ import { GalleryTab } from "../tabs/GalleryTab";
 import { VoteModal } from "../VoteModal";
 import { type Tab, type NomineeDetailShellProps } from "@/types/nominees";
 import { SlideUp, FadeIn } from "@/components/ui/animations";
+import { useAuth } from "@/context/AuthContext";
+import { useMyVotes } from "@/hooks/queries/useNominees";
 
 export function NomineeDetailShell({
   nominee,
@@ -22,12 +24,24 @@ export function NomineeDetailShell({
   const [activeTab, setActiveTab] = useState<Tab>("detail");
   const [isVoteModalOpen, setIsVoteModalOpen] = useState(false);
 
+  const { isAuthenticated } = useAuth();
+  const { data: myVotes = [] } = useMyVotes(isAuthenticated);
+
+  const hasVotedThisNominee = myVotes.some(
+    (v: any) => v.nomineeId === nominee.id && v.awardCategoryId === nominee.categoryId
+  );
+  const hasVotedInCategory = myVotes.some(
+    (v: any) => v.awardCategoryId === nominee.categoryId
+  );
+
   return (
     <div className="bg-background min-h-screen w-full overflow-x-hidden -mt-16 sm:-mt-20 2xl:-mt-28">
       <NomineeDetailHeader
         activeTab={activeTab}
         onTabChange={setActiveTab}
         onVoteClick={() => setIsVoteModalOpen(true)}
+        hasVotedThisNominee={hasVotedThisNominee}
+        hasVotedInCategory={hasVotedInCategory}
       />
 
       {/* ── Hero row: sidebar + cover image side by side ── */}
@@ -121,13 +135,19 @@ export function NomineeDetailShell({
                   size="md"
                   variant="primary"
                   className={cn(
-                    "mt-10 w-full sm:w-auto bg-[#C9A24B] px-8 sm:px-12 2xl:px-16",
+                    "mt-10 w-full sm:w-auto px-8 sm:px-12 2xl:px-16 transition-all duration-200",
                     "text-sm sm:text-base 2xl:text-[24px] leading-6 2xl:leading-9",
                     "tracking-[2px] sm:tracking-[6.4px] 2xl:tracking-[8px]",
+                    hasVotedThisNominee
+                      ? "bg-primary/20 text-primary border border-primary/50 cursor-default"
+                      : hasVotedInCategory
+                      ? "bg-[#1a1712] text-[#e3dec8]/40 border border-primary/5 opacity-50 cursor-not-allowed"
+                      : "bg-[#C9A24B] text-[#402D00] hover:bg-[#C9A24B]/90 cursor-pointer"
                   )}
-                  onClick={() => setIsVoteModalOpen(true)}
+                  onClick={() => !hasVotedInCategory && setIsVoteModalOpen(true)}
+                  disabled={hasVotedInCategory}
                 >
-                  Vote Now
+                  {hasVotedThisNominee ? "YOU VOTED FOR THIS PROJECT" : "VOTE NOW"}
                 </Button>
               </div>
             </SlideUp>

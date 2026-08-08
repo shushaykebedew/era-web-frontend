@@ -9,6 +9,7 @@ import { cn } from "@/utils/cn";
 import { useAuth } from "@/context/AuthContext";
 import { getUserInitials } from "@/utils/user";
 import { useMediaQuery } from "@/hooks/useMediaQuery";
+import { User, LogOut } from "lucide-react";
 
 export function DesktopNav({
   onOpenAuthModal,
@@ -75,35 +76,47 @@ export function DesktopNav({
               onClick={() => setIsDropdownOpen((v) => !v)}
               aria-label="User navigation menu"
               aria-expanded={isDropdownOpen}
-              className="flex items-center gap-2 px-3 py-1.5 rounded-full border border-primary/30 bg-[#231F19] text-primary text-sm font-semibold tracking-wider font-inter hover:bg-[#2D2820] transition-colors cursor-pointer"
+              className="flex items-center focus:outline-none cursor-pointer group"
             >
-              <div className="w-6 h-6 2xl:w-10 2xl:h-10 rounded-full bg-primary text-[#402D00] flex items-center justify-center font-bold text-xs 2xl:text-base">
+              <div className="relative w-8 h-8 2xl:w-11 2xl:h-11 rounded-full bg-gradient-to-br from-primary to-[#8F6F2D] text-[#402D00] flex items-center justify-center font-bold text-xs 2xl:text-base border border-primary/40 group-hover:border-primary transition-all duration-300 shadow-md">
                 {getUserInitials(user.fullName)}
               </div>
-              <span className="truncate max-w-30 2xl:max-w-40 2xl:text-base">
-                {user.fullName}
-              </span>
             </button>
 
             {isDropdownOpen && (
-              <div className="absolute right-0 mt-2 w-48 z-20 bg-background border border-primary/30 shadow-xl rounded py-1 font-inter">
-                <div className="px-4 py-2 border-b border-primary/10">
-                  <p className="text-[10px] 2xl:text-[14px] text-foreground-muted uppercase tracking-wider font-bold">
-                    Logged in as
-                  </p>
-                  <p className="text-sm 2xl:text-[20px] font-semibold text-foreground truncate">
-                    {user.username}
-                  </p>
+              <div className="absolute right-0 mt-3 w-58 2xl:w-72 z-20 bg-[#1a1712] border border-primary/30 shadow-[0_8px_32px_rgba(0,0,0,0.6)] rounded-lg py-2 font-inter animate-in fade-in-0 slide-in-from-top-2 duration-250">
+                <div className="px-4 py-3 border-b border-primary/10 flex flex-col items-start gap-2">
+                  <span className="text-[10px] 2xl:text-[12px] uppercase tracking-widest font-semibold text-primary font-inter">
+                    Voter Profile
+                  </span>
+                  <div className="flex items-center gap-2">
+                    <div className="w-8.5 h-8.5 2xl:w-10 2xl:h-10 rounded-full bg-primary/10 border border-primary/20 flex items-center justify-center text-primary mt-0.5 shrink-0">
+                      <User className="w-4 h-4 2xl:w-6 2xl:h-6" />
+                    </div>
+
+                    <div className="flex flex-col gap-0.5 min-w-0 flex-1">
+
+                      <span className="text-sm 2xl:text-base font-semibold text-foreground truncate mt-0.5 leading-snug">
+                        {user.fullName}
+                      </span>
+                      <span className="text-xs 2xl:text-sm text-foreground-muted truncate leading-none">
+                        @{user.username}
+                      </span>
+                    </div>
+                  </div>
                 </div>
-                <button
-                  onClick={() => {
-                    logout();
-                    setIsDropdownOpen(false);
-                  }}
-                  className="w-full text-left px-4 py-2 text-sm 2xl:text-[18px] text-foreground hover:bg-primary/10 hover:text-primary transition-colors cursor-pointer"
-                >
-                  Sign Out
-                </button>
+                <div className="py-1">
+                  <button
+                    onClick={() => {
+                      logout();
+                      setIsDropdownOpen(false);
+                    }}
+                    className="w-full flex items-center gap-2 px-4 py-2.5 text-xs 2xl:text-sm uppercase tracking-wider font-semibold text-red-400 hover:bg-red-500/10 hover:text-red-300 transition-colors cursor-pointer font-inter"
+                  >
+                    <LogOut className="w-3.5 h-3.5 2xl:w-4.5 2xl:h-4.5" />
+                    Sign Out
+                  </button>
+                </div>
               </div>
             )}
           </div>

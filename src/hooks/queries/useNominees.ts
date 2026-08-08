@@ -1,7 +1,19 @@
 import { useQuery } from "@tanstack/react-query";
-import { fetchNominees, fetchNomineeById } from "@/services/nominees";
+import { fetchNominees, fetchNomineeById, fetchMyVotes } from "@/services/nominees";
 import { fetchCategories } from "@/services/categories";
 import type { Nominee, AwardCategory } from "@/types";
+
+export const voteKeys = {
+  mine: ["myVotes"] as const,
+};
+
+export function useMyVotes(enabled: boolean) {
+  return useQuery<any[]>({
+    queryKey: voteKeys.mine,
+    queryFn: fetchMyVotes,
+    enabled,
+  });
+}
 
 // ── Query keys ─────────────────────────────────────────────────────────────────
 // Centralised so invalidations and cache lookups are always in sync.

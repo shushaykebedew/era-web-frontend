@@ -5,8 +5,9 @@ import { cn } from "@/utils/cn";
 import { type Sort } from "@/types/ui";
 import type { AwardCategory, AwardTargetType } from "@/types";
 import { AWARD_TARGET_TYPES } from "@/types";
-import { Dropdown } from "@/components/ui/Dropdown";
 import { SortSelect } from "./SortSelect";
+import { Search, X } from "lucide-react";
+import { motion } from "framer-motion";
 
 interface NomineesFilterBarProps {
   activeCategoryId: string;
@@ -15,6 +16,8 @@ interface NomineesFilterBarProps {
   onTargetTypeChange: (code: string) => void;
   sort: Sort;
   onSortChange: (sort: Sort) => void;
+  searchQuery: string;
+  onSearchChange: (query: string) => void;
   totalCount?: number;
   categories: AwardCategory[];
 }
@@ -26,237 +29,129 @@ export function NomineesFilterBar({
   onTargetTypeChange,
   sort,
   onSortChange,
-  totalCount,
+  searchQuery,
+  onSearchChange,
   categories,
 }: NomineesFilterBarProps) {
-  const resolvedCategories = categories;
-
-  // Build dropdown options: "All Projects" first, then each category
   const categoryOptions = [
-    { value: "all", label: "All Projects" },
-    ...resolvedCategories.map((c) => ({ value: c.id, label: c.name })),
+    { id: "all", name: "All Projects" },
+    ...categories,
   ];
 
-  const selectedCategory =
-    categoryOptions.find((opt) => opt.value === activeCategoryId) ??
-    categoryOptions[0];
-
-  // Build target type dropdown options: "All Types" first, then each type
-  const targetTypeOptions: { value: string; label: string }[] = [
-    { value: "all", label: "All Types" },
-    ...AWARD_TARGET_TYPES.map((t: AwardTargetType) => ({
-      value: t.code,
-      label: t.name,
-    })),
+  // Filtering out types that are not properties, companies, or projects to keep it focused on real estate
+  const targetTypes = [
+    { code: "all", name: "All Types" },
+    ...AWARD_TARGET_TYPES.filter(t => ["COMPANY", "PROJECT", "PROPERTY"].includes(t.code)),
   ];
-
-  const selectedTargetType =
-    targetTypeOptions.find((opt) => opt.value === activeTargetType) ??
-    targetTypeOptions[0];
 
   return (
-    <section className="bg-background py-6 2xl:py-10 border-b border-border-strong overflow-visible">
+    <section className="bg-background py-8 border-b border-primary/10 overflow-visible font-inter">
       <Container size="wide">
-        <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 sm:gap-x-10 lg:flex lg:flex-row md:gap-6 2xl:gap-10 lg:justify-between">
-          {/* ── Category */}
-          <div className="relative w-full md:w-72 2xl:w-[26rem] flex flex-col gap-1.5 2xl:gap-3 font-inter">
-            <label className="text-xs 2xl:text-base uppercase tracking-wider font-semibold text-foreground-muted">
+        <div className="flex flex-col gap-6">
+
+          {/* Row 1: Search & Sort */}
+          <div className="flex flex-col md:flex-row gap-4 items-stretch md:items-end justify-between">
+            {/* Search Box */}
+            <div className="flex-1 flex flex-col gap-2">
+              <label className="text-xs uppercase tracking-widest font-semibold text-foreground-muted">
+                Search Nominees
+              </label>
+              <div className="relative">
+                <Search className="w-4 h-4 absolute left-4 top-1/2 -translate-y-1/2 text-primary/70" />
+                <input
+                  type="text"
+                  placeholder="Search by name, company, or details..."
+                  value={searchQuery}
+                  onChange={(e) => onSearchChange(e.target.value)}
+                  className={cn(
+                    "w-full h-11 2xl:h-16 pl-11 pr-11 bg-[#1a1712] border border-primary/20 rounded",
+                    "text-foreground text-sm 2xl:text-base outline-none transition-all duration-200",
+                    "focus:border-primary/60 focus:ring-1 focus:ring-primary/25 placeholder:text-foreground-muted/50"
+                  )}
+                />
+                {searchQuery && (
+                  <button
+                    onClick={() => onSearchChange("")}
+                    className="absolute right-4 top-1/2 -translate-y-1/2 text-foreground-muted hover:text-foreground transition-colors cursor-pointer"
+                  >
+                    <X className="w-4 h-4 2xl:w-5 2xl:h-5" />
+                  </button>
+                )}
+              </div>
+            </div>
+
+            {/* Sort Dropdown */}
+            <div className="w-full md:w-72 md:shrink-0">
+              <SortSelect value={sort} onChange={onSortChange} />
+            </div>
+          </div>
+
+          {/* Row 2: Category Pills */}
+          <div className="flex flex-col gap-3">
+            <label className="text-xs uppercase tracking-widest font-semibold text-foreground-muted">
               Filter by Category
             </label>
-
-            <Dropdown<string>
-              value={activeCategoryId}
-              onChange={onCategoryChange}
-              options={categoryOptions}
-              className="relative w-full"
-              renderButton={({ open, onClick, onKeyDown }) => (
-                <button
-                  type="button"
-                  role="combobox"
-                  aria-haspopup="listbox"
-                  aria-expanded={open}
-                  aria-controls="category-listbox"
-                  onClick={onClick}
-                  onKeyDown={onKeyDown}
-                  className="w-full h-11 2xl:h-16 px-4 2xl:px-6 bg-background-elevated border border-primary/20 rounded text-foreground text-sm 2xl:text-lg font-inter flex items-center justify-between outline-none cursor-pointer transition-all duration-200 select-none hover:border-primary/40 focus:border-primary/60 focus:ring-1 focus:ring-primary/30"
-                >
-                  <span className="truncate text-left text-foreground font-medium">
-                    {selectedCategory.label}
-                  </span>
-
-                  <svg
+            <div className="flex flex-wrap gap-2.5 sm:gap-3">
+              {categoryOptions.map((cat) => {
+                const isActive = activeCategoryId === cat.id;
+                return (
+                  <button
+                    key={cat.id}
+                    onClick={() => onCategoryChange(cat.id)}
                     className={cn(
-                      "w-4 h-4 2xl:w-6 2xl:h-6 text-primary shrink-0 transition-transform duration-200 ml-2 2xl:ml-4",
-                      open && "rotate-180",
+                      "relative px-2.5 py-1.5 sm:px-4 sm:py-2.5 text-[10px] sm:text-xs 2xl:text-sm uppercase tracking-wider font-semibold rounded whitespace-nowrap transition-colors duration-200 cursor-pointer border",
+                      isActive
+                        ? "text-primary/80 border-primary font-bold"
+                        : "text-foreground-muted hover:text-foreground bg-[#1a1712]/50 border-primary/10 hover:border-primary/30"
                     )}
-                    fill="none"
-                    stroke="currentColor"
-                    viewBox="0 0 24 24"
                   >
-                    <path
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                      strokeWidth="2"
-                      d="M19 9l-7 7-7-7"
-                    />
-                  </svg>
-                </button>
-              )}
-              renderList={({
-                activeIndex,
-                setActiveIndex,
-                onSelect,
-                options,
-              }) => (
-                <ul
-                  id="category-listbox"
-                  role="listbox"
-                  tabIndex={-1}
-                  className="absolute left-0 right-0 top-[calc(100%+6px)] 2xl:top-[calc(100%+10px)] z-50 max-h-60 2xl:max-h-[360px] overflow-y-auto bg-background-elevated border border-primary/30 rounded shadow-[0_12px_32px_rgba(0,0,0,0.8)] py-1.5 2xl:py-3 flex flex-col font-inter scrollbar-thin scrollbar-thumb-primary/30 animate-in fade-in-0 zoom-in-95 duration-150"
-                >
-                  {options.map((option, i) => {
-                    const isSelected = option.value === activeCategoryId;
-                    const isActive = i === activeIndex;
-                    return (
-                      <li
-                        key={option.value}
-                        role="option"
-                        aria-selected={isSelected}
-                        onMouseEnter={() => setActiveIndex(i)}
-                        onClick={() => onSelect(option)}
-                        className={cn(
-                          "px-4 py-2.5 2xl:px-6 2xl:py-4 text-sm 2xl:text-lg flex items-center justify-between cursor-pointer transition-colors duration-150 font-inter select-none",
-                          "text-foreground-muted hover:text-foreground",
-                          isActive && "bg-primary/10 text-primary",
-                          isSelected &&
-                            "bg-primary/15 text-primary font-semibold",
-                        )}
-                      >
-                        <span className="truncate">{option.label}</span>
-                        {isSelected && (
-                          <svg
-                            className="w-4 h-4 2xl:w-6 2xl:h-6 text-primary shrink-0 ml-2 2xl:ml-4"
-                            fill="none"
-                            stroke="currentColor"
-                            viewBox="0 0 24 24"
-                          >
-                            <path
-                              strokeLinecap="round"
-                              strokeLinejoin="round"
-                              strokeWidth="2.5"
-                              d="M5 13l4 4L19 7"
-                            />
-                          </svg>
-                        )}
-                      </li>
-                    );
-                  })}
-                </ul>
-              )}
-            />
+                    {isActive && (
+                      <motion.div
+                        layoutId="activeCategoryPill"
+                        className="absolute inset-0 bg-primary rounded -z-10"
+                        transition={{ type: "spring", stiffness: 380, damping: 30 }}
+                      />
+                    )}
+                    {cat.name}
+                  </button>
+                );
+              })}
+            </div>
           </div>
 
-          {/* ── Target Type dropdown ── */}
-          <div className="relative w-full md:w-72 2xl:w-[26rem] flex flex-col gap-1.5 2xl:gap-3 font-inter">
-            <label className="text-xs 2xl:text-base uppercase tracking-wider font-semibold text-foreground-muted">
-              Filter by Type
+          {/* Row 3: Target Type (Segmented control button group) */}
+          <div className="flex flex-col gap-2">
+            <label className="text-xs uppercase tracking-widest font-semibold text-foreground-muted">
+              Filter by Target Type
             </label>
-
-            <Dropdown<string>
-              value={activeTargetType}
-              onChange={onTargetTypeChange}
-              options={targetTypeOptions}
-              className="relative w-full"
-              renderButton={({ open, onClick, onKeyDown }) => (
-                <button
-                  type="button"
-                  role="combobox"
-                  aria-haspopup="listbox"
-                  aria-expanded={open}
-                  aria-controls="target-type-listbox"
-                  onClick={onClick}
-                  onKeyDown={onKeyDown}
-                  className="w-full h-11 2xl:h-16 px-4 2xl:px-6 bg-background-elevated border border-primary/20 rounded text-foreground text-sm 2xl:text-lg font-inter flex items-center justify-between outline-none cursor-pointer transition-all duration-200 select-none hover:border-primary/40 focus:border-primary/60 focus:ring-1 focus:ring-primary/30"
-                >
-                  <span className="truncate text-left text-foreground font-medium">
-                    {selectedTargetType.label}
-                  </span>
-                  <svg
+            <div className="inline-flex p-1 bg-[#1a1712] border border-primary/15 rounded self-start">
+              {targetTypes.map((type) => {
+                const isActive = activeTargetType === type.code;
+                return (
+                  <button
+                    key={type.code}
+                    onClick={() => onTargetTypeChange(type.code)}
                     className={cn(
-                      "w-4 h-4 2xl:w-6 2xl:h-6 text-primary shrink-0 transition-transform duration-200 ml-2 2xl:ml-4",
-                      open && "rotate-180",
+                      "relative px-2.5 py-1.5 sm:px-4 sm:py-2 text-[10px] sm:text-xs uppercase tracking-wider font-semibold rounded transition-all duration-200 cursor-pointer whitespace-nowrap",
+                      isActive
+                        ? "text-primary font-bold shadow-md"
+                        : "text-foreground-muted hover:text-foreground"
                     )}
-                    fill="none"
-                    stroke="currentColor"
-                    viewBox="0 0 24 24"
                   >
-                    <path
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                      strokeWidth="2"
-                      d="M19 9l-7 7-7-7"
-                    />
-                  </svg>
-                </button>
-              )}
-              renderList={({
-                activeIndex,
-                setActiveIndex,
-                onSelect,
-                options,
-              }) => (
-                <ul
-                  id="target-type-listbox"
-                  role="listbox"
-                  tabIndex={-1}
-                  className="absolute left-0 right-0 top-[calc(100%+6px)] 2xl:top-[calc(100%+10px)] z-50 max-h-60 2xl:max-h-[360px] overflow-y-auto bg-background-elevated border border-primary/30 rounded shadow-[0_12px_32px_rgba(0,0,0,0.8)] py-1.5 2xl:py-3 flex flex-col font-inter scrollbar-thin scrollbar-thumb-primary/30 animate-in fade-in-0 zoom-in-95 duration-150"
-                >
-                  {options.map((option, i) => {
-                    const isSelected = option.value === activeTargetType;
-                    const isActive = i === activeIndex;
-                    return (
-                      <li
-                        key={option.value}
-                        role="option"
-                        aria-selected={isSelected}
-                        onMouseEnter={() => setActiveIndex(i)}
-                        onClick={() => onSelect(option)}
-                        className={cn(
-                          "px-4 py-2.5 2xl:px-6 2xl:py-4 text-sm 2xl:text-lg flex items-center justify-between cursor-pointer transition-colors duration-150 font-inter select-none",
-                          "text-foreground-muted hover:text-foreground",
-                          isActive && "bg-primary/10 text-primary",
-                          isSelected &&
-                            "bg-primary/15 text-primary font-semibold",
-                        )}
-                      >
-                        <span className="truncate">{option.label}</span>
-                        {isSelected && (
-                          <svg
-                            className="w-4 h-4 2xl:w-6 2xl:h-6 text-primary shrink-0 ml-2 2xl:ml-4"
-                            fill="none"
-                            stroke="currentColor"
-                            viewBox="0 0 24 24"
-                          >
-                            <path
-                              strokeLinecap="round"
-                              strokeLinejoin="round"
-                              strokeWidth="2.5"
-                              d="M5 13l4 4L19 7"
-                            />
-                          </svg>
-                        )}
-                      </li>
-                    );
-                  })}
-                </ul>
-              )}
-            />
+                    {isActive && (
+                      <motion.div
+                        layoutId="activeTargetTypeBg"
+                        className="absolute inset-0 bg-[#282218] border border-primary/20 rounded -z-10"
+                        transition={{ type: "spring", stiffness: 350, damping: 25 }}
+                      />
+                    )}
+                    {type.name}
+                  </button>
+                );
+              })}
+            </div>
           </div>
 
-          {/* Sort */}
-          <div className="w-full md:w-72 2xl:w-[26rem] md:shrink-0 *:w-full">
-            <SortSelect value={sort} onChange={onSortChange} />
-          </div>
         </div>
       </Container>
     </section>

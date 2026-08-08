@@ -11,6 +11,8 @@ interface NomineeDetailHeaderProps {
   onTabChange?: (tab: Tab) => void;
   onVoteClick?: () => void;
   staticMode?: boolean;
+  hasVotedThisNominee?: boolean;
+  hasVotedInCategory?: boolean;
 }
 
 const TABS: { id: Tab; label: string }[] = [
@@ -24,6 +26,8 @@ export function NomineeDetailHeader({
   onTabChange,
   onVoteClick,
   staticMode = false,
+  hasVotedThisNominee = false,
+  hasVotedInCategory = false,
 }: NomineeDetailHeaderProps) {
   return (
     <nav
@@ -74,13 +78,19 @@ export function NomineeDetailHeader({
             size="md"
             variant="outline"
             className={cn(
-              "hidden md:inline-flex shrink-0 border-primary/30 font-semibold",
+              "hidden md:inline-flex shrink-0 font-semibold transition-all duration-200",
               "text-[10px] sm:text-[12px] 2xl:text-base leading-4 2xl:leading-6",
-              "tracking-[1.8px] 2xl:tracking-[2.4px] whitespace-nowrap text-primary",
+              "tracking-[1.8px] 2xl:tracking-[2.4px] whitespace-nowrap",
+              hasVotedThisNominee
+                ? "bg-primary/20 text-primary border border-primary/50 cursor-default"
+                : hasVotedInCategory
+                ? "text-foreground-muted/40 border border-primary/5 opacity-50 cursor-not-allowed"
+                : "border-primary/30 text-primary hover:bg-primary hover:text-[#402D00] hover:border-primary cursor-pointer"
             )}
-            onClick={onVoteClick}
+            onClick={() => !hasVotedInCategory && onVoteClick?.()}
+            disabled={hasVotedInCategory}
           >
-            Vote For This Project
+            {hasVotedThisNominee ? "You Voted For This Project" : "Vote For This Project"}
           </Button>
         </>
       )}

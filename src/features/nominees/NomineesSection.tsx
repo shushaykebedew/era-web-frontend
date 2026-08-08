@@ -116,6 +116,8 @@ function NomineesSectionContent() {
     handleTargetTypeChange,
     sort,
     setSort,
+    searchQuery,
+    setSearchQuery,
     visible,
     sortedLength,
     hasMore,
@@ -197,6 +199,8 @@ function NomineesSectionContent() {
         onTargetTypeChange={handleTargetTypeChange}
         sort={sort}
         onSortChange={setSort}
+        searchQuery={searchQuery}
+        onSearchChange={setSearchQuery}
         totalCount={nomineesList.length}
         categories={categoriesList}
       />

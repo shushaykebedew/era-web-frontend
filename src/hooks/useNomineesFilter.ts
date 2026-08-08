@@ -14,6 +14,7 @@ export function useNomineesFilter(
   const [activeTargetType, setActiveTargetType] =
     useState<string>(initialTargetType);
   const [sort, setSort] = useState<Sort>("Alphabetical");
+  const [searchQuery, setSearchQuery] = useState<string>("");
   const [page, setPage] = useState(1);
 
   // Build a categoryId → targetType code map from the categories list so we
@@ -37,6 +38,14 @@ export function useNomineesFilter(
         const catTargetType = categoryTargetTypeMap.get(n.categoryId);
         if (catTargetType !== activeTargetType) return false;
       }
+      // Search filter
+      if (searchQuery.trim()) {
+        const query = searchQuery.toLowerCase();
+        const matchesName = n.name.toLowerCase().includes(query);
+        const matchesFirm = n.firm ? n.firm.toLowerCase().includes(query) : false;
+        const matchesExcerpt = n.excerpt ? n.excerpt.toLowerCase().includes(query) : false;
+        if (!matchesName && !matchesFirm && !matchesExcerpt) return false;
+      }
       return true;
     });
   }, [
@@ -44,6 +53,7 @@ export function useNomineesFilter(
     activeCategoryId,
     activeTargetType,
     categoryTargetTypeMap,
+    searchQuery,
   ]);
 
   const sorted = useMemo(() => {
@@ -68,6 +78,11 @@ export function useNomineesFilter(
     setPage(1);
   };
 
+  const handleSearchChange = (val: string) => {
+    setSearchQuery(val);
+    setPage(1);
+  };
+
   const loadMore = () => setPage((p) => p + 1);
 
   return {
@@ -77,6 +92,8 @@ export function useNomineesFilter(
     handleTargetTypeChange,
     sort,
     setSort,
+    searchQuery,
+    setSearchQuery: handleSearchChange,
     visible,
     sortedLength: sorted.length,
     hasMore,

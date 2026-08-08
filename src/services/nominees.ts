@@ -153,6 +153,16 @@ export async function castPublicVote(
   return res.data;
 }
 
+export async function fetchMyVotes(): Promise<any[]> {
+  try {
+    const res = await api.get("/public-votes/mine");
+    if (res.data?.success) return res.data.data;
+  } catch (error) {
+    console.warn("Failed to fetch user votes:", error);
+  }
+  return [];
+}
+
 /**
  * @deprecated Cache invalidation is now handled by TanStack Query.
  * This is kept as a no-op so existing call-sites compile while they are

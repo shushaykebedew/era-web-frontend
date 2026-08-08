@@ -11,7 +11,78 @@ import { cn } from "@/utils/cn";
 import { type VoteModalProps, type VoteStep } from "@/types/nominees";
 import { useAuth } from "@/context/AuthContext";
 import { castPublicVote } from "@/services/nominees";
-import { nomineeKeys } from "@/hooks/queries/useNominees";
+import { nomineeKeys, voteKeys } from "@/hooks/queries/useNominees";
+import { Check } from "lucide-react";
+import { motion } from "framer-motion";
+
+type ConfettiParticle = {
+  id: number;
+  x: number;
+  y: number;
+  angle: number;
+  speed: number;
+  size: number;
+  color: string;
+  rotation: number;
+};
+
+function GoldConfetti() {
+  const [particles, setParticles] = useState<ConfettiParticle[]>([]);
+
+  useEffect(() => {
+    const colors = ["#C9A24B", "#EBC166", "#FFF3D1", "#8F6F2D", "#F7DF94"];
+    const generated: ConfettiParticle[] = Array.from({ length: 80 }).map((_, i) => {
+      const angle = Math.random() * 360;
+      const speed = 8 + Math.random() * 18;
+      const size = 3 + Math.random() * 6;
+      const color = colors[Math.floor(Math.random() * colors.length)]!;
+      return {
+        id: i,
+        x: 0,
+        y: 0,
+        angle,
+        speed,
+        size,
+        color,
+        rotation: Math.random() * 360,
+      };
+    });
+    setParticles(generated);
+  }, []);
+
+  return (
+    <div className="absolute inset-0 pointer-events-none flex items-center justify-center overflow-hidden z-50">
+      {particles.map((p) => {
+        const rad = (p.angle * Math.PI) / 180;
+        const targetX = Math.cos(rad) * p.speed * 15;
+        const targetY = Math.sin(rad) * p.speed * 15 + 80;
+        return (
+          <motion.div
+            key={p.id}
+            initial={{ x: 0, y: 0, opacity: 1, scale: 0.1, rotate: 0 }}
+            animate={{
+              x: targetX,
+              y: targetY - 30,
+              opacity: 0,
+              scale: 0.8,
+              rotate: p.rotation + 360,
+            }}
+            transition={{
+              duration: 1.2 + Math.random() * 0.6,
+              ease: "easeOut",
+            }}
+            className="absolute rounded-xs"
+            style={{
+              width: p.size,
+              height: p.size * (Math.random() > 0.6 ? 2.5 : 1),
+              backgroundColor: p.color,
+            }}
+          />
+        );
+      })}
+    </div>
+  );
+}
 
 export function VoteModal({
   isOpen,
@@ -34,6 +105,7 @@ export function VoteModal({
     onSuccess: () => {
       // Invalidate the nominees list so vote counts refresh automatically
       queryClient.invalidateQueries({ queryKey: nomineeKeys.all });
+      queryClient.invalidateQueries({ queryKey: voteKeys.mine });
       onVoteSuccess?.();
       setStep("success");
     },
@@ -166,39 +238,54 @@ export function VoteModal({
       )}
 
       {isAuthenticated && step === "success" && (
-        <div className="flex flex-col items-center w-full">
-          <div className="mb-6 flex items-center justify-center">
-            <Image
-              src="/icons/vote-confirm-icon.svg"
-              alt=""
-              width={40}
-              height={40}
-              className="h-10 w-10 2xl:h-12 2xl:w-12"
-            />
+        <div className="flex flex-col items-center w-full relative">
+          <GoldConfetti />
+          
+          <div className="mb-8 flex items-center justify-center relative">
+            <motion.div
+              initial={{ scale: 0 }}
+              animate={{ scale: 1 }}
+              transition={{ type: "spring", stiffness: 260, damping: 15 }}
+              className="relative w-20 h-20 flex items-center justify-center bg-primary/10 rounded-full border border-primary/30"
+            >
+              {/* Ripple Ring */}
+              <motion.div
+                initial={{ scale: 1, opacity: 0.5 }}
+                animate={{ scale: 1.6, opacity: 0 }}
+                transition={{ repeat: Infinity, duration: 2, ease: "easeOut" }}
+                className="absolute inset-0 bg-primary/20 rounded-full"
+              />
+              <Check className="w-8 h-8 text-primary" />
+            </motion.div>
           </div>
+
           <h2
             className={cn(
               "font-display text-center text-[24px] 2xl:text-[34px]",
-              "font-semibold text-foreground mb-4 leading-14",
+              "font-semibold text-primary mb-4 leading-10 tracking-wide uppercase",
             )}
           >
-            Excellence Acknowledged
+            Vote Confirmed!
           </h2>
+          
           <p
             className={cn(
               "font-inter text-center text-foreground-muted text-sm",
               "2xl:text-[20px] leading-7 mb-8 max-w-118.25 mx-auto",
             )}
           >
-            Thank you for participating in the ERA 2026 Architectural Awards.
-            Your contribution helps shape the future of excellence in Ethiopia.
+            Thank you for casting your vote for{" "}
+            <span className="text-foreground font-semibold">{nominee.name}</span> in the{" "}
+            <span className="text-primary font-semibold">{nominee.category?.name || "Architectural Awards"}</span> category.
+            Your contribution shapes the standard of design excellence in Ethiopia.
           </p>
+
           <div className="w-full flex flex-col gap-4">
             <Button
               variant="outline"
               size="lg"
               className={cn(
-                "w-full border-primary text-primary text-[12px] 2xl:text-base",
+                "w-full border-primary text-primary text-[12px] 2xl:text-base cursor-pointer",
                 "h-10 sm:h-12.5 font-semibold tracking-[1.2px]",
               )}
               onClick={onClose}
