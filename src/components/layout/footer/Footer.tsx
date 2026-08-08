@@ -14,7 +14,7 @@ export function Footer() {
       label: "Facebook",
       icon: (
         <svg
-          className="w-4.5 h-4.5 sm:w-5 sm:h-5 shrink-0"
+          className="w-4 h-4 sm:w-4.5 sm:h-4.5 shrink-0"
           fill="currentColor"
           viewBox="0 0 24 24"
           aria-hidden="true"
@@ -32,7 +32,7 @@ export function Footer() {
       label: "Instagram",
       icon: (
         <svg
-          className="w-4.5 h-4.5 sm:w-5 sm:h-5 shrink-0"
+          className="w-3.5 h-3.5 sm:w-4 sm:h-4 shrink-0"
           fill="currentColor"
           viewBox="0 0 24 24"
           aria-hidden="true"
@@ -50,7 +50,7 @@ export function Footer() {
       label: "LinkedIn",
       icon: (
         <svg
-          className="w-4.5 h-4.5 sm:w-5 sm:h-5 shrink-0"
+          className="w-3.5 h-3.5 sm:w-4 sm:h-4 shrink-0"
           fill="currentColor"
           viewBox="0 0 24 24"
           aria-hidden="true"
@@ -68,7 +68,7 @@ export function Footer() {
       label: "Email",
       icon: (
         <svg
-          className="w-4.5 h-4.5 sm:w-5 sm:h-5 shrink-0"
+          className="w-3.5 h-3.5 sm:w-4 sm:h-4 shrink-0"
           fill="none"
           stroke="currentColor"
           strokeWidth="2.2"
@@ -81,29 +81,15 @@ export function Footer() {
         </svg>
       ),
     },
-    {
-      href: "https://ethiorealestateawards.com",
-      label: "Website",
-      icon: (
-        <svg
-          className="w-4.5 h-4.5 sm:w-5 sm:h-5 shrink-0"
-          fill="none"
-          stroke="currentColor"
-          strokeWidth="2.2"
-          strokeLinecap="round"
-          strokeLinejoin="round"
-          viewBox="0 0 24 24"
-        >
-          <circle cx="12" cy="12" r="10" />
-          <path d="M12 2a14.5 14.5 0 0 0 0 20 14.5 14.5 0 0 0 0-20" />
-          <path d="M2 12h20" />
-        </svg>
-      ),
-    },
   ];
 
   return (
-    <footer className="border-t border-primary/20 bg-[#110E08] pt-16 pb-12 sm:pt-20 2xl:pt-24 font-inter text-left">
+    <footer className="relative overflow-hidden border-t border-primary/20 bg-[#110E08] pt-10 pb-10 sm:pt-14 2xl:pt-18 font-inter text-left">
+      {/* top hairline gradient */}
+      <div className="absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-primary/50 to-transparent" />
+      {/* soft ambient glow */}
+      <div className="pointer-events-none absolute -top-40 left-1/2 h-80 w-[36rem] -translate-x-1/2 rounded-full bg-primary/10 blur-3xl" />
+
       <Container size="wide">
         {/* Main Footer Content Grid */}
         <div className="grid grid-cols-1 md:grid-cols-12 gap-10 md:gap-6 2xl:gap-10 border-b border-primary/10 pb-12 sm:pb-16 2xl:pb-20">
@@ -113,54 +99,66 @@ export function Footer() {
               href="/"
               className={cn(
                 "font-display text-2xl sm:text-[32px] 2xl:text-[48px] font-bold",
-                "text-primary leading-tight flex items-center gap-2 2xl:gap-3",
+                "text-primary leading-tight flex items-center gap-2 2xl:gap-3 w-fit",
               )}
             >
               ERA
-              <span className="w-2 h-2 2xl:w-3.5 2xl:h-3.5 rounded-full bg-primary animate-pulse"></span>
+              <span className="relative flex h-2.5 w-2.5 2xl:h-4 2xl:w-4">
+                <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-primary opacity-60" />
+                <span className="relative inline-flex h-full w-full rounded-full bg-primary" />
+              </span>
             </Link>
             <p className="text-xs sm:text-sm 2xl:text-lg text-foreground-muted leading-relaxed 2xl:leading-loose max-w-sm 2xl:max-w-md">
               {siteConfig.description}
             </p>
-            <span className="text-[10px] 2xl:text-sm uppercase tracking-widest font-semibold text-primary/80 mt-2">
+            <span className="inline-flex w-fit items-center gap-2 rounded-full border border-primary/20 bg-primary/5 px-3 py-1.5 text-[10px] 2xl:text-sm uppercase tracking-widest font-semibold text-primary/90 mt-2">
               {siteConfig.tagline}
             </span>
           </div>
 
-          {/* Column 2: Navigation Links (3 cols on md+) */}
-          <div className="md:col-span-3 flex flex-col gap-4 2xl:gap-6">
-            <h4 className="text-xs 2xl:text-sm uppercase tracking-widest font-bold text-foreground">
-              Explore
-            </h4>
-            <nav className="flex flex-col gap-2.5 2xl:gap-4">
-              {siteConfig.nav.map((link) => (
-                <Link
-                  key={link.href}
-                  href={link.href}
-                  className="text-xs sm:text-sm 2xl:text-base text-foreground-muted hover:text-primary transition-colors duration-200"
-                >
-                  {link.label}
-                </Link>
-              ))}
-            </nav>
-          </div>
+          {/* Columns 2 & 3 — always side by side (flex row at every breakpoint) */}
+          <div className="md:col-span-7 flex flex-row gap-6 sm:gap-10">
+            {/* Column 2: Navigation Links */}
+            <div className="flex-1 flex flex-col gap-4 2xl:gap-6">
+              <div className="flex flex-col gap-2">
+                <h4 className="text-xs 2xl:text-sm uppercase tracking-widest font-bold text-foreground">
+                  Explore
+                </h4>
+                <span className="h-px w-6 bg-primary/60" />
+              </div>
+              <nav className="flex flex-col gap-2.5 2xl:gap-4">
+                {siteConfig.nav.map((link) => (
+                  <Link
+                    key={link.href}
+                    href={link.href}
+                    className="text-xs sm:text-sm 2xl:text-base text-foreground-muted hover:text-primary hover:translate-x-0.5 transition-all duration-200 w-fit"
+                  >
+                    {link.label}
+                  </Link>
+                ))}
+              </nav>
+            </div>
 
-          {/* Column 3: Legal & Resources (4 cols on md+) */}
-          <div className="md:col-span-4 flex flex-col gap-4 2xl:gap-6">
-            <h4 className="text-xs 2xl:text-sm uppercase tracking-widest font-bold text-foreground">
-              Platform & Legal
-            </h4>
-            <nav className="flex flex-col gap-2.5 2xl:gap-4">
-              {siteConfig.footerLinks.map((link) => (
-                <Link
-                  key={link.href}
-                  href={link.href}
-                  className="text-xs sm:text-sm 2xl:text-base text-foreground-muted hover:text-primary transition-colors duration-200"
-                >
-                  {link.label}
-                </Link>
-              ))}
-            </nav>
+            {/* Column 3: Legal & Resources */}
+            <div className="flex-1 flex flex-col gap-4 2xl:gap-6">
+              <div className="flex flex-col gap-2">
+                <h4 className="text-xs 2xl:text-sm uppercase tracking-widest font-bold text-foreground">
+                  Platform & Legal
+                </h4>
+                <span className="h-px w-10 bg-primary/60" />
+              </div>
+              <nav className="flex flex-col gap-2.5 2xl:gap-4">
+                {siteConfig.footerLinks.map((link) => (
+                  <Link
+                    key={link.href}
+                    href={link.href}
+                    className="text-xs sm:text-sm 2xl:text-base text-foreground-muted hover:text-primary hover:translate-x-0.5 transition-all duration-200 w-fit"
+                  >
+                    {link.label}
+                  </Link>
+                ))}
+              </nav>
+            </div>
           </div>
         </div>
 
@@ -171,7 +169,7 @@ export function Footer() {
             &copy; {year} {siteConfig.fullName}. All rights reserved.
           </p>
 
-          {/* Right: Social Icons Button Group */}
+          {/* Right: Social Icons + Back to top */}
           <div className="flex items-center gap-3 sm:gap-4 2xl:gap-5">
             {socialLinks.map(({ href, icon, label }) => (
               <a
@@ -181,14 +179,36 @@ export function Footer() {
                 rel="noopener noreferrer"
                 aria-label={label}
                 className={cn(
-                  "flex h-9 w-9 sm:h-10 sm:w-10 2xl:h-13 2xl:w-13 items-center justify-center rounded-full border border-primary/20",
-                  "text-foreground-muted/80 bg-[#1a1712] hover:text-[#402D00] hover:bg-primary hover:border-primary",
-                  "transition-all duration-300 hover:scale-110 active:scale-95 shadow-sm cursor-pointer",
+                  "flex h-8 w-8 sm:h-9 sm:w-9 2xl:h-12 2xl:w-12 items-center justify-center rounded-full border border-primary/20",
+                  "text-foreground-muted/80 bg-[#1a1712] hover:text-primary  hover:border-primary",
+                  "transition-all duration-300 active:scale-95 shadow-sm cursor-pointer",
                 )}
               >
                 {icon}
               </a>
             ))}
+
+            <span className="hidden sm:block h-6 w-px bg-primary/15 mx-1" />
+
+            <button
+              type="button"
+              onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
+              aria-label="Back to top"
+              className="flex h-8 w-8 sm:h-9 sm:w-9 2xl:h-12 2xl:w-12 items-center justify-center rounded-full border border-primary/20 bg-[#1a1712] text-foreground-muted/80 hover:text-primary hover:border-primary transition-all duration-300 active:scale-95 shadow-sm cursor-pointer"
+            >
+              <svg
+                className="w-4 h-4 2xl:w-5 2xl:h-5"
+                fill="none"
+                stroke="currentColor"
+                strokeWidth="2.4"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                viewBox="0 0 24 24"
+              >
+                <path d="M12 19V5" />
+                <path d="m5 12 7-7 7 7" />
+              </svg>
+            </button>
           </div>
         </div>
       </Container>
