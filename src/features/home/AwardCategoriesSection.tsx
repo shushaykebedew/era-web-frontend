@@ -20,8 +20,12 @@ export function AwardCategoriesSection({
     const [card1, card2, card3, card4] = items;
 
     return (
-      <section className="bg-[#0c0c0e] py-16 sm:py-20 lg:py-24 2xl:py-32">
-        <Container size="wide">
+      <section className="relative bg-[#0c0c0e] py-16 sm:py-20 lg:py-24 2xl:py-32 overflow-hidden">
+        <div
+          aria-hidden="true"
+          className="pointer-events-none absolute -top-24 right-0 h-72 w-72 rounded-full bg-primary/5 blur-3xl"
+        />
+        <Container size="wide" className="relative">
           <FadeIn>
             <div className="flex flex-col items-start justify-between gap-6 sm:flex-row sm:items-end">
               <SectionHeading
@@ -31,16 +35,16 @@ export function AwardCategoriesSection({
               <Link
                 href="/categories"
                 className={cn(
-                  "flex shrink-0 items-center gap-1 2xl:gap-2 text-[12px] 2xl:text-[16px]",
+                  "group flex shrink-0 items-center gap-1 2xl:gap-2 text-[12px] 2xl:text-[16px]",
                   "font-inter font-semibold uppercase tracking-[1.2px] 2xl:tracking-[1.6px]",
-                  "text-primary leading-4 2xl:leading-6 hover:opacity-80",
+                  "text-primary leading-4 2xl:leading-6 hover:opacity-80 transition-opacity",
                 )}
               >
                 View All Categories
                 <img
                   src="/icons/forward-arrow.svg"
-                  alt="arrow"
-                  className="w-3 h-3 2xl:w-4 2xl:h-4"
+                  alt=""
+                  className="w-3 h-3 2xl:w-4 2xl:h-4 transition-transform duration-300 group-hover:translate-x-1"
                 />
               </Link>
             </div>
@@ -52,19 +56,19 @@ export function AwardCategoriesSection({
           <StaggerContainer className="mt-12 2xl:mt-16 flex flex-col gap-3 2xl:gap-5">
             {/* Row 1 */}
             <StaggerItem className="flex min-w-0 flex-col gap-3 2xl:gap-5 md:flex-row">
-              <div className="w-full md:w-auto md:flex-[802_802_0%]">
+              <div className="w-full md:w-auto md:flex-[802_802_0%] transition-transform duration-300 hover:-translate-y-1">
                 <CategoryCard category={card1} variant="feature" />
               </div>
-              <div className="w-full md:w-auto md:flex-[390_390_0%]">
+              <div className="w-full md:w-auto md:flex-[390_390_0%] transition-transform duration-300 hover:-translate-y-1">
                 <CategoryCard category={card2} variant="feature" />
               </div>
             </StaggerItem>
             {/* Row 2 — swapped proportions */}
             <StaggerItem className="flex min-w-0 flex-col gap-3 2xl:gap-5 md:flex-row">
-              <div className="w-full md:w-auto md:flex-[390_390_0%]">
+              <div className="w-full md:w-auto md:flex-[390_390_0%] transition-transform duration-300 hover:-translate-y-1">
                 <CategoryCard category={card3} variant="feature" />
               </div>
-              <div className="w-full md:w-auto md:flex-[802_802_0%]">
+              <div className="w-full md:w-auto md:flex-[802_802_0%] transition-transform duration-300 hover:-translate-y-1">
                 <CategoryCard category={card4} variant="feature" />
               </div>
             </StaggerItem>
@@ -78,9 +82,18 @@ export function AwardCategoriesSection({
   return (
     <section className="bg-background py-16 sm:py-20 lg:py-24 2xl:py-32">
       <Container size="wide">
+        <FadeIn>
+          <SectionHeading
+            title="Award Categories"
+            description="The benchmark of excellence. Explore every category spanning residential, commercial, and urban design."
+          />
+        </FadeIn>
         <StaggerContainer className="mt-12 2xl:mt-16 grid grid-cols-1 gap-8 2xl:gap-12 sm:grid-cols-2 lg:grid-cols-3">
           {items.map((category) => (
-            <StaggerItem key={category.id} className="h-full">
+            <StaggerItem
+              key={category.id}
+              className="h-full transition-transform duration-300 hover:-translate-y-1"
+            >
               <CategoryCard category={category} variant="compact" />
             </StaggerItem>
           ))}

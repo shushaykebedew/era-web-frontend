@@ -6,6 +6,7 @@ import { ScrollIndicatorLine } from "@/components/ui/ScrollIndicatorLine";
 import { cn } from "@/utils/cn";
 import { StaggerContainer, SlideUp, FadeIn } from "@/components/ui/animations";
 import { HeroProps } from "@/types/marketing";
+import { Sparkle } from "lucide-react";
 
 export function Hero({
   eyebrow = "The 5th Annual Ceremony",
@@ -13,6 +14,23 @@ export function Hero({
 }: HeroProps) {
   return (
     <section className="relative flex min-w-0 flex-1 flex-col justify-center overflow-hidden">
+      {/* Decorative background layers */}
+      <div
+        aria-hidden="true"
+        className="pointer-events-none absolute inset-0 -z-10"
+      >
+        <div className="absolute left-1/2 top-0 h-[36rem] w-[36rem] -translate-x-1/2 -translate-y-1/3 rounded-full bg-primary/10 blur-3xl" />
+        <div className="absolute right-0 bottom-0 h-72 w-72 translate-x-1/3 translate-y-1/3 rounded-full bg-primary/5 blur-3xl" />
+        <div
+          className="absolute inset-0 opacity-[0.03]"
+          style={{
+            backgroundImage:
+              "linear-gradient(to right, currentColor 1px, transparent 1px), linear-gradient(to bottom, currentColor 1px, transparent 1px)",
+            backgroundSize: "64px 64px",
+          }}
+        />
+      </div>
+
       <Container
         size="wide"
         className="relative z-10 flex flex-col items-center text-center"
@@ -25,8 +43,10 @@ export function Hero({
                 "font-inter text-primary border border-primary leading-4 2xl:leading-6",
                 "text-[10px] sm:text-[12px] 2xl:text-[16px] font-semibold uppercase",
                 "tracking-[2px] sm:tracking-[3.6px] 2xl:tracking-[4.8px]",
+                "inline-flex items-center gap-2 rounded-full bg-primary/5",
               )}
             >
+              <Sparkle className="h-3 w-3 2xl:h-4 2xl:w-4 shrink-0" />
               {eyebrow}
             </p>
           </SlideUp>
@@ -72,6 +92,7 @@ export function Hero({
                 className={cn(
                   "w-full sm:w-auto sm:min-w-39 2xl:min-w-60 h-12 2xl:h-18",
                   "font-bold text-[12px] 2xl:text-[20px]",
+                  "shadow-lg shadow-primary/20 hover:shadow-primary/30 transition-shadow duration-300",
                 )}
               >
                 {siteConfig.voteCta.label}
@@ -83,7 +104,7 @@ export function Hero({
                 size="lg"
                 className={cn(
                   "w-full sm:w-auto sm:min-w-50 2xl:min-w-[320px] h-12 2xl:h-18",
-                  "text-[12px] 2xl:text-[20px] font-semibold hover:text-primary",
+                  "text-[12px] 2xl:text-[20px] font-semibold hover:text-primary hover:border-primary transition-colors duration-300",
                 )}
               >
                 Explore Nominees

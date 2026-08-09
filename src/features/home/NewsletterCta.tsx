@@ -9,8 +9,9 @@ import { NewsletterCtaProps } from "@/types/marketing";
 import { Input } from "@/components/ui/Input";
 import { useMutation } from "@tanstack/react-query";
 import { invitationsService } from "@/services/invitations";
-import { CheckCircle2, AlertCircle } from "lucide-react";
+import { CheckCircle2, AlertCircle, MailPlus } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
+import { AxiosError } from "axios";
 
 export function NewsletterCta({
   title = "Join the Ceremony Night",
@@ -33,10 +34,22 @@ export function NewsletterCta({
     requestInviteMutation.mutate({ email });
   };
 
+  const errorMessage =
+    (requestInviteMutation.error as AxiosError<{ message?: string }> | null)
+      ?.response?.data?.message || "An error occurred while submitting your request.";
+
   return (
-    <section className="bg-[#0c0c0e] py-16 sm:py-20 lg:py-24 2xl:py-32 overflow-hidden">
+    <section className="relative bg-[#0c0c0e] py-16 sm:py-20 lg:py-24 2xl:py-32 overflow-hidden">
+      <div
+        aria-hidden="true"
+        className="pointer-events-none absolute top-1/2 left-1/2 h-96 w-96 -translate-x-1/2 -translate-y-1/2 rounded-full bg-primary/5 blur-3xl"
+      />
       <Container size="narrow" className="text-center relative">
         <SlideUp>
+          <div className="mx-auto mb-5 2xl:mb-8 flex h-12 w-12 2xl:h-16 2xl:w-16 items-center justify-center rounded-full border border-primary/20 bg-primary/5">
+            <MailPlus className="h-5 w-5 2xl:h-7 2xl:w-7 text-primary" />
+          </div>
+
           <h2
             className={cn(
               "font-display font-semibold text-[32px] sm:text-[40px] lg:text-[48px]",
@@ -62,21 +75,21 @@ export function NewsletterCta({
                   initial={{ opacity: 0, y: 10 }}
                   animate={{ opacity: 1, y: 0 }}
                   exit={{ opacity: 0, y: -10 }}
-                  className="flex flex-col items-center justify-center p-4 bg-success/10 border border-success/30 rounded-lg max-w-lg w-full"
+                  className="flex flex-col items-center justify-center gap-1 p-5 2xl:p-8 bg-success/10 border border-success/30 rounded-lg max-w-lg w-full"
                 >
-                  <CheckCircle2 className="w-8 h-8 text-success mb-2" />
+                  <CheckCircle2 className="w-8 h-8 text-success mb-1" />
                   <p className="text-success font-inter font-medium text-sm sm:text-base">
                     Invitation request sent! Please check your email to complete the process.
                   </p>
-                  <button 
+                  <button
                     onClick={() => setIsSuccess(false)}
-                    className="mt-3 text-xs text-foreground-muted hover:text-primary transition-colors underline font-inter"
+                    className="mt-2 text-xs text-foreground-muted hover:text-primary transition-colors underline font-inter cursor-pointer"
                   >
                     Submit another request
                   </button>
                 </motion.div>
               ) : (
-                <motion.form 
+                <motion.form
                   key="form"
                   initial={{ opacity: 0, y: 10 }}
                   animate={{ opacity: 1, y: 0 }}
@@ -98,7 +111,7 @@ export function NewsletterCta({
                       className={cn(
                         "w-full border border-primary/40 font-inter bg-[#1F1B15] px-4 2xl:px-8 h-12.5",
                         "2xl:h-18 text-base 2xl:text-[24px] text-foreground placeholder:text-foreground-muted/50",
-                        "focus:border-primary focus:outline-none",
+                        "focus:border-primary focus:outline-none transition-colors",
                       )}
                     />
                     <Button
@@ -108,23 +121,22 @@ export function NewsletterCta({
                         "shrink-0 cursor-pointer bg-primary font-inter text-[#402D00] font-bold",
                         "text-[12px] 2xl:text-[20px] leading-4 2xl:leading-6 tracking-[1.2px]",
                         "2xl:tracking-[2px] 2xl:px-10 h-12.5 2xl:h-18",
-                        "w-full sm:w-[180px] 2xl:w-[280px]"
+                        "w-full sm:w-[180px] 2xl:w-[280px]",
+
                       )}
                     >
                       Request Invite
                     </Button>
                   </div>
-                  
+
                   {requestInviteMutation.isError && (
-                    <motion.div 
-                      initial={{ opacity: 0 }} 
+                    <motion.div
+                      initial={{ opacity: 0 }}
                       animate={{ opacity: 1 }}
                       className="mt-4 p-3 bg-danger/10 border border-danger/30 rounded text-danger text-sm font-inter flex items-start gap-2 max-w-158 2xl:max-w-200 text-left mx-auto"
                     >
                       <AlertCircle className="w-4 h-4 mt-0.5 shrink-0" />
-                      <span>
-                        {(requestInviteMutation.error as any)?.response?.data?.message || "An error occurred while submitting your request."}
-                      </span>
+                      <span>{errorMessage}</span>
                     </motion.div>
                   )}
                 </motion.form>

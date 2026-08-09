@@ -5,8 +5,12 @@ import { SlideUp, FadeIn } from "@/components/ui/animations";
 
 export function GalleryHero() {
   return (
-    <section className="bg-background pb-10 2xl:pb-16 pt-28 text-center sm:pt-36 lg:pt-40 2xl:pt-48">
-      <Container size="narrow">
+    <section className="relative bg-background pb-10 2xl:pb-16 pt-28 text-center sm:pt-36 lg:pt-40 2xl:pt-48 overflow-hidden">
+      <div
+        aria-hidden="true"
+        className="pointer-events-none absolute -top-32 left-1/2 h-96 w-96 -translate-x-1/2 rounded-full bg-primary/5 blur-3xl"
+      />
+      <Container size="narrow" className="relative">
         <FadeIn>
           <Eyebrow align="center" className="">
             Visual Anthology

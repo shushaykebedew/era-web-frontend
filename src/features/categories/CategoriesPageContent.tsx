@@ -29,7 +29,6 @@ function CategoriesHero() {
             >
               Award Categories
             </h1>
-            <p className="h-px w-16 sm:w-24 2xl:w-32 bg-[#EBC16666]"></p>
           </div>
         </SlideUp>
 

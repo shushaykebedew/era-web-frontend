@@ -10,7 +10,7 @@ export function CategoryIcon({
   return (
     <img
       src={`/icons/${icon}.svg`}
-      alt={icon}
+      alt=""
       className={className}
       aria-hidden="true"
     />

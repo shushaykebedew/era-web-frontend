@@ -9,7 +9,7 @@ import { cn } from "@/utils/cn";
 import { useAuth } from "@/context/AuthContext";
 import { getUserInitials } from "@/utils/user";
 import { useMediaQuery } from "@/hooks/useMediaQuery";
-import { User, LogOut } from "lucide-react";
+import { User, LogOut, ChevronDown } from "lucide-react";
 
 export function DesktopNav({
   onOpenAuthModal,
@@ -55,14 +55,18 @@ export function DesktopNav({
               href={link.href}
               aria-current={isActive ? "page" : undefined}
               className={cn(
-                "whitespace-nowrap text-[12px] 2xl:text-[18px] font-inter font-bold leading-4",
-                "py-1 tracking-[1.2px] uppercase transition-colors hover:text-primary",
-                isActive
-                  ? "text-primary border-b-2 border-primary"
-                  : "text-foreground-muted",
+                "group relative whitespace-nowrap text-[12px] 2xl:text-[18px] font-inter font-bold leading-4",
+                "py-2 tracking-[1.2px] uppercase transition-colors hover:text-primary",
+                isActive ? "text-primary" : "text-foreground-muted",
               )}
             >
               {link.label}
+              <span
+                className={cn(
+                  "absolute left-0 -bottom-0.5 h-0.5 bg-primary transition-all duration-300",
+                  isActive ? "w-full" : "w-0 group-hover:w-full",
+                )}
+              />
             </Link>
           );
         })}
@@ -76,11 +80,12 @@ export function DesktopNav({
               onClick={() => setIsDropdownOpen((v) => !v)}
               aria-label="User navigation menu"
               aria-expanded={isDropdownOpen}
-              className="flex items-center focus:outline-none cursor-pointer group"
+              className="flex items-center gap-2 focus:outline-none cursor-pointer group"
             >
-              <div className="relative w-8 h-8 2xl:w-11 2xl:h-11 rounded-full bg-gradient-to-br from-primary to-[#8F6F2D] text-[#402D00] flex items-center justify-center font-bold text-xs 2xl:text-base border border-primary/40 group-hover:border-primary transition-all duration-300 shadow-md">
+              <div className="relative w-8 h-8 2xl:w-11 2xl:h-11 rounded-full bg-gradient-to-br from-primary to-[#8F6F2D] text-[#402D00] flex items-center justify-center font-bold text-xs 2xl:text-base ring-2 ring-primary/20 group-hover:ring-primary/60 transition-all duration-300 shadow-md">
                 {getUserInitials(user.fullName)}
               </div>
+
             </button>
 
             {isDropdownOpen && (
@@ -95,7 +100,6 @@ export function DesktopNav({
                     </div>
 
                     <div className="flex flex-col gap-0.5 min-w-0 flex-1">
-
                       <span className="text-sm 2xl:text-base font-semibold text-foreground truncate mt-0.5 leading-snug">
                         {user.fullName}
                       </span>
@@ -124,7 +128,7 @@ export function DesktopNav({
           <Button
             size={is2xl ? "md" : "sm"}
             variant="outline"
-            className="text-foreground-muted hover:border-primary text-base whitespace-nowrap"
+            className="text-foreground-muted hover:border-primary hover:text-primary text-base whitespace-nowrap transition-colors"
             onClick={onOpenAuthModal}
           >
             Sign In
@@ -135,7 +139,7 @@ export function DesktopNav({
           as={Link}
           href={siteConfig.voteCta.href}
           size={is2xl ? "md" : "sm"}
-          className="text-[#402D00] bg-primary hover:bg-primary/95 text-base px-6 font-semibold whitespace-nowrap"
+          className="text-[#402D00] bg-primary hover:bg-primary/90 hover:shadow-[0_0_20px_-4px] hover:shadow-primary/60 text-base px-6 font-semibold whitespace-nowrap transition-all duration-300"
         >
           {siteConfig.voteCta.label}
         </Button>

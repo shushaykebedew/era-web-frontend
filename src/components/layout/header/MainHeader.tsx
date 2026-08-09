@@ -11,6 +11,7 @@ import { AuthModal } from "@/components/auth/AuthModal";
 export function MainHeader() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isAuthModalOpen, setIsAuthModalOpen] = useState(false);
+  const [isScrolled, setIsScrolled] = useState(false);
   const headerRef = useRef<HTMLElement>(null);
   const [headerHeight, setHeaderHeight] = useState(64);
 
@@ -31,24 +32,35 @@ export function MainHeader() {
     return () => observer.disconnect();
   }, []);
 
+  useEffect(() => {
+    const onScroll = () => setIsScrolled(window.scrollY > 8);
+    onScroll();
+    window.addEventListener("scroll", onScroll, { passive: true });
+    return () => window.removeEventListener("scroll", onScroll);
+  }, []);
+
   return (
     <header
       ref={headerRef}
       className={cn(
         "fixed inset-x-0 top-0 z-50 flex px-4 sm:px-6 md:px-8 lg:px-10 2xl:px-16",
         "min-w-0 h-16 sm:h-20 2xl:h-28 items-center justify-between gap-4 lg:gap-8",
-        "border-b border-primary/20 bg-background/80 backdrop-blur-[10px]",
+        "border-b transition-all duration-300 backdrop-blur-[10px]",
+        isScrolled
+          ? "border-primary/25 bg-background/90 shadow-[0_4px_24px_rgba(0,0,0,0.25)]"
+          : "border-primary/10 bg-background/70",
       )}
     >
       <Link
         href="/"
         className={cn(
-          "shrink-0 font-display text-2xl sm:text-[28px] lg:text-[32px] 2xl:text-[48px]",
+          "group shrink-0 flex items-center gap-2 font-display text-2xl sm:text-[28px] lg:text-[32px] 2xl:text-[48px]",
           "font-bold tracking-[1.4px] sm:tracking-[1.6px] 2xl:tracking-[2.4px]",
           "text-primary leading-tight lg:leading-10 2xl:leading-14",
         )}
       >
         {siteConfig.name}
+
       </Link>
 
       <DesktopNav onOpenAuthModal={() => setIsAuthModalOpen(true)} />

@@ -179,6 +179,7 @@ export function SponsorshipForm({ selectedTier = "" }: SponsorshipFormProps) {
       className={cn(
         "bg-[#110E08] border border-primary/20 my-10 sm:my-20 2xl:my-28",
         "w-[calc(100%-2rem)] max-w-4xl 2xl:max-w-5xl mx-auto py-12 sm:py-20 lg:py-24 2xl:py-32",
+        "scroll-mt-20 2xl:scroll-mt-24",
       )}
     >
       <Container size="narrow">
@@ -207,189 +208,189 @@ export function SponsorshipForm({ selectedTier = "" }: SponsorshipFormProps) {
         <SlideUp delay={0.2}>
           <form onSubmit={handleSubmit} className="mt-12 flex flex-col gap-6">
 
-              {/* Row 1 — Company Name + Website */}
-              <div className="grid grid-cols-1 gap-6 sm:grid-cols-2">
-                <div className="flex flex-col gap-2">
-                  <Input
-                    name="company"
-                    type="text"
-                    placeholder="Company Name"
-                    required
-                    className={fieldBase}
-                  />
-                  {fieldErrors.company && (
-                    <span className="text-xs text-danger">{fieldErrors.company}</span>
-                  )}
-                </div>
-                <div className="flex flex-col gap-2">
-                  <Input
-                    name="website"
-                    type="url"
-                    placeholder="Website URL"
-                    className={fieldBase}
-                  />
-                  {fieldErrors.website && (
-                    <span className="text-xs text-danger">{fieldErrors.website}</span>
-                  )}
-                </div>
-              </div>
-
-              {/* Row 2 — Contact Name + Email */}
-              <div className="grid grid-cols-1 gap-6 sm:grid-cols-2">
-                <div className="flex flex-col gap-2">
-                  <Input
-                    name="contactName"
-                    type="text"
-                    placeholder="Contact Name"
-                    className={fieldBase}
-                  />
-                  {fieldErrors.contactName && (
-                    <span className="text-xs text-danger">{fieldErrors.contactName}</span>
-                  )}
-                </div>
-                <div className="flex flex-col gap-2">
-                  <Input
-                    name="email"
-                    type="email"
-                    placeholder="Business Email"
-                    required
-                    className={fieldBase}
-                  />
-                  {fieldErrors.email && (
-                    <span className="text-xs text-danger">{fieldErrors.email}</span>
-                  )}
-                </div>
-              </div>
-
-              {/* Row 3 — Phone */}
+            {/* Row 1 — Company Name + Website */}
+            <div className="grid grid-cols-1 gap-6 sm:grid-cols-2">
               <div className="flex flex-col gap-2">
                 <Input
-                  name="phone"
-                  type="tel"
-                  placeholder="Phone Number"
-                  value={phone}
-                  onChange={(e) => {
-                    setPhone(sanitizePhone(e.target.value));
-                    setFieldErrors((prev) => ({ ...prev, phone: "" }));
-                  }}
+                  name="company"
+                  type="text"
+                  placeholder="Company Name"
+                  required
                   className={fieldBase}
                 />
-                {fieldErrors.phone && (
-                  <span className="text-xs text-danger">{fieldErrors.phone}</span>
+                {fieldErrors.company && (
+                  <span className="text-xs text-danger">{fieldErrors.company}</span>
                 )}
               </div>
-
-              {/* Row 4 — Tier select */}
               <div className="flex flex-col gap-2">
-                <FieldLabel htmlFor="tier">Partnership Tier</FieldLabel>
-                <TierSelect value={tier} onChange={setTier} required />
-                {fieldErrors.tier && (
-                  <span className="text-xs text-danger">{fieldErrors.tier}</span>
-                )}
-              </div>
-
-              {/* Row 5 — Strategic vision */}
-              <div className="flex flex-col gap-2 mt-4">
-                <Textarea
-                  id="vision"
-                  name="vision"
-                  placeholder="Strategic Vision — Tell us about your partnership goals"
-                  rows={3}
-                  className={`resize-none ${fieldBase}`}
+                <Input
+                  name="website"
+                  type="url"
+                  placeholder="Website URL"
+                  className={fieldBase}
                 />
+                {fieldErrors.website && (
+                  <span className="text-xs text-danger">{fieldErrors.website}</span>
+                )}
               </div>
+            </div>
 
-              {/* Row 6 — Logo upload */}
+            {/* Row 2 — Contact Name + Email */}
+            <div className="grid grid-cols-1 gap-6 sm:grid-cols-2">
               <div className="flex flex-col gap-2">
-                <FieldLabel htmlFor="partner-logo-upload-web">
-                  Company Logo (Optional)
-                </FieldLabel>
-                <div className="flex items-start gap-4">
-                  {/* Preview box */}
-                  <div className="w-20 h-20 border border-[#4E4637] bg-[#131313] flex items-center justify-center shrink-0 overflow-hidden relative">
-                    {logoPreview ? (
-                      <>
-                        {/* eslint-disable-next-line @next/next/no-img-element */}
-                        <img
-                          src={logoPreview}
-                          alt="Logo preview"
-                          className="object-contain w-full h-full p-1"
-                        />
-                        <button
-                          type="button"
-                          onClick={clearLogo}
-                          className="absolute top-1 right-1 bg-background rounded-full p-0.5 border border-border text-foreground-muted hover:text-danger transition-colors cursor-pointer"
-                          title="Remove logo"
-                        >
-                          <X className="w-3 h-3" />
-                        </button>
-                      </>
-                    ) : (
-                      <ImageIcon className="w-7 h-7 text-foreground/20" />
-                    )}
-                  </div>
-
-                  <div className="flex flex-col gap-2">
-                    <input
-                      ref={fileInputRef}
-                      id="partner-logo-upload-web"
-                      type="file"
-                      accept="image/*"
-                      className="hidden"
-                      onChange={handleLogoChange}
-                    />
-                    <button
-                      type="button"
-                      onClick={() => fileInputRef.current?.click()}
-                      className={cn(
-                        "flex items-center gap-2 border border-[#4E4637] px-4 py-2 cursor-pointer",
-                        "text-[12px] font-inter font-semibold uppercase tracking-[1.5px]",
-                        "text-foreground-muted hover:border-primary hover:text-primary transition-colors",
-                      )}
-                    >
-                      <Upload className="w-3.5 h-3.5" />
-                      {logoPreview ? "Replace Logo" : "Upload Logo"}
-                    </button>
-                    <p className="text-xs text-foreground-muted">
-                      PNG, JPG, SVG or WEBP. Max 5 MB.
-                    </p>
-                  </div>
-                </div>
+                <Input
+                  name="contactName"
+                  type="text"
+                  placeholder="Contact Name"
+                  className={fieldBase}
+                />
+                {fieldErrors.contactName && (
+                  <span className="text-xs text-danger">{fieldErrors.contactName}</span>
+                )}
               </div>
+              <div className="flex flex-col gap-2">
+                <Input
+                  name="email"
+                  type="email"
+                  placeholder="Business Email"
+                  required
+                  className={fieldBase}
+                />
+                {fieldErrors.email && (
+                  <span className="text-xs text-danger">{fieldErrors.email}</span>
+                )}
+              </div>
+            </div>
 
-              <div className="mt-4 flex justify-center">
-                <Button
-                  type="submit"
-                  variant="primary"
-                  size="sm"
-                  isLoading={isLoading}
-                  disabled={isLoading}
-                  style={{ minWidth: '200px' }}
-                  className={cn(
-                    "w-full sm:w-auto px-8 sm:px-12 2xl:px-16 bg-primary h-12 2xl:h-16",
-                    "tracking-[2px] sm:tracking-[3.6px] 2xl:tracking-[4.8px]",
-                    "leading-4 font-bold font-inter text-[12px] 2xl:text-[16px]",
+            {/* Row 3 — Phone */}
+            <div className="flex flex-col gap-2">
+              <Input
+                name="phone"
+                type="tel"
+                placeholder="Phone Number"
+                value={phone}
+                onChange={(e) => {
+                  setPhone(sanitizePhone(e.target.value));
+                  setFieldErrors((prev) => ({ ...prev, phone: "" }));
+                }}
+                className={fieldBase}
+              />
+              {fieldErrors.phone && (
+                <span className="text-xs text-danger">{fieldErrors.phone}</span>
+              )}
+            </div>
+
+            {/* Row 4 — Tier select */}
+            <div className="flex flex-col gap-2">
+              <FieldLabel htmlFor="tier">Partnership Tier</FieldLabel>
+              <TierSelect value={tier} onChange={setTier} required />
+              {fieldErrors.tier && (
+                <span className="text-xs text-danger">{fieldErrors.tier}</span>
+              )}
+            </div>
+
+            {/* Row 5 — Strategic vision */}
+            <div className="flex flex-col gap-2 mt-4">
+              <Textarea
+                id="vision"
+                name="vision"
+                placeholder="Strategic Vision — Tell us about your partnership goals"
+                rows={3}
+                className={`resize-none ${fieldBase}`}
+              />
+            </div>
+
+            {/* Row 6 — Logo upload */}
+            <div className="flex flex-col gap-2">
+              <FieldLabel htmlFor="partner-logo-upload-web">
+                Company Logo (Optional)
+              </FieldLabel>
+              <div className="flex items-start gap-4">
+                {/* Preview box */}
+                <div className="w-20 h-20 border border-[#4E4637] bg-[#131313] flex items-center justify-center shrink-0 overflow-hidden relative">
+                  {logoPreview ? (
+                    <>
+                      {/* eslint-disable-next-line @next/next/no-img-element */}
+                      <img
+                        src={logoPreview}
+                        alt="Logo preview"
+                        className="object-contain w-full h-full p-1"
+                      />
+                      <button
+                        type="button"
+                        onClick={clearLogo}
+                        className="absolute top-1 right-1 bg-background rounded-full p-0.5 border border-border text-foreground-muted hover:text-danger transition-colors cursor-pointer"
+                        title="Remove logo"
+                      >
+                        <X className="w-3 h-3" />
+                      </button>
+                    </>
+                  ) : (
+                    <ImageIcon className="w-7 h-7 text-foreground/20" />
                   )}
-                >
-                  Send Request
-                </Button>
+                </div>
+
+                <div className="flex flex-col gap-2">
+                  <input
+                    ref={fileInputRef}
+                    id="partner-logo-upload-web"
+                    type="file"
+                    accept="image/*"
+                    className="hidden"
+                    onChange={handleLogoChange}
+                  />
+                  <button
+                    type="button"
+                    onClick={() => fileInputRef.current?.click()}
+                    className={cn(
+                      "flex items-center gap-2 border border-[#4E4637] px-4 py-2 cursor-pointer",
+                      "text-[12px] font-inter font-semibold uppercase tracking-[1.5px]",
+                      "text-foreground-muted hover:border-primary hover:text-primary transition-colors",
+                    )}
+                  >
+                    <Upload className="w-3.5 h-3.5" />
+                    {logoPreview ? "Replace Logo" : "Upload Logo"}
+                  </button>
+                  <p className="text-xs text-foreground-muted">
+                    PNG, JPG, SVG or WEBP. Max 5 MB.
+                  </p>
+                </div>
               </div>
+            </div>
 
-              {/* Error message */}
-              {error && (
-                <div className="border border-danger/40 bg-danger/10 px-4 py-3 text-sm text-danger">
-                  {error}
-                </div>
-              )}
+            <div className="mt-4 flex justify-center">
+              <Button
+                type="submit"
+                variant="primary"
+                size="sm"
+                isLoading={isLoading}
+                disabled={isLoading}
+                style={{ minWidth: '200px' }}
+                className={cn(
+                  "w-full sm:w-auto px-8 sm:px-12 2xl:px-16 bg-primary h-12 2xl:h-16",
+                  "tracking-[2px] sm:tracking-[3.6px] 2xl:tracking-[4.8px]",
+                  "leading-4 font-bold font-inter text-[12px] 2xl:text-[16px]",
+                )}
+              >
+                Send Request
+              </Button>
+            </div>
 
-              {/* Success message */}
-              {success && (
-                <div className="border border-primary/40 bg-primary/10 px-4 py-3 text-sm text-primary">
-                  Request submitted successfully!
-                </div>
-              )}
-            </form>
-          </SlideUp>
+            {/* Error message */}
+            {error && (
+              <div className="border border-danger/40 bg-danger/10 px-4 py-3 text-sm text-danger">
+                {error}
+              </div>
+            )}
+
+            {/* Success message */}
+            {success && (
+              <div className="border border-primary/40 bg-primary/10 px-4 py-3 text-sm text-primary">
+                Request submitted successfully!
+              </div>
+            )}
+          </form>
+        </SlideUp>
       </Container>
     </section>
   );

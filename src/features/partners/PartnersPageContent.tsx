@@ -9,12 +9,14 @@ export function PartnersPageContent() {
   return (
     <>
       {/* ── Hero ── */}
-      <section className="bg-background pb-12 pt-28 text-center sm:pb-16 sm:pt-36 lg:pt-40 2xl:pt-48">
-        <Container size="wide">
+      <section className="relative bg-background pb-12 pt-28 text-center sm:pb-16 sm:pt-36 lg:pt-40 2xl:pt-48 overflow-hidden">
+        <div
+          aria-hidden="true"
+          className="pointer-events-none absolute -top-32 left-1/2 h-96 w-96 -translate-x-1/2 rounded-full bg-primary/5 blur-3xl"
+        />
+        <Container size="wide" className="relative">
           <FadeIn>
-            <Eyebrow align="center" className="">
-              Excellence in Architecture
-            </Eyebrow>
+            <Eyebrow align="center">Excellence in Architecture</Eyebrow>
           </FadeIn>
 
           <SlideUp delay={0.1}>
@@ -23,7 +25,6 @@ export function PartnersPageContent() {
                 "mx-auto w-full max-w-182 2xl:max-w-4xl text-foreground font-display",
                 "font-bold text-3xl sm:text-4xl lg:text-[48px] xl:text-[72px] 2xl:text-[96px]",
                 "tracking-tight lg:tracking-[-1.44px] leading-tight lg:leading-13 xl:leading-20 2xl:leading-28",
-                "",
               )}
             >
               Partner with Ethiopia&apos;s Architectural Legacy
@@ -33,7 +34,7 @@ export function PartnersPageContent() {
             <p
               className={cn(
                 "mx-auto mt-6 mb-12 max-w-155 2xl:max-w-200 text-foreground-muted font-inter",
-                "text-base sm:mb-20 sm:text-[18px] 2xl:text-[24px] leading-7 2xl:leading-9 ",
+                "text-base sm:mb-20 sm:text-[18px] 2xl:text-[24px] leading-7 2xl:leading-9",
               )}
             >
               The Ethiopia Real Estate Awards represent the pinnacle of industry

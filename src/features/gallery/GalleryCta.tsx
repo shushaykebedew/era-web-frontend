@@ -9,30 +9,36 @@ export function GalleryCta() {
   return (
     <section
       className={cn(
-        "border-t border-primary/20 bg-background-muted",
-        "py-16 sm:py-20 lg:py-24 2xl:py-32 text-center",
+        "relative overflow-hidden border-t border-primary/20 bg-background-muted",
+        "py-16 text-center sm:py-20 lg:py-24 2xl:py-32",
       )}
     >
-      <Container size="narrow">
+      <div
+        aria-hidden="true"
+        className="pointer-events-none absolute left-1/2 top-0 h-64 w-64 -translate-x-1/2 -translate-y-1/2 rounded-full bg-primary/5 blur-3xl"
+      />
+
+      <Container size="narrow" className="relative">
         <SlideUp>
           <h2
             className={cn(
-              "font-display text-[28px] sm:text-[36px] lg:text-[48px] 2xl:text-[64px]",
-              "leading-tight lg:leading-14 2xl:leading-20 font-semibold",
+              "font-display text-[28px] font-semibold sm:text-[36px] lg:text-[48px] 2xl:text-[64px]",
+              "leading-tight lg:leading-14 2xl:leading-20",
             )}
           >
             Be Part of the Excellence
           </h2>
+
           <p
             className={cn(
               "mx-auto mt-5 w-full max-w-full lg:max-w-138.5 2xl:max-w-180",
-              "text-base sm:text-[18px] 2xl:text-[24px]",
-              "leading-7 2xl:leading-9 text-foreground-muted font-inter",
+              "font-inter text-base leading-7 text-foreground-muted sm:text-[18px] 2xl:text-[24px] 2xl:leading-9",
             )}
           >
             Join the most influential gathering of real estate and architectural
             minds in East Africa.
           </p>
+
           <div className="mt-10 flex w-full flex-col items-center justify-center gap-4 sm:flex-row">
             <Button
               as={Link}
@@ -40,26 +46,26 @@ export function GalleryCta() {
               variant="outline"
               size="sm"
               className={cn(
-                "normal-case text-[12px] 2xl:text-[16px] w-53 2xl:w-64",
-                "tracking-[1.2px] 2xl:tracking-[1.6px] leading-4 2xl:leading-6",
-                "border-primary h-12.5 2xl:h-16 font-inter font-semibold",
-                "hover:border-primary/80 hover:text-primary",
+                "h-12.5 w-53 font-inter font-semibold normal-case 2xl:h-16 2xl:w-64",
+                "text-[12px] leading-4 tracking-[1.2px] 2xl:text-[16px] 2xl:leading-6 2xl:tracking-[1.6px]",
+                "border-primary hover:border-primary/80 hover:text-primary",
+                "transition-colors",
               )}
             >
               {siteConfig.nominateCta.label}
             </Button>
-            <Link
-              href={siteConfig.contactEmail}
+
+            <a
+              href={`mailto:${siteConfig.contactEmail}`}
               className={cn(
-                "normal-case text-[12px] 2xl:text-[16px] tracking-[1.2px] 2xl:tracking-[1.6px]",
-                "flex w-full justify-center sm:w-auto items-center",
-                "h-12.5 2xl:h-16 px-4 sm:px-8 2xl:px-12",
-                "font-inter font-semibold text-primary",
-                "underline underline-offset-2 hover:text-primary/80",
+                "flex h-12.5 w-full items-center justify-center px-4 font-inter font-semibold text-primary",
+                "normal-case text-[12px] tracking-[1.2px] sm:w-auto sm:px-8",
+                "2xl:h-16 2xl:px-12 2xl:text-[16px] 2xl:tracking-[1.6px]",
+                "underline underline-offset-2 hover:text-primary/80 transition-colors",
               )}
             >
               Contact the Secretariat
-            </Link>
+            </a>
           </div>
         </SlideUp>
       </Container>

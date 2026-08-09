@@ -16,7 +16,7 @@ export function PartnersPageClient({
     setSelectedTier(id);
     document
       .getElementById("sponsorship-form")
-      ?.scrollIntoView({ behavior: "smooth" });
+      ?.scrollIntoView({ behavior: "smooth", block: "start" });
   }
 
   return (

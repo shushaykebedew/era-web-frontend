@@ -30,12 +30,13 @@ export function TierSelect({
             aria-haspopup="listbox"
             aria-expanded={open}
             aria-controls="tier-listbox"
+            aria-required={required}
             onClick={onClick}
             onKeyDown={onKeyDown}
             className={cn(
               "flex w-full items-center justify-between border-b border-[#4E4637] cursor-pointer",
               "bg-transparent py-3 text-left text-base 2xl:text-[20px] outline-none transition-colors",
-              "focus:border-primary font-inter",
+              "focus:border-primary hover:border-primary/60 font-inter",
               selected ? "text-foreground" : "text-[#9A8F7E]",
             )}
           >
@@ -93,13 +94,7 @@ export function TierSelect({
               >
                 {option.label}
                 {isSelected && (
-                  <svg
-                    width="12"
-                    height="10"
-                    viewBox="0 0 12 10"
-                    fill="none"
-                    className="shrink-0"
-                  >
+                  <svg width="12" height="10" viewBox="0 0 12 10" fill="none" className="shrink-0">
                     <path
                       d="M1 5L4.5 8.5L11 1"
                       stroke="currentColor"
