@@ -82,13 +82,7 @@ export function AwardCategoriesSection({
   return (
     <section className="bg-background py-16 sm:py-20 lg:py-24 2xl:py-32">
       <Container size="wide">
-        <FadeIn>
-          <SectionHeading
-            title="Award Categories"
-            description="The benchmark of excellence. Explore every category spanning residential, commercial, and urban design."
-          />
-        </FadeIn>
-        <StaggerContainer className="mt-12 2xl:mt-16 grid grid-cols-1 gap-8 2xl:gap-12 sm:grid-cols-2 lg:grid-cols-3">
+        <StaggerContainer className="grid grid-cols-1 gap-8 2xl:gap-12 sm:grid-cols-2 lg:grid-cols-3">
           {items.map((category) => (
             <StaggerItem
               key={category.id}

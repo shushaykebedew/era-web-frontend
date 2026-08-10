@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 import Image from "next/image";
 import Link from "next/link";
@@ -6,6 +6,7 @@ import { CategoryIcon } from "./CategoryIcon";
 import { cn } from "@/utils/cn";
 import { motion } from "framer-motion";
 import { CategoryCardProps } from "@/types/marketing";
+import { Award, ArrowRight } from "lucide-react";
 
 const MotionLink = motion.create(Link);
 
@@ -19,12 +20,12 @@ export function CategoryCard({
     return (
       <MotionLink
         href={href}
-        whileHover={{ y: -4 }}
+        whileHover={{ y: -6 }}
         transition={{ duration: 0.3 }}
         className={cn(
           "group relative flex min-h-50 sm:min-h-60 lg:min-h-65",
-          "2xl:min-h-80 flex-col justify-end overflow-hidden bg-muted p-5",
-          "sm:p-6 lg:p-8",
+          "2xl:min-h-80 flex-col justify-end overflow-hidden bg-[#13110e] p-6",
+          "sm:p-8 lg:p-10 border border-primary/20 rounded-lg shadow-lg hover:border-primary/50 transition-all duration-300",
         )}
       >
         {category.coverImage && (
@@ -32,36 +33,38 @@ export function CategoryCard({
             src={category.coverImage}
             alt=""
             fill
-            className="object-cover object-center"
+            className="object-cover object-center transition-transform duration-750 group-hover:scale-105"
             sizes="(max-width: 768px) 100vw, 50vw"
           />
         )}
-        <div className="absolute inset-0 bg-linear-to-t from-black/80 via-black/30 to-transparent" />
+        <div className="absolute inset-0 bg-gradient-to-t from-[#13110e]/95 via-[#13110e]/40 to-transparent" />
+
+        {/* Subtle grid pattern inside */}
+        <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_bottom,rgba(201,162,75,0.08)_0%,transparent_70%)] pointer-events-none" />
+
         <div className="relative z-10">
-          <p
-            className={cn(
-              "mb-2 2xl:mb-4 text-[12px] 2xl:text-[16px] font-inter font-semibold uppercase",
-              "tracking-[1.2px] 2xl:tracking-[1.6px] leading-4 2xl:leading-6 text-primary",
-            )}
-          >
-            {category.tagline}
-          </p>
+          <div className="flex items-center gap-1.5 text-primary text-[10px] uppercase font-bold tracking-[1.5px] mb-2 font-inter">
+            <Award className="w-3.5 h-3.5" />
+            <span>ERA Award Category</span>
+          </div>
+
           <h3
             className={cn(
-              "font-display text-2xl sm:text-[32px] 2xl:text-[40px] text-foreground",
-              "font-semibold leading-tight sm:leading-10 2xl:leading-12",
+              "font-display text-2xl sm:text-[30px] 2xl:text-[40px] text-foreground",
+              "font-bold leading-tight sm:leading-9 2xl:leading-11 mb-4 group-hover:text-primary transition-colors duration-300",
             )}
           >
             {category.name}
           </h3>
+
           <span
             className={cn(
-              "inline-flex items-center gap-2 2xl:gap-3 text-[10px] 2xl:text-[14px]",
-              "font-semibold uppercase tracking-[1px] 2xl:tracking-[1.5px] font-inter",
-              "leading-3.75 2xl:leading-5 group-hover:text-primary transition-colors",
+              "inline-flex items-center gap-2 text-xs font-semibold uppercase tracking-[1.5px] font-inter",
+              "leading-none text-primary hover:text-primary-light transition-colors",
             )}
           >
-            See Nominees
+            <span>See Nominees</span>
+            <ArrowRight className="w-3.5 h-3.5 transition-transform duration-200 group-hover:translate-x-1" />
           </span>
         </div>
       </MotionLink>
@@ -71,54 +74,41 @@ export function CategoryCard({
   return (
     <MotionLink
       href={href}
-      whileHover={{ y: -4 }}
+      whileHover={{ y: -6 }}
       transition={{ duration: 0.3 }}
       className={cn(
         "group flex h-full flex-col min-h-70 lg:min-h-90 xl:min-h-100 2xl:min-h-120",
-        "justify-between bg-[#16161A] hover:bg-[#252529] p-5 sm:p-6 lg:p-8 2xl:p-10",
-        "border border-[#252529] transition-colors duration-300",
+        "justify-between bg-[#13110e] hover:bg-[#1a1713] p-6 sm:p-8 2xl:p-10",
+        "border border-primary/15 rounded-lg shadow-md transition-all duration-300 hover:border-primary/45 hover:shadow-[0_6px_24px_rgba(201,162,75,0.05)]",
       )}
     >
       <div>
-        <CategoryIcon
-          icon={category.icon}
-          className="h-6 w-6 xl:h-8 xl:w-8 2xl:h-12 2xl:w-12 text-primary"
-        />
-        <p
-          className={cn(
-            "mt-12 2xl:mt-16 font-inter mb-2 2xl:mb-4 text-[12px] 2xl:text-[16px] font-semibold",
-            "uppercase tracking-[1.2px] 2xl:tracking-[1.6px] leading-4 2xl:leading-6 text-primary",
-          )}
-        >
-          {category.tagline}
-        </p>
+        <div className="w-12 h-12 rounded-full bg-primary/5 border border-primary/20 flex items-center justify-center mb-10 transition-colors duration-300 group-hover:bg-primary/10 group-hover:border-primary/40">
+          <CategoryIcon icon={category.icon} className="h-6 w-6 text-primary" />
+        </div>
+
         <h3
           className={cn(
-            "mt-2 font-display text-2xl sm:text-[32px] 2xl:text-[40px] font-bold",
-            "leading-tight sm:leading-10 2xl:leading-12 text-foreground",
+            "font-display text-2xl sm:text-[28px] 2xl:text-[38px] font-bold",
+            "leading-tight sm:leading-9 2xl:leading-11 text-foreground transition-colors duration-300 group-hover:text-primary",
           )}
         >
           {category.name}
         </h3>
-        <p className="mt-3 text-base 2xl:text-[20px] font-inter leading-6 2xl:leading-8 text-foreground-muted">
+
+        <p className="mt-4 text-sm sm:text-base 2xl:text-[22px] font-inter leading-6 2xl:leading-8 text-foreground-muted line-clamp-4">
           {category.description}
         </p>
       </div>
 
       <span
         className={cn(
-          "mt-8 2xl:mt-12 inline-flex items-center gap-2 2xl:gap-3 text-[12px] 2xl:text-[16px]",
-          "font-inter font-semibold tracking-[1.2px] 2xl:tracking-[1.6px] text-primary",
+          "mt-8 inline-flex items-center gap-2 text-xs xl:text-sm 2xl:text-base",
+          "font-inter font-bold tracking-[1.5px] text-primary uppercase mt-auto",
         )}
       >
-        View Nominees
-        <Image
-          src="/icons/forward-arrow.svg"
-          alt=""
-          width={10}
-          height={10}
-          className="h-2.5 w-2.5 2xl:w-4 2xl:h-4 transition-transform duration-200 group-hover:translate-x-1"
-        />
+        <span>View Nominees</span>
+        <ArrowRight className="w-3.5 h-3.5 xl:w-5 xl:h-5 transition-transform duration-200 group-hover:translate-x-1" />
       </span>
     </MotionLink>
   );

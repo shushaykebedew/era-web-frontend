@@ -1,24 +1,11 @@
 import type { TierId } from "@/types/partners";
 
-export type ConfirmedPartner = {
-  name: string;
-  tier: "Gold" | "Silver" | "Bronze";
-  image: string;
-};
-
 export type SponsorTier = {
   id: TierId;
   label: string;
   featured: boolean;
   benefits: readonly string[];
 };
-
-export const confirmedPartners: ConfirmedPartner[] = [
-  { name: "Ethio-Bank", tier: "Gold", image: "/imgs/partners/partner-1.png" },
-  { name: "Nile Air", tier: "Silver", image: "/imgs/partners/partner-2.png" },
-  { name: "Sol Luxury", tier: "Gold", image: "/imgs/partners/partner-3.png" },
-  { name: "Abys Trust", tier: "Bronze", image: "/imgs/partners/partner-4.png" },
-];
 
 export const sponsorTiers: SponsorTier[] = [
   {

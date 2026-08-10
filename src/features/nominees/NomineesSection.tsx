@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 import { Suspense } from "react";
 import { useSearchParams } from "next/navigation";
@@ -102,7 +102,6 @@ function EmptyState() {
 function NomineesSectionContent() {
   const searchParams = useSearchParams();
   const initialCategory = searchParams?.get("category") || "all";
-  const initialTargetType = searchParams?.get("targetType") || "all";
 
   const { data: nomineesList = [], isLoading: nomineesLoading } = useNominees();
   const { data: categoriesList = [], isLoading: categoriesLoading } = useCategories();
@@ -112,8 +111,6 @@ function NomineesSectionContent() {
   const {
     activeCategoryId,
     handleCategoryChange,
-    activeTargetType,
-    handleTargetTypeChange,
     sort,
     setSort,
     searchQuery,
@@ -125,7 +122,7 @@ function NomineesSectionContent() {
   } = useNomineesFilter(
     nomineesList,
     initialCategory,
-    initialTargetType,
+    "",
     categoriesList,
     6,
   );
@@ -195,8 +192,6 @@ function NomineesSectionContent() {
       <NomineesFilterBar
         activeCategoryId={activeCategoryId}
         onCategoryChange={handleCategoryChange}
-        activeTargetType={activeTargetType}
-        onTargetTypeChange={handleTargetTypeChange}
         sort={sort}
         onSortChange={setSort}
         searchQuery={searchQuery}

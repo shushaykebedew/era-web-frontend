@@ -1,31 +1,10 @@
 import { api } from "./api";
 import { Nominee, ApiNomineeResponse, ApiAwardEventResponse } from "@/types";
-import { nominees as staticNominees } from "@/data/nominees";
 
-const FALLBACK_COVERS = [
-  "/imgs/nominees/nominee-1.png",
-  "/imgs/nominees/nominee-2.png",
-  "/imgs/nominees/nominee-3.png",
-  "/imgs/nominees/nominee-4.png",
-  "/imgs/nominees/nominee-5.png",
-  "/imgs/nominees/nominee-6.png",
-  "/imgs/nominees/nominee-7.png",
-  "/imgs/nominees/nominee-8.png",
-  "/imgs/nominees/nominee-9.png",
-];
-
-function fallbackCover(index: number): string {
-  return FALLBACK_COVERS[index % FALLBACK_COVERS.length];
-}
-
-function mapApiNominee(apiItem: ApiNomineeResponse, index = 0): Nominee {
+function mapApiNominee(apiItem: ApiNomineeResponse): Nominee {
   const name = apiItem.name ?? "Nominee";
-  const firm = apiItem.firm ?? "—";
-  const location = apiItem.location ?? "Ethiopia";
-  const excerpt =
-    apiItem.excerpt ?? apiItem.description ?? "Award Excellence Nominee";
-  const description = apiItem.description ?? excerpt;
-  const coverImage = apiItem.coverImage ?? fallbackCover(index);
+  const reason = apiItem.reason ?? "Award Excellence Nominee";
+  const logo = apiItem.logo || undefined;
 
   const rawStatus = (apiItem.status ?? "").toLowerCase();
   const status: Nominee["status"] =
@@ -38,19 +17,15 @@ function mapApiNominee(apiItem: ApiNomineeResponse, index = 0): Nominee {
   return {
     id: apiItem.id,
     name,
-    firm,
-    location,
+    email: apiItem.email ?? "",
+    contactPerson: apiItem.contactPerson ?? "",
+    phone: apiItem.phone ?? undefined,
     categoryId: apiItem.awardCategoryId ?? apiItem.categoryId ?? "",
     category: apiItem.awardCategory,
     status,
-    excerpt,
-    description,
-    coverImage,
-    gallery: apiItem.gallery ?? [],
-    scaleSqm: apiItem.scaleSqm ?? undefined,
-    completionDate: apiItem.completionDate ?? undefined,
-    quote: apiItem.quote ?? undefined,
-    achievements: apiItem.achievements ?? [],
+    reason,
+    website: apiItem.website ?? undefined,
+    logo,
     votes: apiItem._count?.publicVotes ?? apiItem.votes ?? 0,
   };
 }
@@ -62,7 +37,7 @@ export async function fetchNominees(): Promise<Nominee[]> {
 
     // Fetch first page to get total count
     const firstRes = await api.get("/nominees", { params: { page: 1, limit } });
-    if (!firstRes.data?.success) return staticNominees;
+    if (!firstRes.data?.success) return [];
 
     const firstData = firstRes.data.data;
     const firstItems: ApiNomineeResponse[] = Array.isArray(firstData)
@@ -94,29 +69,53 @@ export async function fetchNominees(): Promise<Nominee[]> {
     }
 
     if (all.length > 0) {
-      return all.map((item, i) => mapApiNominee(item, i));
+      return all.map((item) => mapApiNominee(item));
     }
   } catch (error) {
-    // During build (SSG) or when the backend requires auth, the API call
-    // may fail with 401. Fall back to static data so the build succeeds.
     console.warn(
-      "Failed to fetch nominees from API, falling back to static data:",
+      "Failed to fetch nominees from API:",
       error,
     );
   }
 
-  return staticNominees;
+  return [];
 }
 
 export async function fetchNomineeById(id: string): Promise<Nominee | null> {
   try {
     const res = await api.get(`/nominees/${id}`);
-    if (res.data?.success) return mapApiNominee(res.data.data, 0);
+    if (res.data?.success) return mapApiNominee(res.data.data);
   } catch (error) {
     console.warn(`Failed to fetch nominee ${id} from API:`, error);
   }
 
   return null;
+}
+
+export async function createNominee(data: {
+  awardCategoryId: string;
+  name: string;
+  email: string;
+  contactPerson: string;
+  phone?: string;
+  reason: string;
+  website?: string;
+  logo?: File | null;
+}): Promise<any> {
+  const fd = new FormData();
+  fd.append("awardCategoryId", data.awardCategoryId);
+  fd.append("name", data.name);
+  fd.append("email", data.email);
+  fd.append("contactPerson", data.contactPerson);
+  if (data.phone) fd.append("phone", data.phone);
+  fd.append("reason", data.reason);
+  if (data.website) fd.append("website", data.website);
+  if (data.logo) fd.append("logo", data.logo);
+
+  const res = await api.post("/nominees", fd, {
+    headers: { "Content-Type": "multipart/form-data" },
+  });
+  return res.data;
 }
 
 export async function castPublicVote(
@@ -165,9 +164,7 @@ export async function fetchMyVotes(): Promise<any[]> {
 
 /**
  * @deprecated Cache invalidation is now handled by TanStack Query.
- * This is kept as a no-op so existing call-sites compile while they are
- * migrated to queryClient.invalidateQueries.
  */
 export function clearNomineesCache() {
-  // no-op — TanStack Query manages the cache
+  // no-op
 }

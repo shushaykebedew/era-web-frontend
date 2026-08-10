@@ -1,12 +1,9 @@
 import { api } from "./api";
-import { galleryPhotos as staticPhotos } from "@/data/gallery";
 import type { GalleryPhoto } from "@/types/gallery";
 
 // Helper to generate optimized Cloudinary URL
 function getOptimizedImageUrl(url: string): string {
   if (!url) return url;
-  // For now, return the original URL to ensure images display correctly
-  // We can add optimizations later once the basic display is working
   return url;
 }
 
@@ -27,18 +24,8 @@ export async function fetchGalleryPhotos(params?: {
       }));
     }
   } catch (error) {
-    console.warn("Failed to fetch gallery photos from API, using static fallback:", error);
+    console.warn("Failed to fetch gallery photos from API:", error);
   }
 
-  // Static fallback filtering
-  return staticPhotos.filter((photo) => {
-    if (params?.edition && photo.edition !== params.edition) return false;
-    if (
-      params?.tag &&
-      params.tag !== "All Moments" &&
-      photo.tag !== params.tag
-    )
-      return false;
-    return true;
-  });
+  return [];
 }

@@ -4,8 +4,15 @@ import { useState, useEffect } from "react";
 import Image from "next/image";
 import { Container } from "@/components/ui/Container";
 import { cn } from "@/utils/cn";
-import { EDITIONS, FILTERS } from "@/data/gallery";
 import type { Edition, GalleryFilter, GalleryPhoto } from "@/types/gallery";
+
+const EDITIONS = [2026, 2025] as const;
+const FILTERS = [
+  "All Moments",
+  "Winners",
+  "Ceremony",
+  "Networking",
+] as const;
 import { motion } from "framer-motion";
 import { ease } from "@/components/ui/animations";
 import { useGalleryPhotos } from "@/hooks/queries/useGalleryPhotos";

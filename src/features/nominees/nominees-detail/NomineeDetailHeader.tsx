@@ -4,26 +4,15 @@ import Link from "next/link";
 import { Button } from "@/components/ui/Button";
 import { siteConfig } from "@/data/site";
 import { cn } from "@/utils/cn";
-import { type Tab } from "@/types/nominees";
 
 interface NomineeDetailHeaderProps {
-  activeTab?: Tab;
-  onTabChange?: (tab: Tab) => void;
   onVoteClick?: () => void;
   staticMode?: boolean;
   hasVotedThisNominee?: boolean;
   hasVotedInCategory?: boolean;
 }
 
-const TABS: { id: Tab; label: string }[] = [
-  { id: "detail", label: "Detail" },
-  { id: "awards", label: "Awards" },
-  { id: "gallery", label: "Gallery" },
-];
-
 export function NomineeDetailHeader({
-  activeTab,
-  onTabChange,
   onVoteClick,
   staticMode = false,
   hasVotedThisNominee = false,
@@ -49,50 +38,24 @@ export function NomineeDetailHeader({
       </Link>
 
       {!staticMode && (
-        <>
-          <div
-            className={cn(
-              "flex min-w-0 flex-1 items-center justify-end md:justify-center",
-              "gap-3 sm:gap-6 px-1 sm:px-2",
-            )}
-          >
-            {TABS.map((tab) => (
-              <button
-                key={tab.id}
-                onClick={() => onTabChange?.(tab.id)}
-                className={cn(
-                  "shrink-0 pb-1 transition-colors uppercase font-medium text-[10px]",
-                  "sm:text-[12px] 2xl:text-[18px] leading-4 2xl:leading-6 tracking-[1.8px]",
-                  "2xl:tracking-[2.4px] cursor-pointer whitespace-nowrap font-inter",
-                  activeTab === tab.id
-                    ? "border-b border-primary text-primary"
-                    : "text-foreground/60 hover:text-primary",
-                )}
-              >
-                {tab.label}
-              </button>
-            ))}
-          </div>
-
-          <Button
-            size="md"
-            variant="outline"
-            className={cn(
-              "hidden md:inline-flex shrink-0 font-semibold transition-all duration-200",
-              "text-[10px] sm:text-[12px] 2xl:text-base leading-4 2xl:leading-6",
-              "tracking-[1.8px] 2xl:tracking-[2.4px] whitespace-nowrap",
-              hasVotedThisNominee
-                ? "bg-primary/20 text-primary border border-primary/50 cursor-default"
-                : hasVotedInCategory
-                ? "text-foreground-muted/40 border border-primary/5 opacity-50 cursor-not-allowed"
-                : "border-primary/30 text-primary hover:bg-primary hover:text-[#402D00] hover:border-primary cursor-pointer"
-            )}
-            onClick={() => !hasVotedInCategory && onVoteClick?.()}
-            disabled={hasVotedInCategory}
-          >
-            {hasVotedThisNominee ? "You Voted For This Project" : "Vote For This Project"}
-          </Button>
-        </>
+        <Button
+          size="md"
+          variant="outline"
+          className={cn(
+            "shrink-0 font-semibold transition-all duration-200",
+            "text-[10px] sm:text-[12px] 2xl:text-base leading-4 2xl:leading-6",
+            "tracking-[1.8px] 2xl:tracking-[2.4px] whitespace-nowrap",
+            hasVotedThisNominee
+              ? "bg-primary/20 text-primary border border-primary/50 cursor-default"
+              : hasVotedInCategory
+              ? "text-foreground-muted/40 border border-primary/5 opacity-50 cursor-not-allowed"
+              : "border-primary/30 text-primary hover:bg-primary hover:text-[#402D00] hover:border-primary cursor-pointer"
+          )}
+          onClick={() => !hasVotedInCategory && onVoteClick?.()}
+          disabled={hasVotedInCategory}
+        >
+          {hasVotedThisNominee ? "You Voted For This Project" : "Vote For This Project"}
+        </Button>
       )}
     </nav>
   );

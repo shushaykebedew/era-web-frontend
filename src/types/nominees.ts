@@ -4,7 +4,6 @@ export type NomineeCardProps = {
   nominee: Nominee;
   variant?: "featured" | "grid";
 };
-export type Tab = "detail" | "awards" | "gallery";
 export type NomineeDetailShellProps = {
   nominee: Nominee;
   category?: AwardCategory;
@@ -14,7 +13,6 @@ export type NomineeDetailShellProps = {
 export type NomineeSidebarProps = {
   nominee: Nominee;
   category?: AwardCategory;
-  activeTab?: string;
   onVoteClick?: () => void;
 };
 export type StatusRow = {

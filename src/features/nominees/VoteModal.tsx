@@ -95,7 +95,7 @@ export function VoteModal({
   const router = useRouter();
   const queryClient = useQueryClient();
 
-  // Reset step whenever the modal opens
+  // Reset to confirm step each time the modal opens
   useEffect(() => {
     if (isOpen) setStep("confirm");
   }, [isOpen]);
@@ -103,7 +103,6 @@ export function VoteModal({
   const { mutate: submitVote, isPending, error, reset } = useMutation({
     mutationFn: () => castPublicVote(nominee!.id, nominee!.categoryId),
     onSuccess: () => {
-      // Invalidate the nominees list so vote counts refresh automatically
       queryClient.invalidateQueries({ queryKey: nomineeKeys.all });
       queryClient.invalidateQueries({ queryKey: voteKeys.mine });
       onVoteSuccess?.();
@@ -111,7 +110,7 @@ export function VoteModal({
     },
   });
 
-  // Reset mutation error state when modal closes/reopens
+  // Reset mutation error state when modal opens
   useEffect(() => {
     if (isOpen) reset();
   }, [isOpen, reset]);

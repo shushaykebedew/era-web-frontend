@@ -1,6 +1,5 @@
 import { api } from "./api";
 import { AwardCategory, ApiCategoryResponse } from "@/types";
-import { awardCategories as staticCategories } from "@/data/award-categories";
 
 const VALID_ICONS: AwardCategory["icon"][] = [
   "cat-icon-1",
@@ -39,7 +38,6 @@ function mapApiCategory(apiItem: ApiCategoryResponse): AwardCategory {
     icon,
     nomineeCount: apiItem.nomineeCount ?? 0,
     coverImage: apiItem.coverImage || undefined,
-    targetType: apiItem.targetType ?? null,
   };
 }
 
@@ -52,13 +50,10 @@ export async function fetchCategories(): Promise<AwardCategory[]> {
         .map((item: ApiCategoryResponse) => mapApiCategory(item));
     }
   } catch (error) {
-    // During build (SSG) or when the backend is unreachable, fall back to
-    // static data so the page still renders.
     console.warn(
-      "Failed to fetch categories from API, falling back to static data:",
+      "Failed to fetch categories from API:",
       error,
     );
-    return staticCategories;
   }
 
   return [];

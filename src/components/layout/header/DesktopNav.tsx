@@ -9,7 +9,7 @@ import { cn } from "@/utils/cn";
 import { useAuth } from "@/context/AuthContext";
 import { getUserInitials } from "@/utils/user";
 import { useMediaQuery } from "@/hooks/useMediaQuery";
-import { User, LogOut, ChevronDown } from "lucide-react";
+import { User, DoorOpen } from "lucide-react";
 
 export function DesktopNav({
   onOpenAuthModal,
@@ -63,7 +63,7 @@ export function DesktopNav({
               {link.label}
               <span
                 className={cn(
-                  "absolute left-0 -bottom-0.5 h-0.5 bg-primary transition-all duration-300",
+                  "absolute left-0 bottom-0 h-0.5 bg-primary transition-all duration-300",
                   isActive ? "w-full" : "w-0 group-hover:w-full",
                 )}
               />
@@ -85,7 +85,6 @@ export function DesktopNav({
               <div className="relative w-8 h-8 2xl:w-11 2xl:h-11 rounded-full bg-gradient-to-br from-primary to-[#8F6F2D] text-[#402D00] flex items-center justify-center font-bold text-xs 2xl:text-base ring-2 ring-primary/20 group-hover:ring-primary/60 transition-all duration-300 shadow-md">
                 {getUserInitials(user.fullName)}
               </div>
-
             </button>
 
             {isDropdownOpen && (
@@ -117,7 +116,26 @@ export function DesktopNav({
                     }}
                     className="w-full flex items-center gap-2 px-4 py-2.5 text-xs 2xl:text-sm uppercase tracking-wider font-semibold text-red-400 hover:bg-red-500/10 hover:text-red-300 transition-colors cursor-pointer font-inter"
                   >
-                    <LogOut className="w-3.5 h-3.5 2xl:w-4.5 2xl:h-4.5" />
+                    <svg
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      xmlns="http://www.w3.org/2000/svg"
+                      className="w-4 h-4 2xl:w-5 2xl:h-5 shrink-0"
+                      aria-hidden="true"
+                    >
+                      <path
+                        d="M12 3.5V11.5"
+                        stroke="currentColor"
+                        strokeWidth="1.7"
+                        strokeLinecap="round"
+                      />
+                      <path
+                        d="M7.05 6.85C5.17 8.39 4 10.74 4 13.35C4 17.77 7.58 21.35 12 21.35C16.42 21.35 20 17.77 20 13.35C20 10.74 18.83 8.39 16.95 6.85"
+                        stroke="currentColor"
+                        strokeWidth="1.7"
+                        strokeLinecap="round"
+                      />
+                    </svg>
                     Sign Out
                   </button>
                 </div>

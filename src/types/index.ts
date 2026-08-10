@@ -1,20 +1,3 @@
-export type AwardTargetType = {
-  id: string;
-  name: string;
-  code: string;
-  description?: string | null;
-  isActive?: boolean;
-};
-
-export const AWARD_TARGET_TYPES: AwardTargetType[] = [
-  { id: "project", name: "Project", code: "PROJECT" },
-  { id: "company", name: "Company", code: "COMPANY" },
-  { id: "person", name: "Person", code: "PERSON" },
-  { id: "product", name: "Product", code: "PRODUCT" },
-  { id: "profile", name: "Profile", code: "PROFILE" },
-  { id: "property", name: "Property", code: "PROPERTY" },
-];
-
 export type AwardCategory = {
   id: string;
   name: string;
@@ -35,7 +18,6 @@ export type AwardCategory = {
     | "cat-icon-5";
   nomineeCount: number;
   coverImage?: string;
-  targetType?: string | null;
 };
 
 export type NomineeStatus = "nominee" | "past-winner" | "shortlisted";
@@ -43,19 +25,15 @@ export type NomineeStatus = "nominee" | "past-winner" | "shortlisted";
 export type Nominee = {
   id: string;
   name: string;
-  firm: string;
-  location: string;
+  email: string;
+  contactPerson: string;
+  phone?: string;
   categoryId: string;
   category?: { id: string; name: string };
   status: NomineeStatus;
-  excerpt: string;
-  description: string;
-  coverImage?: string;
-  gallery?: string[];
-  scaleSqm?: number;
-  completionDate?: string;
-  quote?: string;
-  achievements?: { title: string; description: string }[];
+  reason: string;
+  website?: string;
+  logo?: string;
   votes?: number;
 };
 
@@ -77,20 +55,16 @@ export type Partner = {
 export type ApiNomineeResponse = {
   id: string;
   name?: string;
-  firm?: string | null;
-  location?: string | null;
+  email?: string;
+  contactPerson?: string;
+  phone?: string | null;
   awardCategoryId?: string;
   categoryId?: string;
   awardCategory?: { id: string; name: string };
   status?: string;
-  excerpt?: string | null;
-  description?: string | null;
-  coverImage?: string | null;
-  gallery?: string[] | null;
-  scaleSqm?: number | null;
-  completionDate?: string | null;
-  quote?: string | null;
-  achievements?: { title: string; description: string }[] | null;
+  reason?: string | null;
+  website?: string | null;
+  logo?: string | null;
   votes?: number;
   _count?: {
     publicVotes?: number;
@@ -106,7 +80,6 @@ export type ApiCategoryResponse = {
   icon?: string;
   nomineeCount?: number;
   coverImage?: string | null;
-  targetType?: string | null;
   isActive?: boolean;
 };
 

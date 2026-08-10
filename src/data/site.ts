@@ -15,12 +15,13 @@ export const siteConfig = {
   },
   nominateCta: {
     label: "Nominate for 2026",
-    href: "/nominees",
+    href: "/nominate",
   },
   nav: [
     { label: "Awards", href: "/awards" },
     { label: "Categories", href: "/categories" },
     { label: "Nominees", href: "/nominees" },
+    { label: "Nominate", href: "/nominate" },
     { label: "Gallery", href: "/gallery" },
     { label: "Partners", href: "/partners" },
   ] satisfies NavLink[],

@@ -1,9 +1,8 @@
-import Link from "next/link";
+﻿import Link from "next/link";
 import { Container } from "@/components/ui/Container";
 import { Eyebrow } from "@/components/ui/Eyebrow";
 import { ServerButton as Button } from "@/components/ui/ServerButton";
 import { AwardCategoriesSection } from "@/features/home/AwardCategoriesSection";
-import { featuredWinner } from "@/data/award-categories";
 import { fetchCategories } from "@/services/categories";
 import type { AwardCategory } from "@/types";
 import { cn } from "@/utils/cn";
@@ -23,7 +22,7 @@ function CategoriesHero() {
           <div className="flex flex-col justify-center items-center gap-5">
             <h1
               className={cn(
-                "font-display text-[40px] sm:text-[56px] lg:text-[72px] 2xl:text-[96px] font-bold ",
+                "font-display text-[40px] sm:text-[56px] lg:text-[72px] 2xl:text-[102px] font-bold ",
                 "leading-tight lg:leading-20 2xl:leading-28 tracking-tight lg:tracking-[-1.44px]",
               )}
             >
@@ -36,7 +35,7 @@ function CategoriesHero() {
           <p
             className={cn(
               "mx-auto mt-5 w-full max-w-full lg:max-w-166.25 2xl:max-w-200 font-inter",
-              "text-base sm:text-[18px] 2xl:text-[24px] text-foreground-muted leading-7 2xl:leading-9 ",
+              "text-base sm:text-[18px] 2xl:text-[30px] text-foreground-muted leading-7 2xl:leading-9 ",
             )}
           >
             Celebrating the visionaries who redefine Ethiopia's skyline through
@@ -58,7 +57,7 @@ function VisualExcellenceSection() {
             <SlideUp>
               <p
                 className={cn(
-                  "mb-4 2xl:mb-6 text-[12px] 2xl:text-[16px] font-inter font-semibold uppercase",
+                  "mb-4 2xl:mb-6 text-[12px] 2xl:text-[22px] font-inter font-semibold uppercase",
                   "leading-4 2xl:leading-6 tracking-[1.2px] 2xl:tracking-[1.6px] text-primary",
                 )}
               >
@@ -66,7 +65,7 @@ function VisualExcellenceSection() {
               </p>
               <h2
                 className={cn(
-                  "font-display text-[36px] sm:text-[48px] 2xl:text-[64px] font-semibold",
+                  "font-display text-[36px] sm:text-[48px] 2xl:text-[70px] font-semibold",
                   "leading-tight lg:leading-14 2xl:leading-20 text-foreground",
                 )}
               >
@@ -75,7 +74,7 @@ function VisualExcellenceSection() {
             </SlideUp>
 
             <SlideUp delay={0.1}>
-              <p className="mt-6 text-base sm:text-[18px] 2xl:text-[24px] leading-7 2xl:leading-9 text-foreground-muted font-inter">
+              <p className="mt-6 text-base sm:text-[18px] 2xl:text-[30px] leading-7 2xl:leading-9 text-foreground-muted font-inter">
                 The ERA awards recognize more than just buildings; we honor the
                 dialogue between a structure and its environment. Our categories
                 reflect the diverse needs of a rapidly urbanizing nation.
@@ -91,7 +90,7 @@ function VisualExcellenceSection() {
                   size="sm"
                   className={cn(
                     "w-full sm:w-auto h-10 sm:h-10.5 2xl:h-15 px-4 sm:px-6 2xl:px-10",
-                    "text-[12px] 2xl:text-[20px] font-semibold tracking-[1.2px] 2xl:tracking-[2px]",
+                    "text-[12px] 2xl:text-[26px] font-semibold tracking-[1.2px] 2xl:tracking-[2px]",
                     "font-inter leading-4 2xl:leading-6 text-primary border-primary",
                     "hover:border-primary/80 hover:text-primary/90",
                   )}
@@ -102,38 +101,46 @@ function VisualExcellenceSection() {
             </SlideUp>
           </div>
 
-          {/* Right — featured image */}
+          {/* Right — Architectural blueprint design illustration */}
           <FadeIn
             delay={0.3}
             className={cn(
               "relative w-full min-h-60 sm:min-h-90 aspect-4/3 lg:aspect-auto",
-              "lg:min-h-90 2xl:min-h-120 lg:w-1/2 overflow-hidden",
+              "lg:min-h-90 2xl:min-h-120 lg:w-1/2 overflow-hidden border border-primary/20",
+              "bg-[#13110c] flex items-center justify-center p-8",
             )}
           >
-            <img
-              src={featuredWinner.image}
-              alt={featuredWinner.label}
-              className="absolute inset-0 h-full w-full object-cover"
-            />
-            {/* Caption badge */}
-            <div
-              className={cn(
-                "absolute bottom-4 left-4 max-w-[calc(100%-32px)] sm:max-w-none",
-                "sm:bottom-5 sm:left-12 2xl:bottom-8 2xl:left-16",
-                "bg-[#16130D99] px-3 py-1.5 sm:py-0 sm:h-8 2xl:h-12 2xl:px-5",
-                "border-l-2 2xl:border-l-4 border-primary backdrop-blur-md flex items-center",
-              )}
+            <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,rgba(201,162,75,0.08)_0%,transparent_70%)] pointer-events-none" />
+            <svg
+              className="w-full h-full max-w-md max-h-80 text-primary/30"
+              viewBox="0 0 400 300"
+              fill="none"
+              xmlns="http://www.w3.org/2000/svg"
             >
-              <span
-                className={cn(
-                  "text-[10px] sm:text-[12px] 2xl:text-[16px] font-inter font-semibold",
-                  "tracking-[1.2px] 2xl:tracking-[1.6px] text-foreground",
-                  "leading-4 sm:leading-4 2xl:leading-6 whitespace-normal sm:whitespace-nowrap",
-                )}
-              >
-                {featuredWinner.label}
-              </span>
-            </div>
+              {/* Grid Lines */}
+              <path d="M 0,50 L 400,50 M 0,100 L 400,100 M 0,150 L 400,150 M 0,200 L 400,200 M 0,250 L 400,250" stroke="currentColor" strokeWidth="0.5" strokeDasharray="4 4" />
+              <path d="M 50,0 L 50,300 M 100,0 L 100,300 M 150,0 L 150,300 M 200,0 L 200,300 M 250,0 L 250,300 M 300,0 L 300,300 M 350,0 L 350,300" stroke="currentColor" strokeWidth="0.5" strokeDasharray="4 4" />
+              
+              {/* Isometric Architectural Forms */}
+              <path d="M 200,80 L 290,130 L 290,230 L 200,180 Z" stroke="currentColor" strokeWidth="1.5" />
+              <path d="M 200,80 L 110,130 L 110,230 L 200,180 Z" stroke="currentColor" strokeWidth="1.5" />
+              <path d="M 200,80 L 290,130 L 200,180 L 110,130 Z" stroke="currentColor" strokeWidth="1" fill="rgba(201,162,75,0.03)" />
+              
+              {/* Golden Accents */}
+              <path d="M 200,110 L 260,145 L 260,215 L 200,180 Z" stroke="#C9A24B" strokeWidth="1" strokeOpacity="0.6" />
+              <path d="M 200,110 L 140,145 L 140,215 L 200,180 Z" stroke="#C9A24B" strokeWidth="1" strokeOpacity="0.6" />
+              
+              {/* Abstract Blueprint details */}
+              <circle cx="200" cy="180" r="4" fill="#C9A24B" />
+              <circle cx="200" cy="80" r="3" fill="currentColor" />
+              <circle cx="110" cy="130" r="3" fill="currentColor" />
+              <circle cx="290" cy="130" r="3" fill="currentColor" />
+              
+              {/* Precision Dimensions */}
+              <path d="M 110,245 L 290,245" stroke="#C9A24B" strokeWidth="0.75" />
+              <path d="M 110,240 L 110,250 M 290,240 L 290,250" stroke="#C9A24B" strokeWidth="0.75" />
+              <text x="200" y="260" fill="#C9A24B" fontSize="9" fontFamily="monospace" textAnchor="middle" letterSpacing="2">SCALE: 1:100</text>
+            </svg>
           </FadeIn>
         </div>
       </div>
@@ -181,7 +188,7 @@ function CategoriesEmptyState() {
           <p
             className={cn(
               "max-w-sm sm:max-w-md 2xl:max-w-lg font-inter text-foreground-muted",
-              "text-sm sm:text-base 2xl:text-[18px] leading-6 2xl:leading-8 ",
+              "text-sm sm:text-base 2xl:text-[24px] leading-6 2xl:leading-8 ",
             )}
           >
             Award categories will be announced soon.

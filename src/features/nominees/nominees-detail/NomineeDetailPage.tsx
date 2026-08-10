@@ -1,10 +1,14 @@
 "use client";
 
 import { useMemo } from "react";
-import { notFound } from "next/navigation";
-import { useNomineeDetail, useNominees, useCategories } from "@/hooks/queries/useNominees";
+import {
+  useNomineeDetail,
+  useNominees,
+  useCategories,
+} from "@/hooks/queries/useNominees";
 import { NomineeDetailShell } from "./NomineeDetailShell";
 import { NomineeDetailLoading } from "./NomineeDetailLoading";
+import NomineeNotFound from "@/app/(marketing)/nominees/[id]/not-found";
 
 interface NomineeDetailPageProps {
   id: string;
@@ -23,13 +27,14 @@ export function NomineeDetailPage({ id }: NomineeDetailPageProps) {
   const { prevId, nextId } = useMemo(() => {
     const idx = allNominees.findIndex((n) => n.id === id);
     return {
-      prevId: idx > 0 ? allNominees[idx - 1].id : undefined,
-      nextId: idx < allNominees.length - 1 ? allNominees[idx + 1].id : undefined,
+      prevId: idx > 0 ? allNominees[idx - 1]?.id : undefined,
+      nextId:
+        idx < allNominees.length - 1 ? allNominees[idx + 1]?.id : undefined,
     };
   }, [allNominees, id]);
 
   if (nomineeLoading) return <NomineeDetailLoading />;
-  if (!nominee) return notFound();
+  if (!nominee) return <NomineeNotFound />;
 
   return (
     <NomineeDetailShell

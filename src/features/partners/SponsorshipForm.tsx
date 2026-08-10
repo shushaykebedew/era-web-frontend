@@ -161,11 +161,15 @@ export function SponsorshipForm({ selectedTier = "" }: SponsorshipFormProps) {
         if (unmapped.length > 0) {
           setError(unmapped[0]);
         } else if (Object.keys(fieldMap).length === 0) {
-          setError(responseData?.message ?? "Failed to submit request. Please try again.");
+          setError(
+            responseData?.message ??
+              "Failed to submit request. Please try again.",
+          );
         }
       } else {
         setError(
-          responseData?.message ?? "Failed to submit request. Please try again.",
+          responseData?.message ??
+            "Failed to submit request. Please try again.",
         );
       }
     } finally {
@@ -178,7 +182,7 @@ export function SponsorshipForm({ selectedTier = "" }: SponsorshipFormProps) {
       id="sponsorship-form"
       className={cn(
         "bg-[#110E08] border border-primary/20 my-10 sm:my-20 2xl:my-28",
-        "w-[calc(100%-2rem)] max-w-4xl 2xl:max-w-5xl mx-auto py-12 sm:py-20 lg:py-24 2xl:py-32",
+        "w-[calc(100%-2rem)] max-w-4xl 2xl:max-w-6xl mx-auto py-12 sm:py-20 lg:py-24 2xl:py-32",
         "scroll-mt-20 2xl:scroll-mt-24",
       )}
     >
@@ -207,7 +211,6 @@ export function SponsorshipForm({ selectedTier = "" }: SponsorshipFormProps) {
 
         <SlideUp delay={0.2}>
           <form onSubmit={handleSubmit} className="mt-12 flex flex-col gap-6">
-
             {/* Row 1 — Company Name + Website */}
             <div className="grid grid-cols-1 gap-6 sm:grid-cols-2">
               <div className="flex flex-col gap-2">
@@ -219,7 +222,9 @@ export function SponsorshipForm({ selectedTier = "" }: SponsorshipFormProps) {
                   className={fieldBase}
                 />
                 {fieldErrors.company && (
-                  <span className="text-xs text-danger">{fieldErrors.company}</span>
+                  <span className="text-xs text-danger">
+                    {fieldErrors.company}
+                  </span>
                 )}
               </div>
               <div className="flex flex-col gap-2">
@@ -230,7 +235,9 @@ export function SponsorshipForm({ selectedTier = "" }: SponsorshipFormProps) {
                   className={fieldBase}
                 />
                 {fieldErrors.website && (
-                  <span className="text-xs text-danger">{fieldErrors.website}</span>
+                  <span className="text-xs text-danger">
+                    {fieldErrors.website}
+                  </span>
                 )}
               </div>
             </div>
@@ -245,7 +252,9 @@ export function SponsorshipForm({ selectedTier = "" }: SponsorshipFormProps) {
                   className={fieldBase}
                 />
                 {fieldErrors.contactName && (
-                  <span className="text-xs text-danger">{fieldErrors.contactName}</span>
+                  <span className="text-xs text-danger">
+                    {fieldErrors.contactName}
+                  </span>
                 )}
               </div>
               <div className="flex flex-col gap-2">
@@ -257,7 +266,9 @@ export function SponsorshipForm({ selectedTier = "" }: SponsorshipFormProps) {
                   className={fieldBase}
                 />
                 {fieldErrors.email && (
-                  <span className="text-xs text-danger">{fieldErrors.email}</span>
+                  <span className="text-xs text-danger">
+                    {fieldErrors.email}
+                  </span>
                 )}
               </div>
             </div>
@@ -365,7 +376,7 @@ export function SponsorshipForm({ selectedTier = "" }: SponsorshipFormProps) {
                 size="sm"
                 isLoading={isLoading}
                 disabled={isLoading}
-                style={{ minWidth: '200px' }}
+                style={{ minWidth: "200px" }}
                 className={cn(
                   "w-full sm:w-auto px-8 sm:px-12 2xl:px-16 bg-primary h-12 2xl:h-16",
                   "tracking-[2px] sm:tracking-[3.6px] 2xl:tracking-[4.8px]",

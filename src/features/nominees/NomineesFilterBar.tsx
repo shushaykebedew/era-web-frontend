@@ -1,10 +1,9 @@
-"use client";
+﻿"use client";
 
 import { Container } from "@/components/ui/Container";
 import { cn } from "@/utils/cn";
 import { type Sort } from "@/types/ui";
-import type { AwardCategory, AwardTargetType } from "@/types";
-import { AWARD_TARGET_TYPES } from "@/types";
+import type { AwardCategory } from "@/types";
 import { SortSelect } from "./SortSelect";
 import { Search, X } from "lucide-react";
 import { motion } from "framer-motion";
@@ -12,8 +11,6 @@ import { motion } from "framer-motion";
 interface NomineesFilterBarProps {
   activeCategoryId: string;
   onCategoryChange: (id: string) => void;
-  activeTargetType: string;
-  onTargetTypeChange: (code: string) => void;
   sort: Sort;
   onSortChange: (sort: Sort) => void;
   searchQuery: string;
@@ -25,8 +22,6 @@ interface NomineesFilterBarProps {
 export function NomineesFilterBar({
   activeCategoryId,
   onCategoryChange,
-  activeTargetType,
-  onTargetTypeChange,
   sort,
   onSortChange,
   searchQuery,
@@ -36,12 +31,6 @@ export function NomineesFilterBar({
   const categoryOptions = [
     { id: "all", name: "All Projects" },
     ...categories,
-  ];
-
-  // Filtering out types that are not properties, companies, or projects to keep it focused on real estate
-  const targetTypes = [
-    { code: "all", name: "All Types" },
-    ...AWARD_TARGET_TYPES.filter(t => ["COMPANY", "PROJECT", "PROPERTY"].includes(t.code)),
   ];
 
   return (
@@ -60,7 +49,7 @@ export function NomineesFilterBar({
                 <Search className="w-4 h-4 absolute left-4 top-1/2 -translate-y-1/2 text-primary/70" />
                 <input
                   type="text"
-                  placeholder="Search by name, company, or details..."
+                  placeholder="Search by company name, contact, or reason..."
                   value={searchQuery}
                   onChange={(e) => onSearchChange(e.target.value)}
                   className={cn(
@@ -113,39 +102,6 @@ export function NomineesFilterBar({
                       />
                     )}
                     {cat.name}
-                  </button>
-                );
-              })}
-            </div>
-          </div>
-
-          {/* Row 3: Target Type (Segmented control button group) */}
-          <div className="flex flex-col gap-2">
-            <label className="text-xs uppercase tracking-widest font-semibold text-foreground-muted">
-              Filter by Target Type
-            </label>
-            <div className="inline-flex p-1 bg-[#1a1712] border border-primary/15 rounded self-start">
-              {targetTypes.map((type) => {
-                const isActive = activeTargetType === type.code;
-                return (
-                  <button
-                    key={type.code}
-                    onClick={() => onTargetTypeChange(type.code)}
-                    className={cn(
-                      "relative px-2.5 py-1.5 sm:px-4 sm:py-2 text-[10px] sm:text-xs uppercase tracking-wider font-semibold rounded transition-all duration-200 cursor-pointer whitespace-nowrap",
-                      isActive
-                        ? "text-primary font-bold shadow-md"
-                        : "text-foreground-muted hover:text-foreground"
-                    )}
-                  >
-                    {isActive && (
-                      <motion.div
-                        layoutId="activeTargetTypeBg"
-                        className="absolute inset-0 bg-[#282218] border border-primary/20 rounded -z-10"
-                        transition={{ type: "spring", stiffness: 350, damping: 25 }}
-                      />
-                    )}
-                    {type.name}
                   </button>
                 );
               })}

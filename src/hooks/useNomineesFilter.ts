@@ -1,31 +1,19 @@
 import { useState, useMemo } from "react";
 import { type Sort } from "@/types/ui";
-import { type Nominee, type AwardCategory } from "@/types";
+import { type Nominee } from "@/types";
 
 export function useNomineesFilter(
   initialNominees: Nominee[],
   initialCategory: string,
-  initialTargetType: string,
-  categories: AwardCategory[],
+  _initialTargetType: string, // kept for signature compatibility but unused
+  categories: any[],
   pageSize: number = 6,
 ) {
   const [activeCategoryId, setActiveCategoryId] =
     useState<string>(initialCategory);
-  const [activeTargetType, setActiveTargetType] =
-    useState<string>(initialTargetType);
   const [sort, setSort] = useState<Sort>("Alphabetical");
-  const [searchQuery, setSearchQuery] = useState<string>("");
+  const [searchQuery, setSearchQuery] = useState<string>( "");
   const [page, setPage] = useState(1);
-
-  // Build a categoryId → targetType code map from the categories list so we
-  // can derive each nominee's target type without an extra API call.
-  const categoryTargetTypeMap = useMemo(() => {
-    const map = new Map<string, string | null>();
-    categories.forEach((c) => {
-      map.set(c.id, c.targetType ?? null);
-    });
-    return map;
-  }, [categories]);
 
   const filtered = useMemo(() => {
     return initialNominees.filter((n) => {
@@ -33,26 +21,19 @@ export function useNomineesFilter(
       if (activeCategoryId !== "all") {
         if (n.categoryId !== activeCategoryId) return false;
       }
-      // Target type filter — derived from the nominee's category
-      if (activeTargetType !== "all") {
-        const catTargetType = categoryTargetTypeMap.get(n.categoryId);
-        if (catTargetType !== activeTargetType) return false;
-      }
       // Search filter
       if (searchQuery.trim()) {
         const query = searchQuery.toLowerCase();
         const matchesName = n.name.toLowerCase().includes(query);
-        const matchesFirm = n.firm ? n.firm.toLowerCase().includes(query) : false;
-        const matchesExcerpt = n.excerpt ? n.excerpt.toLowerCase().includes(query) : false;
-        if (!matchesName && !matchesFirm && !matchesExcerpt) return false;
+        const matchesContact = n.contactPerson ? n.contactPerson.toLowerCase().includes(query) : false;
+        const matchesReason = n.reason ? n.reason.toLowerCase().includes(query) : false;
+        if (!matchesName && !matchesContact && !matchesReason) return false;
       }
       return true;
     });
   }, [
     initialNominees,
     activeCategoryId,
-    activeTargetType,
-    categoryTargetTypeMap,
     searchQuery,
   ]);
 
@@ -73,11 +54,6 @@ export function useNomineesFilter(
     setPage(1);
   };
 
-  const handleTargetTypeChange = (code: string) => {
-    setActiveTargetType(code);
-    setPage(1);
-  };
-
   const handleSearchChange = (val: string) => {
     setSearchQuery(val);
     setPage(1);
@@ -88,8 +64,8 @@ export function useNomineesFilter(
   return {
     activeCategoryId,
     handleCategoryChange,
-    activeTargetType,
-    handleTargetTypeChange,
+    activeTargetType: "all",
+    handleTargetTypeChange: () => {},
     sort,
     setSort,
     searchQuery,
