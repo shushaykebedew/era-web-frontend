@@ -9,10 +9,9 @@ import { VoteModal } from "@/features/nominees/VoteModal";
 import { NomineeDetailModal } from "@/features/nominees/NomineeDetailModal";
 import { useAuth } from "@/context/AuthContext";
 import { useMyVotes } from "@/hooks/queries/useNominees";
-import { User, Check, Award } from "lucide-react";
+import { User, Check, Award, Quote } from "lucide-react";
 
 // ─── Logo panel ───────────────────────────────────────────────────────────────
-// Defined outside NomineeCard so its reference is stable across re-renders.
 function LogoPanel({
   logo,
   name,
@@ -31,52 +30,72 @@ function LogoPanel({
       onClick={onClick}
       aria-label={`View ${name} details`}
       className={cn(
-        "group/logo relative overflow-hidden bg-[#0a0907] cursor-pointer",
+        "group/logo relative overflow-hidden bg-gradient-to-b from-[#080705] to-[#12100c] cursor-pointer",
         className,
       )}
     >
-      {/* Radial glow */}
-      <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_50%_60%,rgba(201,162,75,0.09)_0%,transparent_68%)] pointer-events-none" />
-      {/* Shimmer line along the top */}
-      <div className="absolute top-0 inset-x-0 h-px bg-gradient-to-r from-transparent via-primary/40 to-transparent pointer-events-none" />
+      {/* Background ambient radial glow */}
+      <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_50%_45%,rgba(201,162,75,0.1)_0%,transparent_70%)] pointer-events-none transition-opacity duration-500 group-hover/logo:opacity-150" />
+      {/* Top shimmer accent line */}
+      <div className="absolute top-0 inset-x-0 h-px bg-gradient-to-r from-transparent via-primary/50 to-transparent pointer-events-none" />
 
-      {/* Logo / monogram */}
+      {/* Logo / monogram wrapper */}
       <div className="absolute inset-0 flex items-center justify-center p-6">
         {logo ? (
-          <div className="relative w-20 h-20 2xl:w-28 2xl:h-28 rounded-full overflow-hidden border border-primary/20 shadow-[0_0_20px_rgba(201,162,75,0.1)]">
-            <Image
-              src={logo}
-              alt={name}
-              fill
-              className="object-cover transition-transform duration-700 group-hover/logo:scale-[1.04]"
-              sizes="(min-width: 1536px) 112px, 80px"
-            />
+          <div className="relative w-20 h-20 2xl:w-28 2xl:h-28 rounded-full overflow-hidden border-2 border-primary/25 p-1 bg-[#12100c] shadow-[0_4px_24px_rgba(0,0,0,0.45)] transition-all duration-500 group-hover/logo:border-primary group-hover/logo:scale-[1.04]">
+            <div className="relative w-full h-full rounded-full overflow-hidden">
+              <Image
+                src={logo}
+                alt={name}
+                fill
+                className="object-cover transition-transform duration-700 group-hover/logo:scale-105"
+                sizes="(min-width: 1536px) 112px, 80px"
+              />
+            </div>
           </div>
         ) : (
-          <div className="flex flex-col items-center gap-2">
+          <div className="flex flex-col items-center gap-2.5">
             <div
               className={cn(
-                "w-12 h-12 2xl:w-16 2xl:h-16 rounded-full flex items-center justify-center",
-                "bg-gradient-to-br from-primary/20 via-primary/10 to-transparent",
-                "border border-primary/35",
-                "shadow-[0_0_24px_rgba(201,162,75,0.12)]",
-                "transition-shadow duration-500 group-hover/logo:shadow-[0_0_36px_rgba(201,162,75,0.2)]",
+                "w-14 h-14 2xl:w-20 2xl:h-20 rounded-full flex items-center justify-center",
+                "bg-gradient-to-br from-primary/20 via-primary/8 to-transparent",
+                "border border-primary/35 shadow-[0_4px_20px_rgba(201,162,75,0.1)]",
+                "transition-all duration-500 group-hover/logo:border-primary group-hover/logo:scale-[1.04]",
               )}
             >
-              <span className="font-display text-lg 2xl:text-2xl font-bold text-primary tracking-widest">
+              <span className="font-display text-xl 2xl:text-2xl font-bold text-primary tracking-widest">
                 {initials}
               </span>
             </div>
-            <span className="text-[8px] 2xl:text-xs font-inter uppercase tracking-[2.5px] text-primary/30">
+            <span className="text-[9px] 2xl:text-xs font-inter font-semibold uppercase tracking-[2.5px] text-primary/35">
               ERA 2026
             </span>
           </div>
         )}
       </div>
 
-      {/* Bottom vignette */}
-      <div className="absolute bottom-0 inset-x-0 h-10 bg-gradient-to-t from-[#0f0d0a]/80 to-transparent pointer-events-none" />
+
+
+      {/* Bottom subtle vignette */}
+      <div className="absolute bottom-0 inset-x-0 h-10 bg-gradient-to-t from-[#0f0d0a] to-transparent pointer-events-none" />
     </button>
+  );
+}
+
+// ─── Category label ───────────────────────────────────────────────────────────
+function CategoryLabel({ name, prominent }: { name: string; prominent?: boolean }) {
+  return (
+    <div className="flex items-center gap-1.5 mb-3">
+      <Award
+        className={cn(
+          "w-3.5 h-3.5 2xl:w-4 2xl:h-4 shrink-0",
+          prominent ? "text-primary/80" : "text-primary/60",
+        )}
+      />
+      <span className="text-[10px] 2xl:text-xs font-inter font-semibold uppercase tracking-[2px] text-primary/80 group-hover:text-foreground">
+        {name}
+      </span>
+    </div>
   );
 }
 
@@ -95,14 +114,14 @@ function VoteRow({
   onVote: () => void;
 }) {
   return (
-    <div className="flex items-center justify-between gap-3 pt-4 border-t border-primary/10 mt-auto">
+    <div className="flex items-center justify-between gap-3 pt-4 border-t border-primary/12 mt-auto">
       <div className="flex flex-col gap-0.5">
-        <span className="text-xs 2xl:text-sm font-inter uppercase tracking-[1.5px] text-foreground-muted/50">
+        <span className="text-[10px] 2xl:text-xs font-inter uppercase tracking-[1.5px] font-semibold text-foreground-muted/55">
           Standings
         </span>
-        <span className="text-xl 2xl:text-3xl font-semibold font-display text-primary leading-none">
+        <span className="text-[18px] 2xl:text-2xl font-bold font-display text-primary leading-none tabular-nums">
           {voteCount.toLocaleString()}
-          <span className="text-xs 2xl:text-sm font-inter font-normal text-foreground-muted/60 ml-1.5 uppercase tracking-[1px]">
+          <span className="text-[10px] 2xl:text-xs font-inter font-normal text-foreground-muted/55 ml-1.5 uppercase tracking-[1px]">
             votes
           </span>
         </span>
@@ -112,12 +131,12 @@ function VoteRow({
         size="sm"
         variant={hasVotedThisNominee ? "outline" : "primary"}
         className={cn(
-          "h-9 2xl:h-12 px-6 2xl:px-8 uppercase font-bold text-xs 2xl:text-sm tracking-[1.5px] rounded-sm transition-all duration-300",
+          "h-9 2xl:h-11 px-5 2xl:px-7 uppercase font-bold text-xs 2xl:text-sm tracking-[1.5px] rounded-md transition-all duration-300",
           hasVotedThisNominee
-            ? "bg-primary/10 border-primary/40 text-primary cursor-default"
+            ? "bg-primary/8 border-primary/35 text-primary cursor-default"
             : hasVotedInCategory
-              ? "opacity-50 border-primary/10 cursor-not-allowed"
-              : "bg-primary hover:bg-[#e5bc64] text-[#120f0a] border border-primary hover:border-primary-light transition-colors duration-200",
+              ? "opacity-45 border-primary/10 cursor-not-allowed"
+              : "bg-primary hover:bg-[#e5bc64] hover:shadow-[0_4px_16px_rgba(201,162,75,0.3)] text-[#120f0a] border border-primary hover:border-primary-light",
         )}
         onClick={onVote}
         disabled={hasVotedInCategory || isPending}
@@ -130,6 +149,18 @@ function VoteRow({
           "Vote"
         )}
       </Button>
+    </div>
+  );
+}
+
+// ─── Reason excerpt ───────────────────────────────────────────────────────────
+function ReasonExcerpt({ text }: { text: string }) {
+  return (
+    <div className="relative bg-primary/[0.035] border-l-2 border-primary/35 rounded-r-md p-3.5 pl-4 2xl:p-4 2xl:pl-5 mb-5 flex-1">
+      <Quote className="absolute top-3 right-3 w-3.5 h-3.5 2xl:w-4 2xl:h-4 text-primary/15" />
+      <p className="text-xs 2xl:text-base leading-relaxed text-foreground-muted/90 font-inter line-clamp-3 pr-4">
+        {text}
+      </p>
     </div>
   );
 }
@@ -172,124 +203,52 @@ export function NomineeCard({
 
   const openDetailModal = () => setIsDetailModalOpen(true);
 
-  // ─── Featured variant ───────────────────────────────────────────────────
-  if (variant === "featured") {
-    return (
-      <>
-        <article
-          className={cn(
-            "group relative flex flex-col overflow-hidden h-full",
-            "bg-[#0f0d0a] border border-primary/20 rounded-sm",
-            "transition-all duration-500",
-            "hover:border-primary/40 hover:shadow-[0_8px_40px_rgba(201,162,75,0.09)]",
-            className,
-          )}
-        >
-          <div className="absolute top-0 left-0 w-4 h-4 border-t border-l border-primary/30 pointer-events-none z-10" />
-          <div className="absolute bottom-0 right-0 w-4 h-4 border-b border-r border-primary/30 pointer-events-none z-10" />
+  const isFeatured = variant === "featured";
 
-          <LogoPanel
-            logo={nominee.logo}
-            name={nominee.name}
-            initials={initials}
-            onClick={openDetailModal}
-            className="w-full h-32 2xl:h-48"
-          />
-
-          <div className="flex flex-col flex-1 px-5 2xl:px-7 pt-5 pb-5 2xl:pb-7">
-            <div className="flex items-center gap-1.5 mb-3">
-              <Award className="w-3.5 h-3.5 2xl:w-5 2xl:h-5 text-primary/60 shrink-0" />
-              <span className="text-xs 2xl:text-sm font-inter font-semibold uppercase tracking-[2px] text-primary/70">
-                {categoryName}
-              </span>
-            </div>
-
-            <h3
-              className="font-display text-2xl 2xl:text-4xl font-bold leading-snug text-foreground group-hover:text-primary transition-colors duration-300 cursor-pointer mb-2"
-              onClick={openDetailModal}
-            >
-              {nominee.name}
-            </h3>
-
-            <div className="flex items-center gap-1.5 text-sm 2xl:text-base text-foreground-muted/70 font-inter mb-4">
-              <User className="w-3.5 h-3.5 2xl:w-5 2xl:h-5 text-primary/50 shrink-0" />
-              <span className="truncate">{nominee.contactPerson}</span>
-            </div>
-
-            <p className="text-sm 2xl:text-base leading-relaxed 2xl:leading-7 text-foreground-muted/80 font-inter line-clamp-3 border-l-2 border-primary/25 pl-3 mb-5 flex-1">
-              {nominee.reason}
-            </p>
-
-            <VoteRow
-              voteCount={voteCount}
-              hasVotedThisNominee={hasVotedThisNominee}
-              hasVotedInCategory={hasVotedInCategory}
-              onVote={openVoteModal}
-            />
-          </div>
-        </article>
-
-        <VoteModal
-          isOpen={isVoteModalOpen}
-          onClose={() => setIsVoteModalOpen(false)}
-          nominee={nominee}
-          onVoteSuccess={handleVoteSuccess}
-        />
-        <NomineeDetailModal
-          isOpen={isDetailModalOpen}
-          onClose={() => setIsDetailModalOpen(false)}
-          nominee={nominee}
-        />
-      </>
-    );
-  }
-
-  // ─── Grid variant ───────────────────────────────────────────────────────
   return (
     <>
       <article
         className={cn(
           "group relative flex flex-col overflow-hidden h-full",
-          "bg-[#0f0d0a] border border-primary/15 rounded-sm",
-          "transition-all duration-500",
-          "hover:border-primary/35 hover:shadow-[0_6px_32px_rgba(201,162,75,0.08)]",
+          "bg-[#12100c] rounded-sm transition-all duration-500",
+          "hover:-translate-y-0.5",
+          isFeatured
+            ? cn(
+              "border border-primary/25 shadow-md",
+              "hover:border-primary/55 hover:shadow-[0_16px_44px_rgba(201,162,75,0.14)]",
+            )
+            : cn(
+              "border border-primary/18",
+              "hover:border-primary/40 hover:shadow-[0_10px_32px_rgba(201,162,75,0.1)]",
+            ),
           className,
         )}
       >
-        <div className="absolute top-0 left-0 w-3 h-3 border-t border-l border-primary/25 pointer-events-none z-10" />
-        <div className="absolute bottom-0 right-0 w-3 h-3 border-b border-r border-primary/25 pointer-events-none z-10" />
 
         <LogoPanel
           logo={nominee.logo}
           name={nominee.name}
           initials={initials}
           onClick={openDetailModal}
-          className="w-full h-32 2xl:h-48"
+          className="w-full h-36 2xl:h-52"
         />
 
         <div className="flex flex-col flex-1 px-5 2xl:px-7 pt-5 pb-5 2xl:pb-7">
-          <div className="flex items-center gap-1.5 mb-3">
-            <div className="w-3.5 h-px 2xl:w-5 bg-primary/40" />
-            <span className="text-xs 2xl:text-sm font-inter font-semibold uppercase tracking-[2px] text-primary/70">
-              {categoryName}
-            </span>
-          </div>
+          <CategoryLabel name={categoryName} prominent={isFeatured} />
 
           <h3
-            className="font-display text-2xl 2xl:text-4xl font-bold leading-snug text-foreground group-hover:text-primary transition-colors duration-300 cursor-pointer mb-2"
+            className="font-display text-lg sm:text-xl 2xl:text-3xl font-bold leading-snug text-foreground group-hover:text-primary transition-colors duration-300 cursor-pointer mb-2 line-clamp-2"
             onClick={openDetailModal}
           >
             {nominee.name}
           </h3>
 
-          <div className="flex items-center gap-1.5 text-sm 2xl:text-base text-foreground-muted/70 font-inter mb-4">
-            <User className="w-3.5 h-3.5 2xl:w-5 2xl:h-5 text-primary/40 shrink-0" />
+          <div className="flex items-center gap-1.5 text-xs 2xl:text-sm text-foreground-muted/65 font-inter mb-4">
+            <User className="w-3.5 h-3.5 2xl:w-4 2xl:h-4 text-primary/45 shrink-0" />
             <span className="truncate">{nominee.contactPerson}</span>
           </div>
 
-          <p className="text-sm 2xl:text-base leading-6 2xl:leading-7 text-foreground-muted/80 font-inter line-clamp-3 border-l border-primary/20 pl-3 mb-5 flex-1">
-            {nominee.reason}
-          </p>
+          <ReasonExcerpt text={nominee.reason} />
 
           <VoteRow
             voteCount={voteCount}

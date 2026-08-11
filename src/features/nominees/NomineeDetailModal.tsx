@@ -128,7 +128,7 @@ export function NomineeDetailModal({
                       ERA 2026 Nominee
                     </p>
                     {nominee.category?.name && (
-                      <div className="inline-flex items-center gap-1 bg-primary/10 border border-primary/15 text-primary text-[8px] 2xl:text-xs font-semibold uppercase tracking-[0.8px] py-1 px-2 rounded-full">
+                      <div className="inline-flex items-center gap-1 bg-primary/10 border border-primary/15 text-primary text-[8px] 2xl:text-xs font-semibold uppercase tracking-[0.8px] py-1 px-2 rounded-full whitespace-nowrap">
                         <Award className="w-2.5 h-2.5 2xl:w-3.5 2xl:h-3.5" />
                         {nominee.category.name}
                       </div>
@@ -222,8 +222,8 @@ export function NomineeDetailModal({
                     >
                       {hasVotedThisNominee ? (
                         <span className="flex items-center gap-2 justify-center">
-                          <Check className="w-4 h-4 2xl:w-5 2xl:h-5" /> You Voted For This
-                          Nominee
+                          <Check className="w-4 h-4 2xl:w-5 2xl:h-5" /> You
+                          Voted For This Nominee
                         </span>
                       ) : (
                         "Cast Vote"
