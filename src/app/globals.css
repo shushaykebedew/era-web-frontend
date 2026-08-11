@@ -2,18 +2,26 @@
 
 :root {
   /* Base surfaces */
-  --background: #16130d; /* primary app background (near-black warm) */
-  --background-elevated: #1c1712; /* cards, raised panels */
-  --background-muted: #100d09; /* footer / recessed sections */
-  --foreground: #eae1d7; /* primary text on dark surfaces */
-  --foreground-muted: #d1c5b2; /* secondary text */
+  --background: #16130d;
+  /* primary app background (near-black warm) */
+  --background-elevated: #1c1712;
+  /* cards, raised panels */
+  --background-muted: #100d09;
+  /* footer / recessed sections */
+  --foreground: #eae1d7;
+  /* primary text on dark surfaces */
+  --foreground-muted: #d1c5b2;
+  /* secondary text */
 
   /* Brand */
-  --primary: #ebc166; /* gold — primary actions, links, accents */
+  --primary: #ebc166;
+  /* gold — primary actions, links, accents */
   --primary-foreground: #15110c;
-  --secondary: #8a6d3b; /* deeper bronze, secondary emphasis */
+  --secondary: #8a6d3b;
+  /* deeper bronze, secondary emphasis */
   --secondary-foreground: #f5f1e8;
-  --accent: #c9a25f; /* highlight accent, close to primary */
+  --accent: #c9a25f;
+  /* highlight accent, close to primary */
   --accent-foreground: #15110c;
 
   /* UI */
@@ -104,3 +112,26 @@ canvas {
    "[&::-webkit-scrollbar-track]:bg-transparent",
    "[&::-webkit-scrollbar-thumb]:bg-primary",
     "[&::-webkit-scrollbar-thumb]:rounded-[50px]", */
+
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+  background: rgba(201, 162, 75, 0.3);
+  border-radius: 9999px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: rgba(201, 162, 75, 0.6);
+}
+
+textarea {
+  scrollbar-width: thin;
+  scrollbar-color: rgba(201, 162, 75, 0.3) transparent;
+}

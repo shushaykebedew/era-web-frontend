@@ -43,7 +43,9 @@ function mapApiCategory(apiItem: ApiCategoryResponse): AwardCategory {
 
 export async function fetchCategories(): Promise<AwardCategory[]> {
   try {
-    const res = await api.get("/award-categories");
+    const res = await api.get("/award-categories", {
+      params: { activeOnly: "true" },
+    });
     if (res.data?.success && Array.isArray(res.data.data)) {
       return res.data.data
         .filter((item: ApiCategoryResponse) => item.isActive !== false)

@@ -57,7 +57,7 @@ function VisualExcellenceSection() {
             <SlideUp>
               <p
                 className={cn(
-                  "mb-4 2xl:mb-6 text-[12px] 2xl:text-[22px] font-inter font-semibold uppercase",
+                  "mb-4 2xl:mb-6 text-[12px] 2xl:text-base font-inter font-semibold uppercase",
                   "leading-4 2xl:leading-6 tracking-[1.2px] 2xl:tracking-[1.6px] text-primary",
                 )}
               >
@@ -65,7 +65,7 @@ function VisualExcellenceSection() {
               </p>
               <h2
                 className={cn(
-                  "font-display text-[36px] sm:text-[48px] 2xl:text-[70px] font-semibold",
+                  "font-display text-[36px] sm:text-[48px] 2xl:text-[52px] font-semibold",
                   "leading-tight lg:leading-14 2xl:leading-20 text-foreground",
                 )}
               >
@@ -74,7 +74,7 @@ function VisualExcellenceSection() {
             </SlideUp>
 
             <SlideUp delay={0.1}>
-              <p className="mt-6 text-base sm:text-[18px] 2xl:text-[30px] leading-7 2xl:leading-9 text-foreground-muted font-inter">
+              <p className="mt-6 text-base sm:text-[18px] 2xl:text-[20px] leading-7  text-foreground-muted font-inter">
                 The ERA awards recognize more than just buildings; we honor the
                 dialogue between a structure and its environment. Our categories
                 reflect the diverse needs of a rapidly urbanizing nation.
@@ -90,7 +90,7 @@ function VisualExcellenceSection() {
                   size="sm"
                   className={cn(
                     "w-full sm:w-auto h-10 sm:h-10.5 2xl:h-15 px-4 sm:px-6 2xl:px-10",
-                    "text-[12px] 2xl:text-[26px] font-semibold tracking-[1.2px] 2xl:tracking-[2px]",
+                    "text-[12px] 2xl:text-[16px] font-semibold tracking-[1.2px] 2xl:tracking-[2px]",
                     "font-inter leading-4 2xl:leading-6 text-primary border-primary",
                     "hover:border-primary/80 hover:text-primary/90",
                   )}
@@ -118,28 +118,79 @@ function VisualExcellenceSection() {
               xmlns="http://www.w3.org/2000/svg"
             >
               {/* Grid Lines */}
-              <path d="M 0,50 L 400,50 M 0,100 L 400,100 M 0,150 L 400,150 M 0,200 L 400,200 M 0,250 L 400,250" stroke="currentColor" strokeWidth="0.5" strokeDasharray="4 4" />
-              <path d="M 50,0 L 50,300 M 100,0 L 100,300 M 150,0 L 150,300 M 200,0 L 200,300 M 250,0 L 250,300 M 300,0 L 300,300 M 350,0 L 350,300" stroke="currentColor" strokeWidth="0.5" strokeDasharray="4 4" />
-              
+              <path
+                d="M 0,50 L 400,50 M 0,100 L 400,100 M 0,150 L 400,150 M 0,200 L 400,200 M 0,250 L 400,250"
+                stroke="currentColor"
+                strokeWidth="0.5"
+                strokeDasharray="4 4"
+              />
+              <path
+                d="M 50,0 L 50,300 M 100,0 L 100,300 M 150,0 L 150,300 M 200,0 L 200,300 M 250,0 L 250,300 M 300,0 L 300,300 M 350,0 L 350,300"
+                stroke="currentColor"
+                strokeWidth="0.5"
+                strokeDasharray="4 4"
+              />
+
               {/* Isometric Architectural Forms */}
-              <path d="M 200,80 L 290,130 L 290,230 L 200,180 Z" stroke="currentColor" strokeWidth="1.5" />
-              <path d="M 200,80 L 110,130 L 110,230 L 200,180 Z" stroke="currentColor" strokeWidth="1.5" />
-              <path d="M 200,80 L 290,130 L 200,180 L 110,130 Z" stroke="currentColor" strokeWidth="1" fill="rgba(201,162,75,0.03)" />
-              
+              <path
+                d="M 200,80 L 290,130 L 290,230 L 200,180 Z"
+                stroke="currentColor"
+                strokeWidth="1.5"
+              />
+              <path
+                d="M 200,80 L 110,130 L 110,230 L 200,180 Z"
+                stroke="currentColor"
+                strokeWidth="1.5"
+              />
+              <path
+                d="M 200,80 L 290,130 L 200,180 L 110,130 Z"
+                stroke="currentColor"
+                strokeWidth="1"
+                fill="rgba(201,162,75,0.03)"
+              />
+
               {/* Golden Accents */}
-              <path d="M 200,110 L 260,145 L 260,215 L 200,180 Z" stroke="#C9A24B" strokeWidth="1" strokeOpacity="0.6" />
-              <path d="M 200,110 L 140,145 L 140,215 L 200,180 Z" stroke="#C9A24B" strokeWidth="1" strokeOpacity="0.6" />
-              
+              <path
+                d="M 200,110 L 260,145 L 260,215 L 200,180 Z"
+                stroke="#C9A24B"
+                strokeWidth="1"
+                strokeOpacity="0.6"
+              />
+              <path
+                d="M 200,110 L 140,145 L 140,215 L 200,180 Z"
+                stroke="#C9A24B"
+                strokeWidth="1"
+                strokeOpacity="0.6"
+              />
+
               {/* Abstract Blueprint details */}
               <circle cx="200" cy="180" r="4" fill="#C9A24B" />
               <circle cx="200" cy="80" r="3" fill="currentColor" />
               <circle cx="110" cy="130" r="3" fill="currentColor" />
               <circle cx="290" cy="130" r="3" fill="currentColor" />
-              
+
               {/* Precision Dimensions */}
-              <path d="M 110,245 L 290,245" stroke="#C9A24B" strokeWidth="0.75" />
-              <path d="M 110,240 L 110,250 M 290,240 L 290,250" stroke="#C9A24B" strokeWidth="0.75" />
-              <text x="200" y="260" fill="#C9A24B" fontSize="9" fontFamily="monospace" textAnchor="middle" letterSpacing="2">SCALE: 1:100</text>
+              <path
+                d="M 110,245 L 290,245"
+                stroke="#C9A24B"
+                strokeWidth="0.75"
+              />
+              <path
+                d="M 110,240 L 110,250 M 290,240 L 290,250"
+                stroke="#C9A24B"
+                strokeWidth="0.75"
+              />
+              <text
+                x="200"
+                y="260"
+                fill="#C9A24B"
+                fontSize="9"
+                fontFamily="monospace"
+                textAnchor="middle"
+                letterSpacing="2"
+              >
+                SCALE: 1:100
+              </text>
             </svg>
           </FadeIn>
         </div>

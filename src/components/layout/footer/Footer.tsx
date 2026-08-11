@@ -1,4 +1,4 @@
-﻿"use client";
+"use client";
 
 import Link from "next/link";
 import { siteConfig } from "@/data/site";
@@ -14,7 +14,7 @@ export function Footer() {
       label: "Facebook",
       icon: (
         <svg
-          className="w-4 h-4 sm:w-4.5 sm:h-4.5 shrink-0"
+          className="w-4 h-4 sm:w-4.5 sm:h-4.5 2xl:w-6 2xl:h-6 shrink-0"
           fill="currentColor"
           viewBox="0 0 24 24"
           aria-hidden="true"
@@ -32,7 +32,7 @@ export function Footer() {
       label: "Instagram",
       icon: (
         <svg
-          className="w-3.5 h-3.5 sm:w-4 sm:h-4 shrink-0"
+          className="w-3.5 h-3.5 sm:w-4 sm:h-4 2xl:w-6 2xl:h-6 shrink-0"
           fill="currentColor"
           viewBox="0 0 24 24"
           aria-hidden="true"
@@ -50,7 +50,7 @@ export function Footer() {
       label: "LinkedIn",
       icon: (
         <svg
-          className="w-3.5 h-3.5 sm:w-4 sm:h-4 shrink-0"
+          className="w-3.5 h-3.5 sm:w-4 sm:h-4 2xl:w-6 2xl:h-6 shrink-0"
           fill="currentColor"
           viewBox="0 0 24 24"
           aria-hidden="true"
@@ -68,7 +68,7 @@ export function Footer() {
       label: "Email",
       icon: (
         <svg
-          className="w-3.5 h-3.5 sm:w-4 sm:h-4 shrink-0"
+          className="w-3.5 h-3.5 sm:w-4 sm:h-4 2xl:w-6 2xl:h-6 shrink-0"
           fill="none"
           stroke="currentColor"
           strokeWidth="2.2"
@@ -108,10 +108,10 @@ export function Footer() {
                 <span className="relative inline-flex h-full w-full rounded-full bg-primary" />
               </span>
             </Link>
-            <p className="text-xs sm:text-sm 2xl:text-lg text-foreground-muted leading-relaxed 2xl:leading-loose max-w-sm 2xl:max-w-md">
+            <p className="text-xs sm:text-sm 2xl:text-xl text-foreground-muted leading-relaxed 2xl:leading-loose max-w-sm 2xl:max-w-md">
               {siteConfig.description}
             </p>
-            <span className="inline-flex w-fit items-center gap-2 rounded-full border border-primary/20 bg-primary/5 px-3 py-1.5 text-[10px] 2xl:text-sm uppercase tracking-widest font-semibold text-primary/90 mt-2">
+            <span className="inline-flex w-fit items-center gap-2 rounded-full border border-primary/20 bg-primary/5 px-3 py-1.5 text-[10px] 2xl:text-base uppercase tracking-widest font-semibold text-primary/90 mt-2">
               {siteConfig.tagline}
             </span>
           </div>
@@ -121,7 +121,7 @@ export function Footer() {
             {/* Column 2: Navigation Links */}
             <div className="flex-1 flex flex-col gap-4 2xl:gap-6">
               <div className="flex flex-col gap-2">
-                <h4 className="text-xs 2xl:text-sm uppercase tracking-widest font-bold text-foreground">
+                <h4 className="text-xs 2xl:text-base uppercase tracking-widest font-bold text-foreground">
                   Explore
                 </h4>
                 <span className="h-px w-6 bg-primary/60" />
@@ -131,7 +131,7 @@ export function Footer() {
                   <Link
                     key={link.href}
                     href={link.href}
-                    className="text-xs sm:text-sm 2xl:text-base text-foreground-muted hover:text-primary hover:translate-x-0.5 transition-all duration-200 w-fit"
+                    className="text-xs sm:text-sm 2xl:text-lg text-foreground-muted hover:text-primary hover:translate-x-0.5 transition-all duration-200 w-fit"
                   >
                     {link.label}
                   </Link>
@@ -142,7 +142,7 @@ export function Footer() {
             {/* Column 3: Legal & Resources */}
             <div className="flex-1 flex flex-col gap-4 2xl:gap-6">
               <div className="flex flex-col gap-2">
-                <h4 className="text-xs 2xl:text-sm uppercase tracking-widest font-bold text-foreground">
+                <h4 className="text-xs 2xl:text-base uppercase tracking-widest font-bold text-foreground">
                   Platform & Legal
                 </h4>
                 <span className="h-px w-10 bg-primary/60" />
@@ -165,7 +165,7 @@ export function Footer() {
         {/* Bottom Footer Metadata Row */}
         <div className="mt-8 2xl:mt-12 flex flex-col sm:flex-row items-center justify-between gap-6">
           {/* Left: Copyright */}
-          <p className="text-xs 2xl:text-sm text-foreground-muted text-center sm:text-left leading-normal">
+          <p className="text-xs 2xl:text-base text-foreground-muted text-center sm:text-left leading-normal">
             &copy; {year} {siteConfig.fullName}. All rights reserved.
           </p>
 

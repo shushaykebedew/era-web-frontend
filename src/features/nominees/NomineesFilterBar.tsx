@@ -1,4 +1,4 @@
-﻿"use client";
+"use client";
 
 import { Container } from "@/components/ui/Container";
 import { cn } from "@/utils/cn";
@@ -34,7 +34,7 @@ export function NomineesFilterBar({
   ];
 
   return (
-    <section className="bg-background py-8 border-b border-primary/10 overflow-visible font-inter">
+    <section className="bg-background py-8 2xl:py-12 border-b border-primary/10 overflow-visible font-inter">
       <Container size="wide">
         <div className="flex flex-col gap-6">
 
@@ -42,19 +42,19 @@ export function NomineesFilterBar({
           <div className="flex flex-col md:flex-row gap-4 items-stretch md:items-end justify-between">
             {/* Search Box */}
             <div className="flex-1 flex flex-col gap-2">
-              <label className="text-xs uppercase tracking-widest font-semibold text-foreground-muted">
+              <label className="text-xs 2xl:text-base uppercase tracking-widest font-semibold text-foreground-muted">
                 Search Nominees
               </label>
               <div className="relative">
-                <Search className="w-4 h-4 absolute left-4 top-1/2 -translate-y-1/2 text-primary/70" />
+                <Search className="w-4 h-4 2xl:w-5 2xl:h-5 absolute left-4 2xl:left-5 top-1/2 -translate-y-1/2 text-primary/70" />
                 <input
                   type="text"
                   placeholder="Search by company name, contact, or reason..."
                   value={searchQuery}
                   onChange={(e) => onSearchChange(e.target.value)}
                   className={cn(
-                    "w-full h-11 2xl:h-16 pl-11 pr-11 bg-[#1a1712] border border-primary/20 rounded",
-                    "text-foreground text-sm 2xl:text-base outline-none transition-all duration-200",
+                    "w-full h-11 2xl:h-16 pl-11 2xl:pl-14 pr-11 2xl:pr-14 bg-[#1a1712] border border-primary/20 rounded",
+                    "text-foreground text-sm 2xl:text-lg outline-none transition-all duration-200",
                     "focus:border-primary/60 focus:ring-1 focus:ring-primary/25 placeholder:text-foreground-muted/50"
                   )}
                 />
@@ -70,17 +70,17 @@ export function NomineesFilterBar({
             </div>
 
             {/* Sort Dropdown */}
-            <div className="w-full md:w-72 md:shrink-0">
+            <div className="w-full md:w-72 2xl:w-96 md:shrink-0">
               <SortSelect value={sort} onChange={onSortChange} />
             </div>
           </div>
 
           {/* Row 2: Category Pills */}
           <div className="flex flex-col gap-3">
-            <label className="text-xs uppercase tracking-widest font-semibold text-foreground-muted">
+            <label className="text-xs 2xl:text-base uppercase tracking-widest font-semibold text-foreground-muted">
               Filter by Category
             </label>
-            <div className="flex flex-wrap gap-2.5 sm:gap-3">
+            <div className="flex flex-wrap gap-2.5 sm:gap-3 2xl:gap-4">
               {categoryOptions.map((cat) => {
                 const isActive = activeCategoryId === cat.id;
                 return (
@@ -88,7 +88,7 @@ export function NomineesFilterBar({
                     key={cat.id}
                     onClick={() => onCategoryChange(cat.id)}
                     className={cn(
-                      "relative px-2.5 py-1.5 sm:px-4 sm:py-2.5 text-[10px] sm:text-xs 2xl:text-sm uppercase tracking-wider font-semibold rounded whitespace-nowrap transition-colors duration-200 cursor-pointer border",
+                      "relative px-2.5 py-1.5 sm:px-4 sm:py-2.5 2xl:px-6 2xl:py-3.5 text-[10px] sm:text-xs 2xl:text-sm uppercase tracking-wider font-semibold rounded whitespace-nowrap transition-colors duration-200 cursor-pointer border",
                       isActive
                         ? "text-primary/80 border-primary font-bold"
                         : "text-foreground-muted hover:text-foreground bg-[#1a1712]/50 border-primary/10 hover:border-primary/30"

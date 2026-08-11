@@ -1,4 +1,4 @@
-﻿"use client";
+"use client";
 
 import { useState } from "react";
 import Image from "next/image";
@@ -43,31 +43,31 @@ function LogoPanel({
       {/* Logo / monogram */}
       <div className="absolute inset-0 flex items-center justify-center p-6">
         {logo ? (
-          <div className="relative w-20 h-20 rounded-full overflow-hidden border border-primary/20 shadow-[0_0_20px_rgba(201,162,75,0.1)]">
+          <div className="relative w-20 h-20 2xl:w-28 2xl:h-28 rounded-full overflow-hidden border border-primary/20 shadow-[0_0_20px_rgba(201,162,75,0.1)]">
             <Image
               src={logo}
               alt={name}
               fill
               className="object-cover transition-transform duration-700 group-hover/logo:scale-[1.04]"
-              sizes="80px"
+              sizes="(min-width: 1536px) 112px, 80px"
             />
           </div>
         ) : (
           <div className="flex flex-col items-center gap-2">
             <div
               className={cn(
-                "w-12 h-12 rounded-full flex items-center justify-center",
+                "w-12 h-12 2xl:w-16 2xl:h-16 rounded-full flex items-center justify-center",
                 "bg-gradient-to-br from-primary/20 via-primary/10 to-transparent",
                 "border border-primary/35",
                 "shadow-[0_0_24px_rgba(201,162,75,0.12)]",
                 "transition-shadow duration-500 group-hover/logo:shadow-[0_0_36px_rgba(201,162,75,0.2)]",
               )}
             >
-              <span className="font-display text-lg font-bold text-primary tracking-widest">
+              <span className="font-display text-lg 2xl:text-2xl font-bold text-primary tracking-widest">
                 {initials}
               </span>
             </div>
-            <span className="text-[8px] font-inter uppercase tracking-[2.5px] text-primary/30">
+            <span className="text-[8px] 2xl:text-xs font-inter uppercase tracking-[2.5px] text-primary/30">
               ERA 2026
             </span>
           </div>
@@ -97,12 +97,12 @@ function VoteRow({
   return (
     <div className="flex items-center justify-between gap-3 pt-4 border-t border-primary/10 mt-auto">
       <div className="flex flex-col gap-0.5">
-        <span className="text-xs font-inter uppercase tracking-[1.5px] text-foreground-muted/50">
+        <span className="text-xs 2xl:text-sm font-inter uppercase tracking-[1.5px] text-foreground-muted/50">
           Standings
         </span>
-        <span className="text-xl font-semibold font-display text-primary leading-none">
+        <span className="text-xl 2xl:text-3xl font-semibold font-display text-primary leading-none">
           {voteCount.toLocaleString()}
-          <span className="text-xs font-inter font-normal text-foreground-muted/60 ml-1.5 uppercase tracking-[1px]">
+          <span className="text-xs 2xl:text-sm font-inter font-normal text-foreground-muted/60 ml-1.5 uppercase tracking-[1px]">
             votes
           </span>
         </span>
@@ -112,7 +112,7 @@ function VoteRow({
         size="sm"
         variant={hasVotedThisNominee ? "outline" : "primary"}
         className={cn(
-          "h-9 px-6 uppercase font-bold text-xs tracking-[1.2px] rounded-sm transition-all duration-300",
+          "h-9 2xl:h-12 px-6 2xl:px-8 uppercase font-bold text-xs 2xl:text-sm tracking-[1.2px] rounded-sm transition-all duration-300",
           hasVotedThisNominee
             ? "bg-primary/10 border-primary/40 text-primary cursor-default"
             : hasVotedInCategory
@@ -124,7 +124,7 @@ function VoteRow({
       >
         {hasVotedThisNominee ? (
           <span className="flex items-center gap-1.5">
-            <Check className="w-3.5 h-3.5" /> Voted
+            <Check className="w-3.5 h-3.5 2xl:w-4 2xl:h-4" /> Voted
           </span>
         ) : (
           "Vote"
@@ -188,30 +188,30 @@ export function NomineeCard({ nominee, variant = "grid" }: NomineeCardProps) {
             name={nominee.name}
             initials={initials}
             onClick={openDetailModal}
-            className="w-full h-32"
+            className="w-full h-32 2xl:h-48"
           />
 
-          <div className="flex flex-col flex-1 px-5 pt-5 pb-5">
+          <div className="flex flex-col flex-1 px-5 2xl:px-7 pt-5 pb-5 2xl:pb-7">
             <div className="flex items-center gap-1.5 mb-3">
-              <Award className="w-3.5 h-3.5 text-primary/60 shrink-0" />
-              <span className="text-xs font-inter font-semibold uppercase tracking-[2px] text-primary/70">
+              <Award className="w-3.5 h-3.5 2xl:w-5 2xl:h-5 text-primary/60 shrink-0" />
+              <span className="text-xs 2xl:text-base font-inter font-semibold uppercase tracking-[2px] text-primary/70">
                 {categoryName}
               </span>
             </div>
 
             <h3
-              className="font-display text-2xl font-bold leading-snug text-foreground group-hover:text-primary transition-colors duration-300 cursor-pointer mb-2"
+              className="font-display text-2xl 2xl:text-4xl font-bold leading-snug text-foreground group-hover:text-primary transition-colors duration-300 cursor-pointer mb-2"
               onClick={openDetailModal}
             >
               {nominee.name}
             </h3>
 
-            <div className="flex items-center gap-1.5 text-sm text-foreground-muted/70 font-inter mb-4">
-              <User className="w-3.5 h-3.5 text-primary/50 shrink-0" />
+            <div className="flex items-center gap-1.5 text-sm 2xl:text-base text-foreground-muted/70 font-inter mb-4">
+              <User className="w-3.5 h-3.5 2xl:w-5 2xl:h-5 text-primary/50 shrink-0" />
               <span className="truncate">{nominee.contactPerson}</span>
             </div>
 
-            <p className="text-sm leading-relaxed text-foreground-muted/80 font-inter line-clamp-3 border-l-2 border-primary/25 pl-3 mb-5 flex-1">
+            <p className="text-sm 2xl:text-base leading-relaxed 2xl:leading-7 text-foreground-muted/80 font-inter line-clamp-3 border-l-2 border-primary/25 pl-3 mb-5 flex-1">
               {nominee.reason}
             </p>
 
@@ -258,30 +258,30 @@ export function NomineeCard({ nominee, variant = "grid" }: NomineeCardProps) {
           name={nominee.name}
           initials={initials}
           onClick={openDetailModal}
-          className="w-full h-32"
+          className="w-full h-32 2xl:h-48"
         />
 
-        <div className="flex flex-col flex-1 px-5 pt-5 pb-5">
+        <div className="flex flex-col flex-1 px-5 2xl:px-7 pt-5 pb-5 2xl:pb-7">
           <div className="flex items-center gap-1.5 mb-3">
-            <div className="w-3.5 h-px bg-primary/40" />
-            <span className="text-xs font-inter font-semibold uppercase tracking-[2px] text-primary/70">
+            <div className="w-3.5 h-px 2xl:w-5 bg-primary/40" />
+            <span className="text-xs 2xl:text-base font-inter font-semibold uppercase tracking-[2px] text-primary/70">
               {categoryName}
             </span>
           </div>
 
           <h3
-            className="font-display text-2xl font-bold leading-snug text-foreground group-hover:text-primary transition-colors duration-300 cursor-pointer mb-2"
+            className="font-display text-2xl 2xl:text-4xl font-bold leading-snug text-foreground group-hover:text-primary transition-colors duration-300 cursor-pointer mb-2"
             onClick={openDetailModal}
           >
             {nominee.name}
           </h3>
 
-          <div className="flex items-center gap-1.5 text-sm text-foreground-muted/70 font-inter mb-4">
-            <User className="w-3.5 h-3.5 text-primary/40 shrink-0" />
+          <div className="flex items-center gap-1.5 text-sm 2xl:text-base text-foreground-muted/70 font-inter mb-4">
+            <User className="w-3.5 h-3.5 2xl:w-5 2xl:h-5 text-primary/40 shrink-0" />
             <span className="truncate">{nominee.contactPerson}</span>
           </div>
 
-          <p className="text-sm leading-6 text-foreground-muted/80 font-inter line-clamp-3 border-l border-primary/20 pl-3 mb-5 flex-1">
+          <p className="text-sm 2xl:text-base leading-6 2xl:leading-7 text-foreground-muted/80 font-inter line-clamp-3 border-l border-primary/20 pl-3 mb-5 flex-1">
             {nominee.reason}
           </p>
 
