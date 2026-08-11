@@ -1,6 +1,7 @@
-﻿import Link from "next/link";
+import Link from "next/link";
 import { Container } from "@/components/ui/Container";
 import { Eyebrow } from "@/components/ui/Eyebrow";
+import { PageHeader } from "@/components/ui/PageHeader";
 import { ServerButton as Button } from "@/components/ui/ServerButton";
 import { AwardCategoriesSection } from "@/features/home/AwardCategoriesSection";
 import { fetchCategories } from "@/services/categories";
@@ -10,40 +11,11 @@ import { FadeIn, SlideUp } from "@/components/ui/animations";
 
 function CategoriesHero() {
   return (
-    <section className="bg-background px-0 pb-10 2xl:pb-16 pt-28 text-center sm:pb-12 sm:pt-36 lg:pt-40 2xl:pt-48">
-      <Container size="wide">
-        <FadeIn>
-          <Eyebrow align="center" className="">
-            Excellence in Architecture
-          </Eyebrow>
-        </FadeIn>
-
-        <SlideUp delay={0.1}>
-          <div className="flex flex-col justify-center items-center gap-5">
-            <h1
-              className={cn(
-                "font-display text-[40px] sm:text-[56px] lg:text-[72px] 2xl:text-[102px] font-bold ",
-                "leading-tight lg:leading-20 2xl:leading-28 tracking-tight lg:tracking-[-1.44px]",
-              )}
-            >
-              Award Categories
-            </h1>
-          </div>
-        </SlideUp>
-
-        <SlideUp delay={0.2}>
-          <p
-            className={cn(
-              "mx-auto mt-5 w-full max-w-full lg:max-w-166.25 2xl:max-w-200 font-inter",
-              "text-base sm:text-[18px] 2xl:text-[30px] text-foreground-muted leading-7 2xl:leading-9 ",
-            )}
-          >
-            Celebrating the visionaries who redefine Ethiopia's skyline through
-            innovation, sustainability, and cultural preservation.
-          </p>
-        </SlideUp>
-      </Container>
-    </section>
+    <PageHeader
+      eyebrow="Official Recognition Program • ERA 2026"
+      title="Distinguished Award Categories"
+      description="Explore the benchmark disciplines honoring architectural innovation, sustainable urban development, and structural mastery across Ethiopia's real estate sector."
+    />
   );
 }
 

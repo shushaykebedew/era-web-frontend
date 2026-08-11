@@ -1,4 +1,4 @@
-﻿import Link from "next/link";
+import Link from "next/link";
 import { ArrowLeft, CircleDashed } from "lucide-react";
 import { Container } from "@/components/ui/Container";
 import { Eyebrow } from "@/components/ui/Eyebrow";
@@ -19,40 +19,34 @@ export function AwardCategoryPageContent({
   nominees: Nominee[];
 }) {
   return (
-    <section className="relative bg-background pb-24 2xl:pb-32 pt-40 2xl:pt-48 overflow-hidden">
+    <section className="relative bg-background pb-8 sm:pb-10 pt-8 sm:pt-12 border-b border-primary/10 overflow-hidden">
       <div
         aria-hidden="true"
         className="pointer-events-none absolute -top-24 right-0 h-72 w-72 rounded-full bg-primary/5 blur-3xl"
       />
-      <Container className="relative">
+      <Container className="relative z-10">
         <SlideUp>
           <Link
-            href="/awards"
+            href="/categories"
             className={cn(
-              "group inline-flex items-center gap-2 2xl:gap-3",
-              "text-xs 2xl:text-base font-semibold uppercase",
-              "tracking-wider 2xl:tracking-widest",
-              "text-foreground-muted hover:text-primary transition-colors",
+              "group inline-flex items-center gap-2",
+              "text-xs font-semibold uppercase tracking-wider",
+              "text-foreground-muted hover:text-primary transition-colors mb-4",
             )}
           >
-            <ArrowLeft className="h-3.5 w-3.5 2xl:w-5 2xl:h-5 transition-transform duration-300 group-hover:-translate-x-1" />
+            <ArrowLeft className="h-3.5 w-3.5 transition-transform duration-300 group-hover:-translate-x-1" />
             Back to Categories
           </Link>
 
-          <div
-            className={cn(
-              "mt-8 2xl:mt-12 max-w-2xl 2xl:max-w-4xl border-l-2",
-              "2xl:border-l-4 border-primary pl-6 2xl:pl-8",
-            )}
-          >
-            <Eyebrow className="mb-3">Excellence in Architecture</Eyebrow>
-            <h1 className="font-display text-4xl font-bold sm:text-5xl 2xl:text-7xl">
+          <div className="max-w-2xl 2xl:max-w-4xl border-l-2 border-primary pl-4 sm:pl-6">
+            <Eyebrow className="mb-1.5">Category Spotlight • ERA 2026</Eyebrow>
+            <h1 className="font-display text-2xl sm:text-3xl lg:text-4xl 2xl:text-5xl font-bold tracking-tight text-foreground">
               {category.group}
             </h1>
-            <p className="font-display text-3xl italic text-primary sm:text-4xl 2xl:text-6xl">
+            <p className="font-display text-xl sm:text-2xl lg:text-3xl 2xl:text-4xl italic text-primary mt-1">
               {category.name}
             </p>
-            <p className="mt-4 2xl:mt-6 text-sm 2xl:text-lg leading-relaxed 2xl:leading-8 text-foreground-muted">
+            <p className="mt-3 text-sm sm:text-base 2xl:text-lg leading-relaxed text-foreground-muted max-w-2xl">
               {category.description}
             </p>
           </div>
@@ -64,7 +58,7 @@ export function AwardCategoryPageContent({
               {nominees.map((nominee) => (
                 <StaggerItem
                   key={nominee.id}
-                  className="transition-transform duration-300 hover:-translate-y-1"
+                  className="h-full transition-transform duration-300 hover:-translate-y-1"
                 >
                   <NomineeCard nominee={nominee} />
                 </StaggerItem>

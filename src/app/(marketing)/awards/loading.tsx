@@ -3,32 +3,38 @@ import { Container } from "@/components/ui/Container";
 import { cn } from "@/utils/cn";
 
 // Mirrors one NomineeCard (featured variant): image + text block
-function NomineeCardSkeleton() {
+function FeaturedNomineeCardSkeleton() {
   return (
-    <div className="flex min-w-0 flex-col bg-background-elevated border border-primary/10">
-      <Skeleton className="w-full aspect-4/5" />
-      <div className="flex flex-col p-5 sm:p-6 gap-3">
-        <Skeleton className="h-8 w-3/4" />
-        <Skeleton className="h-5 w-1/2" />
-        <div className="mt-4 flex items-center justify-between">
-          <Skeleton className="h-4 w-20" />
-          <Skeleton className="h-8 w-16" />
+    <div className="flex flex-col h-full bg-[#0f0d0a] border border-primary/20 rounded-sm overflow-hidden">
+      <Skeleton className="w-full h-32 2xl:h-48" />
+      <div className="flex flex-col flex-1 p-5 2xl:p-7 gap-3">
+        <Skeleton className="h-3 w-28" />
+        <Skeleton className="h-7 w-3/4" />
+        <Skeleton className="h-4 w-1/2" />
+        <Skeleton className="h-4 w-full mt-1" />
+        <Skeleton className="h-4 w-5/6" />
+        <div className="flex items-center justify-between pt-4 border-t border-primary/10 mt-auto">
+          <div className="flex flex-col gap-1">
+            <Skeleton className="h-3 w-16" />
+            <Skeleton className="h-6 w-20" />
+          </div>
+          <Skeleton className="h-9 2xl:h-12 w-24 rounded-sm" />
         </div>
       </div>
     </div>
   );
 }
 
-// Mirrors one CategoryCard row item
 function CategoryCardSkeleton() {
   return (
-    <div className="border-t border-border-strong py-6 flex items-center justify-between gap-4">
-      <div className="flex flex-col gap-2 flex-1">
-        <Skeleton className="h-4 w-24" />
-        <Skeleton className="h-7 w-48" />
-        <Skeleton className="h-5 w-full max-w-xs" />
+    <div className="flex h-full flex-col min-h-70 lg:min-h-90 justify-between bg-[#13110e] p-6 sm:p-8 border border-primary/15 rounded-lg">
+      <div className="flex flex-col gap-4">
+        <Skeleton className="w-12 h-12 rounded-full" />
+        <Skeleton className="h-7 w-3/4 mt-2" />
+        <Skeleton className="h-4 w-full mt-2" />
+        <Skeleton className="h-4 w-5/6" />
       </div>
-      <Skeleton className="h-10 w-10 shrink-0" />
+      <Skeleton className="h-4 w-32 mt-8" />
     </div>
   );
 }
@@ -36,50 +42,47 @@ function CategoryCardSkeleton() {
 export default function AwardsLoading() {
   return (
     <div className="bg-background min-h-screen">
-      {/* Hero skeleton */}
-      <div
-        className={cn(
-          "relative -mt-20 flex w-full min-w-0 flex-col items-center justify-center",
-          "min-h-120 sm:min-h-150 lg:min-h-180 xl:min-h-205 2xl:min-h-256",
-          "bg-background-elevated",
-        )}
-      >
-        <div className="flex flex-col items-center gap-4 px-4">
-          <Skeleton className="h-5 w-40" />
-          <Skeleton className="h-14 sm:h-20 lg:h-28 w-64 sm:w-96 lg:w-130" />
-          <Skeleton className="h-14 sm:h-20 lg:h-28 w-48 sm:w-80 lg:w-96" />
-          <Skeleton className="h-5 w-72 sm:w-96 mt-2" />
-          <Skeleton className="h-5 w-56 sm:w-80" />
-          <div className="flex gap-4 mt-4">
-            <Skeleton className="h-12 w-36" />
-            <Skeleton className="h-12 w-36" />
+      {/* Home Hero skeleton */}
+      <section className="relative flex flex-col items-center justify-center pt-16 sm:pt-20 lg:pt-24 pb-12 text-center overflow-hidden">
+        <Container size="wide" className="flex flex-col items-center">
+          <Skeleton className="h-6 w-44 rounded-full mb-4" />
+          <Skeleton className="h-10 sm:h-14 lg:h-16 2xl:h-20 w-80 sm:w-130 lg:w-160 max-w-full" />
+          <div className="flex flex-col items-center gap-2 mt-4 max-w-lg">
+            <Skeleton className="h-4 w-full" />
+            <Skeleton className="h-4 w-3/4" />
           </div>
-        </div>
-      </div>
+          <div className="flex flex-col sm:flex-row gap-4 mt-8 sm:justify-center w-full max-w-md">
+            <Skeleton className="h-12 w-full sm:w-40" />
+            <Skeleton className="h-12 w-full sm:w-52" />
+          </div>
+        </Container>
+      </section>
 
       {/* Categories section skeleton */}
-      <Container className="py-16 sm:py-20 lg:py-24">
-        <div className="flex flex-col gap-1 mb-10">
-          <Skeleton className="h-4 w-32" />
-          <Skeleton className="h-10 w-64 mt-2" />
-        </div>
-        <div className="flex flex-col">
-          {Array.from({ length: 6 }).map((_, i) => (
-            <CategoryCardSkeleton key={i} />
-          ))}
-        </div>
-      </Container>
-
-      {/* Featured nominees skeleton */}
-      <section className="bg-background-muted py-16 sm:py-20 lg:py-24">
-        <Container>
-          <div className="flex flex-col gap-1 mb-10">
-            <Skeleton className="h-4 w-40" />
-            <Skeleton className="h-10 w-72 mt-2" />
+      <section className="bg-background py-16 sm:py-20">
+        <Container size="wide">
+          <div className="flex flex-col gap-2 mb-10">
+            <Skeleton className="h-3 w-36" />
+            <Skeleton className="h-9 w-64 mt-1" />
           </div>
-          <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
+          <div className="grid grid-cols-1 gap-8 2xl:gap-12 sm:grid-cols-2 lg:grid-cols-3">
+            {Array.from({ length: 6 }).map((_, i) => (
+              <CategoryCardSkeleton key={i} />
+            ))}
+          </div>
+        </Container>
+      </section>
+
+      {/* Featured nominees section skeleton */}
+      <section className="bg-[#1F1B15] py-16 sm:py-20">
+        <Container size="wide">
+          <div className="flex flex-col gap-2 mb-10">
+            <Skeleton className="h-3 w-36" />
+            <Skeleton className="h-9 w-64 mt-1" />
+          </div>
+          <div className="grid grid-cols-1 gap-6 2xl:gap-10 sm:grid-cols-2 lg:grid-cols-3">
             {Array.from({ length: 3 }).map((_, i) => (
-              <NomineeCardSkeleton key={i} />
+              <FeaturedNomineeCardSkeleton key={i} />
             ))}
           </div>
         </Container>

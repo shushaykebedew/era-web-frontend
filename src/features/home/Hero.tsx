@@ -41,7 +41,7 @@ export function Hero({
               className={cn(
                 "mb-6 2xl:mb-10 mt-20 lg:mt-0 max-w-full py-1 px-3 sm:px-4 2xl:px-6",
                 "font-inter text-primary border border-primary leading-4 2xl:leading-6",
-                "text-[10px] sm:text-[12px] 2xl:text-[16px] font-semibold uppercase",
+                "text-[10px] 2xl:text-[14px] font-semibold uppercase",
                 "tracking-[2px] sm:tracking-[3.6px] 2xl:tracking-[4.8px]",
                 "inline-flex items-center gap-2 rounded-full bg-primary/5",
               )}
@@ -54,7 +54,7 @@ export function Hero({
           <SlideUp delay={0.1}>
             <h1
               className={cn(
-                "font-display text-[26px] sm:text-4xl md:text-6xl lg:text-[70px] 2xl:text-[80px]",
+                "font-display text-[26px] sm:text-4xl md:text-6xl lg:text-[60px] 2xl:text-[88px]",
                 "w-full max-w-full lg:max-w-201.5 2xl:max-w-275",
                 "font-bold tracking-tight lg:tracking-[-1.44px]",
                 "leading-tight lg:leading-20 2xl:leading-28",
@@ -70,7 +70,7 @@ export function Hero({
             <p
               className={cn(
                 "px-6 md:px-0 font-inter mt-6 w-full max-w-lg md:max-w-164.5 2xl:max-w-200",
-                "text-sm sm:text-base lg:text-[18px] 2xl:text-[24px]",
+                "text-sm sm:text-base lg:text-[16px] 2xl:text-[22px]",
                 "leading-6 2xl:leading-9 text-foreground-muted",
               )}
             >
@@ -118,7 +118,7 @@ export function Hero({
         <div
           className={cn(
             "mt-8 2xl:mt-12 mb-5 lg:mb-0 flex justify-center opacity-50",
-            "lg:absolute lg:inset-x-0 lg:bottom-8 2xl:bottom-12",
+            "lg:absolute lg:inset-x-0 lg:bottom-16 2xl:bottom-24",
             "lg:mt-0 lg:items-end sm:bottom-12",
           )}
         >

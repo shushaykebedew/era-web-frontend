@@ -2,7 +2,6 @@
 
 import { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
-import Image from "next/image";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { Modal } from "@/components/ui/Modal";
 import { AuthForm } from "@/components/auth/AuthForm";
@@ -12,7 +11,7 @@ import { type VoteModalProps, type VoteStep } from "@/types/nominees";
 import { useAuth } from "@/context/AuthContext";
 import { castPublicVote } from "@/services/nominees";
 import { nomineeKeys, voteKeys } from "@/hooks/queries/useNominees";
-import { Check } from "lucide-react";
+import { ShieldCheck, Vote, Trophy } from "lucide-react";
 import { motion } from "framer-motion";
 
 type ConfettiParticle = {
@@ -31,22 +30,24 @@ function GoldConfetti() {
 
   useEffect(() => {
     const colors = ["#C9A24B", "#EBC166", "#FFF3D1", "#8F6F2D", "#F7DF94"];
-    const generated: ConfettiParticle[] = Array.from({ length: 80 }).map((_, i) => {
-      const angle = Math.random() * 360;
-      const speed = 8 + Math.random() * 18;
-      const size = 3 + Math.random() * 6;
-      const color = colors[Math.floor(Math.random() * colors.length)]!;
-      return {
-        id: i,
-        x: 0,
-        y: 0,
-        angle,
-        speed,
-        size,
-        color,
-        rotation: Math.random() * 360,
-      };
-    });
+    const generated: ConfettiParticle[] = Array.from({ length: 80 }).map(
+      (_, i) => {
+        const angle = Math.random() * 360;
+        const speed = 8 + Math.random() * 18;
+        const size = 3 + Math.random() * 6;
+        const color = colors[Math.floor(Math.random() * colors.length)]!;
+        return {
+          id: i,
+          x: 0,
+          y: 0,
+          angle,
+          speed,
+          size,
+          color,
+          rotation: Math.random() * 360,
+        };
+      },
+    );
     setParticles(generated);
   }, []);
 
@@ -84,6 +85,39 @@ function GoldConfetti() {
   );
 }
 
+// ── Icon badge — shared circular icon frame used across all three steps ────────
+function IconBadge({
+  icon: Icon,
+  pulse = false,
+}: {
+  icon: React.ElementType;
+  pulse?: boolean;
+}) {
+  return (
+    <div className="relative w-16 h-16 2xl:w-20 2xl:h-20 mb-6 flex items-center justify-center">
+      {pulse && (
+        <motion.div
+          initial={{ scale: 1, opacity: 0.5 }}
+          animate={{ scale: 1.6, opacity: 0 }}
+          transition={{ repeat: Infinity, duration: 2, ease: "easeOut" }}
+          className="absolute inset-0 bg-primary/20 rounded-full"
+        />
+      )}
+      <div
+        className={cn(
+          "relative w-full h-full rounded-full border border-primary/30",
+          "bg-[#231F19] flex items-center justify-center",
+        )}
+      >
+        <Icon
+          className="h-7 w-7 2xl:h-9 2xl:w-9 text-primary"
+          strokeWidth={1.75}
+        />
+      </div>
+    </div>
+  );
+}
+
 export function VoteModal({
   isOpen,
   onClose,
@@ -100,7 +134,12 @@ export function VoteModal({
     if (isOpen) setStep("confirm");
   }, [isOpen]);
 
-  const { mutate: submitVote, isPending, error, reset } = useMutation({
+  const {
+    mutate: submitVote,
+    isPending,
+    error,
+    reset,
+  } = useMutation({
     mutationFn: () => castPublicVote(nominee!.id, nominee!.categoryId),
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: nomineeKeys.all });
@@ -128,20 +167,7 @@ export function VoteModal({
     <Modal isOpen={isOpen} onClose={onClose} ariaLabel="Cast Public Vote">
       {!isAuthenticated && (
         <div className="flex flex-col items-center w-full">
-          <div
-            className={cn(
-              "w-16 h-16 2xl:w-20 2xl:h-20 rounded-full border border-primary/30",
-              "bg-[#231F19] flex items-center justify-center mb-6",
-            )}
-          >
-            <Image
-              src="/icons/vote-modal-icon.svg"
-              alt=""
-              width={32}
-              height={32}
-              className="h-8 w-8 2xl:h-10 2xl:w-10"
-            />
-          </div>
+          <IconBadge icon={ShieldCheck} />
           <h2 className="font-display text-center text-[24px] 2xl:text-[32px] font-semibold text-foreground leading-10 mb-2">
             Voter Verification
           </h2>
@@ -158,20 +184,7 @@ export function VoteModal({
 
       {isAuthenticated && step === "confirm" && (
         <div className="flex flex-col items-center w-full">
-          <div
-            className={cn(
-              "w-16 h-16 2xl:w-20 2xl:h-20 rounded-full border border-primary/30",
-              "bg-[#231F19] flex items-center justify-center mb-6",
-            )}
-          >
-            <Image
-              src="/icons/vote-modal-icon.svg"
-              alt=""
-              width={32}
-              height={32}
-              className="h-8 w-8 2xl:h-10 2xl:w-10"
-            />
-          </div>
+          <IconBadge icon={Vote} />
           <h2
             className={cn(
               "font-display text-center text-[24px]",
@@ -239,24 +252,14 @@ export function VoteModal({
       {isAuthenticated && step === "success" && (
         <div className="flex flex-col items-center w-full relative">
           <GoldConfetti />
-          
-          <div className="mb-8 flex items-center justify-center relative">
-            <motion.div
-              initial={{ scale: 0 }}
-              animate={{ scale: 1 }}
-              transition={{ type: "spring", stiffness: 260, damping: 15 }}
-              className="relative w-20 h-20 flex items-center justify-center bg-primary/10 rounded-full border border-primary/30"
-            >
-              {/* Ripple Ring */}
-              <motion.div
-                initial={{ scale: 1, opacity: 0.5 }}
-                animate={{ scale: 1.6, opacity: 0 }}
-                transition={{ repeat: Infinity, duration: 2, ease: "easeOut" }}
-                className="absolute inset-0 bg-primary/20 rounded-full"
-              />
-              <Check className="w-8 h-8 text-primary" />
-            </motion.div>
-          </div>
+
+          <motion.div
+            initial={{ scale: 0 }}
+            animate={{ scale: 1 }}
+            transition={{ type: "spring", stiffness: 260, damping: 15 }}
+          >
+            <IconBadge icon={Trophy} pulse />
+          </motion.div>
 
           <h2
             className={cn(
@@ -266,7 +269,7 @@ export function VoteModal({
           >
             Vote Confirmed!
           </h2>
-          
+
           <p
             className={cn(
               "font-inter text-center text-foreground-muted text-sm",
@@ -274,9 +277,15 @@ export function VoteModal({
             )}
           >
             Thank you for casting your vote for{" "}
-            <span className="text-foreground font-semibold">{nominee.name}</span> in the{" "}
-            <span className="text-primary font-semibold">{nominee.category?.name || "Architectural Awards"}</span> category.
-            Your contribution shapes the standard of design excellence in Ethiopia.
+            <span className="text-foreground font-semibold">
+              {nominee.name}
+            </span>{" "}
+            in the{" "}
+            <span className="text-primary font-semibold">
+              {nominee.category?.name || "Architectural Awards"}
+            </span>{" "}
+            category. Your contribution shapes the standard of design excellence
+            in Ethiopia.
           </p>
 
           <div className="w-full flex flex-col gap-4">

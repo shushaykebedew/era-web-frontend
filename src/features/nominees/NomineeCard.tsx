@@ -112,19 +112,19 @@ function VoteRow({
         size="sm"
         variant={hasVotedThisNominee ? "outline" : "primary"}
         className={cn(
-          "h-9 2xl:h-12 px-6 2xl:px-8 uppercase font-bold text-xs 2xl:text-sm tracking-[1.2px] rounded-sm transition-all duration-300",
+          "h-9 2xl:h-12 px-6 2xl:px-8 uppercase font-bold text-xs 2xl:text-sm tracking-[1.5px] rounded-sm transition-all duration-300",
           hasVotedThisNominee
             ? "bg-primary/10 border-primary/40 text-primary cursor-default"
             : hasVotedInCategory
-              ? "opacity-70 border-primary/10 cursor-not-allowed"
-              : "bg-primary hover:bg-primary-light text-[#402D00] shadow-[0_2px_12px_rgba(201,162,75,0.18)] hover:shadow-[0_4px_20px_rgba(201,162,75,0.28)]",
+              ? "opacity-50 border-primary/10 cursor-not-allowed"
+              : "bg-primary hover:bg-[#e5bc64] text-[#120f0a] border border-primary hover:border-primary-light transition-colors duration-200",
         )}
         onClick={onVote}
         disabled={hasVotedInCategory || isPending}
       >
         {hasVotedThisNominee ? (
           <span className="flex items-center gap-1.5">
-            <Check className="w-3.5 h-3.5 2xl:w-4 2xl:h-4" /> Voted
+            <Check className="w-3.5 h-3.5 2xl:w-4 2xl:h-4 text-primary" /> Voted
           </span>
         ) : (
           "Vote"
@@ -135,7 +135,11 @@ function VoteRow({
 }
 
 // ─── NomineeCard ──────────────────────────────────────────────────────────────
-export function NomineeCard({ nominee, variant = "grid" }: NomineeCardProps) {
+export function NomineeCard({
+  nominee,
+  variant = "grid",
+  className,
+}: NomineeCardProps) {
   const { isAuthenticated } = useAuth();
   const { data: myVotes = [] } = useMyVotes(isAuthenticated);
 
@@ -174,10 +178,11 @@ export function NomineeCard({ nominee, variant = "grid" }: NomineeCardProps) {
       <>
         <article
           className={cn(
-            "group relative flex flex-col overflow-hidden",
+            "group relative flex flex-col overflow-hidden h-full",
             "bg-[#0f0d0a] border border-primary/20 rounded-sm",
             "transition-all duration-500",
             "hover:border-primary/40 hover:shadow-[0_8px_40px_rgba(201,162,75,0.09)]",
+            className,
           )}
         >
           <div className="absolute top-0 left-0 w-4 h-4 border-t border-l border-primary/30 pointer-events-none z-10" />
@@ -194,7 +199,7 @@ export function NomineeCard({ nominee, variant = "grid" }: NomineeCardProps) {
           <div className="flex flex-col flex-1 px-5 2xl:px-7 pt-5 pb-5 2xl:pb-7">
             <div className="flex items-center gap-1.5 mb-3">
               <Award className="w-3.5 h-3.5 2xl:w-5 2xl:h-5 text-primary/60 shrink-0" />
-              <span className="text-xs 2xl:text-base font-inter font-semibold uppercase tracking-[2px] text-primary/70">
+              <span className="text-xs 2xl:text-sm font-inter font-semibold uppercase tracking-[2px] text-primary/70">
                 {categoryName}
               </span>
             </div>
@@ -244,10 +249,11 @@ export function NomineeCard({ nominee, variant = "grid" }: NomineeCardProps) {
     <>
       <article
         className={cn(
-          "group relative flex flex-col overflow-hidden",
+          "group relative flex flex-col overflow-hidden h-full",
           "bg-[#0f0d0a] border border-primary/15 rounded-sm",
           "transition-all duration-500",
           "hover:border-primary/35 hover:shadow-[0_6px_32px_rgba(201,162,75,0.08)]",
+          className,
         )}
       >
         <div className="absolute top-0 left-0 w-3 h-3 border-t border-l border-primary/25 pointer-events-none z-10" />
@@ -264,7 +270,7 @@ export function NomineeCard({ nominee, variant = "grid" }: NomineeCardProps) {
         <div className="flex flex-col flex-1 px-5 2xl:px-7 pt-5 pb-5 2xl:pb-7">
           <div className="flex items-center gap-1.5 mb-3">
             <div className="w-3.5 h-px 2xl:w-5 bg-primary/40" />
-            <span className="text-xs 2xl:text-base font-inter font-semibold uppercase tracking-[2px] text-primary/70">
+            <span className="text-xs 2xl:text-sm font-inter font-semibold uppercase tracking-[2px] text-primary/70">
               {categoryName}
             </span>
           </div>

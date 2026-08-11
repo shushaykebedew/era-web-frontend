@@ -134,4 +134,5 @@ canvas {
 textarea {
   scrollbar-width: thin;
   scrollbar-color: rgba(201, 162, 75, 0.3) transparent;
+  resize: none;
 }

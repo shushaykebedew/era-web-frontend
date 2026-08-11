@@ -39,7 +39,7 @@ export function FeaturedNominees({ nominees }: { nominees: Nominee[] }) {
             {nominees.map((nominee) => (
               <StaggerItem
                 key={nominee.id}
-                className="transition-transform duration-300 hover:-translate-y-1"
+                className="h-full transition-transform duration-300 hover:-translate-y-1"
               >
                 <NomineeCard nominee={nominee} variant="featured" />
               </StaggerItem>

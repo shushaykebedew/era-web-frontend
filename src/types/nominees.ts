@@ -3,6 +3,7 @@ import type { Nominee, AwardCategory } from "./index";
 export type NomineeCardProps = {
   nominee: Nominee;
   variant?: "featured" | "grid";
+  className?: string;
 };
 export type NomineeDetailShellProps = {
   nominee: Nominee;

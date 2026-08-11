@@ -33,13 +33,13 @@ export default function PartnersLoading() {
   return (
     <div className="bg-background min-h-screen">
       {/* Hero skeleton */}
-      <section className="pt-28 sm:pt-36 lg:pt-40 2xl:pt-48 pb-10 text-center">
+      <section className="relative bg-background pt-14 sm:pt-18 lg:pt-20 2xl:pt-24 pb-10 sm:pb-14 2xl:pb-16 border-b border-primary/15 overflow-hidden text-center">
         <Container size="narrow">
-          <Skeleton className="h-3 w-44 mx-auto" />
-          <Skeleton className="h-14 sm:h-20 w-72 sm:w-96 mx-auto mt-6" />
-          <div className="flex flex-col items-center gap-2 mt-6 mb-12">
-            <Skeleton className="h-5 w-full max-w-lg" />
-            <Skeleton className="h-5 w-full max-w-md" />
+          <Skeleton className="h-3 w-48 mx-auto" />
+          <Skeleton className="h-10 sm:h-12 w-72 sm:w-115 mx-auto mt-4" />
+          <div className="flex flex-col items-center gap-2 mt-4">
+            <Skeleton className="h-4 w-full max-w-xl" />
+            <Skeleton className="h-4 w-full max-w-lg" />
           </div>
         </Container>
       </section>
