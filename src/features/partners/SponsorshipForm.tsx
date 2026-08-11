@@ -134,7 +134,7 @@ function TierSelectField({
               )}
             >
               <FileText className="absolute left-3.5 2xl:left-4 top-1/2 -translate-y-1/2 w-4 h-4 2xl:w-5 2xl:h-5 text-primary/50" />
-              <span className="text-base 2xl:text-[20px] truncate uppercase">
+              <span className="text-base 2xl:text-[20px] truncate">
                 {selected ? selected.label : "Select a tier..."}
               </span>
               <svg
@@ -409,7 +409,7 @@ export function SponsorshipForm({ selectedTier = "" }: SponsorshipFormProps) {
                   type="tel"
                   placeholder="+251 911 234 567"
                   value={phone}
-                  maxLength={16}
+                  maxLength={13}
                   onChange={(e) => {
                     setPhone(sanitizePhone(e.target.value));
                     setFieldErrors((prev) => ({ ...prev, phone: "" }));

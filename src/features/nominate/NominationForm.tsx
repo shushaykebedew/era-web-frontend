@@ -395,7 +395,7 @@ export function NominationForm() {
             type="tel"
             placeholder="+251 911 234 567"
             value={phone}
-            maxLength={16}
+            maxLength={13}
             onChange={(e) => {
               setPhone(sanitizePhone(e.target.value));
               setFieldErrors((prev) => ({ ...prev, phone: "" }));

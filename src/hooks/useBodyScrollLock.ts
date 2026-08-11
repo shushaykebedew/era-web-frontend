@@ -1,37 +1,16 @@
 import { useEffect } from "react";
 
-function resetScrollLock() {
-  const scrollY = document.body.style.top;
-  document.body.style.overflow = "";
-  document.documentElement.style.overflow = "";
-  document.body.style.position = "";
-  document.body.style.top = "";
-  document.body.style.width = "";
-  document.body.style.paddingRight = "";
-  if (scrollY) {
-    const parsedScrollY = parseInt(scrollY) * -1;
-    
-    // Temporarily disable smooth scrolling on html element
-    const originalScrollBehavior = document.documentElement.style.scrollBehavior;
-    document.documentElement.style.scrollBehavior = "auto";
-    
-    window.scrollTo({
-      top: parsedScrollY,
-      behavior: "instant",
-    });
-    
-    // Restore original scroll behavior next frame
-    requestAnimationFrame(() => {
-      document.documentElement.style.scrollBehavior = originalScrollBehavior;
-    });
-  }
-}
+let activeModalCount = 0;
 
 export function useBodyScrollLock(isLocked: boolean) {
   useEffect(() => {
-    if (isLocked) {
+    if (!isLocked) return;
+
+    activeModalCount++;
+    if (activeModalCount === 1) {
       const scrollY = window.scrollY;
-      const scrollbarWidth = window.innerWidth - document.documentElement.clientWidth;
+      const scrollbarWidth =
+        window.innerWidth - document.documentElement.clientWidth;
 
       document.body.style.overflow = "hidden";
       document.documentElement.style.overflow = "hidden";
@@ -41,12 +20,31 @@ export function useBodyScrollLock(isLocked: boolean) {
       if (scrollbarWidth > 0) {
         document.body.style.paddingRight = `${scrollbarWidth}px`;
       }
-    } else {
-      resetScrollLock();
     }
 
     return () => {
-      resetScrollLock();
+      activeModalCount = Math.max(0, activeModalCount - 1);
+      if (activeModalCount === 0) {
+        const scrollY = document.body.style.top;
+        document.body.style.overflow = "";
+        document.documentElement.style.overflow = "";
+        document.body.style.position = "";
+        document.body.style.top = "";
+        document.body.style.width = "";
+        document.body.style.paddingRight = "";
+        if (scrollY) {
+          const parsedScrollY = parseInt(scrollY, 10) * -1;
+          const originalBehavior = document.documentElement.style.scrollBehavior;
+          document.documentElement.style.scrollBehavior = "auto";
+          window.scrollTo({
+            top: parsedScrollY,
+            behavior: "instant",
+          });
+          requestAnimationFrame(() => {
+            document.documentElement.style.scrollBehavior = originalBehavior;
+          });
+        }
+      }
     };
   }, [isLocked]);
 }

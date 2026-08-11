@@ -1,6 +1,7 @@
 "use client";
 
 import { useState, useEffect } from "react";
+import { createPortal } from "react-dom";
 import Image from "next/image";
 import { motion, AnimatePresence } from "framer-motion";
 import { X, Globe, Mail, User, Award, ExternalLink, Check } from "lucide-react";
@@ -9,6 +10,7 @@ import { cn } from "@/utils/cn";
 import { VoteModal } from "@/features/nominees/VoteModal";
 import { useAuth } from "@/context/AuthContext";
 import { useMyVotes } from "@/hooks/queries/useNominees";
+import { useBodyScrollLock } from "@/hooks/useBodyScrollLock";
 import type { Nominee } from "@/types";
 
 interface NomineeDetailModalProps {
@@ -22,6 +24,7 @@ export function NomineeDetailModal({
   isOpen,
   onClose,
 }: NomineeDetailModalProps) {
+  const [mounted, setMounted] = useState(false);
   const [isVoteModalOpen, setIsVoteModalOpen] = useState(false);
   const { isAuthenticated } = useAuth();
   const { data: myVotes = [] } = useMyVotes(isAuthenticated);
@@ -35,12 +38,10 @@ export function NomineeDetailModal({
   );
 
   useEffect(() => {
-    if (isOpen) document.body.style.overflow = "hidden";
-    else document.body.style.overflow = "";
-    return () => {
-      document.body.style.overflow = "";
-    };
-  }, [isOpen]);
+    setMounted(true);
+  }, []);
+
+  useBodyScrollLock(isOpen);
 
   useEffect(() => {
     const handler = (e: KeyboardEvent) => {
@@ -59,7 +60,9 @@ export function NomineeDetailModal({
         .toUpperCase()
     : "";
 
-  return (
+  if (!mounted) return null;
+
+  return createPortal(
     <AnimatePresence>
       {isOpen && nominee && (
         <>
@@ -146,10 +149,12 @@ export function NomineeDetailModal({
                     <h2 className="font-display text-2xl sm:text-3xl 2xl:text-5xl font-bold text-foreground leading-tight">
                       {nominee.name}
                     </h2>
-                    <div className="flex items-center gap-1.5 mt-2 text-sm 2xl:text-lg text-foreground-muted font-inter">
-                      <User className="w-3.5 h-3.5 2xl:w-5 2xl:h-5 text-primary/60 shrink-0" />
-                      <span>{nominee.contactPerson}</span>
-                    </div>
+                    {nominee.contactPerson && (
+                      <div className="flex items-center gap-1.5 mt-2 text-sm 2xl:text-lg text-foreground-muted font-inter">
+                        <User className="w-3.5 h-3.5 2xl:w-5 2xl:h-5 text-primary/60 shrink-0" />
+                        <span>{nominee.contactPerson}</span>
+                      </div>
+                    )}
                   </div>
 
                   <div className="h-px w-full bg-gradient-to-r from-primary/30 via-primary/10 to-transparent" />
@@ -164,7 +169,7 @@ export function NomineeDetailModal({
                   </div>
 
                   {(nominee.email || nominee.website) && (
-                    <div className="flex flex-col gap-1.5 2xl:gap-2.5">
+                    <div className="flex flex-col gap-1.5 2xl:gap-2.5 pt-2">
                       {nominee.email && (
                         <a
                           href={"mailto:" + nominee.email}
@@ -176,7 +181,11 @@ export function NomineeDetailModal({
                       )}
                       {nominee.website && (
                         <a
-                          href={nominee.website}
+                          href={
+                            nominee.website.startsWith("http")
+                              ? nominee.website
+                              : `https://${nominee.website}`
+                          }
                           target="_blank"
                           rel="noopener noreferrer"
                           className="flex items-center gap-2 text-xs 2xl:text-sm font-inter text-foreground-muted/60 hover:text-primary transition-colors group"
@@ -233,6 +242,7 @@ export function NomineeDetailModal({
           />
         </>
       )}
-    </AnimatePresence>
+    </AnimatePresence>,
+    document.body,
   );
 }

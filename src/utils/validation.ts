@@ -68,28 +68,18 @@ export function validatePhone(phone: string): string | null {
   const trimmed = phone.trim();
   if (!trimmed) return null; // Optional
 
+  if (trimmed.length > 13) {
+    return "Phone number cannot exceed 13 characters";
+  }
+
   // Only digits and an optional single leading '+'
   if (!/^\+?\d+$/.test(trimmed)) {
     return "Phone number can only contain digits and a single leading '+'";
   }
 
   const digits = trimmed.replace(/\D/g, "");
-  const hasCountryCode = trimmed.startsWith("+") || trimmed.startsWith("251");
-
-  if (hasCountryCode) {
-    if (digits.startsWith("251")) {
-      if (digits.length !== 12) {
-        return "Ethiopian phone number must have 9 digits after country code (12 digits total)";
-      }
-    } else if (digits.length < 7 || digits.length > 15) {
-      return "International phone number must have between 7 and 15 digits";
-    }
-  } else if (trimmed.startsWith("0")) {
-    if (digits.length !== 10) {
-      return "Local Ethiopian phone number must be exactly 10 digits (e.g. 09XXXXXXXX)";
-    }
-  } else if (digits.length < 7 || digits.length > 15) {
-    return "Phone number must have between 7 and 15 digits";
+  if (digits.length < 7 || digits.length > 13) {
+    return "Phone number must be between 7 and 13 characters";
   }
 
   return null;
@@ -99,13 +89,16 @@ export function validatePhone(phone: string): string | null {
  * Sanitizes a phone input value in real-time.
  * Strips any character that is not a digit.
  * Allows a single "+" only at the very beginning.
- * Use this in onChange handlers so the user simply cannot type letters.
+ * Maximum 13 characters allowed.
  */
 export function sanitizePhone(value: string): string {
+  let cleaned = "";
   if (value.startsWith("+")) {
-    return "+" + value.slice(1).replace(/\D/g, "");
+    cleaned = "+" + value.slice(1).replace(/\D/g, "");
+  } else {
+    cleaned = value.replace(/\D/g, "");
   }
-  return value.replace(/\D/g, "");
+  return cleaned.slice(0, 13);
 }
 
 /**
