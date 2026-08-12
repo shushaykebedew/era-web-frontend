@@ -14,7 +14,7 @@ import { nomineeKeys, categoryKeys } from "@/hooks/queries/useNominees";
 export interface AuthUser {
   id: string;
   fullName: string;
-  username: string;
+  username?: string | null;
   email?: string | null;
   phone?: string | null;
   roleId?: string;
@@ -29,7 +29,7 @@ interface AuthContextType {
   login: (identifier: string, password: string) => Promise<void>;
   register: (payload: {
     fullName: string;
-    username: string;
+    username?: string;
     password?: string;
     email?: string;
     phone?: string;
@@ -147,7 +147,7 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
 
   const register = async (payload: {
     fullName: string;
-    username: string;
+    username?: string;
     password?: string;
     email?: string;
     phone?: string;
@@ -155,7 +155,10 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
     const res = await api.post("/auth/register", payload);
     if (!res.data?.success)
       throw new Error(res.data?.message || "Registration failed");
-    if (payload.password) await login(payload.username, payload.password);
+    if (payload.password) {
+      const loginIdentifier = payload.username || payload.phone || payload.email || "";
+      await login(loginIdentifier, payload.password);
+    }
   };
 
   const logout = useCallback(() => {

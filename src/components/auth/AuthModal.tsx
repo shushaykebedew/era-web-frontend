@@ -1,5 +1,6 @@
 "use client";
 
+import { useState, useEffect } from "react";
 import { Modal } from "../ui/Modal";
 import { AuthForm } from "./AuthForm";
 import { cn } from "@/utils/cn";
@@ -11,6 +12,15 @@ interface AuthModalProps {
 }
 
 export function AuthModal({ isOpen, onClose, onSuccess }: AuthModalProps) {
+  const [mode, setMode] = useState<"login" | "register">("login");
+
+  // Reset to login mode whenever the modal opens
+  useEffect(() => {
+    if (isOpen) {
+      setMode("login");
+    }
+  }, [isOpen]);
+
   return (
     <Modal
       isOpen={isOpen}
@@ -25,7 +35,7 @@ export function AuthModal({ isOpen, onClose, onSuccess }: AuthModalProps) {
             "2xl:text-[36px] font-semibold leading-10 text-foreground mb-4",
           )}
         >
-          Welcome Back
+          {mode === "login" ? "Welcome Back" : "Create Account"}
         </h2>
         <p
           className={cn(
@@ -33,9 +43,13 @@ export function AuthModal({ isOpen, onClose, onSuccess }: AuthModalProps) {
             "2xl:text-[20px] leading-relaxed mb-8 max-w-85 2xl:max-w-100 mx-auto",
           )}
         >
-          Sign in to access your dashboard and cast your vote.
+          {mode === "login"
+            ? "Sign in to access your dashboard and cast your vote."
+            : "Register to create your account and cast your vote."}
         </p>
         <AuthForm
+          mode={mode}
+          onModeChange={setMode}
           onSuccess={() => {
             onSuccess?.();
             onClose();

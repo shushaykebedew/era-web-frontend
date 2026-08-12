@@ -53,6 +53,9 @@ export type ModalProps = {
   children: ReactNode;
   className?: string;
   ariaLabel?: string;
+  size?: "sm" | "md" | "lg" | "xl" | "custom";
+  showCloseButton?: boolean;
+  noPadding?: boolean;
 };
 
 export type SectionHeadingProps = {

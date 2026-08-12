@@ -117,7 +117,7 @@ export function MobileNav({
                           {user.fullName}
                         </p>
                         <p className="text-xs text-foreground-muted font-inter">
-                          @{user.username}
+                          {user.username ? `@${user.username}` : (user.phone || "")}
                         </p>
                       </div>
                     </div>

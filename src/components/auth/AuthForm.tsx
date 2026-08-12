@@ -22,15 +22,20 @@ interface AuthFormProps {
   loginLabel?: string;
   registerLabel?: string;
   onSuccess?: () => void;
+  mode?: "login" | "register";
+  onModeChange?: (mode: "login" | "register") => void;
 }
 
 export function AuthForm({
   loginLabel = "SIGN IN",
   registerLabel = "REGISTER NOW",
   onSuccess,
+  mode: propMode,
+  onModeChange,
 }: AuthFormProps) {
   const { login, register } = useAuth();
-  const [mode, setMode] = useState<"login" | "register">("login");
+  const [localMode, setLocalMode] = useState<"login" | "register">("login");
+  const mode = propMode ?? localMode;
 
   const [identifier, setIdentifier] = useState("");
   const [password, setPassword] = useState("");
@@ -70,14 +75,12 @@ export function AuthForm({
       const nameErr = validateRequiredName(fullName, "Full Name");
       if (nameErr) errors.fullName = nameErr;
 
-      const usernameErr = validateUsername(username);
-      if (usernameErr) errors.username = usernameErr;
-
-      const emailErr = validateEmail(email);
-      if (emailErr) errors.email = emailErr;
-
-      const phoneErr = validatePhone(phone);
-      if (phoneErr) errors.phone = phoneErr;
+      if (!phone.trim()) {
+        errors.phone = "Phone number is required";
+      } else {
+        const phoneErr = validatePhone(phone);
+        if (phoneErr) errors.phone = phoneErr;
+      }
 
       const passwordErr = validatePassword(password, true);
       if (passwordErr) errors.password = passwordErr;
@@ -109,9 +112,7 @@ export function AuthForm({
       } else {
         await register({
           fullName,
-          username,
           password,
-          email: email || undefined,
           phone: phone || undefined,
         });
       }
@@ -124,9 +125,9 @@ export function AuthForm({
         status >= 500
           ? "Something went wrong on our end. Please try again later."
           : (apiData?.message ??
-              apiData?.error ??
-              axiosErr.message ??
-              "An unexpected error occurred."),
+            apiData?.error ??
+            axiosErr.message ??
+            "An unexpected error occurred."),
       );
     } finally {
       setIsLoading(false);
@@ -134,7 +135,12 @@ export function AuthForm({
   };
 
   const toggleMode = () => {
-    setMode((m) => (m === "login" ? "register" : "login"));
+    const nextMode = mode === "login" ? "register" : "login";
+    if (onModeChange) {
+      onModeChange(nextMode);
+    } else {
+      setLocalMode(nextMode);
+    }
     setError(null);
     setFieldErrors({});
     setPassword("");
@@ -143,12 +149,6 @@ export function AuthForm({
 
   return (
     <>
-      {error && (
-        <div className="w-full mb-4 p-3 2xl:p-4 bg-red-950/40 border border-red-500/30 text-red-400 text-xs sm:text-sm 2xl:text-base font-inter rounded">
-          {error}
-        </div>
-      )}
-
       <form
         onSubmit={handleSubmit}
         className="w-full flex flex-col gap-4 2xl:gap-5"
@@ -175,45 +175,7 @@ export function AuthForm({
               )}
             </div>
             <div>
-              <Label className={labelCls}>Username *</Label>
-              <Input
-                type="text"
-                placeholder="Enter your username"
-                value={username}
-                onChange={(e) => {
-                  setUsername(e.target.value);
-                  setFieldErrors((prev) => ({ ...prev, username: "" }));
-                }}
-                className={cn(
-                  inputCls,
-                  fieldErrors.username && "border-red-500/60",
-                )}
-              />
-              {fieldErrors.username && (
-                <p className={errorCls}>{fieldErrors.username}</p>
-              )}
-            </div>
-            <div>
-              <Label className={labelCls}>Email Address</Label>
-              <Input
-                type="email"
-                placeholder="Enter your email address"
-                value={email}
-                onChange={(e) => {
-                  setEmail(e.target.value);
-                  setFieldErrors((prev) => ({ ...prev, email: "" }));
-                }}
-                className={cn(
-                  inputCls,
-                  fieldErrors.email && "border-red-500/60",
-                )}
-              />
-              {fieldErrors.email && (
-                <p className={errorCls}>{fieldErrors.email}</p>
-              )}
-            </div>
-            <div>
-              <Label className={labelCls}>Phone Number</Label>
+              <Label className={labelCls}>Phone Number *</Label>
               <Input
                 type="tel"
                 placeholder="e.g. +2519... or 09..."
@@ -236,10 +198,10 @@ export function AuthForm({
 
         {mode === "login" && (
           <div>
-            <Label className={labelCls}>Username, Email, or Phone *</Label>
+            <Label className={labelCls}>Phone *</Label>
             <Input
               type="text"
-              placeholder="Enter username, email, or phone"
+              placeholder="Enter phone number"
               value={identifier}
               onChange={(e) => {
                 setIdentifier(e.target.value);
@@ -309,7 +271,7 @@ export function AuthForm({
                   inputCls,
                   "pr-11 2xl:pr-14",
                   (passwordsMismatch || fieldErrors.confirmPassword) &&
-                    "border-red-500/60 focus:border-red-500",
+                  "border-red-500/60 focus:border-red-500",
                 )}
               />
               <button
@@ -334,6 +296,12 @@ export function AuthForm({
               </p>
             )}
           </div>
+        )}
+
+        {error && (
+          <p className="text-red-400 text-xs sm:text-sm 2xl:text-base font-inter text-center mt-1">
+            {error}
+          </p>
         )}
 
         <Button

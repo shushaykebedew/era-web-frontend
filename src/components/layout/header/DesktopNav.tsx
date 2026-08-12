@@ -103,7 +103,7 @@ export function DesktopNav({
                         {user.fullName}
                       </span>
                       <span className="text-xs 2xl:text-sm text-foreground-muted truncate leading-none">
-                        @{user.username}
+                        {user.username ? `@${user.username}` : (user.phone || "")}
                       </span>
                     </div>
                   </div>

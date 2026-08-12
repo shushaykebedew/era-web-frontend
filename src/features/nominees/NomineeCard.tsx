@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 import { useState } from "react";
 import Image from "next/image";
@@ -223,17 +223,17 @@ export function NomineeCard({
       <article
         className={cn(
           "group relative flex flex-col overflow-hidden h-full",
-          "bg-[#12100c] rounded-lg transition-all duration-500",
+          "bg-[#12100c] rounded-xl transition-all duration-500",
           "hover:-translate-y-0.5",
           isFeatured
             ? cn(
-                "border border-primary/25 shadow-md",
-                "hover:border-primary/55 hover:shadow-[0_16px_44px_rgba(201,162,75,0.14)]",
-              )
+              "border border-primary/25 shadow-md",
+              "hover:border-primary/55 hover:shadow-[0_16px_44px_rgba(201,162,75,0.14)]",
+            )
             : cn(
-                "border border-primary/18",
-                "hover:border-primary/40 hover:shadow-[0_10px_32px_rgba(201,162,75,0.1)]",
-              ),
+              "border border-primary/18",
+              "hover:border-primary/40 hover:shadow-[0_10px_32px_rgba(201,162,75,0.1)]",
+            ),
           className,
         )}
       >

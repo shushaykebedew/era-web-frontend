@@ -164,7 +164,12 @@ export function VoteModal({
     : null;
 
   return (
-    <Modal isOpen={isOpen} onClose={onClose} ariaLabel="Cast Public Vote">
+    <Modal
+      isOpen={isOpen}
+      onClose={onClose}
+      ariaLabel="Cast Public Vote"
+      showCloseButton={step !== "success"}
+    >
       {!isAuthenticated && (
         <div className="flex flex-col items-center w-full">
           <IconBadge icon={ShieldCheck} />
@@ -205,9 +210,9 @@ export function VoteModal({
             in Ethiopia.
           </p>
           {errorMsg && (
-            <div className="w-full mb-6 p-3 bg-red-500/10 border border-red-500/30 rounded text-foreground-muted/70 text-xs 2xl:text-sm text-center font-inter">
+            <p className="text-red-400 text-xs sm:text-sm 2xl:text-base font-inter text-center mb-4">
               {errorMsg}
-            </div>
+            </p>
           )}
           <div className="w-full flex flex-col gap-4">
             <Button

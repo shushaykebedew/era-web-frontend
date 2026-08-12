@@ -27,7 +27,7 @@ function PartnerCard({ name, tier, logo }: Partner) {
     <div
       className={cn(
         "group relative overflow-hidden md:w-full aspect-286/244 bg-[#131313]",
-        "w-full sm:max-w-71.5 mx-auto lg:max-w-none border border-[#4E4637]",
+        "w-full sm:max-w-71.5 mx-auto lg:max-w-none border border-[#4E4637] rounded-lg",
       )}
     >
       <div

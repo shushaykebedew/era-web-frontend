@@ -48,7 +48,7 @@ export function PartnersTierCards({ onSelectTier }: PartnersTierCardsProps) {
                 {/* Card body — clipped, so the ghost numeral respects the border */}
                 <div
                   className={cn(
-                    "relative flex h-full w-full flex-col overflow-hidden",
+                    "relative flex h-full w-full flex-col overflow-hidden rounded-lg",
                     "border p-6 sm:p-8 2xl:p-10 transition-all duration-300",
                     tier.featured
                       ? "border-primary shadow-[0px_25px_50px_-12px_#00000040] bg-[linear-gradient(0deg,#16130D,#16130D),radial-gradient(165.23%_125.62%_at_0%_0%,rgba(230,197,106,0.15)_0%,rgba(230,197,106,0)_50%)]"

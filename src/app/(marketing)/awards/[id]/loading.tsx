@@ -4,7 +4,7 @@ import { Container } from "@/components/ui/Container";
 // Mirrors NomineeCard grid variant: tall image + text below
 function NomineeCardSkeleton() {
   return (
-    <div className="flex flex-col h-full bg-[#0f0d0a] border border-primary/15 rounded-sm overflow-hidden">
+    <div className="flex flex-col h-full bg-[#0f0d0a] border border-primary/15 rounded-xl overflow-hidden">
       <Skeleton className="w-full h-32 2xl:h-48" />
       <div className="flex flex-col flex-1 p-5 2xl:p-7 gap-3">
         <Skeleton className="h-3 w-28" />

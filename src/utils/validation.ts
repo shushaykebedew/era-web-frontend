@@ -65,21 +65,15 @@ export function validateRequiredEmail(email: string): string | null {
  * Enforces local/international length constraints.
  */
 export function validatePhone(phone: string): string | null {
-  const trimmed = phone.trim();
+  const trimmed = phone.trim().replace(/[\s\-\(\)]/g, "");
   if (!trimmed) return null; // Optional
 
-  if (trimmed.length > 13) {
-    return "Phone number cannot exceed 13 characters";
-  }
+  const isPlus251 = trimmed.startsWith("+251") && /^\+251\d{9}$/.test(trimmed);
+  const is251 = trimmed.startsWith("251") && /^251\d{9}$/.test(trimmed);
+  const is0 = trimmed.startsWith("0") && /^0\d{9}$/.test(trimmed);
 
-  // Only digits and an optional single leading '+'
-  if (!/^\+?\d+$/.test(trimmed)) {
-    return "Phone number can only contain digits and a single leading '+'";
-  }
-
-  const digits = trimmed.replace(/\D/g, "");
-  if (digits.length < 7 || digits.length > 13) {
-    return "Phone number must be between 7 and 13 characters";
+  if (!isPlus251 && !is251 && !is0) {
+    return "Please enter a valid Ethiopian phone number (e.g. 09..., 2519..., or +2519...)";
   }
 
   return null;

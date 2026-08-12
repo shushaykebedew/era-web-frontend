@@ -5,7 +5,7 @@ import { cn } from "@/utils/cn";
 // Mirrors one NomineeCard (featured variant): image + text block
 function FeaturedNomineeCardSkeleton() {
   return (
-    <div className="flex flex-col h-full bg-[#0f0d0a] border border-primary/20 rounded-sm overflow-hidden">
+    <div className="flex flex-col h-full bg-[#0f0d0a] border border-primary/20 rounded-xl overflow-hidden">
       <Skeleton className="w-full h-32 2xl:h-48" />
       <div className="flex flex-col flex-1 p-5 2xl:p-7 gap-3">
         <Skeleton className="h-3 w-28" />

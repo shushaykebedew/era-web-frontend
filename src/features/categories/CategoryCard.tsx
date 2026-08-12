@@ -78,7 +78,7 @@ export function CategoryCard({
       transition={{ duration: 0.3 }}
       className={cn(
         "group flex h-full flex-col min-h-70 lg:min-h-90 xl:min-h-100 2xl:min-h-120",
-        "justify-between bg-[#13110e] hover:bg-[#1a1713] p-6 sm:p-8 2xl:p-10",
+        "justify-between gap-3 bg-[#13110e] hover:bg-[#1a1713] p-6 sm:p-8 2xl:p-10",
         "border border-primary/15 rounded-lg shadow-md transition-all duration-300 hover:border-primary/45 hover:shadow-[0_6px_24px_rgba(201,162,75,0.05)]",
       )}
     >

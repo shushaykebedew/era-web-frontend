@@ -7,8 +7,18 @@ import { AnimatePresence, motion, useReducedMotion } from "framer-motion";
 import { ease } from "./animations";
 import { ModalProps } from "@/types/ui";
 import { useBodyScrollLock } from "@/hooks/useBodyScrollLock";
+import { X } from "lucide-react";
 
-export function Modal({ isOpen, onClose, children, className, ariaLabel }: ModalProps) {
+export function Modal({
+  isOpen,
+  onClose,
+  children,
+  className,
+  ariaLabel,
+  size = "sm",
+  showCloseButton = true,
+  noPadding = false,
+}: ModalProps) {
   const modalRef = useRef<HTMLDivElement>(null);
   const previousFocusRef = useRef<HTMLElement | null>(null);
   const shouldReduceMotion = useReducedMotion();
@@ -136,7 +146,7 @@ export function Modal({ isOpen, onClose, children, className, ariaLabel }: Modal
               animate="visible"
               exit="exit"
               variants={backdropVariants}
-              className="fixed inset-0 bg-black/60 backdrop-blur-[2px]"
+              className="fixed inset-0 bg-black/75 backdrop-blur-sm"
               onClick={onClose}
               aria-hidden="true"
             />
@@ -155,15 +165,32 @@ export function Modal({ isOpen, onClose, children, className, ariaLabel }: Modal
                 shouldReduceMotion ? reducedMotionModalVariants : modalVariants
               }
               className={cn(
-                "relative w-[calc(100vw-2rem)] sm:w-full max-w-110 2xl:max-w-150",
-                "bg-background border border-primary/30",
-                "p-6 sm:p-12 text-left",
-                "flex flex-col items-center",
+                "relative w-[calc(100vw-2rem)] sm:w-full",
+                size === "sm" && "max-w-100 2xl:max-w-130",
+                size === "md" && "max-w-xl 2xl:max-w-2xl",
+                size === "lg" && "max-w-2xl 2xl:max-w-4xl",
+                size === "xl" && "max-w-4xl 2xl:max-w-6xl",
+                "bg-[#0f0e0b] border border-primary/20 rounded-xl",
+                !noPadding && "p-6 sm:p-12",
+                "text-left",
                 "overflow-hidden wrap-break-word",
-                "shadow-2xl",
+                "shadow-[0_24px_60px_rgba(0,0,0,0.85)]",
                 className,
               )}
             >
+
+
+              {/* Close Button */}
+              {showCloseButton && (
+                <button
+                  onClick={onClose}
+                  className="absolute top-4 right-4 z-10 w-8 h-8 2xl:w-11 2xl:h-11 flex items-center justify-center rounded-full bg-white/5 cursor-pointer border border-white/10 text-foreground-muted hover:text-primary hover:bg-white/10 hover:border-primary/30 transition-all hover:scale-105 active:scale-95 shrink-0"
+                  aria-label="Close"
+                >
+                  <X className="w-3.5 h-3.5 2xl:w-5 2xl:h-5" />
+                </button>
+              )}
+
               {children}
             </motion.div>
           </div>
