@@ -49,7 +49,7 @@ export function Button<T extends ElementType = "button">({
 
   const baseClasses = cn(
     "inline-flex min-w-0 items-center justify-center gap-2 cursor-pointer",
-    "text-center overflow-hidden whitespace-nowrap",
+    "text-center overflow-hidden whitespace-nowrap rounded-sm",
     "font-inter font-semibold uppercase tracking-widest transition-colors duration-200",
     isLoading && "cursor-not-allowed opacity-90",
     VARIANT_STYLES[variant],

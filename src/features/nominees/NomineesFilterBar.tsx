@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 import { Container } from "@/components/ui/Container";
 import { cn } from "@/utils/cn";
@@ -28,16 +28,12 @@ export function NomineesFilterBar({
   onSearchChange,
   categories,
 }: NomineesFilterBarProps) {
-  const categoryOptions = [
-    { id: "all", name: "All Projects" },
-    ...categories,
-  ];
+  const categoryOptions = [{ id: "all", name: "All Projects" }, ...categories];
 
   return (
-    <section className="bg-background py-8 2xl:py-12 border-b border-primary/10 overflow-visible font-inter">
+    <section className="bg-background py-8 2xl:py-12 overflow-visible font-inter">
       <Container size="wide">
         <div className="flex flex-col gap-6">
-
           {/* Row 1: Search & Sort */}
           <div className="flex flex-col md:flex-row gap-4 items-stretch md:items-end justify-between">
             {/* Search Box */}
@@ -55,7 +51,7 @@ export function NomineesFilterBar({
                   className={cn(
                     "w-full h-11 2xl:h-16 pl-11 2xl:pl-14 pr-11 2xl:pr-14 bg-[#1a1712] border border-primary/20 rounded",
                     "text-foreground text-sm 2xl:text-lg outline-none transition-all duration-200",
-                    "focus:border-primary/60 focus:ring-1 focus:ring-primary/25 placeholder:text-foreground-muted/50"
+                    "focus:border-primary/60 focus:ring-1 focus:ring-primary/25 placeholder:text-foreground-muted/50",
                   )}
                 />
                 {searchQuery && (
@@ -75,39 +71,46 @@ export function NomineesFilterBar({
             </div>
           </div>
 
-          {/* Row 2: Category Pills */}
-          <div className="flex flex-col gap-3">
+          {/* Row 2: Category chips — single-row, horizontally scrollable */}
+          <div className="flex flex-col gap-2">
             <label className="text-xs 2xl:text-base uppercase tracking-widest font-semibold text-foreground-muted">
-              Filter by Category
+              Category
             </label>
-            <div className="flex flex-wrap gap-2.5 sm:gap-3 2xl:gap-4">
-              {categoryOptions.map((cat) => {
-                const isActive = activeCategoryId === cat.id;
-                return (
-                  <button
-                    key={cat.id}
-                    onClick={() => onCategoryChange(cat.id)}
-                    className={cn(
-                      "relative px-2.5 py-1.5 sm:px-4 sm:py-2.5 2xl:px-6 2xl:py-3.5 text-[10px] sm:text-xs 2xl:text-sm uppercase tracking-wider font-semibold rounded whitespace-nowrap transition-colors duration-200 cursor-pointer border",
-                      isActive
-                        ? "text-primary/80 border-primary font-bold"
-                        : "text-foreground-muted hover:text-foreground bg-[#1a1712]/50 border-primary/10 hover:border-primary/30"
-                    )}
-                  >
-                    {isActive && (
-                      <motion.div
-                        layoutId="activeCategoryPill"
-                        className="absolute inset-0 bg-primary rounded -z-10"
-                        transition={{ type: "spring", stiffness: 380, damping: 30 }}
-                      />
-                    )}
-                    {cat.name}
-                  </button>
-                );
-              })}
+
+            <div className="relative">
+              <div className="pointer-events-none absolute right-0 top-0 bottom-0 w-8 bg-gradient-to-l from-background to-transparent z-10" />
+              <div className="flex gap-2 overflow-x-auto no-scrollbar pb-1 pr-6">
+                {categoryOptions.map((cat) => {
+                  const isActive = activeCategoryId === cat.id;
+                  return (
+                    <button
+                      key={cat.id}
+                      onClick={() => onCategoryChange(cat.id)}
+                      className={cn(
+                        "relative shrink-0 whitespace-nowrap rounded-full border px-3.5 py-1.5 2xl:px-5 2xl:py-2.5 text-xs 2xl:text-base font-medium transition-colors duration-200 cursor-pointer",
+                        isActive
+                          ? "text-foreground border-primary"
+                          : "text-foreground-muted border-primary/15 hover:border-primary/40 hover:text-foreground",
+                      )}
+                    >
+                      {isActive && (
+                        <motion.div
+                          layoutId="activeCategoryPill"
+                          className="absolute inset-0 bg-primary rounded-full -z-10"
+                          transition={{
+                            type: "spring",
+                            stiffness: 380,
+                            damping: 30,
+                          }}
+                        />
+                      )}
+                      {cat.name}
+                    </button>
+                  );
+                })}
+              </div>
             </div>
           </div>
-
         </div>
       </Container>
     </section>

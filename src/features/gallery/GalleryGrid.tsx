@@ -7,12 +7,7 @@ import { cn } from "@/utils/cn";
 import type { Edition, GalleryFilter, GalleryPhoto } from "@/types/gallery";
 
 const EDITIONS = [2026, 2025] as const;
-const FILTERS = [
-  "All Moments",
-  "Winners",
-  "Ceremony",
-  "Networking",
-] as const;
+const FILTERS = ["All Moments", "Winners", "Ceremony", "Networking"] as const;
 import { motion } from "framer-motion";
 import { ease } from "@/components/ui/animations";
 import { useGalleryPhotos } from "@/hooks/queries/useGalleryPhotos";
@@ -101,7 +96,7 @@ function PhotoCard({
       viewport={{ once: true, margin: "-100px" }}
       transition={{ duration: 0.4, delay: Math.min(index * 0.05, 0.5), ease }}
       className="gallery-card relative w-full min-w-0 overflow-hidden border border-[#4E4637]"
-      style={{ aspectRatio: '4/3' }}
+      style={{ aspectRatio: "4/3" }}
     >
       <Image
         src={photo.src}
@@ -225,7 +220,11 @@ export function GalleryGrid() {
       {/* Photo grid */}
       <section className="bg-background pt-10 pb-16 sm:pt-12 sm:pb-20 lg:pb-25 2xl:pb-32">
         <Container size="wide">
-          <PhotoGrid photos={visiblePhotos} edition={edition} isLoading={isLoading} />
+          <PhotoGrid
+            photos={visiblePhotos}
+            edition={edition}
+            isLoading={isLoading}
+          />
           {visibleCount < photos.length && (
             <div className="text-center py-8">
               <span className="text-sm text-foreground-muted font-inter">

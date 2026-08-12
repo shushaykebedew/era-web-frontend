@@ -9,7 +9,7 @@ import { cn } from "@/utils/cn";
 import { useAuth } from "@/context/AuthContext";
 import { getUserInitials } from "@/utils/user";
 import { useMediaQuery } from "@/hooks/useMediaQuery";
-import { User, DoorOpen } from "lucide-react";
+import { User } from "lucide-react";
 
 export function DesktopNav({
   onOpenAuthModal,
@@ -82,8 +82,8 @@ export function DesktopNav({
               aria-expanded={isDropdownOpen}
               className="flex items-center gap-2 focus:outline-none cursor-pointer group"
             >
-              <div className="relative w-8 h-8 2xl:w-11 2xl:h-11 rounded-full bg-gradient-to-br from-primary to-[#8F6F2D] text-[#402D00] flex items-center justify-center font-bold text-xs 2xl:text-base ring-2 ring-primary/20 group-hover:ring-primary/60 transition-all duration-300 shadow-md">
-                {getUserInitials(user.fullName)}
+              <div className="relative w-8 h-8 2xl:w-11 2xl:h-11 rounded-full bg-gradient-to-br from-primary to-[#8F6F2D] text-[#402D00] flex items-center justify-center ring-2 ring-primary/20 group-hover:ring-primary/60 transition-all duration-300 shadow-md">
+                <User className="w-4 h-4 2xl:w-6 2xl:h-6" />
               </div>
             </button>
 

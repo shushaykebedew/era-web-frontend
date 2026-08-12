@@ -9,7 +9,7 @@ export function PartnersPageContent() {
       <PageHeader
         eyebrow="Strategic Industry Alignment"
         title="Partner with Ethiopia's Built Environment Legacy"
-        description="Align your brand with the nation's premier real estate honors. Connect with key industry leaders, elevate corporate prestige, and shape the future of urban transformation."
+      // description="Align your brand with the nation's premier real estate honors. Connect with key industry leaders, elevate corporate prestige, and shape the future of urban transformation."
       />
 
       {/* ── Interactive sections (client) ── */}

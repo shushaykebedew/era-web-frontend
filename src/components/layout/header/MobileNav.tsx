@@ -12,7 +12,7 @@ import { useEscapeKey } from "@/hooks/useEscapeKey";
 import { useBodyScrollLock } from "@/hooks/useBodyScrollLock";
 import { useAuth } from "@/context/AuthContext";
 import { getUserInitials } from "@/utils/user";
-import { X } from "lucide-react";
+import { X, User } from "lucide-react";
 
 export function MobileNav({
   isMenuOpen,
@@ -74,8 +74,6 @@ export function MobileNav({
               willChange: "transform",
             }}
           >
-
-
             <nav
               style={{ height: "100%", overflowY: "auto" }}
               className="flex flex-col p-6"
@@ -86,7 +84,7 @@ export function MobileNav({
                     link.href === "/"
                       ? pathname === "/"
                       : pathname === link.href ||
-                      pathname.startsWith(`${link.href}/`);
+                        pathname.startsWith(`${link.href}/`);
 
                   return (
                     <Link
@@ -109,10 +107,10 @@ export function MobileNav({
 
               <div className="pt-8 pb-8 flex flex-col gap-4 w-full">
                 {isAuthenticated && user ? (
-                  <div className="bg-[#231F19] border border-primary/20 p-4 rounded flex items-center justify-between">
+                  <div className="bg-[#231F19] border border-primary/20 p-4 rounded-sm items-center justify-between flex">
                     <div className="flex items-center gap-3">
-                      <div className="w-8 h-8 rounded-full bg-primary text-[#402D00] flex items-center justify-center font-bold text-sm">
-                        {getUserInitials(user.fullName)}
+                      <div className="w-8 h-8 rounded-full bg-primary text-[#402D00] flex items-center justify-center">
+                        <User className="w-4 h-4" />
                       </div>
                       <div className="text-left">
                         <p className="text-sm font-bold text-foreground leading-tight">
@@ -168,19 +166,41 @@ export function MobileNav({
     <>
       <button
         type="button"
-        className="flex h-10 w-10 items-center justify-center rounded-md text-primary xl:hidden cursor-pointer"
+        className="flex h-10 w-10 items-center justify-center rounded-sm text-primary xl:hidden cursor-pointer"
         onClick={() => setIsMenuOpen(!isMenuOpen)}
         aria-expanded={isMenuOpen}
-        aria-label={isMenuOpen ? "Close navigation menu" : "Open navigation menu"}
+        aria-label={
+          isMenuOpen ? "Close navigation menu" : "Open navigation menu"
+        }
       >
         <span className="sr-only">Toggle navigation</span>
         {isMenuOpen ? (
-          <svg className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+          <svg
+            className="h-6 w-6"
+            fill="none"
+            viewBox="0 0 24 24"
+            stroke="currentColor"
+          >
+            <path
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              strokeWidth={2}
+              d="M6 18L18 6M6 6l12 12"
+            />
           </svg>
         ) : (
-          <svg className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6h16M4 12h16M4 18h16" />
+          <svg
+            className="h-6 w-6"
+            fill="none"
+            viewBox="0 0 24 24"
+            stroke="currentColor"
+          >
+            <path
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              strokeWidth={2}
+              d="M4 6h16M4 12h16M4 18h16"
+            />
           </svg>
         )}
       </button>

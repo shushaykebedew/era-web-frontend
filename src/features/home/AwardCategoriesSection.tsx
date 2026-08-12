@@ -80,7 +80,7 @@ export function AwardCategoriesSection({
 
   // Full variant — 3-column icon card grid matching the categories page design
   return (
-    <section className="bg-background py-16 sm:py-20 lg:py-24 2xl:py-32">
+    <section className="bg-background py-10 sm:py-16 lg:py-20 2xl:py-24">
       <Container size="wide">
         <StaggerContainer className="grid grid-cols-1 gap-8 2xl:gap-12 sm:grid-cols-2 lg:grid-cols-3">
           {items.map((category) => (

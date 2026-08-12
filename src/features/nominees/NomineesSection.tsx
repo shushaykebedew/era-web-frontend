@@ -6,23 +6,17 @@ import { Container } from "@/components/ui/Container";
 import { NomineeCard } from "@/features/nominees/NomineeCard";
 import NomineesLoading from "@/app/(marketing)/nominees/loading";
 import { NomineesFilterBar } from "@/features/nominees/NomineesFilterBar";
-import { PageHeader } from "@/components/ui/PageHeader";
 import { useNomineesFilter } from "@/hooks/useNomineesFilter";
 import { useNominees, useCategories } from "@/hooks/queries/useNominees";
 import { cn } from "@/utils/cn";
 
 function NomineesHero() {
   return (
-    <PageHeader
-      eyebrow="Public Voting & Peer Recognition"
-      title={
-        <>
-          Nominated Projects &amp;{" "}
-          <span className="italic text-primary">Industry Leaders</span>
-        </>
-      }
-      description="Discover the outstanding developments, architectural firms, and visionaries shortlisted for the 2026 Ethiopia Real Estate Awards. Cast your vote to celebrate excellence."
-    />
+    <div className="py-6 text-center bg-background">
+
+      <h1 className="font-display font-bold text-foreground tracking-tight text-2xl sm:text-3xl lg:text-4xl 2xl:text-5xl leading-tight">
+        Nominees &amp; Industry Leaders </h1>
+    </div>
   );
 }
 

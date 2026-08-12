@@ -74,8 +74,6 @@ function LogoPanel({
         )}
       </div>
 
-
-
       {/* Bottom subtle vignette */}
       <div className="absolute bottom-0 inset-x-0 h-10 bg-gradient-to-t from-[#0f0d0a] to-transparent pointer-events-none" />
     </button>
@@ -83,7 +81,13 @@ function LogoPanel({
 }
 
 // ─── Category label ───────────────────────────────────────────────────────────
-function CategoryLabel({ name, prominent }: { name: string; prominent?: boolean }) {
+function CategoryLabel({
+  name,
+  prominent,
+}: {
+  name: string;
+  prominent?: boolean;
+}) {
   return (
     <div className="flex items-center gap-1.5 mb-3">
       <Award
@@ -127,28 +131,37 @@ function VoteRow({
         </span>
       </div>
 
-      <Button
-        size="sm"
-        variant={hasVotedThisNominee ? "outline" : "primary"}
-        className={cn(
-          "h-9 2xl:h-11 px-5 2xl:px-7 uppercase font-bold text-xs 2xl:text-sm tracking-[1.5px] rounded-md transition-all duration-300",
-          hasVotedThisNominee
-            ? "bg-primary/8 border-primary/35 text-primary cursor-default"
-            : hasVotedInCategory
-              ? "opacity-45 border-primary/10 cursor-not-allowed"
-              : "bg-primary hover:bg-[#e5bc64] hover:shadow-[0_4px_16px_rgba(201,162,75,0.3)] text-[#120f0a] border border-primary hover:border-primary-light",
+      <div className="relative group/tooltip">
+        <Button
+          size="sm"
+          variant={hasVotedThisNominee ? "outline" : "primary"}
+          className={cn(
+            "h-9 2xl:h-11 px-5 2xl:px-7 uppercase font-bold text-xs 2xl:text-sm tracking-[1.5px] transition-all duration-300",
+            hasVotedThisNominee
+              ? "bg-primary/8 border-primary/35 text-primary cursor-default"
+              : hasVotedInCategory
+                ? "opacity-50 border-primary/10 cursor-not-allowed pointer-events-none"
+                : "bg-primary hover:bg-[#e5bc64] hover:shadow-[0_4px_16px_rgba(201,162,75,0.3)] text-[#120f0a] border border-primary hover:border-primary-light",
+          )}
+          onClick={onVote}
+          disabled={hasVotedInCategory || isPending}
+        >
+          {hasVotedThisNominee ? (
+            <span className="flex items-center gap-1.5">
+              <Check className="w-3.5 h-3.5 2xl:w-4 2xl:h-4 text-primary" /> Voted
+            </span>
+          ) : (
+            "Vote"
+          )}
+        </Button>
+
+        {hasVotedInCategory && !hasVotedThisNominee && (
+          <div className="absolute bottom-full right-0 mb-2 w-48 bg-[#1a1712] border border-primary/30 text-[10px] sm:text-xs text-foreground px-2.5 py-1.5 rounded-sm shadow-xl opacity-0 pointer-events-none group-hover/tooltip:opacity-100 group-active/tooltip:opacity-100 transition-opacity duration-200 text-center z-30 font-inter font-normal tracking-normal normal-case">
+            You have already voted in this category
+            <div className="absolute top-full right-6 -mt-1 w-2 h-2 bg-[#1a1712] border-r border-b border-primary/30 transform rotate-45" />
+          </div>
         )}
-        onClick={onVote}
-        disabled={hasVotedInCategory || isPending}
-      >
-        {hasVotedThisNominee ? (
-          <span className="flex items-center gap-1.5">
-            <Check className="w-3.5 h-3.5 2xl:w-4 2xl:h-4 text-primary" /> Voted
-          </span>
-        ) : (
-          "Vote"
-        )}
-      </Button>
+      </div>
     </div>
   );
 }
@@ -210,21 +223,20 @@ export function NomineeCard({
       <article
         className={cn(
           "group relative flex flex-col overflow-hidden h-full",
-          "bg-[#12100c] rounded-sm transition-all duration-500",
+          "bg-[#12100c] rounded-lg transition-all duration-500",
           "hover:-translate-y-0.5",
           isFeatured
             ? cn(
-              "border border-primary/25 shadow-md",
-              "hover:border-primary/55 hover:shadow-[0_16px_44px_rgba(201,162,75,0.14)]",
-            )
+                "border border-primary/25 shadow-md",
+                "hover:border-primary/55 hover:shadow-[0_16px_44px_rgba(201,162,75,0.14)]",
+              )
             : cn(
-              "border border-primary/18",
-              "hover:border-primary/40 hover:shadow-[0_10px_32px_rgba(201,162,75,0.1)]",
-            ),
+                "border border-primary/18",
+                "hover:border-primary/40 hover:shadow-[0_10px_32px_rgba(201,162,75,0.1)]",
+              ),
           className,
         )}
       >
-
         <LogoPanel
           logo={nominee.logo}
           name={nominee.name}

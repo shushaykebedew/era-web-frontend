@@ -1,7 +1,5 @@
-import Link from "next/link";
+﻿import Link from "next/link";
 import { Container } from "@/components/ui/Container";
-import { Eyebrow } from "@/components/ui/Eyebrow";
-import { PageHeader } from "@/components/ui/PageHeader";
 import { ServerButton as Button } from "@/components/ui/ServerButton";
 import { AwardCategoriesSection } from "@/features/home/AwardCategoriesSection";
 import { fetchCategories } from "@/services/categories";
@@ -11,11 +9,11 @@ import { FadeIn, SlideUp } from "@/components/ui/animations";
 
 function CategoriesHero() {
   return (
-    <PageHeader
-      eyebrow="Official Recognition Program • ERA 2026"
-      title="Distinguished Award Categories"
-      description="Explore the benchmark disciplines honoring architectural innovation, sustainable urban development, and structural mastery across Ethiopia's real estate sector."
-    />
+    <div className="py-10 mt-10 text-center bg-background">
+      <h1 className="font-display font-bold text-foreground tracking-tight text-2xl sm:text-3xl lg:text-4xl 2xl:text-5xl leading-tight">
+        Award Categories
+      </h1>
+    </div>
   );
 }
 

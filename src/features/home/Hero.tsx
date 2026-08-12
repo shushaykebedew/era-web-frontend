@@ -9,7 +9,7 @@ import { HeroProps } from "@/types/marketing";
 import { Sparkle } from "lucide-react";
 
 export function Hero({
-  eyebrow = "The 5th Annual Ceremony",
+  eyebrow = "The 2nd Annual Ceremony",
   description = "Honoring the architects, developers, and visionaries shaping the future of the Ethiopian landscape through sustainable innovation and aesthetic mastery.",
 }: HeroProps) {
   return (

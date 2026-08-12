@@ -106,6 +106,13 @@ canvas {
   color: var(--primary-foreground);
 }
 
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+.no-scrollbar {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
 
 /* Thin primary scrollbar */
 /* "[&::-webkit-scrollbar]:h-0.5",

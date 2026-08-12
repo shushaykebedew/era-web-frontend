@@ -28,7 +28,7 @@ export function PageHeader({
   return (
     <section
       className={cn(
-        "relative bg-background pt-14 sm:pt-18 lg:pt-20 2xl:pt-24 pb-10 sm:pb-14 2xl:pb-16 border-b border-primary/15 overflow-hidden",
+        "relative bg-background pt-14 sm:pt-18 lg:pt-20 2xl:pt-24 pb-10 sm:pb-14 2xl:pb-16  overflow-hidden",
         isLeft ? "text-left" : "text-center",
         className,
       )}
@@ -52,9 +52,11 @@ export function PageHeader({
           <h1
             className={cn(
               "font-display font-bold text-foreground tracking-tight",
-              "text-4xl sm:text-5xl lg:text-6xl 2xl:text-7xl",
+              "text-3xl sm:text-4xl lg:text-5xl 2xl:text-6xl",
               "leading-tight sm:leading-tight lg:leading-tight",
-              isLeft ? "max-w-3xl 2xl:max-w-5xl" : "mx-auto max-w-3xl 2xl:max-w-5xl",
+              isLeft
+                ? "max-w-3xl 2xl:max-w-5xl"
+                : "mx-auto max-w-3xl 2xl:max-w-5xl",
             )}
           >
             {title}
@@ -65,7 +67,7 @@ export function PageHeader({
           <SlideUp delay={0.1}>
             <p
               className={cn(
-                "font-inter text-foreground-muted text-base sm:text-lg lg:text-xl 2xl:text-2xl leading-relaxed mt-4 sm:mt-5",
+                "font-inter text-foreground-muted text-sm sm:text-base lg:text-lg 2xl:text-xl leading-relaxed mt-4 sm:mt-5",
                 isLeft
                   ? "max-w-2xl 2xl:max-w-4xl"
                   : "mx-auto max-w-2xl sm:max-w-3xl 2xl:max-w-4xl",
