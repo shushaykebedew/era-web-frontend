@@ -20,7 +20,15 @@ export type AwardCategory = {
   coverImage?: string;
 };
 
-export type NomineeStatus = "nominee" | "past-winner" | "shortlisted";
+export type NomineeStatus =
+  | "draft"
+  | "submitted"
+  | "expired"
+  | "nominee"
+  | "past-winner"
+  | "shortlisted"
+  | "approved"
+  | "rejected";
 
 export type Nominee = {
   id: string;
@@ -34,6 +42,9 @@ export type Nominee = {
   reason: string;
   website?: string;
   logo?: string;
+  paymentSlip?: string;
+  submittedAt?: string;
+  continuationTokenExpiresAt?: string;
   votes?: number;
 };
 

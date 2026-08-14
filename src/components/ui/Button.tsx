@@ -48,7 +48,7 @@ export function Button<T extends ElementType = "button">({
   const shouldReduceMotion = useReducedMotion();
 
   const baseClasses = cn(
-    "inline-flex min-w-0 items-center justify-center gap-2 cursor-pointer",
+    "relative inline-flex min-w-0 items-center justify-center gap-2 cursor-pointer",
     "text-center overflow-hidden whitespace-nowrap rounded-sm",
     "font-inter font-semibold uppercase tracking-widest transition-colors duration-200",
     isLoading && "cursor-not-allowed opacity-90",
@@ -57,13 +57,20 @@ export function Button<T extends ElementType = "button">({
     className,
   );
 
-  const content = isLoading ? (
-    <LoadingSpinner
-      color={spinnerColor}
-      className={cn(SPINNER_SIZE_STYLES[size], spinnerClassName)}
-    />
-  ) : (
-    children
+  const content = (
+    <>
+      {isLoading && (
+        <span className="absolute inset-0 flex items-center justify-center">
+          <LoadingSpinner
+            color={spinnerColor}
+            className={cn(SPINNER_SIZE_STYLES[size], spinnerClassName)}
+          />
+        </span>
+      )}
+      <span className={cn("inline-flex items-center gap-2", isLoading && "invisible")}>
+        {children}
+      </span>
+    </>
   );
 
   const isDisabled = disabled || isLoading;

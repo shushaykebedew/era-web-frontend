@@ -10,7 +10,7 @@ import { TEXTAREA_LIMITS } from "@/constants/textLimits";
 import { FormField, InputIcon, inputBase, inputError } from "@/components/ui/FormField";
 import { LogoUploadField } from "@/components/ui/LogoUploadField";
 import { CategorySelect } from "./CategorySelect";
-import { NominationSuccess } from "./NominationSuccess";
+import { NominationDraftSuccess } from "./NominationDraftSuccess";
 import {
   AlertCircle,
   Building2,
@@ -39,7 +39,11 @@ export function NominationForm() {
   });
 
   const [phone, setPhone] = useState("");
-  const [isSuccess, setIsSuccess] = useState(false);
+  const [draftResult, setDraftResult] = useState<{
+    continuationUrl: string;
+    companyName: string;
+    expiresAt?: string | number | Date;
+  } | null>(null);
   const [fieldErrors, setFieldErrors] = useState<Record<string, string>>({});
 
   const [logoFile, setLogoFile] = useState<File | null>(null);
@@ -49,7 +53,18 @@ export function NominationForm() {
 
   const nominateMutation = useMutation({
     mutationFn: createNominee,
-    onSuccess: () => setIsSuccess(true),
+    onSuccess: (res: any) => {
+      const url =
+        res?.continuationUrl ||
+        (res?.continuationToken
+          ? `${window.location.origin}/nominate/continue?token=${res.continuationToken}`
+          : "");
+      setDraftResult({
+        continuationUrl: url,
+        companyName: formData.name,
+        expiresAt: res?.expiresAt || (Date.now() + 48 * 60 * 60 * 1000),
+      });
+    },
   });
 
   function handleChange(
@@ -109,11 +124,30 @@ export function NominationForm() {
     nominateMutation.mutate({ ...formData, phone, logo: logoFile });
   }
 
-  if (isSuccess) {
+  function handleReset() {
+    setDraftResult(null);
+    setFormData({
+      name: "",
+      email: "",
+      contactPerson: "",
+      awardCategoryId: "",
+      reason: "",
+      website: "",
+    });
+    setPhone("");
+    setLogoFile(null);
+    setLogoPreview(null);
+    setFieldErrors({});
+    nominateMutation.reset();
+  }
+
+  if (draftResult) {
     return (
-      <NominationSuccess
-        companyName={formData.name}
-        onReset={() => setIsSuccess(false)}
+      <NominationDraftSuccess
+        companyName={draftResult.companyName}
+        continuationUrl={draftResult.continuationUrl}
+        expiresAt={draftResult.expiresAt}
+        onReset={handleReset}
       />
     );
   }

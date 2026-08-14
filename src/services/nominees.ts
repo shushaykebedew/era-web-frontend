@@ -35,8 +35,10 @@ export async function fetchNominees(): Promise<Nominee[]> {
     const limit = 100;
     const all: ApiNomineeResponse[] = [];
 
-    // Fetch first page to get total count
-    const firstRes = await api.get("/nominees", { params: { page: 1, limit } });
+    // Fetch first page of APPROVED nominees
+    const firstRes = await api.get("/nominees", {
+      params: { page: 1, limit, status: "APPROVED" },
+    });
     if (!firstRes.data?.success) return [];
 
     const firstData = firstRes.data.data;
@@ -53,7 +55,9 @@ export async function fetchNominees(): Promise<Nominee[]> {
       const totalPages = Math.ceil(total / limit);
       const promises = [];
       for (let p = 2; p <= totalPages; p++) {
-        promises.push(api.get("/nominees", { params: { page: p, limit } }));
+        promises.push(
+          api.get("/nominees", { params: { page: p, limit, status: "APPROVED" } })
+        );
       }
 
       const results = await Promise.all(promises);
@@ -113,6 +117,24 @@ export async function createNominee(data: {
   if (data.logo) fd.append("logo", data.logo);
 
   const res = await api.post("/nominees", fd, {
+    headers: { "Content-Type": "multipart/form-data" },
+  });
+  return res.data;
+}
+
+export async function validateNominationToken(token: string): Promise<Nominee | null> {
+  const res = await api.get(`/nominees/continue/${token}`);
+  if (res.data?.success) {
+    return mapApiNominee(res.data.data);
+  }
+  return null;
+}
+
+export async function submitPaymentSlip(token: string, file: File): Promise<any> {
+  const fd = new FormData();
+  fd.append("paymentSlip", file);
+
+  const res = await api.post(`/nominees/continue/${token}/payment`, fd, {
     headers: { "Content-Type": "multipart/form-data" },
   });
   return res.data;
