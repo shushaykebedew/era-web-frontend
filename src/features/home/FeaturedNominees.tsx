@@ -1,7 +1,9 @@
+import Link from "next/link";
 import type { Nominee } from "@/types";
 import { Container } from "@/components/ui/Container";
 import { SectionHeading } from "@/components/ui/SectionHeading";
 import { NomineeCard } from "@/features/nominees/NomineeCard";
+import { cn } from "@/utils/cn";
 import {
   FadeIn,
   StaggerContainer,
@@ -17,10 +19,27 @@ export function FeaturedNominees({ nominees }: { nominees: Nominee[] }) {
       />
       <Container size="wide" className="relative">
         <FadeIn>
-          <SectionHeading
-            title="Featured Nominees"
-            description="The projects currently leading the polls across all major categories."
-          />
+          <div className="flex flex-col items-start justify-between gap-6 sm:flex-row sm:items-end">
+            <SectionHeading
+              title="Featured Nominees"
+              description="The projects currently leading the polls across all major categories."
+            />
+            <Link
+              href="/nominees"
+              className={cn(
+                "group flex shrink-0 items-center gap-1 2xl:gap-2 text-[12px] 2xl:text-[16px]",
+                "font-inter font-semibold uppercase tracking-[1.2px] 2xl:tracking-[1.6px]",
+                "text-primary leading-4 2xl:leading-6 hover:opacity-80 transition-opacity",
+              )}
+            >
+              View All Nominees
+              <img
+                src="/icons/forward-arrow.svg"
+                alt=""
+                className="w-3 h-3 2xl:w-4 2xl:h-4 transition-transform duration-300 group-hover:translate-x-1"
+              />
+            </Link>
+          </div>
         </FadeIn>
 
         {nominees.length === 0 ? (

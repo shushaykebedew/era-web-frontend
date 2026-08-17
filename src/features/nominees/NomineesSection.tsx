@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 import { Suspense } from "react";
 import { useSearchParams } from "next/navigation";
@@ -12,6 +12,7 @@ import { NomineeCardSkeleton } from "@/app/(marketing)/nominees/loading";
 import { LoadingSpinner } from "@/components/ui/LoadingSpinner";
 import { Loader2 } from "lucide-react";
 import { cn } from "@/utils/cn";
+import { NoData } from "@/components/ui/NoData";
 
 function NomineesHero() {
   return (
@@ -23,51 +24,23 @@ function NomineesHero() {
   );
 }
 
-function EmptyState() {
+function EmptyState({ hasSearch }: { hasSearch: boolean }) {
+  if (hasSearch) {
+    return (
+      <NoData
+        icon="search"
+        title="No Results Found"
+        description="We couldn't find any nominees matching your search. Try different keywords or clear your search to browse all nominees."
+      />
+    );
+  }
+
   return (
-    <div className="flex flex-col items-center justify-center py-6 sm:py-10 text-center">
-      <div
-        className={cn(
-          "mb-6 flex h-16 w-16 2xl:h-20 2xl:w-20 items-center justify-center",
-          "border border-border-strong bg-background-subtle rounded-full",
-        )}
-      >
-        <svg
-          xmlns="http://www.w3.org/2000/svg"
-          width="28"
-          height="28"
-          viewBox="0 0 24 24"
-          fill="none"
-          stroke="currentColor"
-          strokeWidth="1.5"
-          strokeLinecap="round"
-          strokeLinejoin="round"
-          className="text-foreground-muted 2xl:w-8 2xl:h-8"
-          aria-hidden="true"
-        >
-          <circle cx="12" cy="12" r="10" />
-          <path d="M12 8v4" />
-          <path d="M12 16h.01" />
-        </svg>
-      </div>
-      <h2
-        className={cn(
-          "font-display text-xl sm:text-2xl 2xl:text-3xl font-semibold",
-          "text-foreground tracking-tight mb-3",
-        )}
-      >
-        Coming Soon
-      </h2>
-      <p
-        className={cn(
-          "max-w-sm sm:max-w-md 2xl:max-w-lg font-inter text-foreground-muted",
-          "text-sm sm:text-base 2xl:text-[18px] leading-6 2xl:leading-8 ",
-        )}
-      >
-        Nominees for this category will be announced soon. <br />
-        Check back later to see who&apos;s competing for the award.
-      </p>
-    </div>
+    <NoData
+      icon="coming-soon"
+      title="Coming Soon"
+      description="Nominees for this category will be announced soon. Check back later to see who's competing for the award."
+    />
   );
 }
 
@@ -127,7 +100,7 @@ function NomineesSectionContent() {
               <LoadingSpinner className="w-10 h-10 text-primary" />
             </div>
           ) : sortedLength === 0 ? (
-            <EmptyState />
+            <EmptyState hasSearch={searchQuery.trim().length > 0} />
           ) : (
             <>
               <div
