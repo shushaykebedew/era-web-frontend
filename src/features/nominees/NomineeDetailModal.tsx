@@ -2,9 +2,10 @@
 
 import { useState, useEffect } from "react";
 import Image from "next/image";
-import { Globe, Mail, User, Award, ExternalLink, Check } from "lucide-react";
+import { Globe, Mail, Phone, User, Award, ExternalLink, Check } from "lucide-react";
 import { Button } from "@/components/ui/Button";
 import { cn } from "@/utils/cn";
+import { formatPhone } from "@/utils/formatPhone";
 import { VoteModal } from "@/features/nominees/VoteModal";
 import { useAuth } from "@/context/AuthContext";
 import { useMyVotes } from "@/hooks/queries/useNominees";
@@ -164,7 +165,7 @@ export function NomineeDetailModal({
                 </p>
               </div>
 
-              {(nominee.email || nominee.website) && (
+              {(nominee.email || nominee.phone || nominee.website) && (
                 <div className="flex flex-col gap-1.5 2xl:gap-2.5 pt-2">
                   {nominee.email && (
                     <a
@@ -173,6 +174,15 @@ export function NomineeDetailModal({
                     >
                       <Mail className="w-3.5 h-3.5 2xl:w-4 2xl:h-4 text-primary/40 group-hover:text-primary transition-colors shrink-0" />
                       <span>{nominee.email}</span>
+                    </a>
+                  )}
+                  {nominee.phone && (
+                    <a
+                      href={`tel:${nominee.phone.trim().replace(/[\s\-()]/g, "")}`}
+                      className="flex items-center gap-2 text-xs 2xl:text-sm font-inter text-foreground-muted/60 hover:text-primary transition-colors group"
+                    >
+                      <Phone className="w-3.5 h-3.5 2xl:w-4 2xl:h-4 text-primary/40 group-hover:text-primary transition-colors shrink-0" />
+                      <span>{formatPhone(nominee.phone)}</span>
                     </a>
                   )}
                   {nominee.website && (

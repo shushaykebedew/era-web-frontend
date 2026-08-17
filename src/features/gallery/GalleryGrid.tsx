@@ -12,6 +12,7 @@ import { motion } from "framer-motion";
 import { ease } from "@/components/ui/animations";
 import { useGalleryPhotos } from "@/hooks/queries/useGalleryPhotos";
 import { Skeleton } from "@/components/ui/Skeleton";
+import { NoData } from "@/components/ui/NoData";
 
 // ── EditionSwitcher ───────────────────────────────────────────────────────────
 function EditionSwitcher({
@@ -144,11 +145,15 @@ function PhotoGrid({
 
   if (photos.length === 0) {
     return (
-      <p className="py-20 2xl:py-32 text-center text-foreground-muted 2xl:text-xl font-inter">
-        {edition === 2026
-          ? "No photos for the 2026 edition yet as the event has not taken place."
-          : "No photos for this selection yet."}
-      </p>
+      <NoData
+        icon={edition === 2026 ? "coming-soon" : "empty"}
+        title={edition === 2026 ? "2026 Edition Pending" : "No Moments Found"}
+        description={
+          edition === 2026
+            ? "The ERA 2026 ceremony has not taken place yet. Photographs and event highlights will be published here following the gala."
+            : "No photos match the selected filter at this time. Try selecting another filter or viewing all moments."
+        }
+      />
     );
   }
 

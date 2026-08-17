@@ -1,4 +1,4 @@
-﻿"use client";
+"use client";
 
 import { Suspense } from "react";
 import { useSearchParams } from "next/navigation";
@@ -24,13 +24,35 @@ function NomineesHero() {
   );
 }
 
-function EmptyState({ hasSearch }: { hasSearch: boolean }) {
+function EmptyState({
+  hasSearch,
+  activeCategoryId,
+  onClearSearch,
+  onResetCategory,
+}: {
+  hasSearch: boolean;
+  activeCategoryId: string;
+  onClearSearch: () => void;
+  onResetCategory: () => void;
+}) {
   if (hasSearch) {
     return (
       <NoData
         icon="search"
         title="No Results Found"
         description="We couldn't find any nominees matching your search. Try different keywords or clear your search to browse all nominees."
+        action={{
+          label: "Clear Search",
+          onClick: onClearSearch,
+        }}
+        secondaryAction={
+          activeCategoryId !== "all"
+            ? {
+                label: "All Categories",
+                onClick: onResetCategory,
+              }
+            : undefined
+        }
       />
     );
   }
@@ -40,6 +62,14 @@ function EmptyState({ hasSearch }: { hasSearch: boolean }) {
       icon="coming-soon"
       title="Coming Soon"
       description="Nominees for this category will be announced soon. Check back later to see who's competing for the award."
+      action={
+        activeCategoryId !== "all"
+          ? {
+              label: "View All Categories",
+              onClick: onResetCategory,
+            }
+          : undefined
+      }
     />
   );
 }
@@ -100,7 +130,12 @@ function NomineesSectionContent() {
               <LoadingSpinner className="w-10 h-10 text-primary" />
             </div>
           ) : sortedLength === 0 ? (
-            <EmptyState hasSearch={searchQuery.trim().length > 0} />
+            <EmptyState
+              hasSearch={searchQuery.trim().length > 0}
+              activeCategoryId={activeCategoryId}
+              onClearSearch={() => setSearchQuery("")}
+              onResetCategory={() => handleCategoryChange("all")}
+            />
           ) : (
             <>
               <div

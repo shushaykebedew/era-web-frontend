@@ -56,10 +56,19 @@ export function NomineesFilterBar({
                 />
                 {searchQuery && (
                   <button
+                    type="button"
                     onClick={() => onSearchChange("")}
-                    className="absolute right-4 top-1/2 -translate-y-1/2 text-foreground-muted hover:text-foreground transition-colors cursor-pointer"
+                    aria-label="Clear search input"
+                    className={cn(
+                      "absolute right-3 2xl:right-4 top-1/2 -translate-y-1/2",
+                      "w-6 h-6 2xl:w-8 2xl:h-8 rounded-full",
+                      "flex items-center justify-center",
+                      "bg-primary/10 hover:bg-primary/25 text-primary/80 hover:text-primary",
+                      "border border-primary/25 hover:border-primary/50",
+                      "transition-all duration-200 active:scale-90 cursor-pointer shadow-sm"
+                    )}
                   >
-                    <X className="w-4 h-4 2xl:w-5 2xl:h-5" />
+                    <X className="w-3.5 h-3.5 2xl:w-4.5 2xl:h-4.5" />
                   </button>
                 )}
               </div>

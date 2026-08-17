@@ -1,4 +1,4 @@
-﻿import Link from "next/link";
+import Link from "next/link";
 import { Container } from "@/components/ui/Container";
 import { ServerButton as Button } from "@/components/ui/ServerButton";
 import { AwardCategoriesSection } from "@/features/home/AwardCategoriesSection";
@@ -176,8 +176,12 @@ function CategoriesEmptyState() {
       <Container size="wide">
         <NoData
           icon="coming-soon"
-          title="Coming Soon"
-          description="Award categories will be announced soon. Check back later to see the full list of categories."
+          title="Categories Coming Soon"
+          description="Award categories and nomination criteria are currently being finalized. Check back soon or explore our nominees."
+          action={{
+            label: "Explore Nominees",
+            href: "/nominees",
+          }}
         />
       </Container>
     </section>
