@@ -1,7 +1,7 @@
 import { Skeleton } from "@/components/ui/Skeleton";
 import { Container } from "@/components/ui/Container";
 
-function NomineeCardSkeleton() {
+export function NomineeCardSkeleton() {
   return (
     <div className="flex flex-col h-full bg-[#0f0d0a] border border-primary/15 rounded-xl overflow-hidden">
       <Skeleton className="w-full h-32 2xl:h-48" />

@@ -1,65 +1,91 @@
-import { useState, useMemo } from "react";
+import { useState, useEffect, useCallback } from "react";
 import { type Sort } from "@/types/ui";
 import { type Nominee } from "@/types";
+import { fetchNominees } from "@/services/nominees";
+import { useDebounce } from "./useDebounce";
 
 export function useNomineesFilter(
-  initialNominees: Nominee[],
-  initialCategory: string,
-  _initialTargetType: string, // kept for signature compatibility but unused
-  categories: any[],
+  _initialNominees: Nominee[] = [],
+  initialCategory: string = "all",
+  _initialTargetType: string = "all",
+  _categories: any[] = [],
   pageSize: number = 6,
 ) {
-  const [activeCategoryId, setActiveCategoryId] =
-    useState<string>(initialCategory);
+  const [activeCategoryId, setActiveCategoryId] = useState<string>(initialCategory);
   const [sort, setSort] = useState<Sort>("Alphabetical");
-  const [searchQuery, setSearchQuery] = useState<string>( "");
+  const [searchQuery, setSearchQuery] = useState<string>("");
   const [page, setPage] = useState(1);
 
-  const filtered = useMemo(() => {
-    return initialNominees.filter((n) => {
-      // Category filter
-      if (activeCategoryId !== "all") {
-        if (n.categoryId !== activeCategoryId) return false;
-      }
-      // Search filter
-      if (searchQuery.trim()) {
-        const query = searchQuery.toLowerCase();
-        const matchesName = n.name.toLowerCase().includes(query);
-        const matchesContact = n.contactPerson ? n.contactPerson.toLowerCase().includes(query) : false;
-        const matchesReason = n.reason ? n.reason.toLowerCase().includes(query) : false;
-        if (!matchesName && !matchesContact && !matchesReason) return false;
-      }
-      return true;
-    });
-  }, [
-    initialNominees,
-    activeCategoryId,
-    searchQuery,
-  ]);
+  const debouncedSearch = useDebounce(searchQuery, 350);
 
-  const sorted = useMemo(() => {
-    return [...filtered].sort((a, b) => {
-      if (sort === "Most Votes") return (b.votes ?? 0) - (a.votes ?? 0);
-      return a.name.localeCompare(b.name);
-    });
-  }, [filtered, sort]);
+  const [nominees, setNominees] = useState<Nominee[]>([]);
+  const [total, setTotal] = useState(0);
+  const [isLoading, setIsLoading] = useState(true);
+  const [isLoadingMore, setIsLoadingMore] = useState(false);
 
-  const visible = useMemo(() => {
-    return sorted.slice(0, page * pageSize);
-  }, [sorted, page, pageSize]);
-  const hasMore = visible.length < sorted.length;
+  const fetchPage = useCallback(
+    async (currentPage: number, isNewFilter: boolean) => {
+      if (isNewFilter) {
+        setIsLoading(true);
+      } else {
+        setIsLoadingMore(true);
+      }
+
+      try {
+        const res = await fetchNominees({
+          page: currentPage,
+          limit: pageSize,
+          categoryId: activeCategoryId,
+          search: debouncedSearch,
+          sort,
+        });
+
+        if (isNewFilter) {
+          setNominees(res.data);
+        } else {
+          setNominees((prev) => {
+            const existingIds = new Set(prev.map((n) => n.id));
+            const newUnique = res.data.filter((n) => !existingIds.has(n.id));
+            return [...prev, ...newUnique];
+          });
+        }
+        setTotal(res.pagination?.total ?? 0);
+      } catch (err) {
+        console.error("Failed to load nominees page:", err);
+      } finally {
+        setIsLoading(false);
+        setIsLoadingMore(false);
+      }
+    },
+    [activeCategoryId, debouncedSearch, sort, pageSize]
+  );
+
+  // When filters or debounced search change, reset to page 1 and fetch
+  useEffect(() => {
+    setPage(1);
+    fetchPage(1, true);
+  }, [activeCategoryId, debouncedSearch, sort, fetchPage]);
+
+  // When page increments (via loadMore), fetch next page and append
+  const loadMore = useCallback(() => {
+    const nextPage = page + 1;
+    setPage(nextPage);
+    fetchPage(nextPage, false);
+  }, [page, fetchPage]);
 
   const handleCategoryChange = (id: string) => {
     setActiveCategoryId(id);
-    setPage(1);
   };
 
   const handleSearchChange = (val: string) => {
     setSearchQuery(val);
-    setPage(1);
   };
 
-  const loadMore = () => setPage((p) => p + 1);
+  const handleSortChange = (newSort: Sort) => {
+    setSort(newSort);
+  };
+
+  const hasMore = nominees.length < total;
 
   return {
     activeCategoryId,
@@ -67,11 +93,14 @@ export function useNomineesFilter(
     activeTargetType: "all",
     handleTargetTypeChange: () => {},
     sort,
-    setSort,
+    setSort: handleSortChange,
     searchQuery,
     setSearchQuery: handleSearchChange,
-    visible,
-    sortedLength: sorted.length,
+    visible: nominees,
+    sortedLength: total,
+    totalCount: total,
+    isLoading,
+    isLoadingMore,
     hasMore,
     loadMore,
   };

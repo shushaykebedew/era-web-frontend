@@ -1,5 +1,11 @@
 import { useQuery } from "@tanstack/react-query";
-import { fetchNominees, fetchNomineeById, fetchMyVotes } from "@/services/nominees";
+import {
+  fetchNominees,
+  fetchNomineeById,
+  fetchMyVotes,
+  type FetchNomineesParams,
+  type PaginatedNomineesResponse,
+} from "@/services/nominees";
 import { fetchCategories } from "@/services/categories";
 import type { Nominee, AwardCategory } from "@/types";
 
@@ -19,6 +25,7 @@ export function useMyVotes(enabled: boolean) {
 // Centralised so invalidations and cache lookups are always in sync.
 export const nomineeKeys = {
   all: ["nominees"] as const,
+  list: (params?: FetchNomineesParams) => ["nominees", "list", params] as const,
   detail: (id: string) => ["nominees", id] as const,
 };
 
@@ -28,10 +35,10 @@ export const categoryKeys = {
 };
 
 // ── useNominees ────────────────────────────────────────────────────────────────
-export function useNominees() {
-  return useQuery<Nominee[]>({
-    queryKey: nomineeKeys.all,
-    queryFn: fetchNominees,
+export function useNominees(params?: FetchNomineesParams) {
+  return useQuery<PaginatedNomineesResponse>({
+    queryKey: nomineeKeys.list(params),
+    queryFn: () => fetchNominees(params),
   });
 }
 

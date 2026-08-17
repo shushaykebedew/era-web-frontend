@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { AwardCategoryPageContent } from "@/features/categories/AwardCategoryPageContent";
 import { fetchCategories, fetchCategoryById } from "@/services/categories";
-import { fetchNominees } from "@/services/nominees";
+import { fetchNomineesList } from "@/services/nominees";
 import { AwardPageProps } from "@/types/marketing";
 
 export async function generateStaticParams() {
@@ -20,14 +20,12 @@ export async function generateMetadata({
 
 export default async function AwardCategoryPage({ params }: AwardPageProps) {
   const { id } = await params;
-  const [category, allNominees] = await Promise.all([
+  const [category, categoryNominees] = await Promise.all([
     fetchCategoryById(id),
-    fetchNominees(),
+    fetchNomineesList({ categoryId: id, limit: 50 }),
   ]);
 
   if (!category) notFound();
-
-  const categoryNominees = allNominees.filter((n) => n.categoryId === id);
 
   return (
     <AwardCategoryPageContent category={category} nominees={categoryNominees} />

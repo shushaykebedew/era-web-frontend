@@ -30,59 +30,89 @@ function mapApiNominee(apiItem: ApiNomineeResponse): Nominee {
   };
 }
 
-export async function fetchNominees(): Promise<Nominee[]> {
+export interface FetchNomineesParams {
+  page?: number;
+  limit?: number;
+  categoryId?: string;
+  search?: string;
+  sort?: string;
+  status?: string;
+}
+
+export interface PaginatedNomineesResponse {
+  data: Nominee[];
+  pagination: {
+    page: number;
+    limit: number;
+    total: number;
+    totalPages: number;
+  };
+}
+
+export async function fetchNominees(
+  params?: FetchNomineesParams
+): Promise<PaginatedNomineesResponse> {
   try {
-    const limit = 100;
-    const all: ApiNomineeResponse[] = [];
+    const page = params?.page ?? 1;
+    const limit = params?.limit ?? 6;
+    const queryParams: Record<string, any> = {
+      page,
+      limit,
+      status: params?.status || "APPROVED",
+    };
 
-    // Fetch first page of APPROVED nominees
-    const firstRes = await api.get("/nominees", {
-      params: { page: 1, limit, status: "APPROVED" },
-    });
-    if (!firstRes.data?.success) return [];
-
-    const firstData = firstRes.data.data;
-    const firstItems: ApiNomineeResponse[] = Array.isArray(firstData)
-      ? firstData
-      : (firstData.items ?? firstData.nominees ?? []);
-    all.push(...firstItems);
-
-    const pagination = firstRes.data.pagination ?? firstRes.data.meta;
-    const total = pagination?.total ?? firstRes.data.total ?? firstItems.length;
-
-    // If there are more items, fetch remaining pages in parallel
-    if (all.length < total && firstItems.length > 0) {
-      const totalPages = Math.ceil(total / limit);
-      const promises = [];
-      for (let p = 2; p <= totalPages; p++) {
-        promises.push(
-          api.get("/nominees", { params: { page: p, limit, status: "APPROVED" } })
-        );
-      }
-
-      const results = await Promise.all(promises);
-      for (const res of results) {
-        if (res.data?.success) {
-          const data = res.data.data;
-          const items = Array.isArray(data)
-            ? data
-            : (data.items ?? data.nominees ?? []);
-          all.push(...items);
-        }
-      }
+    if (params?.categoryId && params.categoryId !== "all") {
+      queryParams.awardCategoryId = params.categoryId;
+    }
+    if (params?.search?.trim()) {
+      queryParams.search = params.search.trim();
+    }
+    if (params?.sort) {
+      queryParams.sort = params.sort;
     }
 
-    if (all.length > 0) {
-      return all.map((item) => mapApiNominee(item));
+    const res = await api.get("/nominees", { params: queryParams });
+    if (!res.data?.success) {
+      return {
+        data: [],
+        pagination: { page, limit, total: 0, totalPages: 0 },
+      };
     }
+
+    const rawData = res.data.data;
+    const rawItems: ApiNomineeResponse[] = Array.isArray(rawData)
+      ? rawData
+      : (rawData?.items ?? rawData?.nominees ?? []);
+    const items = rawItems.map((item) => mapApiNominee(item));
+
+    const paginationMeta = res.data.pagination ?? res.data.meta;
+    const total = paginationMeta?.total ?? res.data.total ?? items.length;
+    const totalPages = paginationMeta?.totalPages ?? (Math.ceil(total / limit) || 1);
+
+    return {
+      data: items,
+      pagination: {
+        page,
+        limit,
+        total,
+        totalPages,
+      },
+    };
   } catch (error) {
-    console.warn(
-      "Failed to fetch nominees from API:",
-      error,
-    );
+    console.warn("Failed to fetch nominees from API:", error);
+    return {
+      data: [],
+      pagination: { page: 1, limit: 6, total: 0, totalPages: 0 },
+    };
   }
+}
 
-  return [];
+/** Convenience helper returning just the array of nominees */
+export async function fetchNomineesList(
+  params?: FetchNomineesParams
+): Promise<Nominee[]> {
+  const result = await fetchNominees(params);
+  return result.data;
 }
 
 export async function fetchNomineeById(id: string): Promise<Nominee | null> {
@@ -163,7 +193,9 @@ export async function castPublicVote(
     }
   }
 
-  if (!activeEventId) activeEventId = "00000000-0000-0000-0000-000000000000";
+  if (!activeEventId) {
+    throw new Error("No active award event is currently available for voting.");
+  }
 
   const res = await api.post("/public-votes", {
     nomineeId,
