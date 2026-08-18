@@ -1,18 +1,19 @@
 # Ethiopia Real Estate Awards (ERA) 2026 — Public Web Platform
 
-A luxury, high-performance public web portal for the **Ethiopian Real Estate Awards (ERA) 2026**. Built with Next.js (App Router), TypeScript, and Tailwind CSS, this application provides an immersive experience for discovering architectural categories, browsing nominees, submitting nominations, casting public votes, accepting judge invitations, and exploring past ceremony archives.
+A luxury, high-performance public web portal for the **Ethiopian Real Estate Awards (ERA) 2026**. Built with Next.js (App Router), TypeScript, Tailwind CSS, and Playwright / Vitest, this application provides an immersive experience for discovering architectural categories, browsing nominees, submitting nominations, casting public votes, accepting judge invitations, and exploring past ceremony archives.
 
 ---
 
 ## 🏛️ Technology Stack
 
 - **Framework**: [Next.js 16 (App Router)](https://nextjs.org/)
-- **Language**: [TypeScript (Strict Mode)](https://www.typescriptlang.org/)
+- **Language**: [TypeScript (Strict ESM Mode)](https://www.typescriptlang.org/)
 - **Styling**: [Tailwind CSS v4](https://tailwindcss.com/) & Vanilla CSS Design Tokens
-- **State & Data Fetching**: [@tanstack/react-query](https://tanstack.com/query) & React Context
+- **State & Data Fetching**: [@tanstack/react-query](https://tanstack.com/) & React Context
 - **Animation**: [Framer Motion](https://www.framer.com/motion/)
 - **Icons**: [Lucide React](https://lucide.dev/)
 - **HTTP Client**: [Axios](https://axios-http.com/)
+- **Testing**: [Vitest](https://vitest.dev/) (Unit), [Playwright](https://playwright.dev/) (E2E)
 - **Fonts**: Inter (Sans-serif) & Playfair Display / Display serif
 
 ---
@@ -44,10 +45,36 @@ A luxury, high-performance public web portal for the **Ethiopian Real Estate Awa
 
 ---
 
+## 🧪 Testing Suite & Automated Quality Control
+
+The public web portal incorporates unit testing for core domain services and Playwright E2E workflows for production-critical user journeys.
+
+### Test Categories
+1. **Unit Tests (`src/tests/unit`)**:
+   - `nominees.test.ts`: Verifies API response mapping, vote count resolution (`_count.publicVotes` vs `votes`), status mapping, and network failure resilience.
+2. **End-to-End Tests (`e2e/`)**:
+   - `nominate.spec.ts`: Validates nomination form rendering, client-side validation errors, and continuation token security.
+   - `voting.spec.ts`: Verifies nominee gallery loading, category filter navigation, and unauthenticated voting prompt/redirect behavior.
+
+### Running Tests
+```bash
+# Run unit tests
+npm run test
+
+# Run unit tests in watch mode
+npm run test:watch
+
+# Run Playwright E2E tests
+npm run test:e2e
+```
+
+---
+
 ## 📂 Project Structure
 
 ```
 era-web-frontend/
+├── e2e/                    # Playwright E2E user workflow tests
 ├── public/                 # Static assets, logos, and illustrations
 ├── src/
 │   ├── app/                # Next.js App Router
@@ -72,9 +99,12 @@ era-web-frontend/
 │   ├── features/           # Feature-level composed views & business components
 │   ├── hooks/              # Custom hooks & React Query wrappers (`useNominees`, `useCategories`)
 │   ├── services/           # Backend API integration clients (Axios wrappers)
+│   ├── tests/              # Vitest unit test suite
 │   ├── types/              # Domain models & TypeScript interfaces
 │   └── utils/              # Pure utilities (formatPhone, validation, cn, date helpers)
 ├── package.json
+├── playwright.config.ts
+├── vitest.config.mts
 └── tsconfig.json
 ```
 
