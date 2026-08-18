@@ -13,6 +13,7 @@ import { useBodyScrollLock } from "@/hooks/useBodyScrollLock";
 import { useAuth } from "@/context/AuthContext";
 import { getUserInitials } from "@/utils/user";
 import { X, User } from "lucide-react";
+import { formatPhone } from "@/utils/formatPhone";
 
 export function MobileNav({
   isMenuOpen,
@@ -117,7 +118,9 @@ export function MobileNav({
                           {user.fullName}
                         </p>
                         <p className="text-xs text-foreground-muted font-inter">
-                          {user.username ? `@${user.username}` : (user.phone || "")}
+                          {user.username
+                            ? `@${user.username}`
+                            : formatPhone(user.phone) || ""}
                         </p>
                       </div>
                     </div>

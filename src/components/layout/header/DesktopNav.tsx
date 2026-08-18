@@ -10,6 +10,7 @@ import { useAuth } from "@/context/AuthContext";
 import { getUserInitials } from "@/utils/user";
 import { useMediaQuery } from "@/hooks/useMediaQuery";
 import { User } from "lucide-react";
+import { formatPhone } from "@/utils/formatPhone";
 
 export function DesktopNav({
   onOpenAuthModal,
@@ -103,7 +104,9 @@ export function DesktopNav({
                         {user.fullName}
                       </span>
                       <span className="text-xs 2xl:text-sm text-foreground-muted truncate leading-none">
-                        {user.username ? `@${user.username}` : (user.phone || "")}
+                        {user.username
+                          ? `@${user.username}`
+                          : formatPhone(user.phone) || ""}
                       </span>
                     </div>
                   </div>
