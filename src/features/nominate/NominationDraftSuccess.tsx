@@ -16,6 +16,7 @@ import { motion } from "framer-motion";
 import { useRouter } from "next/navigation";
 import { NominationStepProgress } from "./NominationStepProgress";
 import { DeadlineCountdown } from "./DeadlineCountdown";
+import { cn } from "@/utils/cn";
 
 export interface NominationDraftSuccessProps {
   companyName: string;
@@ -94,7 +95,8 @@ export function NominationDraftSuccess({
                 <h4 className="font-semibold text-foreground text-xs sm:text-sm 2xl:text-xl">
                   48-Hour Payment Deadline
                 </h4>
-                <span className="text-[9px] sm:text-[10px] 2xl:text-sm px-2.5 py-0.5 2xl:px-3.5 2xl:py-1 rounded-full bg-warning/15 text-warning font-semibold tracking-wider uppercase border border-warning/20">
+                <span className={cn("text-[9px] sm:text-[10px] 2xl:text-sm px-2.5 py-0.5 2xl:px-3.5 2xl:py-1",
+                  "rounded-full bg-warning/15 text-warning font-semibold tracking-wider uppercase border border-warning/20")}>
                   Expires in 48h
                 </span>
               </div>
@@ -119,12 +121,14 @@ export function NominationDraftSuccess({
                 Secure Continuation Link
               </h4>
               <div className="flex items-center gap-2 2xl:gap-3">
-                <div className="flex-1 bg-[#16130d] border border-primary/15 rounded-lg 2xl:rounded-xl px-3 py-2 2xl:px-5 2xl:py-3.5 text-[10px] sm:text-xs 2xl:text-base font-mono text-primary break-all select-all">
+                <div className={cn("flex-1 bg-[#16130d] border border-primary/15 rounded-lg 2xl:rounded-xl px-3 py-2",
+                  "2xl:px-5 2xl:py-3.5 text-[10px] sm:text-xs 2xl:text-base font-mono text-primary break-all select-all")}>
                   {continuationUrl}
                 </div>
                 <button
                   onClick={handleCopy}
-                  className="shrink-0 w-9 h-9 2xl:w-12 2xl:h-12 flex items-center justify-center rounded-lg 2xl:rounded-xl bg-primary/10 border border-primary/25 text-primary hover:bg-primary/20 transition-colors cursor-pointer"
+                  className={cn("shrink-0 w-9 h-9 2xl:w-12 2xl:h-12 flex items-center justify-center rounded-lg 2xl:rounded-xl",
+                    "bg-primary/10 border border-primary/25 text-primary hover:bg-primary/20 transition-colors cursor-pointer")}
                   title="Copy link"
                 >
                   {copied ? (
@@ -140,7 +144,8 @@ export function NominationDraftSuccess({
       </div>
 
       {/* ── Email Notice ── */}
-      <div className="w-full p-3.5 2xl:p-5 rounded-lg 2xl:rounded-xl bg-primary/5 border border-primary/15 mb-7 2xl:mb-12 flex items-center justify-center gap-2 2xl:gap-3 text-[10px] sm:text-xs 2xl:text-base font-inter text-foreground-muted">
+      <div className={cn("w-full p-3.5 2xl:p-5 rounded-lg 2xl:rounded-xl bg-primary/5 border border-primary/15",
+        "mb-7 2xl:mb-12 flex items-center justify-center gap-2 2xl:gap-3 text-[10px] sm:text-xs 2xl:text-base font-inter text-foreground-muted")}>
         <Mail className="w-3.5 h-3.5 2xl:w-5 2xl:h-5 text-primary shrink-0" />
         <span>We also emailed this continuation link to your registered email address.</span>
       </div>
@@ -150,7 +155,9 @@ export function NominationDraftSuccess({
         <Button
           onClick={handleProceed}
           variant="primary"
-          className="w-full sm:flex-1 h-11 sm:h-12 2xl:h-16 px-6 2xl:px-10 tracking-wider 2xl:tracking-[2.5px] text-[11px] sm:text-xs 2xl:text-base font-bold font-inter uppercase flex items-center justify-center gap-2 2xl:gap-3 shadow-[0_4px_20px_rgba(201,162,75,0.25)] hover:shadow-[0_6px_28px_rgba(201,162,75,0.35)]"
+          className={cn("w-full sm:flex-1 h-11 sm:h-12 2xl:h-16 px-6 2xl:px-10 tracking-wider 2xl:tracking-[2.5px] text-[11px]",
+            "sm:text-xs 2xl:text-base font-bold font-inter uppercase flex items-center justify-center gap-2 2xl:gap-3",
+            "shadow-[0_4px_20px_rgba(201,162,75,0.25)] hover:shadow-[0_6px_28px_rgba(201,162,75,0.35)]")}
         >
           <span>Upload Payment Slip</span>
           <ArrowRight className="w-3.5 h-3.5 2xl:w-5 2xl:h-5 shrink-0" />
