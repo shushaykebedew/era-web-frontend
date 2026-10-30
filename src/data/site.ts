@@ -6,7 +6,7 @@ export const siteConfig = {
   description:
     "The ultimate recognition for Ethiopian real estate visionaries and masters of design.",
   tagline: "Excellence in Architecture",
-  ceremonyDate: "2026-09-12T18:00:00+03:00",
+  ceremonyDate: "2026-11-30T18:00:00+03:00",
   nominateYear: "2026",
   contactEmail: "mailto:hello@example.com",
   voteCta: {
