@@ -5,6 +5,8 @@ import { fetchCategories, fetchCategoryById } from "@/services/categories";
 import { fetchNomineesList } from "@/services/nominees";
 import { AwardPageProps } from "@/types/marketing";
 
+export const dynamic = "force-dynamic";
+
 export async function generateStaticParams() {
   const categories = await fetchCategories();
   return categories.map((category) => ({ id: category.id }));

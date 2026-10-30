@@ -3,6 +3,8 @@ import { partners } from "@/data/content";
 import { fetchNomineesList } from "@/services/nominees";
 import { fetchCategories } from "@/services/categories";
 
+export const dynamic = "force-dynamic";
+
 export default async function HomePage() {
   const [featuredNominees, categories] = await Promise.all([
     fetchNomineesList({ limit: 3 }),

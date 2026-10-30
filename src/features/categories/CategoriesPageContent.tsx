@@ -1,12 +1,15 @@
+"use client";
+
 import Link from "next/link";
 import { Container } from "@/components/ui/Container";
 import { ServerButton as Button } from "@/components/ui/ServerButton";
 import { AwardCategoriesSection } from "@/features/home/AwardCategoriesSection";
-import { fetchCategories } from "@/services/categories";
+import { useCategories } from "@/hooks/queries/useNominees";
 import type { AwardCategory } from "@/types";
 import { cn } from "@/utils/cn";
 import { FadeIn, SlideUp } from "@/components/ui/animations";
 import { NoData } from "@/components/ui/NoData";
+import { Loader2 } from "lucide-react";
 
 function CategoriesHero() {
   return (
@@ -188,18 +191,21 @@ function CategoriesEmptyState() {
   );
 }
 
-export async function CategoriesPageContent() {
-  let categories: AwardCategory[];
-  try {
-    categories = await fetchCategories();
-  } catch {
-    categories = [];
-  }
+export function CategoriesPageContent({
+  initialCategories,
+}: {
+  initialCategories?: AwardCategory[];
+} = {}) {
+  const { data: categories = initialCategories ?? [], isLoading } = useCategories();
 
   return (
     <>
       <CategoriesHero />
-      {categories.length > 0 ? (
+      {isLoading && categories.length === 0 ? (
+        <section className="bg-background py-16 sm:py-20 lg:py-24 2xl:py-32 flex justify-center items-center">
+          <Loader2 className="w-8 h-8 animate-spin text-primary" />
+        </section>
+      ) : categories.length > 0 ? (
         <AwardCategoriesSection categories={categories} variant="full" />
       ) : (
         <CategoriesEmptyState />
