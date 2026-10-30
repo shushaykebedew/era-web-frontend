@@ -6,6 +6,7 @@ import { cn } from "@/utils/cn";
 import { Container } from "@/components/ui/Container";
 import { siteConfig } from "@/data/site";
 import { FadeIn } from "@/components/ui/animations";
+import { api } from "@/services/api";
 
 const UNITS = [
   { key: "days", label: "Days" },
@@ -90,6 +91,31 @@ function Countdown({
 }
 
 export default function TimeCounter() {
+  const [ceremonyDate, setCeremonyDate] = useState<string>(siteConfig.ceremonyDate);
+
+  useEffect(() => {
+    async function loadEventCeremonyDate() {
+      try {
+        const res = await api.get("/award-events");
+        if (res.data?.success && Array.isArray(res.data.data) && res.data.data.length > 0) {
+          const activeEvent =
+            res.data.data.find(
+              (e: any) => e.status === "ACTIVE" || e.status === "STARTED"
+            ) ?? res.data.data[0];
+
+          const dateStr = activeEvent?.ceremonyDate || activeEvent?.startsAt;
+          if (dateStr) {
+            setCeremonyDate(dateStr);
+          }
+        }
+      } catch (err) {
+        // Fallback silently to siteConfig.ceremonyDate
+      }
+    }
+
+    loadEventCeremonyDate();
+  }, []);
+
   return (
     <div
       className={cn(
@@ -108,7 +134,7 @@ export default function TimeCounter() {
           >
             ERA CEREMONY BEGINS IN
           </h3>
-          <Countdown targetDate={siteConfig.ceremonyDate} />
+          <Countdown targetDate={ceremonyDate} />
         </FadeIn>
       </Container>
     </div>
