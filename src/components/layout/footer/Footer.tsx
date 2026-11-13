@@ -84,7 +84,7 @@ export function Footer() {
   ];
 
   return (
-    <footer className="relative overflow-hidden border-t border-primary/20 bg-[#110E08] pt-10 pb-10 sm:pt-14 2xl:pt-18 font-inter text-left">
+    <footer className="relative overflow-hidden border-t border-primary/20 bg-[#110E08] pt-6 pb-6 sm:pt-8 2xl:pt-10 font-inter text-left">
       {/* top hairline gradient */}
       <div className="absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-primary/50 to-transparent" />
       {/* soft ambient glow */}
@@ -92,7 +92,7 @@ export function Footer() {
 
       <Container size="wide">
         {/* Main Footer Content Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-12 gap-10 md:gap-6 2xl:gap-10 border-b border-primary/10 pb-12 sm:pb-16 2xl:pb-20">
+        <div className="grid grid-cols-1 md:grid-cols-12 gap-10 md:gap-6 2xl:gap-10 border-b border-primary/10 pb-6 sm:pb-8 2xl:pb-10">
           {/* Column 1: Branding & Description (5 cols on md+) */}
           <div className="md:col-span-5 flex flex-col gap-4 2xl:gap-6">
             <Link
@@ -163,7 +163,7 @@ export function Footer() {
         </div>
 
         {/* Bottom Footer Metadata Row */}
-        <div className="mt-8 2xl:mt-12 flex flex-col sm:flex-row items-center justify-between gap-6">
+        <div className="mt-6 2xl:mt-8 flex flex-col sm:flex-row items-center justify-between gap-6">
           {/* Left: Copyright */}
           <p className="text-xs 2xl:text-base text-foreground-muted text-center sm:text-left leading-normal">
             &copy; {year} {siteConfig.fullName}. All rights reserved.
