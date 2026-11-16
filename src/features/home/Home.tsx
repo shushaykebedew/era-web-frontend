@@ -1,3 +1,5 @@
+"use client";
+
 import Image from "next/image";
 import { cn } from "@/utils/cn";
 import { PartnersStrip } from "@/features/partners/PartnersStrip";
@@ -6,17 +8,16 @@ import { AwardCategoriesSection } from "./AwardCategoriesSection";
 import { FeaturedNominees } from "./FeaturedNominees";
 import { NewsletterCta } from "./NewsletterCta";
 import TimeCounter from "./TimeCounter";
-import type { AwardCategory, Nominee, Partner } from "@/types";
+import { useCategories, useNominees } from "@/hooks/queries/useNominees";
+import type { Partner } from "@/types";
 
-export function Home({
-  categories,
-  featuredNominees,
-  partners,
-}: {
-  categories: AwardCategory[];
-  featuredNominees: Nominee[];
-  partners: Partner[];
-}) {
+export function Home({ partners }: { partners: Partner[] }) {
+  // Fetch homepage data after the static page has rendered. A slow or sleeping
+  // API must never delay the hero, layout, or other immediately available UI.
+  const { data: categories = [] } = useCategories();
+  const { data: nomineesResponse } = useNominees({ limit: 3 });
+  const featuredNominees = nomineesResponse?.data ?? [];
+
   return (
     <>
       <div
