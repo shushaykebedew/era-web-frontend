@@ -9,12 +9,17 @@ const baseURL =
 
 export const api = axios.create({
   baseURL,
-  timeout: 15_000,
   headers: { "Content-Type": "application/json" },
 });
 
 api.interceptors.request.use(
   (config) => {
+    // Bound read requests so a cold or unreachable API cannot leave queries
+    // pending indefinitely. Do not impose this limit on uploads or mutations.
+    if (config.method?.toLowerCase() === "get" && !config.timeout) {
+      config.timeout = 15_000;
+    }
+
     if (typeof window !== "undefined") {
       const token = localStorage.getItem("accessToken");
       if (token) config.headers.Authorization = `Bearer ${token}`;
