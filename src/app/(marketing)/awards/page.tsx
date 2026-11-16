@@ -1,21 +1,8 @@
 import { Home } from "@/features/home/Home";
 import { partners } from "@/data/content";
-import { fetchNomineesList } from "@/services/nominees";
-import { fetchCategories } from "@/services/categories";
 
-export const dynamic = "force-dynamic";
-
-export default async function HomePage() {
-  const [featuredNominees, categories] = await Promise.all([
-    fetchNomineesList({ limit: 3 }),
-    fetchCategories(),
-  ]);
-
-  return (
-    <Home
-      categories={categories}
-      featuredNominees={featuredNominees}
-      partners={partners}
-    />
-  );
+// Keep the marketing homepage statically renderable. Dynamic data is fetched
+// by Home on the client so backend cold starts cannot block the first render.
+export default function HomePage() {
+  return <Home partners={partners} />;
 }
